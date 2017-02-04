@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.border.EtchedBorder;
 
+import JDialogs.CreateCharacterDialog;
+
 /**
  * This class is a JDialog which helps user to create new campaign, map or character.
  * 
@@ -94,6 +96,13 @@ public class CreateStuffDialog extends JDialog{
       characterPanel.add(list);
       
       JButton btnAdd = new JButton("Create");
+      btnAdd.addActionListener(new ActionListener() {
+  		
+	  		@Override
+	  		public void actionPerformed(ActionEvent e) {
+	  			new CreateCharacterDialog(CreateStuffDialog.this);
+	  		}
+	  	});
       sl_characterPanel.putConstraint(SpringLayout.NORTH, btnAdd, 251, SpringLayout.NORTH, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.SOUTH, list, -6, SpringLayout.NORTH, btnAdd);
       sl_characterPanel.putConstraint(SpringLayout.WEST, btnAdd, -112, SpringLayout.EAST, characterPanel);
@@ -105,6 +114,8 @@ public class CreateStuffDialog extends JDialog{
       sl_characterPanel.putConstraint(SpringLayout.WEST, btnRemove, -114, SpringLayout.WEST, btnAdd);
       sl_characterPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);
       characterPanel.add(btnRemove);    
+      
+      
     
   }
 
