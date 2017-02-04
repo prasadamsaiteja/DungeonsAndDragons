@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.border.EtchedBorder;
 
+import GameComponents.ExtensionMethods;
+import java.awt.Font;
+
 /**
  * This class is a JDialog which helps user to create new campaign, map or character.
  * 
@@ -117,7 +120,8 @@ public class CreateStuffDialog extends JDialog{
         SpringLayout sl_mapsPanel = new SpringLayout();
         mapsPanel.setLayout(sl_mapsPanel);
         
-        JList<String> list = new JList<String>();
+        JList list = new JList(ExtensionMethods.getMapsList());
+        list.setFont(new Font("Tahoma", Font.BOLD, 12));
         list.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         sl_mapsPanel.putConstraint(SpringLayout.NORTH, list, 10, SpringLayout.NORTH, mapsPanel);
         sl_mapsPanel.putConstraint(SpringLayout.WEST, list, 10, SpringLayout.WEST, mapsPanel);
@@ -153,6 +157,7 @@ public class CreateStuffDialog extends JDialog{
       campaignPanel.setLayout(sl_campaignPanel);
       
       JList<String> list = new JList<String>();
+      list.setFont(new Font("Tahoma", Font.BOLD, 12));
       list.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
       sl_campaignPanel.putConstraint(SpringLayout.NORTH, list, 10, SpringLayout.NORTH, campaignPanel);
       sl_campaignPanel.putConstraint(SpringLayout.WEST, list, 10, SpringLayout.WEST, campaignPanel);
