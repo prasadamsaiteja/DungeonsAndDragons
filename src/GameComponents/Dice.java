@@ -29,10 +29,21 @@ public class Dice {
         this.diceSides = diceSides;
         this.maximumTurnsCount = maximumTurnsCount;
     }
+    
+    /*
+     * roll the dice
+     * 
+     * @return
+     */
+    private int roll(){
+    	Random r = new Random();
+        int rolledNum = r.nextInt(this.diceSides)+1;
+        return rolledNum;
+    }
 
     /**
      * Rolls the dice  and finds the sum of the highest n rolls where n is the provided maximumTurnsCount
-     * @return int
+     * @return
      */
     public int getRollSum(){
         int sumOfRoll = 0;
@@ -42,8 +53,7 @@ public class Dice {
         // Let's roll the numbers
         int n_o_t = this.numberOfRolls;
         while (n_o_t > 0){
-            Random r = new Random();
-            int randomNum = r.nextInt(this.diceSides)+1;
+            int randomNum = this.roll();
             rolledNumbers.add(randomNum);
             n_o_t--;
         }
