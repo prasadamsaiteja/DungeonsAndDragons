@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
      */
 	public MainFrame() {
 
-	    setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\saite\\Documents\\Eclipse\\Projects\\DungeonsAndDragons\\app_icon.png"));
+	    setIconImage(Toolkit.getDefaultToolkit().getImage("app_icon.png"));
 		setUndecorated(true);
 		getContentPane().add(new LaunchScreen());
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
