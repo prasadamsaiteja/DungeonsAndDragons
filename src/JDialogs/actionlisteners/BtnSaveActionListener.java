@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -19,6 +20,7 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import GameComponents.SharedVariables;
 import character.Character;
+import character.CharactersList;
 
 /**
  * Extends the action listener. Button:`Save` action when creating a new character. 
@@ -29,14 +31,16 @@ import character.Character;
 public class BtnSaveActionListener implements ActionListener {
 	
 	private ArrayList<Component> dialogComponents;
+	private DefaultListModel<String> characterList;
 	
 	/**
 	 * Initiate the action listener by providing an ArrayList of all the components that define a character
 	 * 
 	 * @param dialogComponents ArrayList
 	 */
-	public BtnSaveActionListener(ArrayList<Component> dialogComponents){
+	public BtnSaveActionListener(ArrayList<Component> dialogComponents, DefaultListModel<String> characterList){
 		this.dialogComponents = dialogComponents;
+		this.characterList = characterList;
 	}
 	
 	public void actionPerformed(ActionEvent e) {	
@@ -95,6 +99,9 @@ public class BtnSaveActionListener implements ActionListener {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		
+		String listElement = character.getName()+" (Level: "+character.getLevel()+")";
+		this.characterList.addElement(listElement);
 		
 		JOptionPane.showMessageDialog(null, "File `"+fname+"` saved!!!");
 	}

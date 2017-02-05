@@ -83,7 +83,7 @@ public class MapDesigner extends JPanel {
                 for(int j = 0; j < height; j++)
                 {
                     panel[i][j] = new JPanel();
-                    panel[i][j].setBackground(SharedVariables.mapDefaultCellColor);                  
+                    panel[i][j].setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);                  
                     panel[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
                     panel[i][j].setPreferredSize(new Dimension(35, 35));
                     panel[i][j].addMouseListener(new MouseListener() {
@@ -100,12 +100,12 @@ public class MapDesigner extends JPanel {
                       
                       @Override
                       public void mouseExited(MouseEvent e) {
-                        ((JPanel) e.getSource()).setBackground(SharedVariables.mapDefaultCellColor);
+                        ((JPanel) e.getSource()).setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);
                       }
                       
                       @Override
                       public void mouseEntered(MouseEvent e) {
-                        ((JPanel) e.getSource()).setBackground(SharedVariables.mapMouseHoverColor);
+                        ((JPanel) e.getSource()).setBackground(SharedVariables.MAP_MOUSE_HOVER_COLOR);
                       }
                       
                       @Override

@@ -6,10 +6,12 @@ import javax.swing.JTextField;
 import JDialogs.actionlisteners.BtnRollActionListener;
 import JDialogs.actionlisteners.BtnSaveActionListener;
 import JDilaogs.DialogHelper;
+import character.CharactersList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.Component;
@@ -32,9 +34,11 @@ public class CreateCharacterDialog extends JDialog {
 	private JButton btnRoll;
 	private JButton btnSave;
 	private JComboBox<String> cbClass;
+	private DefaultListModel<String> characterList;
 	
-	public CreateCharacterDialog(JDialog jdialog){
+	public CreateCharacterDialog(JDialog jdialog, DefaultListModel<String> characterList){
 		this.parent = jdialog;
+		this.characterList = characterList;
 		DialogHelper.setDialogProperties(this, "New Character", new Rectangle(0, 0, 600, 200));
 		this.btnRoll = new JButton("Roll");
 		this.btnSave = new JButton("Save");
@@ -194,7 +198,7 @@ public class CreateCharacterDialog extends JDialog {
 		dialogComponents.add(this.txtName);
 		dialogComponents.add(this.txtLvl);
 		dialogComponents.add(this.cbClass);
-		ActionListener btnSaveActionListener = new BtnSaveActionListener(dialogComponents);	
+		ActionListener btnSaveActionListener = new BtnSaveActionListener(dialogComponents, this.characterList);	
 		this.btnSave.addActionListener(btnSaveActionListener);
 		
 		
