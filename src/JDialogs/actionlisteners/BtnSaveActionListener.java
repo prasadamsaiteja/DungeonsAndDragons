@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.thoughtworks.xstream.XStream;
@@ -71,12 +72,18 @@ public class BtnSaveActionListener implements ActionListener {
 		}
 		String xml = xstream.toXML(character);
 		FileWriter out;
+		
+		String fname = JOptionPane.showInputDialog("Give file name");
+
+		fname = "Character"+fname;
+		
 		try {
-			out = new FileWriter("/Users/supreetuniversity/Documents/character.xml");
+			out = new FileWriter("/Users/supreetuniversity/Documents/"+fname+".xml");
 			out.write(xml);
 			out.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		JOptionPane.showMessageDialog(null, "File `"+fname+"` saved!!!");
 	}
 }
