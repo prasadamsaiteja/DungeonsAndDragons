@@ -4,16 +4,22 @@ import java.awt.Rectangle;
 
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import JDialogs.CreateCharacterDialog;
+import character.Character;
+import character.CharactersList;
 
 /**
  * This class is a JDialog which helps user to create new campaign, map or character.
@@ -88,7 +94,14 @@ public class CreateStuffDialog extends JDialog{
       SpringLayout sl_characterPanel = new SpringLayout();
       characterPanel.setLayout(sl_characterPanel);
       
-      JList<String> list = new JList<String>();
+
+      DefaultListModel<String> characterList = new DefaultListModel<String>();
+      JList<String> list = new JList<String>(characterList);
+      ArrayList<Character> cList = CharactersList.get();
+      for (Character c : cList){
+    	  String listElement = c.getName()+" (Level: "+c.getLevel()+")";
+          characterList.addElement(listElement);  
+      }
       list.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
       sl_characterPanel.putConstraint(SpringLayout.NORTH, list, 10, SpringLayout.NORTH, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.WEST, list, 10, SpringLayout.WEST, characterPanel);

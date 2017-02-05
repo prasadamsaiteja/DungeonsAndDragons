@@ -4,8 +4,7 @@ import java.awt.Component;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,28 +17,37 @@ import javax.swing.JTextField;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
-import GameComponents.Dice;
+import GameComponents.SharedVariables;
 import character.Character;
+
+/**
+ * Extends the action listener. Button:`Save` action when creating a new character. 
+ * 
+ * @author Supreet Singh (s_supree)
+ */
 
 public class BtnSaveActionListener implements ActionListener {
 	
 	private ArrayList<Component> dialogComponents;
 	
+	/**
+	 * Initiate the action listener by providing an ArrayList of all the components that define a character
+	 * 
+	 * @param dialogComponents ArrayList
+	 */
 	public BtnSaveActionListener(ArrayList<Component> dialogComponents){
 		this.dialogComponents = dialogComponents;
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		Iterator<Component> componentIterator = this.dialogComponents.iterator();
-
-		XStream xstream = new XStream(new StaxDriver());
+	public void actionPerformed(ActionEvent e) {	
 		Character character = new Character();
 		
+		// Iterate through the component list and set the appropriate value in character object
+		Iterator<Component> componentIterator = this.dialogComponents.iterator();
 		while (componentIterator.hasNext()){
 			Component component = componentIterator.next();
 			if (component instanceof JTextField) {
-				JTextField txtField = (JTextField) component;
-				
+				JTextField txtField = (JTextField) component;				
 				switch(txtField.getName()){
 				case "name":
 					character.setName(txtField.getText());
@@ -70,20 +78,24 @@ public class BtnSaveActionListener implements ActionListener {
 				}
 			}
 		}
+		
+		// Get the filename from the user for storing the character XML file
+		String fname = JOptionPane.showInputDialog("Give file name");
+		
+		// Initiate a new XStream instance for creating XML and store the XML in fname 
+		XStream xstream = new XStream(new StaxDriver());		
 		String xml = xstream.toXML(character);
 		FileWriter out;
-		
-		String fname = JOptionPane.showInputDialog("Give file name");
-
-		fname = "Character"+fname;
-		
 		try {
-			out = new FileWriter("/Users/supreetuniversity/Documents/"+fname+".xml");
+			String filepath = SharedVariables.CharactersDirectory+File.separator+fname+".xml";
+			System.out.println(filepath);
+			out = new FileWriter(filepath);
 			out.write(xml);
 			out.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		
 		JOptionPane.showMessageDialog(null, "File `"+fname+"` saved!!!");
 	}
 }
