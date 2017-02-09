@@ -18,6 +18,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import JDialogs.CreateCharacterDialog;
+import JDialogs.actionlisteners.CharacterDialogBtnAddActionListener;
 import character.Character;
 import character.CharactersList;
 
@@ -109,13 +110,8 @@ public class CreateStuffDialog extends JDialog{
       characterPanel.add(list);
       
       JButton btnAdd = new JButton("Create");
-      btnAdd.addActionListener(new ActionListener() {
-  		
-	  		@Override
-	  		public void actionPerformed(ActionEvent e) {
-	  			new CreateCharacterDialog(CreateStuffDialog.this);
-	  		}
-	  	});
+      ActionListener btnAddActionListener = new CharacterDialogBtnAddActionListener(CreateStuffDialog.this, characterList);
+      btnAdd.addActionListener(btnAddActionListener);
       sl_characterPanel.putConstraint(SpringLayout.NORTH, btnAdd, 251, SpringLayout.NORTH, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.SOUTH, list, -6, SpringLayout.NORTH, btnAdd);
       sl_characterPanel.putConstraint(SpringLayout.WEST, btnAdd, -112, SpringLayout.EAST, characterPanel);

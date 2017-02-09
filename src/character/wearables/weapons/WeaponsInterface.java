@@ -1,5 +1,7 @@
 package character.wearables.weapons;
 
-public interface WeaponsInterface {
+import GameComponents.DiceImplementationInterface;
 
+public interface WeaponsInterface extends DiceImplementationInterface {
+	public enum type{melee,ranged};
 }

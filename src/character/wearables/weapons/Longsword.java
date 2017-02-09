@@ -6,11 +6,19 @@ package character.wearables.weapons;
  * @author Supreet Singh (s_supree)
  * @since 1.0.0
  */
-public class Longsword extends WeaponsAbstract{
+public class Longsword implements WeaponsInterface{
 
-    private String type;
+    private WeaponsInterface.type type = WeaponsInterface.type.valueOf("melee");
+    private int diceSides = 0;
+    private int numberOfRolls = 0;
+    
+	@Override
+	public int getDiceSides() {
+		return this.diceSides;
+	}
 
-    public Longsword(){
-        this.type = "melee";
-    }
+	@Override
+	public int getNumberOfRolls() {
+		return this.numberOfRolls;
+	}
 }
