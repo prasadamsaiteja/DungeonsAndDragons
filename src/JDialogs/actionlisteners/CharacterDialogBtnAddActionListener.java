@@ -7,7 +7,6 @@ import javax.swing.DefaultListModel;
 
 import JDialogs.CreateCharacterDialog;
 import JDilaogs.CreateStuffDialog;
-import character.Character;
 
 public class CharacterDialogBtnAddActionListener implements ActionListener {
 	private DefaultListModel<String> characterList;
