@@ -1,8 +1,11 @@
 package character;
 
+import java.util.ArrayList;
+
 import GameComponents.Dice;
 import character.classes.CharacterClassFactory;
-import character.classes.ClassInterface;
+import character.classes.CharacterClassInterface;
+import character.wearables.weapons.WeaponFactory;
 
 /**
  * Build a new character
@@ -19,6 +22,7 @@ public class Character {
 	private int constitution;
 	private boolean isInitialized = false;
 	private int hitScore = 0;
+	private String weapon;
 
 	public void setName(String name){
 		this.name = name;
@@ -68,11 +72,19 @@ public class Character {
 		return constitution;
 	}
 	
+	public void setWeapon(String weapon){
+		this.weapon = weapon;
+	}
+	
+	public String getWeapon(){
+		return this.weapon;
+	}
+	
 	public void build(){
 		if (!this.isInitialized)
 		{
-			ClassInterface cClass = CharacterClassFactory.get(CharacterClassFactory.getValidParam(this.characterClass));
-			cClass.setLevel(3);
+			// Build characters class and get hit score
+			CharacterClassInterface cClass = CharacterClassFactory.get(CharacterClassFactory.getValidParam(this.characterClass));
 			cClass.setCharacterObj(this);
 			this.hitScore = cClass.getHitScore(new Dice(cClass.getNumberOfRolls(), cClass.getDiceSides(), cClass.getNumberOfRolls()));
 			this.isInitialized = true;
@@ -98,10 +110,13 @@ public class Character {
 	public static void main(String[] args){
 		Character character = new Character();
 		character.setConstitution(12);
-		character.setCharacterClass("Fighter");
+		character.setLevel(2);
+		character.setCharacterClass("Rogue");
 		if (!character.isInitialized()){
 			character.build();
 		}
+		ArrayList<String> weapons = WeaponFactory.getAllowedWeapons(character.getLevel());
+		System.out.println(weapons);
 		System.out.println(character.getHitScore());
 		try {
 			character.hit(12);

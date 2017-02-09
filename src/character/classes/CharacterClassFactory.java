@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CharacterClassFactory {
 	
-	private static enum allowedClasses{Fighter}
+	private static enum allowedClasses{Fighter,Rogue}
 
 
 	public static allowedClasses getValidParam(String className){
@@ -21,13 +21,14 @@ public class CharacterClassFactory {
 		return classes;
 	}
 	
-	public static ClassInterface get(CharacterClassFactory.allowedClasses characterClass){
-		ClassInterface classObj = null;		
-		switch (characterClass){
-		case Fighter:
-			classObj = new Fighter();
-			break;
-		}		
+	public static CharacterClassInterface get(CharacterClassFactory.allowedClasses characterClass){
+		CharacterClassInterface classObj = null;		
+		String characterClassName = "character.classes."+characterClass.toString();	
+		try {
+			classObj = (CharacterClassInterface) Class.forName(characterClassName).newInstance();
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		return classObj;
 	}
 }
