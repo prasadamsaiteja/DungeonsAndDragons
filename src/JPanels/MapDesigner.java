@@ -14,9 +14,9 @@ import javax.swing.border.EtchedBorder;
 
 import GameComponents.SharedVariables;
 import JDilaogs.DialogHelper;
+import ModelClasses.Map;
 import jaxb.MapJaxb;
 import mainPackage.GameLauncher;
-import GenericClasses.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;

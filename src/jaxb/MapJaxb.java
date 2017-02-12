@@ -11,7 +11,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import GameComponents.SharedVariables;
-import GenericClasses.Map;
+import ModelClasses.Map;
 
 public class MapJaxb {
 

@@ -53,7 +53,6 @@ public class CreateStuffDialog extends JDialog{
         initCampaignPanel(campaignPanel);  
     }
     
-    
     {   //Maps panel 
         JPanel mapsPanel = new JPanel();
         mapsPanel.setBackground(Color.WHITE);
@@ -66,6 +65,13 @@ public class CreateStuffDialog extends JDialog{
         characterPanel.setBackground(Color.WHITE);
         tabbedPane.addTab("Character", null, characterPanel, null);
         initCharacterPanel(characterPanel);  
+    }
+    
+    {   //Items panel 
+        JPanel itemsPanel = new JPanel();
+        itemsPanel.setBackground(Color.WHITE);
+        tabbedPane.addTab("Items", null, itemsPanel, null);
+        initItemsPanel(itemsPanel);  
     }
     
     {   //Done button
@@ -147,6 +153,38 @@ public class CreateStuffDialog extends JDialog{
         mapsPanel.add(btnRemove);    
   }
 
+  /**
+   * Initializes the Items panel.
+   * @param itemsPanel   This contains reference to Items panel tab.
+   */
+  private void initItemsPanel(JPanel itemsPanel) {
+    
+        SpringLayout sl_itemsPanel = new SpringLayout();
+        itemsPanel.setLayout(sl_itemsPanel);
+        
+        JList list = new JList();
+        list.setFont(new Font("Tahoma", Font.BOLD, 12));
+        list.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        sl_itemsPanel.putConstraint(SpringLayout.NORTH, list, 10, SpringLayout.NORTH, itemsPanel);
+        sl_itemsPanel.putConstraint(SpringLayout.WEST, list, 10, SpringLayout.WEST, itemsPanel);
+        sl_itemsPanel.putConstraint(SpringLayout.EAST, list, 600, SpringLayout.WEST, itemsPanel);
+        itemsPanel.add(list);
+        
+        JButton btnAdd = new JButton("Create");
+        sl_itemsPanel.putConstraint(SpringLayout.NORTH, btnAdd, 251, SpringLayout.NORTH, itemsPanel);
+        sl_itemsPanel.putConstraint(SpringLayout.SOUTH, list, -6, SpringLayout.NORTH, btnAdd);
+        sl_itemsPanel.putConstraint(SpringLayout.WEST, btnAdd, -112, SpringLayout.EAST, itemsPanel);
+        sl_itemsPanel.putConstraint(SpringLayout.EAST, btnAdd, -10, SpringLayout.EAST, itemsPanel);
+        itemsPanel.add(btnAdd);
+        
+        JButton btnRemove = new JButton("Remove");
+        sl_itemsPanel.putConstraint(SpringLayout.NORTH, btnRemove, 6, SpringLayout.SOUTH, list);
+        sl_itemsPanel.putConstraint(SpringLayout.WEST, btnRemove, -114, SpringLayout.WEST, btnAdd);
+        sl_itemsPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);
+        itemsPanel.add(btnRemove);    
+  }
+
+  
   /**
    * Initializes the Campaign panel.
    * @param campaignPanel   This contains reference to Campaign panel tab.

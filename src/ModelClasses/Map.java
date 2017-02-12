@@ -1,4 +1,4 @@
-package GenericClasses;
+package ModelClasses;
 
 import javax.swing.JPanel;
 import javax.xml.bind.annotation.XmlElement;
@@ -16,19 +16,12 @@ import GameComponents.SharedVariables;
  */
 public class Map {
  
-    /** The map name. */
     @XmlElement(name="Name")   
     private String mapName;    
-
-    /** The map width. */
     @XmlElement(name="Width")  
     private int mapWidth;    
-    
-    /** The map height. */
     @XmlElement(name="Height")  
     private int mapHeight;   
-    
-    /** The map cell values. */
     @XmlElement(name="Map rows")  
     public String[][] mapCellValues;
 
