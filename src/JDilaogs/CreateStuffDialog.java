@@ -104,12 +104,14 @@ public class CreateStuffDialog extends JDialog{
       sl_characterPanel = new SpringLayout();
       characterPanel.setLayout(sl_characterPanel);
       
-      JList<String> characterJlist = new JList<String>();
+      DefaultListModel<String> characterJlistModel = new DefaultListModel<>();
+      JList<String> characterJlist = new JList<String>(characterJlistModel);
+      
       characterJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
       sl_characterPanel.putConstraint(SpringLayout.NORTH, characterJlist, 10, SpringLayout.NORTH, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.WEST, characterJlist, 10, SpringLayout.WEST, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 600, SpringLayout.WEST, characterPanel);
-      characterPanel.add(characterJlist);
+      characterPanel.add(characterJlist);      
       
       JButton btnAdd = new JButton("Create");
       sl_characterPanel.putConstraint(SpringLayout.NORTH, btnAdd, 251, SpringLayout.NORTH, characterPanel);
@@ -118,12 +120,12 @@ public class CreateStuffDialog extends JDialog{
       sl_characterPanel.putConstraint(SpringLayout.EAST, btnAdd, -10, SpringLayout.EAST, characterPanel);
       characterPanel.add(btnAdd);
       
-      JButton button = new JButton("Edit");
-      sl_characterPanel.putConstraint(SpringLayout.NORTH, button, 6, SpringLayout.SOUTH, characterJlist);
-      sl_characterPanel.putConstraint(SpringLayout.WEST, button, 0, SpringLayout.WEST, characterJlist);
-      sl_characterPanel.putConstraint(SpringLayout.EAST, button, 78, SpringLayout.WEST, characterJlist);
-      button.setEnabled(false);
-      characterPanel.add(button);
+      JButton btnEdit = new JButton("Edit");
+      sl_characterPanel.putConstraint(SpringLayout.NORTH, btnEdit, 6, SpringLayout.SOUTH, characterJlist);
+      sl_characterPanel.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, characterJlist);
+      sl_characterPanel.putConstraint(SpringLayout.EAST, btnEdit, 78, SpringLayout.WEST, characterJlist);
+      btnEdit.setEnabled(false);
+      characterPanel.add(btnEdit);
       
       JButton btnRemove = new JButton("Remove");
       btnRemove.setEnabled(false);
@@ -131,6 +133,24 @@ public class CreateStuffDialog extends JDialog{
       sl_characterPanel.putConstraint(SpringLayout.WEST, btnRemove, -114, SpringLayout.WEST, btnAdd);
       sl_characterPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);
       characterPanel.add(btnRemove); 
+      
+      characterJlist.addListSelectionListener(new ListSelectionListener() {          
+        @SuppressWarnings("rawtypes")
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+              
+             if(((JList) e.getSource()).getSelectedValue() == null){
+                 btnRemove.setEnabled(false);
+                 btnEdit.setEnabled(false);
+             }
+             
+             else{
+               btnRemove.setEnabled(true);
+               btnEdit.setEnabled(true);
+               }
+                   
+           }
+       });
       
       return characterPanel;
   }
@@ -179,6 +199,16 @@ public class CreateStuffDialog extends JDialog{
         sl_mapsPanel.putConstraint(SpringLayout.EAST, btnEdit, 92, SpringLayout.WEST, mapsJlist);
         sl_mapsPanel.putConstraint(SpringLayout.NORTH, btnEdit, 6, SpringLayout.SOUTH, mapsJlist);
         sl_mapsPanel.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, mapsJlist);
+        btnEdit.addActionListener(new ActionListener() {
+          
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              if(mapsJlist.getSelectedValue() != null){
+                   
+              }
+          }
+
+        });
         mapsPanel.add(btnEdit);
         
         JButton btnRemove = new JButton("Remove");
@@ -237,7 +267,9 @@ public class CreateStuffDialog extends JDialog{
         SpringLayout sl_itemsPanel = new SpringLayout();
         itemsPanel.setLayout(sl_itemsPanel);
         
-        JList<String> itemJlist = new JList<String>();
+        DefaultListModel<String> itemJlistModel = new DefaultListModel<>();
+        JList<String> itemJlist = new JList<String>(itemJlistModel);
+        
         itemJlist.setFont(new Font("Tahoma", Font.BOLD, 12));
         itemJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         sl_itemsPanel.putConstraint(SpringLayout.NORTH, itemJlist, 10, SpringLayout.NORTH, itemsPanel);
@@ -257,7 +289,7 @@ public class CreateStuffDialog extends JDialog{
         sl_itemsPanel.putConstraint(SpringLayout.EAST, btnEdit, 92, SpringLayout.WEST, itemJlist);        
         sl_itemsPanel.putConstraint(SpringLayout.NORTH, btnEdit, 6, SpringLayout.SOUTH, itemJlist);
         sl_itemsPanel.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, itemJlist);
-        itemsPanel.add(btnEdit);
+        itemsPanel.add(btnEdit);         
         
         JButton btnRemove = new JButton("Remove");
         btnRemove.setEnabled(false);
@@ -265,6 +297,24 @@ public class CreateStuffDialog extends JDialog{
         sl_itemsPanel.putConstraint(SpringLayout.WEST, btnRemove, -114, SpringLayout.WEST, btnAdd);
         sl_itemsPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);
         itemsPanel.add(btnRemove);
+        
+        itemJlist.addListSelectionListener(new ListSelectionListener() {
+          @SuppressWarnings("rawtypes")
+          @Override
+          public void valueChanged(ListSelectionEvent e) {
+                
+               if(((JList) e.getSource()).getSelectedValue() == null){
+                   btnRemove.setEnabled(false);
+                   btnEdit.setEnabled(false);
+               }
+               
+               else{
+                 btnRemove.setEnabled(true);
+                 btnEdit.setEnabled(true);
+                 }
+                     
+             }
+         });
         
         return itemsPanel;
   }
@@ -282,7 +332,9 @@ public class CreateStuffDialog extends JDialog{
       SpringLayout sl_campaignPanel = new SpringLayout();
       campaignPanel.setLayout(sl_campaignPanel);
       
-      JList<String> campaignJlist = new JList<String>();
+      DefaultListModel<String> campaignJlistModel = new DefaultListModel<>();
+      JList<String> campaignJlist = new JList<String>(campaignJlistModel);
+      
       campaignJlist.setFont(new Font("Tahoma", Font.BOLD, 12));
       campaignJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
       sl_campaignPanel.putConstraint(SpringLayout.NORTH, campaignJlist, 10, SpringLayout.NORTH, campaignPanel);
@@ -310,6 +362,24 @@ public class CreateStuffDialog extends JDialog{
       sl_campaignPanel.putConstraint(SpringLayout.WEST, btnRemove, -114, SpringLayout.WEST, btnAdd);
       sl_campaignPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);
       campaignPanel.add(btnRemove);
+      
+      campaignJlist.addListSelectionListener(new ListSelectionListener() {
+        @SuppressWarnings("rawtypes")
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+              
+             if(((JList) e.getSource()).getSelectedValue() == null){
+                 btnRemove.setEnabled(false);
+                 btnEdit.setEnabled(false);
+             }
+             
+             else{
+               btnRemove.setEnabled(true);
+               btnEdit.setEnabled(true);
+               }
+                   
+           }
+       });
             
       return campaignPanel;
   }
