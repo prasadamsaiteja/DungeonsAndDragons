@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import GameComponents.SharedVariables;
 import ModelClasses.Map;
@@ -49,5 +50,24 @@ public class MapJaxb {
       return false;
     }
     
+  }
+
+  public static Map getMapFromXml(String mapName) {
+      
+    try {      
+        File mapFile = new File(SharedVariables.MapsDirectory + File.separator + mapName + ".xml");
+        
+        if(!mapFile.exists())
+          return null;
+             
+        Unmarshaller unmarshaller = JAXBContext.newInstance(Map.class).createUnmarshaller();
+        return (Map) unmarshaller.unmarshal(mapFile);
+        
+      } 
+      
+      catch (JAXBException e) {
+        return null;
+      }
+
   }
 }

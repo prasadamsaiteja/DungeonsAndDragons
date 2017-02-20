@@ -17,7 +17,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import GameComponents.ExtensionMethods;
+import JPanels.MapDesigner;
 import jaxb.MapJaxb;
+import mainPackage.GameLauncher;
 
 import java.awt.Font;
 
@@ -121,11 +123,11 @@ public class CreateStuffDialog extends JDialog{
       characterPanel.add(btnAdd);
       
       JButton btnEdit = new JButton("Edit");
+      btnEdit.setEnabled(false);
+      sl_characterPanel.putConstraint(SpringLayout.EAST, btnEdit, 92, SpringLayout.WEST, characterJlist);        
       sl_characterPanel.putConstraint(SpringLayout.NORTH, btnEdit, 6, SpringLayout.SOUTH, characterJlist);
       sl_characterPanel.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, characterJlist);
-      sl_characterPanel.putConstraint(SpringLayout.EAST, btnEdit, 78, SpringLayout.WEST, characterJlist);
-      btnEdit.setEnabled(false);
-      characterPanel.add(btnEdit);
+      characterPanel.add(btnEdit);  
       
       JButton btnRemove = new JButton("Remove");
       btnRemove.setEnabled(false);
@@ -204,7 +206,8 @@ public class CreateStuffDialog extends JDialog{
           @Override
           public void actionPerformed(ActionEvent e) {
               if(mapsJlist.getSelectedValue() != null){
-                   
+                  GameLauncher.mainFrameObject.replaceJPanel(new MapDesigner(mapsJlist.getSelectedValue())); 
+                  dispose();
               }
           }
 
@@ -222,8 +225,8 @@ public class CreateStuffDialog extends JDialog{
           public void actionPerformed(ActionEvent e) {
               if(mapsJlist.getSelectedValue() != null){
                     MapJaxb.deleteMapXml((String) mapsJlist.getSelectedValue());         
-                    mapsJlist.clearSelection();
                     mapsJlistModel.clear();
+                    
                     String[] mapsList = ExtensionMethods.getMapsList();
                     for(String mapName : mapsList)
                       mapsJlistModel.addElement(mapName);

@@ -44,9 +44,10 @@ import javax.swing.JRadioButton;
 @SuppressWarnings("serial")
 public class MapDesigner extends JPanel {
 
-    JPanel mapJPanelArray[][];   //Map grid
-    String mapName;
-    int mapWidth, mapHeight;   
+    private JPanel mapJPanelArray[][];   //Map grid
+    private String mapName;
+    private int mapWidth, mapHeight;
+    private Map mapObject;
   
   /**
    * Map Designer helps user to create custom maps.
@@ -59,6 +60,31 @@ public class MapDesigner extends JPanel {
       this.mapHeight = mapHeight;
       this.mapWidth = mapWidth;
       initComponents();     
+  }
+
+  public MapDesigner(String mapName){
+      this.mapName = mapName;
+      mapObject = MapJaxb.getMapFromXml(mapName);
+      
+      if(mapObject == null){
+          DialogHelper.showBasicDialog("Problem loading map");
+          GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+      }
+      
+      else{        
+        mapWidth = mapObject.mapWidth;
+        mapHeight = mapObject.mapHeight;
+        initComponents();        
+        loadMap(mapObject.convertStringArrayToJPanel());
+      }      
+  }
+  
+  private void loadMap(JPanel[][] loadedMapData) {
+    
+    for(int i = 0; i < mapWidth; i++)    
+        for(int j = 0; j < mapHeight; j++)
+          mapJPanelArray[i][j].setBackground(loadedMapData[i][j].getBackground());
+    
   }
 
   /**
