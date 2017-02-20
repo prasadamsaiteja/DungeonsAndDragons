@@ -352,6 +352,14 @@ public class CreateStuffDialog extends JDialog{
       sl_campaignPanel.putConstraint(SpringLayout.EAST, btnAdd, -10, SpringLayout.EAST, campaignPanel);
       campaignPanel.add(btnAdd);
       
+      btnAdd.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			CampaignNameDialog CND=new CampaignNameDialog();
+		
+		}
+	});
+      
       JButton btnEdit = new JButton("Edit");
       btnEdit.setEnabled(false);
       sl_campaignPanel.putConstraint(SpringLayout.EAST, btnEdit, 92, SpringLayout.WEST, campaignJlist);

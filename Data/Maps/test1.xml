@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Map>
+    <Name>test1</Name>
+    <Width>5</Width>
+    <Height>5</Height>
+    <Map_rows>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>KEY</item>
+    </Map_rows>
+    <Map_rows>
+        <item>EMPTY</item>
+        <item>WALL</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+    </Map_rows>
+    <Map_rows>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>WALL</item>
+        <item>EMPTY</item>
+    </Map_rows>
+    <Map_rows>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>WALL</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+    </Map_rows>
+    <Map_rows>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+    </Map_rows>
+</Map>
