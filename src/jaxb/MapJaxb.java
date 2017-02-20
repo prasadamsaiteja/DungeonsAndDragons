@@ -38,4 +38,16 @@ public class MapJaxb {
       }  
   }
   
+  public static final boolean deleteMapXml(String mapName){
+    
+    try{
+      File file = new File(SharedVariables.MapsDirectory + File.separator + mapName + ".xml");
+      return file.delete();  
+    }
+    
+    catch(Exception ignored){
+      return false;
+    }
+    
+  }
 }

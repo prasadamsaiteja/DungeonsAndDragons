@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 import GameComponents.SharedVariables;
+import JDilaogs.CreateStuffDialog;
 import JDilaogs.DialogHelper;
 import ModelClasses.Map;
 import jaxb.MapJaxb;
@@ -339,6 +340,8 @@ public class MapDesigner extends JPanel {
       btnSaveButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent arg0) {
             MapJaxb.convertMapObjectToXml(new Map(mapName, mapWidth, mapHeight, mapJPanelArray));
+            GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+            new CreateStuffDialog(2);
         }
       });
       btnSaveButton.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -392,4 +395,5 @@ public class MapDesigner extends JPanel {
     
       return false;
   }
+
 }
