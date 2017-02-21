@@ -20,11 +20,22 @@ import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 
+/**
+ * This class create a dialog which prompts user to enter map details such as map name, width, height
+ * 
+ * @author saiteja prasdam
+ * @version 1.0.0
+ * @since 1/26/2017
+ */
 @SuppressWarnings("serial")
 public class NewMapDialog extends JDialog {
 
     private JDialog parent;
   
+    /**
+     * This is a class constructor which creates dialog which helps creation of maps
+     * @param jdialog Parent JDilaog reference which is required to dispose parent dialog if needed.
+     */
 	public NewMapDialog(JDialog jdialog) {
 
 	    this.parent = jdialog;
@@ -32,6 +43,9 @@ public class NewMapDialog extends JDialog {
 		initComponents();
 	}
 
+	/**
+	 * This method initializes UI components 
+	 */
 	private void initComponents() {
 		
 		JPanel contentPanel = new JPanel();
