@@ -68,6 +68,10 @@ public class Map {
       return tempMapCellValues;
     }
     
+    /**
+     * This methods converts String array to Colored JPanel array
+     * @return Colored JPanel array
+     */
     public JPanel[][] convertStringArrayToJPanel(){
       
         JPanel[][] tempMapCellValues = new JPanel[mapWidth][mapHeight];

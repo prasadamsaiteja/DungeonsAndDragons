@@ -380,7 +380,7 @@ public class MapDesigner extends JPanel {
 
         private boolean validateMap() {
           
-          boolean isPlayerExists = isObjectPlaced(SharedVariables.MAP_PLAYER_CELL_COLOR);
+          //boolean isPlayerExists = isObjectPlaced(SharedVariables.MAP_PLAYER_CELL_COLOR);
           boolean isExitDoorExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING));
           boolean isEntryDoorExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING));
           boolean isObjectiveExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING)) || isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.KEY_STRING));
