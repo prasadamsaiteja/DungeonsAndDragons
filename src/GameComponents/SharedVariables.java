@@ -23,8 +23,8 @@ public class SharedVariables {
        private static final Color MAP_MOSTER_CELL_COLOR = Color.RED;
        private static final Color MAP_KEY_CELL_COLOR = Color.CYAN;
        private static final Color MAP_CHEST_CELL_COLOR = Color.YELLOW;       
-       private static final Color MAP_ENTRY_DOOR_CELL_COLOR = Color.GREEN;
-       private static final Color MAP_EXIT_DOOR_CELL_COLOR = Color.GREEN;
+       private static final Color MAP_ENTRY_DOOR_CELL_COLOR = Color.MAGENTA;
+       private static final Color MAP_EXIT_DOOR_CELL_COLOR = Color.PINK;
        
        public static final String WALL_STRING = "WALL";
        public static final String MONSTER_STRING = "MONSTER";

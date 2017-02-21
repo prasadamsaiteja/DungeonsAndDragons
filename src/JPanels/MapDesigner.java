@@ -53,6 +53,7 @@ public class MapDesigner extends JPanel {
    * @param mapName Name of the map.
    * @param width   Width of the map.
    * @param height  Height of the map.
+   * @wbp.parser.constructor
    */
   public MapDesigner(String mapName, int mapWidth, int mapHeight) {
       this.mapName = mapName;
@@ -249,17 +250,16 @@ public class MapDesigner extends JPanel {
             wallLabel.setHorizontalAlignment(SwingConstants.CENTER);
             componentsPanel.add(wallLabel);
             
-            //Player
+            /*//Player
             JRadioButton rdbtnPlayer = new JRadioButton("");
             rdbtnPlayer.setBackground(Color.BLUE);
             rdbtnPlayer.setHorizontalAlignment(SwingConstants.CENTER);
-            rdbtnPlayer.setActionCommand("player");
             rdbtnPlayer.setActionCommand(SharedVariables.PLAYER_STRING);
             componentsPanel.add(rdbtnPlayer);
             JLabel playerLabel = new JLabel("Player");
             playerLabel.setHorizontalAlignment(SwingConstants.CENTER);
             playerLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-            componentsPanel.add(playerLabel);
+            componentsPanel.add(playerLabel);*/
             
             //Monster
             JRadioButton rdbtnMonster = new JRadioButton("");
@@ -318,7 +318,7 @@ public class MapDesigner extends JPanel {
             
             //Adding radio buttons to radio group
             RadioButtonGroup.add(rdbtnWall);
-            RadioButtonGroup.add(rdbtnPlayer);
+            //RadioButtonGroup.add(rdbtnPlayer);
             RadioButtonGroup.add(rdbtnMonster);
             RadioButtonGroup.add(rdbtnKey);
             RadioButtonGroup.add(rdbtnEntryDoor);
@@ -371,9 +371,41 @@ public class MapDesigner extends JPanel {
       JButton btnSaveButton = new JButton("Save");        
       btnSaveButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent arg0) {
-            MapJaxb.convertMapObjectToXml(new Map(mapName, mapWidth, mapHeight, mapJPanelArray));
-            GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
-            new CreateStuffDialog(2, mapName);
+            if(validateMap()){
+              MapJaxb.convertMapObjectToXml(new Map(mapName, mapWidth, mapHeight, mapJPanelArray));
+              GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+              new CreateStuffDialog(2, mapName);  
+            }            
+        }
+
+        private boolean validateMap() {
+          
+          boolean isPlayerExists = isObjectPlaced(SharedVariables.MAP_PLAYER_CELL_COLOR);
+          boolean isExitDoorExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING));
+          boolean isEntryDoorExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING));
+          boolean isObjectiveExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING)) || isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.KEY_STRING));
+
+          /*if(!isPlayerExists){
+            DialogHelper.showBasicDialog("Need a player to continue");
+            return false;
+          }
+          
+          else */if(!isExitDoorExists){
+            DialogHelper.showBasicDialog("Need a exit door to continue");
+            return false;
+          }
+          
+          else if(!isEntryDoorExists){
+            DialogHelper.showBasicDialog("Need a entry door to continue");
+            return false;
+          }
+          
+          else if(!isObjectiveExists){
+            DialogHelper.showBasicDialog("Need a object to continue, place either a monster or a key");
+            return false;
+          }
+          
+          return true;
         }
       });
       btnSaveButton.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -392,9 +424,15 @@ public class MapDesigner extends JPanel {
           jPanel.setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);  
       
       else{
-        if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.MAP_PLAYER_CELL_COLOR && isPlayerSet())
+        if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.MAP_PLAYER_CELL_COLOR && isObjectPlaced(SharedVariables.MAP_PLAYER_CELL_COLOR))
           DialogHelper.showBasicDialog("You have already placed a player");
       
+      else if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING) && isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING)))
+          DialogHelper.showBasicDialog("You have already placed a entry door");
+        
+      else if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING) && isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING)))
+        DialogHelper.showBasicDialog("You have already placed a exit door");      
+        
       else
         jPanel.setBackground(getColorFromSelectedRadioButton(radioButtonGroup));  
       }
@@ -414,17 +452,13 @@ public class MapDesigner extends JPanel {
    * This method check whether user played player character or not
    * @return   Boolean value of the search
    */
-  private Boolean isPlayerSet(){
+  private Boolean isObjectPlaced(Color objectColor){
     
-    for(int i = 0; i < mapWidth; i++)
-    {
+    for(int i = 0; i < mapWidth; i++)    
         for(int j = 0; j < mapHeight; j++)
-        {
-            if(mapJPanelArray[i][j].getBackground() == SharedVariables.MAP_PLAYER_CELL_COLOR)
+            if(mapJPanelArray[i][j].getBackground() == objectColor)
               return true;
-        }
-    }   
-    
+           
       return false;
   }
 
