@@ -2,26 +2,38 @@ package JDialogs;
 
 import javax.swing.JDialog;
 import javax.swing.JTextField;
+import javax.swing.event.ListDataListener;
 
-import JDialogs.actionlisteners.BtnRollActionListener;
-import JDialogs.actionlisteners.BtnSaveActionListener;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+
+import GameComponents.Dice;
+import GameComponents.SharedVariables;
 import JDilaogs.DialogHelper;
-import character.CharactersList;
+import model.character.Character;
+import model.character.classes.CharacterClassFactory;
+import model.character.wearables.weapons.WeaponFactory;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 @SuppressWarnings("serial")
 public class CreateCharacterDialog extends JDialog {
@@ -34,12 +46,179 @@ public class CreateCharacterDialog extends JDialog {
 	private JButton btnRoll;
 	private JButton btnSave;
 	private JComboBox<String> cbClass;
+	private JComboBox<String> cbWeapon;
 	private DefaultListModel<String> characterList;
+	
+	/**
+	 * Action Listener when roll button is pressed
+	 */
+	private class BtnRollActionListener implements ActionListener {
+		
+		private ArrayList<JTextField> txtFields;
+		
+		/**
+		 * Initiate the action listener by providing the list of all text fields which define character abilities.
+		 * @param txtFields
+		 */
+			public BtnRollActionListener(ArrayList<JTextField> txtFields){
+			this.txtFields = txtFields;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			// Initiate the dice object with a 4D6 (returns sum of highest 3 rolls)
+			Dice dice = new Dice(4, 6, 3);
+			
+			// Iterate through each text field component and calculate the roll score
+			Iterator<JTextField> txtFieldIterator = txtFields.iterator();
+			while (txtFieldIterator.hasNext()){
+				int txtFieldScore = dice.getRollSum();
+				JTextField txtField = txtFieldIterator.next();
+				txtField.setText(Integer.toString(txtFieldScore));	
+			}
+		}
+	}
+	
+	/**
+	 * Action Listener when save button is pressed
+	 */
+	private class BtnSaveActionListener implements ActionListener {
+		
+		private ArrayList<Component> dialogComponents;
+		private DefaultListModel<String> characterList;
+		
+		/**
+		 * Initiate the action listener by providing an ArrayList of all the components that define a character
+		 * 
+		 * @param dialogComponents ArrayList
+		 */
+		public BtnSaveActionListener(ArrayList<Component> dialogComponents, DefaultListModel<String> characterList){
+			this.dialogComponents = dialogComponents;
+			this.characterList = characterList;
+		}
+		
+		public void actionPerformed(ActionEvent e) {	
+			Character character = new Character();
+			
+			// Iterate through the component list and set the appropriate value in character object
+			Iterator<Component> componentIterator = this.dialogComponents.iterator();
+			while (componentIterator.hasNext()){
+				Component component = componentIterator.next();
+				if (component instanceof JTextField) {
+					JTextField txtField = (JTextField) component;				
+					switch(txtField.getName()){
+					case "name":
+						character.setName(txtField.getText());
+						break;
+					case "level":
+						character.setLevel(Integer.parseInt(txtField.getText()));
+						break;
+					case "strength":
+						character.setStrength(Integer.parseInt(txtField.getText()));
+						break;
+					case "dexterity":
+						character.setDexterity(Integer.parseInt(txtField.getText()));
+						break;
+					case "constitution":
+						character.setConstitution(Integer.parseInt(txtField.getText()));
+						break;
+					}
+				}else if(component instanceof JComboBox){
+					JComboBox<String> cBox = (JComboBox<String>) component;
+					Integer index = cBox.getSelectedIndex();	
+					String item = cBox.getItemAt(index);
+					String name = cBox.getName();
+
+					System.out.println(index);
+					System.out.println(name);
+					System.out.println(item);
+					
+					switch(name){
+					case "characterClass":
+						character.setCharacterClass(item);
+						break;
+					case "weapon":
+						character.setWeaponName(item);
+						break;
+					}
+				}
+			}
+			
+			character.build();
+			
+			// Get the filename from the user for storing the character XML file
+			String fname = JOptionPane.showInputDialog("Give file name");
+			
+			// Initiate a new XStream instance for creating XML and store the XML in fname 
+			XStream xstream = new XStream(new StaxDriver());		
+			String xml = xstream.toXML(character);
+			FileWriter out;
+			try {
+				String filepath = SharedVariables.CharactersDirectory+File.separator+fname+".xml";
+				System.out.println(filepath);
+				out = new FileWriter(filepath);
+				out.write(xml);
+				out.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+			String listElement = character.getName()+" (Level: "+character.getLevel()+")";
+			this.characterList.addElement(listElement);
+			
+			JOptionPane.showMessageDialog(null, "File `"+fname+"` saved!!!");
+		}
+	}
+	
+	private class LevelsComboBoxModel implements ComboBoxModel{
+
+		private ArrayList<Integer> levels;
+		
+		public LevelsComboBoxModel() {
+			for (int ctr=0; ctr<10; ctr++){
+				this.levels.add(ctr+1);
+			}
+		}
+		
+		@Override
+		public int getSize() {
+			return this.levels.size();
+		}
+
+		@Override
+		public Object getElementAt(int index) {
+			return this.levels.get(index);
+		}
+
+		@Override
+		public void addListDataListener(ListDataListener l) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void removeListDataListener(ListDataListener l) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void setSelectedItem(Object anItem) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public Object getSelectedItem() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
 	
 	public CreateCharacterDialog(JDialog jdialog, DefaultListModel<String> characterList){
 		this.parent = jdialog;
 		this.characterList = characterList;
-		DialogHelper.setDialogProperties(this, "New Character", new Rectangle(0, 0, 600, 200));
+		DialogHelper.setDialogProperties(this, "New Character", new Rectangle(0, 0, 600, 250));
 		this.btnRoll = new JButton("Roll");
 		this.btnSave = new JButton("Save");
 		this.txtStr = new JTextField();
@@ -100,14 +279,23 @@ public class CreateCharacterDialog extends JDialog {
 		contentPanel.add(lblClass, gbc);
 		
 		this.cbClass = new JComboBox<String>();
-		this.cbClass.setName("class");
+		ComboBoxModel cbBoxModel = new DefaultComboBoxModel(); 
+		//this.cbClass.setModel(al);
+		this.cbClass.setName("characterClass");
 		gbc.anchor = GridBagConstraints.NORTH;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridwidth = 2;
 		gbc.gridx = 9;
 		gbc.gridy = 0;
 		contentPanel.add(this.cbClass, gbc);
-		this.cbClass.addItem("Fighter");
+		ArrayList<String> characterClasses = CharacterClassFactory.getAllowedClasses();
+		Iterator<String> characterClassesIterator = characterClasses.iterator();
+		
+		while(characterClassesIterator.hasNext())
+		{
+			String cClass = characterClassesIterator.next();
+			this.cbClass.addItem(cClass);
+		}
 		
 		JLabel lblAbilities = new JLabel("Abilities:");
 		gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -166,18 +354,38 @@ public class CreateCharacterDialog extends JDialog {
 		gbc.gridy = 2;
 		contentPanel.add(this.txtCons, gbc);
 		
+		JLabel Weapons = new JLabel("Weapon");
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		contentPanel.add(Weapons, gbc);
+		
+		this.cbWeapon = new JComboBox<String>();
+		this.cbWeapon.setName("weapon");
+		gbc.anchor = GridBagConstraints.NORTH;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridx = 2;
+		gbc.gridy = 3;
+		contentPanel.add(this.cbWeapon, gbc);
+		ArrayList<String> weapons = WeaponFactory.getAllowedWeapons(1);
+		Iterator<String> weaponsIterator = weapons.iterator();
+		while (weaponsIterator.hasNext()){
+			String weapon = weaponsIterator.next();
+			this.cbWeapon.addItem(weapon);
+		}
+		
 		gbc.insets = new Insets(10, 5, 5, 5);
 		
 		gbc.anchor = GridBagConstraints.NORTH;
 		gbc.gridwidth = 2;
 		gbc.gridx = 3;
-		gbc.gridy = 4;
+		gbc.gridy = 6;
 		contentPanel.add(this.btnRoll, gbc);
 		
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		gbc.gridwidth = 2;
 		gbc.gridx = 6;
-		gbc.gridy = 4;
+		gbc.gridy = 6;
 		contentPanel.add(this.btnSave, gbc);
 		
 		getContentPane().add(contentPanel);
@@ -198,9 +406,12 @@ public class CreateCharacterDialog extends JDialog {
 		dialogComponents.add(this.txtName);
 		dialogComponents.add(this.txtLvl);
 		dialogComponents.add(this.cbClass);
+		dialogComponents.add(this.cbWeapon);
 		ActionListener btnSaveActionListener = new BtnSaveActionListener(dialogComponents, this.characterList);	
-		this.btnSave.addActionListener(btnSaveActionListener);
-		
-		
+		this.btnSave.addActionListener(btnSaveActionListener);	
 	}
+	
 }
+
+
+

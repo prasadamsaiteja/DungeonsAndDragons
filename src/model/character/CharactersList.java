@@ -1,4 +1,4 @@
-package character;
+package model.character;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
@@ -18,7 +19,7 @@ import GameComponents.SharedVariables;
  * @author Supreet Singh (s_supree)
  *
  */
-public class CharactersList {
+public class CharactersList extends Observable {
 
 	private String dirPath = SharedVariables.CharactersDirectory;
 	private ArrayList<Character> characters;
@@ -26,11 +27,13 @@ public class CharactersList {
 	public static CharactersList inst = null;
 	
 	public CharactersList(){
-		this.initCharactersList();
+		this.updateCharactersList();
 	}
 	
-	private void initCharactersList(){
+	public void updateCharactersList(){
 		this.characters = this.getCharacters(this.dirPath);
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
