@@ -35,7 +35,7 @@ public class SharedVariables {
        public static final String EXIT_DOOR_STRING = "EXIT_DOOR";
        private static final String DEFAULT_CELL_STRING = "EMPTY";
        
-       public static enum itemType{ Armor, Helmet, Shield, Belt, Boots, Ring, Weapon }
+       public static enum ItemType{ Armor, Helmet, Shield, Belt, Boots, Ring, Weapon }
        
        public static enum HelmetClass { Intelligence, Wisdom, ArmorClass}
        public static enum ArmorClass { ArmorClass}

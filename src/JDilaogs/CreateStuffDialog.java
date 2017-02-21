@@ -333,13 +333,20 @@ public class CreateStuffDialog extends JDialog{
         sl_itemsPanel.putConstraint(SpringLayout.SOUTH, itemJlist, -6, SpringLayout.NORTH, btnAdd);
         sl_itemsPanel.putConstraint(SpringLayout.WEST, btnAdd, -112, SpringLayout.EAST, itemsPanel);
         sl_itemsPanel.putConstraint(SpringLayout.EAST, btnAdd, -10, SpringLayout.EAST, itemsPanel);
+        btnAdd.addActionListener(new ActionListener() {
+          
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              new NewItemDialog();
+          }
+        });
         itemsPanel.add(btnAdd);
         
         JButton btnEdit = new JButton("Edit");
         btnEdit.setEnabled(false);
         sl_itemsPanel.putConstraint(SpringLayout.EAST, btnEdit, 92, SpringLayout.WEST, itemJlist);        
         sl_itemsPanel.putConstraint(SpringLayout.NORTH, btnEdit, 6, SpringLayout.SOUTH, itemJlist);
-        sl_itemsPanel.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, itemJlist);
+        sl_itemsPanel.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, itemJlist);        
         itemsPanel.add(btnEdit);         
         
         JButton btnRemove = new JButton("Remove");
