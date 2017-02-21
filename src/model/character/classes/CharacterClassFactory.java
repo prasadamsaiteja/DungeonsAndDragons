@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CharacterClassFactory {
 	
-	private static enum allowedClasses{Fighter,Rogue}
+	private static enum allowedClasses{Fighter,Rogue,Ninja}
 
 
 	public static allowedClasses getValidParam(String className){

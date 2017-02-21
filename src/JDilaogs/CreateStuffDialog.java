@@ -119,10 +119,7 @@ public class CreateStuffDialog extends JDialog{
       sl_characterPanel.putConstraint(SpringLayout.NORTH, btnRemove, 6, SpringLayout.SOUTH, list);
       sl_characterPanel.putConstraint(SpringLayout.WEST, btnRemove, -114, SpringLayout.WEST, btnAdd);
       sl_characterPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);
-      characterPanel.add(btnRemove);    
-      
-      
-    
+      characterPanel.add(btnRemove);      
   }
 
   /**

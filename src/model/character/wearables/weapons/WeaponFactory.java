@@ -3,7 +3,7 @@ package model.character.wearables.weapons;
 import java.util.ArrayList;
 
 public class WeaponFactory {
-	private static enum allowedWeapons{Longsword}
+	private static enum allowedWeapons{Longsword,Bow}
 
 	public static allowedWeapons getValidParam(String weaponName){
 		return WeaponFactory.allowedWeapons.valueOf(weaponName);

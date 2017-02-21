@@ -4,11 +4,7 @@ import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.event.ListDataListener;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
-
 import GameComponents.Dice;
-import GameComponents.SharedVariables;
 import JDilaogs.DialogHelper;
 import model.character.Character;
 import model.character.CharactersList;
@@ -30,9 +26,6 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -125,6 +118,12 @@ public class CreateCharacterDialog extends JDialog {
 					}
 				}else if(component instanceof JComboBox){
 					JComboBox<String> cBox = (JComboBox<String>) component;
+					cBox.addActionListener(new ActionListener() {
+			
+						@Override
+						public void actionPerformed(ActionEvent e) {
+						}
+					});
 					Integer index = cBox.getSelectedIndex();	
 					String item = cBox.getItemAt(index);
 					String name = cBox.getName();
@@ -145,52 +144,6 @@ public class CreateCharacterDialog extends JDialog {
 			cList.updateCharactersList();
 			JOptionPane.showMessageDialog(null, "Character saved!!!");
 		}
-	}
-	
-	private class LevelsComboBoxModel implements ComboBoxModel{
-
-		private ArrayList<Integer> levels;
-		
-		public LevelsComboBoxModel() {
-			for (int ctr=0; ctr<10; ctr++){
-				this.levels.add(ctr+1);
-			}
-		}
-		
-		@Override
-		public int getSize() {
-			return this.levels.size();
-		}
-
-		@Override
-		public Object getElementAt(int index) {
-			return this.levels.get(index);
-		}
-
-		@Override
-		public void addListDataListener(ListDataListener l) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void removeListDataListener(ListDataListener l) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void setSelectedItem(Object anItem) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public Object getSelectedItem() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
 	}
 	
 	public CreateCharacterDialog(JDialog jdialog, DefaultListModel<String> characterList){
@@ -345,7 +298,7 @@ public class CreateCharacterDialog extends JDialog {
 		gbc.gridx = 2;
 		gbc.gridy = 3;
 		contentPanel.add(this.cbWeapon, gbc);
-		ArrayList<String> weapons = WeaponFactory.getAllowedWeapons(1);
+		ArrayList<String> weapons = WeaponFactory.getAllowedWeapons(2);
 		Iterator<String> weaponsIterator = weapons.iterator();
 		while (weaponsIterator.hasNext()){
 			String weapon = weaponsIterator.next();
