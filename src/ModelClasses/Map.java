@@ -17,12 +17,12 @@ import GameComponents.SharedVariables;
 public class Map {
  
     @XmlElement(name="Name")   
-    private String mapName;    
+    public String mapName;    
     @XmlElement(name="Width")  
-    private int mapWidth;    
+    public int mapWidth;    
     @XmlElement(name="Height")  
-    private int mapHeight;   
-    @XmlElement(name="Map rows")  
+    public int mapHeight;   
+    @XmlElement(name="Map_rows")  
     public String[][] mapCellValues;
 
     /**
@@ -67,5 +67,18 @@ public class Map {
       
       return tempMapCellValues;
     }
-  
+    
+    public JPanel[][] convertStringArrayToJPanel(){
+      
+        JPanel[][] tempMapCellValues = new JPanel[mapWidth][mapHeight];
+        
+        for(int i = 0; i < mapWidth; i++)     
+            for(int j = 0; j < mapHeight; j++) {
+                JPanel tempJPanel = new JPanel();
+                tempJPanel.setBackground(SharedVariables.getCellColorFromString(mapCellValues[i][j])); 
+                tempMapCellValues[i][j] =  tempJPanel;
+            }
+                            
+        return tempMapCellValues;
+    }
 }

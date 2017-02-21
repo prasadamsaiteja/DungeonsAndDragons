@@ -58,10 +58,21 @@ public class SharedVariables {
            for(Entry<String, Color> entry : mapCellHashMap.entrySet()){
              if(cellColor.equals(entry.getValue()))
                return entry.getKey();            
-         }
-          return null;
+           }
+          
+           return null;
+       }
+       
+       /**
+        * This method returns color of the cell from the value of the cell
+        * @param cellStringValue The current value of the cell
+        * @return Color representing the value
+        */
+       public static final Color getCellColorFromString(String cellStringValue){                  
+           return mapCellHashMap.get(cellStringValue);
        }
 
        public static final String DataDirectory = "Data";
        public static final String MapsDirectory = DataDirectory + File.separator + "Maps";
+       public static final String CampaignsDirectory = DataDirectory + File.separator + "Campaigns";
 }
