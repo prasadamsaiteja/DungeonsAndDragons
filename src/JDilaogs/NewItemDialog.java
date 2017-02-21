@@ -162,7 +162,6 @@ public class NewItemDialog extends JDialog {
         
         //JSlider 
         JSlider itemLevelSlider = new JSlider(JSlider.HORIZONTAL, 1, 20, 1);
-        ItemLevelValueLabel.setText(String.valueOf(itemLevelSlider.getValue()));
         itemLevelSlider.setBackground(Color.WHITE);
         itemLevelSlider.setBounds(141, 104, 235, 26);
         itemLevelSlider.addChangeListener(new ChangeListener() {
