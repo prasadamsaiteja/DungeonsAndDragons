@@ -6,8 +6,10 @@ import java.awt.Rectangle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.NumberFormatter;
 
 import JPanels.MapDesigner;
 import mainPackage.GameLauncher;
@@ -15,6 +17,7 @@ import mainPackage.GameLauncher;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
@@ -37,8 +40,17 @@ public class NewMapDialog extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JTextField map_name_text_field = new JTextField();
-		JTextField map_dimesions_y = new JTextField();
-		JTextField map_dimesions_x = new JTextField();
+		JFormattedTextField map_dimesions_y;
+		JFormattedTextField map_dimesions_x;
+		
+		//Number formatter for dimensions
+		NumberFormat format = NumberFormat.getInstance();
+	    NumberFormatter formatter = new NumberFormatter(format);
+	    formatter.setValueClass(Integer.class);
+	    formatter.setMinimum(0);
+	    formatter.setMaximum(80);
+	    formatter.setAllowsInvalid(false);
+	    formatter.setCommitsOnValidEdit(true);
 		
 		{ 	//Map name label
 			JLabel map_name_label = new JLabel("Map name");
@@ -58,14 +70,16 @@ public class NewMapDialog extends JDialog {
 			contentPanel.add(lblNewLabel_1);
 		}
 
-		{ 	//Map dimension text field width			
+		{ 	//Map dimension text field width	
+		    map_dimesions_x = new JFormattedTextField(formatter);
 			map_dimesions_x.setBounds(110, 45, 32, 23);
 			map_dimesions_x.setHorizontalAlignment(JTextField.CENTER);
 			contentPanel.add(map_dimesions_x);
 			map_dimesions_x.setColumns(10);
 		}
 
-		{ 	//Map dimension text field height			
+		{ 	//Map dimension text field height	
+		    map_dimesions_y = new JFormattedTextField(formatter);
 			map_dimesions_y.setColumns(10);
 			map_dimesions_y.setHorizontalAlignment(JTextField.CENTER);
 			map_dimesions_y.setBounds(179, 45, 32, 23);
