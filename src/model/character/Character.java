@@ -1,9 +1,19 @@
 package model.character;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 
+import javax.swing.JOptionPane;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+
 import GameComponents.Dice;
+import GameComponents.SharedVariables;
 import model.character.classes.CharacterClassFactory;
 import model.character.classes.CharacterClassInterface;
 import model.character.wearables.weapons.WeaponFactory;
@@ -22,10 +32,11 @@ public class Character extends Observable {
 	private int strength;
 	private int dexterity;
 	private int constitution;
-	private boolean isInitialized = false;
+	private boolean isBuilt = false;
 	private int hitScore = 0;
 	private String weaponName;
-	private WeaponsInterface weapon; 
+	private WeaponsInterface weapon;
+	private String fname;
 
 	/**
 	 * @param String
@@ -170,7 +181,7 @@ public class Character extends Observable {
 									 cClass.getNumberOfRolls()
 								)
 						);
-	
+		this.isBuilt = true;
 	}
 
 	public void hit(int damage) throws Exception {
@@ -179,6 +190,29 @@ public class Character extends Observable {
 
 	public int getHitScore() {
 		return this.hitScore;
+	}
+	
+	public boolean save() {	
+		if (!this.isBuilt){
+			this.build();
+			Date d = new Date();
+			long dTime = d.getTime();
+			this.fname = this.name + dTime;
+		}
+		
+		XStream xstream = new XStream(new StaxDriver());		
+		String xml = xstream.toXML(this);
+		FileWriter out;
+		try {
+			String filepath = SharedVariables.CharactersDirectory+File.separator+this.fname+".xml";
+			System.out.println(filepath);
+			out = new FileWriter(filepath);
+			out.write(xml);
+			out.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return true;
 	}
 
 	/*

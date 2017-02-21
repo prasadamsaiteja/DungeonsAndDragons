@@ -11,6 +11,7 @@ import GameComponents.Dice;
 import GameComponents.SharedVariables;
 import JDilaogs.DialogHelper;
 import model.character.Character;
+import model.character.CharactersList;
 import model.character.classes.CharacterClassFactory;
 import model.character.wearables.weapons.WeaponFactory;
 
@@ -127,11 +128,7 @@ public class CreateCharacterDialog extends JDialog {
 					Integer index = cBox.getSelectedIndex();	
 					String item = cBox.getItemAt(index);
 					String name = cBox.getName();
-
-					System.out.println(index);
-					System.out.println(name);
-					System.out.println(item);
-					
+			
 					switch(name){
 					case "characterClass":
 						character.setCharacterClass(item);
@@ -143,29 +140,10 @@ public class CreateCharacterDialog extends JDialog {
 				}
 			}
 			
-			character.build();
-			
-			// Get the filename from the user for storing the character XML file
-			String fname = JOptionPane.showInputDialog("Give file name");
-			
-			// Initiate a new XStream instance for creating XML and store the XML in fname 
-			XStream xstream = new XStream(new StaxDriver());		
-			String xml = xstream.toXML(character);
-			FileWriter out;
-			try {
-				String filepath = SharedVariables.CharactersDirectory+File.separator+fname+".xml";
-				System.out.println(filepath);
-				out = new FileWriter(filepath);
-				out.write(xml);
-				out.close();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			
-			String listElement = character.getName()+" (Level: "+character.getLevel()+")";
-			this.characterList.addElement(listElement);
-			
-			JOptionPane.showMessageDialog(null, "File `"+fname+"` saved!!!");
+			character.save();
+			CharactersList cList = CharactersList.init();
+			cList.updateCharactersList();
+			JOptionPane.showMessageDialog(null, "Character saved!!!");
 		}
 	}
 	
