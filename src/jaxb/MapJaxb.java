@@ -16,6 +16,10 @@ import ModelClasses.Map;
 
 public class MapJaxb {
 
+  /**
+   * This method converts map object to xml and save it to a file
+   * @param map This contains map object to be saved
+   */
   public static final void convertMapObjectToXml(Map map){
          
       try {
@@ -33,12 +37,17 @@ public class MapJaxb {
       } 
       
       catch (JAXBException jaxbException) {
-        jaxbException.printStackTrace();
+          jaxbException.printStackTrace();
       } catch (IOException e) {        
-        e.printStackTrace();
+          e.printStackTrace();
       }  
   }
   
+  /**
+   * This method deletes map file
+   * @param mapName Map name
+   * @return Returns boolean if the map is deleted or not
+   */
   public static final boolean deleteMapXml(String mapName){
     
     try{
@@ -52,6 +61,11 @@ public class MapJaxb {
     
   }
 
+  /**
+   * This method get map object from xml
+   * @param mapName name of the map which is name of the file   
+   * @return map object 
+   */
   public static Map getMapFromXml(String mapName) {
       
     try {      
