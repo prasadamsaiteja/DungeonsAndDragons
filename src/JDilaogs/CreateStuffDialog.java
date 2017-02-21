@@ -13,6 +13,7 @@ import java.awt.Color;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -117,6 +118,8 @@ public class CreateStuffDialog extends JDialog{
       
       DefaultListModel<String> characterJlistModel = new DefaultListModel<>();
       JList<String> characterJlist = new JList<String>(characterJlistModel);
+      JScrollPane scrollPane = new JScrollPane();
+      scrollPane.setViewportView(characterJlist);
       
       characterJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
       sl_characterPanel.putConstraint(SpringLayout.NORTH, characterJlist, 10, SpringLayout.NORTH, characterPanel);
@@ -181,6 +184,9 @@ public class CreateStuffDialog extends JDialog{
                 
         DefaultListModel<String> mapsJlistModel = new DefaultListModel<>();
         JList<String> mapsJlist = new JList<String>(mapsJlistModel);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(mapsJlist);
+        
         sl_mapsPanel.putConstraint(SpringLayout.NORTH, mapsJlist, 10, SpringLayout.NORTH, mapsPanel);
         sl_mapsPanel.putConstraint(SpringLayout.WEST, mapsJlist, 10, SpringLayout.WEST, mapsPanel);
         
@@ -320,6 +326,8 @@ public class CreateStuffDialog extends JDialog{
         
         DefaultListModel<String> itemJlistModel = new DefaultListModel<>();
         JList<String> itemJlist = new JList<String>(itemJlistModel);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(itemJlist);
         
         itemJlist.setFont(new Font("Tahoma", Font.BOLD, 12));
         itemJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
