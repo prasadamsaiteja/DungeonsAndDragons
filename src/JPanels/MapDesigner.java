@@ -2,7 +2,6 @@ package JPanels;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
