@@ -35,6 +35,16 @@ public class SharedVariables {
        public static final String EXIT_DOOR_STRING = "EXIT_DOOR";
        private static final String DEFAULT_CELL_STRING = "EMPTY";
        
+       public static enum itemType{ Armor, Helmet, Shield, Belt, Boots, Ring, Weapon }
+       
+       public static enum HelmetClass { Intelligence, Wisdom, ArmorClass}
+       public static enum ArmorClass { ArmorClass}
+       public static enum ShieldClass { ArmorClass}
+       public static enum RingClass { ArmorClass, Strength, Constitution, Wisdom, Charisma}
+       public static enum BeltClass { Constitution, Strength }
+       public static enum BootsClass { ArmorClass, Dexterity}
+       public static enum WeaponClass { AttackBonus, DamageBonus }
+       
        public static final HashMap<String, Color> mapCellHashMap = new HashMap<>();
        static
        {          
