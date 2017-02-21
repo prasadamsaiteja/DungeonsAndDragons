@@ -74,4 +74,5 @@ public class SharedVariables {
 
        public static final String DataDirectory = "Data";
        public static final String MapsDirectory = DataDirectory + File.separator + "Maps";
+       public static final String CampaignsDirectory = DataDirectory + File.separator + "Campaigns";
 }

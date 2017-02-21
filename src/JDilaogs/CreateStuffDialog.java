@@ -4,11 +4,13 @@ import java.awt.Rectangle;
 
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
@@ -17,11 +19,14 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import GameComponents.ExtensionMethods;
+import GameComponents.SharedVariables;
 import JPanels.MapDesigner;
+import ModelClasses.Map;
 import jaxb.MapJaxb;
 import mainPackage.GameLauncher;
 
 import java.awt.Font;
+import java.awt.GridLayout;
 
 /**
  * This class is a JDialog which helps user to create new campaign, map or character.
@@ -37,9 +42,13 @@ public class CreateStuffDialog extends JDialog{
   private SpringLayout sl_mapsPanel;
   private SpringLayout sl_characterPanel;
   private int defaultTab = 0;
+  private String lastCreateMapName;
+
  
   /**
    * This class is a JDialog which helps user to create new campaign, map or character.
+   * @param mapName 
+   * @param i 
    */
   public CreateStuffDialog() {
     DialogHelper.setDialogProperties(this, "Create stuff", new Rectangle(100, 100, 640, 390));
@@ -50,10 +59,11 @@ public class CreateStuffDialog extends JDialog{
   /**
    * This class is a JDialog which helps user to create new campaign, map or character.
    */
-  public CreateStuffDialog(int defaultTabIndex) {
+  public CreateStuffDialog(int defaultTabIndex, String mapName) {
     DialogHelper.setDialogProperties(this, "Create stuff", new Rectangle(100, 100, 640, 390));
     getContentPane().setLayout(null); 
     defaultTab = defaultTabIndex;
+    lastCreateMapName = mapName;
     initComponents();
   }
 
@@ -172,6 +182,8 @@ public class CreateStuffDialog extends JDialog{
                 
         DefaultListModel<String> mapsJlistModel = new DefaultListModel<>();
         JList<String> mapsJlist = new JList<String>(mapsJlistModel);
+        sl_mapsPanel.putConstraint(SpringLayout.NORTH, mapsJlist, 10, SpringLayout.NORTH, mapsPanel);
+        sl_mapsPanel.putConstraint(SpringLayout.WEST, mapsJlist, 10, SpringLayout.WEST, mapsPanel);
         
         String[] mapsList = ExtensionMethods.getMapsList();
         for(String mapName : mapsList)
@@ -179,28 +191,25 @@ public class CreateStuffDialog extends JDialog{
         
         mapsJlist.setFont(new Font("Tahoma", Font.BOLD, 12));
         mapsJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-        sl_mapsPanel.putConstraint(SpringLayout.NORTH, mapsJlist, 10, SpringLayout.NORTH, mapsPanel);
-        sl_mapsPanel.putConstraint(SpringLayout.WEST, mapsJlist, 10, SpringLayout.WEST, mapsPanel);
-        sl_mapsPanel.putConstraint(SpringLayout.EAST, mapsJlist, 600, SpringLayout.WEST, mapsPanel);
         mapsPanel.add(mapsJlist);
         
-        JButton btnAdd = new JButton("Create");
+        JButton btnAdd = new JButton("Create");        
+        sl_mapsPanel.putConstraint(SpringLayout.EAST, mapsJlist, 0, SpringLayout.EAST, btnAdd);
         btnAdd.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent arg0) {              
               new NewMapDialog(CreateStuffDialog.this);
           }
         });
         sl_mapsPanel.putConstraint(SpringLayout.NORTH, btnAdd, 251, SpringLayout.NORTH, mapsPanel);
-        sl_mapsPanel.putConstraint(SpringLayout.SOUTH, mapsJlist, -6, SpringLayout.NORTH, btnAdd);
         sl_mapsPanel.putConstraint(SpringLayout.WEST, btnAdd, -112, SpringLayout.EAST, mapsPanel);
         sl_mapsPanel.putConstraint(SpringLayout.EAST, btnAdd, -10, SpringLayout.EAST, mapsPanel);
         mapsPanel.add(btnAdd);
         
         JButton btnEdit = new JButton("Edit");
+        sl_mapsPanel.putConstraint(SpringLayout.NORTH, btnEdit, 251, SpringLayout.NORTH, mapsPanel);
+        sl_mapsPanel.putConstraint(SpringLayout.SOUTH, mapsJlist, -6, SpringLayout.NORTH, btnEdit);
+        sl_mapsPanel.putConstraint(SpringLayout.WEST, btnEdit, 10, SpringLayout.WEST, mapsPanel);
         btnEdit.setEnabled(false);
-        sl_mapsPanel.putConstraint(SpringLayout.EAST, btnEdit, 92, SpringLayout.WEST, mapsJlist);
-        sl_mapsPanel.putConstraint(SpringLayout.NORTH, btnEdit, 6, SpringLayout.SOUTH, mapsJlist);
-        sl_mapsPanel.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, mapsJlist);
         btnEdit.addActionListener(new ActionListener() {
           
           @Override
@@ -216,7 +225,8 @@ public class CreateStuffDialog extends JDialog{
         
         JButton btnRemove = new JButton("Remove");
         btnRemove.setEnabled(false);
-        sl_mapsPanel.putConstraint(SpringLayout.NORTH, btnRemove, 6, SpringLayout.SOUTH, mapsJlist);
+        sl_mapsPanel.putConstraint(SpringLayout.NORTH, btnRemove, 251, SpringLayout.NORTH, mapsPanel);
+        sl_mapsPanel.putConstraint(SpringLayout.EAST, btnEdit, -282, SpringLayout.WEST, btnRemove);        
         sl_mapsPanel.putConstraint(SpringLayout.WEST, btnRemove, -114, SpringLayout.WEST, btnAdd);
         sl_mapsPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);        
         btnRemove.addActionListener(new ActionListener() {
@@ -236,32 +246,71 @@ public class CreateStuffDialog extends JDialog{
         });
         mapsPanel.add(btnRemove);   
         
-        mapsJlist.addListSelectionListener(new ListSelectionListener() {          
+        JPanel mapPreviewPanel = new JPanel(); 
+        mapPreviewPanel.setBackground(Color.WHITE);
+        sl_mapsPanel.putConstraint(SpringLayout.NORTH, mapPreviewPanel, 10, SpringLayout.NORTH, mapsPanel);
+        sl_mapsPanel.putConstraint(SpringLayout.WEST, mapPreviewPanel, 6, SpringLayout.EAST, mapsJlist);
+        sl_mapsPanel.putConstraint(SpringLayout.SOUTH, mapPreviewPanel, -6, SpringLayout.NORTH, btnAdd);
+        sl_mapsPanel.putConstraint(SpringLayout.EAST, mapPreviewPanel, -10, SpringLayout.EAST, mapsPanel);
+        mapsPanel.add(mapPreviewPanel);
+        
+        mapsJlist.addListSelectionListener(new ListSelectionListener() {
+          
           @SuppressWarnings("rawtypes")
           @Override
-          public void valueChanged(ListSelectionEvent e) {
+          public void valueChanged(ListSelectionEvent evt) {
                 
-               if(((JList) e.getSource()).getSelectedValue() == null){
-                   btnRemove.setEnabled(false);
-                   btnEdit.setEnabled(false);
-               }
-               
-               else{
-                 btnRemove.setEnabled(true);
-                 btnEdit.setEnabled(true);
-                 }
-                     
+              if (!evt.getValueIsAdjusting())
+              {
+                  
+                    if(((JList) evt.getSource()).getSelectedValue() == null){
+                        btnRemove.setEnabled(false);
+                        btnEdit.setEnabled(false);
+                        sl_mapsPanel.putConstraint(SpringLayout.EAST, mapsJlist, 0, SpringLayout.EAST, btnAdd);
+                    }               
+                    
+                    else{
+                      btnRemove.setEnabled(true);
+                      btnEdit.setEnabled(true);                
+                      updateMapPreview(mapPreviewPanel, (String)((JList) evt.getSource()).getSelectedValue());
+                      sl_mapsPanel.putConstraint(SpringLayout.EAST, mapsJlist, -228, SpringLayout.EAST, btnAdd);
+                    }
+                }
+                                  
              }
-         });
-  
+
+          private void updateMapPreview(JPanel mapPreviewPanel, String mapName) {
+                        
+              Map mapObject = MapJaxb.getMapFromXml(mapName);
+             
+              mapPreviewPanel.removeAll();              
+              mapPreviewPanel.setLayout(new GridLayout(mapObject.mapWidth, mapObject.mapHeight));
+              JPanel[][] mapJPanelArray = new JPanel[mapObject.mapWidth][mapObject.mapHeight];
+              
+              for(int i = 0; i < mapObject.mapWidth; i++)            
+                  for(int j = 0; j < mapObject.mapHeight; j++)
+                  {
+                      mapJPanelArray[i][j] = new JPanel();
+                      mapJPanelArray[i][j].setBackground(SharedVariables.mapCellHashMap.get(mapObject.mapCellValues[i][j]));                    
+                      mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
+                      mapPreviewPanel.add(mapJPanelArray[i][j]);                      
+                  }                
+              
+              mapPreviewPanel.revalidate();
+              mapPreviewPanel.repaint();
+          }
+
+        });
+        
+        mapsJlist.setSelectedValue(lastCreateMapName, true);
         return mapsPanel;
   }
-
+  
   /**
    * Initializes the Items panel.
    * @param itemsPanel   This contains reference to Items panel tab.
    * @return 
-   */
+   */  
   private JPanel initItemsPanel() {
     
         JPanel itemsPanel = new JPanel();
@@ -334,7 +383,7 @@ public class CreateStuffDialog extends JDialog{
     
       SpringLayout sl_campaignPanel = new SpringLayout();
       campaignPanel.setLayout(sl_campaignPanel);
-      
+
       DefaultListModel<String> campaignJlistModel = new DefaultListModel<>();
       JList<String> campaignJlist = new JList<String>(campaignJlistModel);
       
@@ -355,6 +404,7 @@ public class CreateStuffDialog extends JDialog{
       btnAdd.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			//Create a Name for the Campaign
 			CampaignNameDialog CND=new CampaignNameDialog();
 		
 		}
@@ -394,5 +444,4 @@ public class CreateStuffDialog extends JDialog{
             
       return campaignPanel;
   }
-
 }

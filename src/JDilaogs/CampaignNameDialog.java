@@ -2,16 +2,26 @@ package JDilaogs;
 
 import java.awt.Rectangle;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 import java.awt.Font;
+
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.MatteBorder;
+
 import java.awt.Color;
+
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
+
+import GameComponents.ExtensionMethods;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 /**
@@ -22,6 +32,8 @@ import java.awt.event.ActionEvent;
 public class CampaignNameDialog extends JDialog {
 	private JTextField campaignName_TextField;
 	private JTextField campaignNameValue;
+	private DefaultListModel<String> campaignName_ListModel;
+	
 	public CampaignNameDialog() {
 		// TODO Auto-generated constructor stub
 		DialogHelper.setDialogProperties(this,"Campaign Name", new Rectangle(440,150));
@@ -48,10 +60,14 @@ public class CampaignNameDialog extends JDialog {
 		JButton btn_addName = new JButton("OK");
 		btn_addName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				//Opens a Dialog with a list of loaded Maps
 				if(campaignNameValue!=null)
 				{
 					NewCampaignInfoDialog ncid=new NewCampaignInfoDialog(campaignNameValue.getText());
-					System.out.println("value is" + campaignNameValue.getText());
+					System.out.println("Map Name typed is " + campaignNameValue.getText());
+					(CampaignNameDialog.this).dispose();
+					//addToCampaigns();
 				}
 				else{
 					
@@ -63,4 +79,14 @@ public class CampaignNameDialog extends JDialog {
 		contentPanel.add(btn_addName);
 	
 	}
+	/*public DefaultListModel<String> addToCampaigns() {
+		// TODO Auto-generated method stub
+		
+		String[] campaignsList = ExtensionMethods.getCampaignsList();
+        for(String campaignName : campaignsList)
+        	campaignName_ListModel.addElement(campaignName);
+        //System.out.println("The Campaign List has files " + campaignsList);
+		return campaignName_ListModel;
+	}
+	*/
 }
