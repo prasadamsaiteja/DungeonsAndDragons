@@ -1,4 +1,4 @@
-package character.wearables.weapons;
+package model.character.wearables.weapons;
 
 import GameComponents.DiceImplementationInterface;
 

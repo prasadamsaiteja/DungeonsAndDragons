@@ -1,4 +1,4 @@
-package character.classes;
+package model.character.classes;
 
 public class Rogue extends CharacterClassAbstract {
 	public Rogue(){

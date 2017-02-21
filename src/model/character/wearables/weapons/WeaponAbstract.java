@@ -1,4 +1,4 @@
-package character.wearables.weapons;
+package model.character.wearables.weapons;
 
 abstract public class WeaponAbstract implements WeaponsInterface {	
 	WeaponsInterface.type type;

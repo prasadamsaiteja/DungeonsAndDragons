@@ -1,7 +1,7 @@
-package character.classes;
+package model.character.classes;
 
 import GameComponents.Dice;
-import character.Character;
+import model.character.Character;
 
 abstract public class CharacterClassAbstract implements CharacterClassInterface {
 	

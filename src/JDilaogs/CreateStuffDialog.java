@@ -19,8 +19,9 @@ import javax.swing.event.ListSelectionListener;
 
 import JDialogs.CreateCharacterDialog;
 import JDialogs.actionlisteners.CharacterDialogBtnAddActionListener;
-import character.Character;
-import character.CharactersList;
+import JDialogs.viewmodels.CharactersListModel;
+import model.character.Character;
+import model.character.CharactersList;
 
 /**
  * This class is a JDialog which helps user to create new campaign, map or character.
@@ -96,13 +97,9 @@ public class CreateStuffDialog extends JDialog{
       characterPanel.setLayout(sl_characterPanel);
       
 
-      DefaultListModel<String> characterList = new DefaultListModel<String>();
+      CharactersListModel characterList = new CharactersListModel();
       JList<String> list = new JList<String>(characterList);
-      ArrayList<Character> cList = CharactersList.get();
-      for (Character c : cList){
-    	  String listElement = c.getName()+" (Level: "+c.getLevel()+")";
-          characterList.addElement(listElement);  
-      }
+     
       list.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
       sl_characterPanel.putConstraint(SpringLayout.NORTH, list, 10, SpringLayout.NORTH, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.WEST, list, 10, SpringLayout.WEST, characterPanel);

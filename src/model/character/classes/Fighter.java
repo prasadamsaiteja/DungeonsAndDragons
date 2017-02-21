@@ -1,4 +1,4 @@
-package character.classes;
+package model.character.classes;
 
 public class Fighter extends CharacterClassAbstract {
 	protected int numberOfRolls = 1;

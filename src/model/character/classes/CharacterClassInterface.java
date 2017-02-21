@@ -1,8 +1,8 @@
-package character.classes;
+package model.character.classes;
 
 import GameComponents.Dice;
 import GameComponents.DiceImplementationInterface;
-import character.Character;
+import model.character.Character;
 
 public interface CharacterClassInterface extends DiceImplementationInterface {
 	public void setCharacterObj(Character character);

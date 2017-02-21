@@ -1,4 +1,4 @@
-package character.wearables.weapons;
+package model.character.wearables.weapons;
 
 /**
  * Longsword is a Melee Weapon which has a score of
@@ -9,7 +9,7 @@ package character.wearables.weapons;
 
 public class Longsword extends WeaponAbstract{
 	public Longsword(){
-		this.weaponLevel = 2;
+		this.weaponLevel = 1;
 		this.setType("melee");
 	}
 }

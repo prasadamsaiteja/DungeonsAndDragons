@@ -10,9 +10,9 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 import GameComponents.Dice;
 import GameComponents.SharedVariables;
 import JDilaogs.DialogHelper;
-import character.Character;
-import character.classes.CharacterClassFactory;
-import character.wearables.weapons.WeaponFactory;
+import model.character.Character;
+import model.character.classes.CharacterClassFactory;
+import model.character.wearables.weapons.WeaponFactory;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -46,6 +46,7 @@ public class CreateCharacterDialog extends JDialog {
 	private JButton btnRoll;
 	private JButton btnSave;
 	private JComboBox<String> cbClass;
+	private JComboBox<String> cbWeapon;
 	private DefaultListModel<String> characterList;
 	
 	/**
@@ -123,13 +124,20 @@ public class CreateCharacterDialog extends JDialog {
 					}
 				}else if(component instanceof JComboBox){
 					JComboBox<String> cBox = (JComboBox<String>) component;
-					Integer index = cBox.getSelectedIndex();
+					Integer index = cBox.getSelectedIndex();	
 					String item = cBox.getItemAt(index);
 					String name = cBox.getName();
+
+					System.out.println(index);
+					System.out.println(name);
+					System.out.println(item);
 					
 					switch(name){
-					case "class":
+					case "characterClass":
 						character.setCharacterClass(item);
+						break;
+					case "weapon":
+						character.setWeaponName(item);
 						break;
 					}
 				}
@@ -272,8 +280,8 @@ public class CreateCharacterDialog extends JDialog {
 		
 		this.cbClass = new JComboBox<String>();
 		ComboBoxModel cbBoxModel = new DefaultComboBoxModel(); 
-		this.cbClass.setModel(al);
-		this.cbClass.setName("class");
+		//this.cbClass.setModel(al);
+		this.cbClass.setName("characterClass");
 		gbc.anchor = GridBagConstraints.NORTH;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridwidth = 2;
@@ -352,18 +360,18 @@ public class CreateCharacterDialog extends JDialog {
 		gbc.gridy = 3;
 		contentPanel.add(Weapons, gbc);
 		
-		this.cbClass = new JComboBox<String>();
-		this.cbClass.setName("weapon");
+		this.cbWeapon = new JComboBox<String>();
+		this.cbWeapon.setName("weapon");
 		gbc.anchor = GridBagConstraints.NORTH;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridx = 2;
 		gbc.gridy = 3;
-		contentPanel.add(this.cbClass, gbc);
+		contentPanel.add(this.cbWeapon, gbc);
 		ArrayList<String> weapons = WeaponFactory.getAllowedWeapons(1);
 		Iterator<String> weaponsIterator = weapons.iterator();
 		while (weaponsIterator.hasNext()){
 			String weapon = weaponsIterator.next();
-			this.cbClass.addItem(weapon);
+			this.cbWeapon.addItem(weapon);
 		}
 		
 		gbc.insets = new Insets(10, 5, 5, 5);
@@ -398,6 +406,7 @@ public class CreateCharacterDialog extends JDialog {
 		dialogComponents.add(this.txtName);
 		dialogComponents.add(this.txtLvl);
 		dialogComponents.add(this.cbClass);
+		dialogComponents.add(this.cbWeapon);
 		ActionListener btnSaveActionListener = new BtnSaveActionListener(dialogComponents, this.characterList);	
 		this.btnSave.addActionListener(btnSaveActionListener);	
 	}

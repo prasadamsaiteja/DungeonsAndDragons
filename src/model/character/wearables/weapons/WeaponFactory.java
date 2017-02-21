@@ -1,4 +1,4 @@
-package character.wearables.weapons;
+package model.character.wearables.weapons;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public class WeaponFactory {
 		
 		for (WeaponFactory.allowedWeapons allowedClass: WeaponFactory.allowedWeapons.values() ){	
 			int weaponLevel = 0;	
-			String weaponClassName = "character.wearables.weapons."+allowedClass.toString();
+			String weaponClassName = "model.character.wearables.weapons."+allowedClass.toString();
 			System.out.println(weaponClassName);
 			
 			try {
@@ -34,7 +34,7 @@ public class WeaponFactory {
 	
 	public static WeaponsInterface get(WeaponFactory.allowedWeapons weapon){
 		WeaponsInterface weaponObj = null;			
-		String weaponName = "character.wearables.weapons."+weapon.toString();	
+		String weaponName = "model.character.wearables.weapons."+weapon.toString();	
 		try {
 			weaponObj = (WeaponsInterface) Class.forName(weaponName).newInstance();
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {

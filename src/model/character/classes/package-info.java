@@ -5,4 +5,4 @@
  * @author supreetuniversity
  *
  */
-package character.classes;
+package model.character.classes;
