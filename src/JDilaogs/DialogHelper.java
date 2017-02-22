@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
 * Dialog helper contains static methods which are helpful for JDialogs.
@@ -43,4 +44,11 @@ public class DialogHelper {
 			dialog.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\saite\\Documents\\Eclipse\\Projects\\DungeonsAndDragons\\app_icon.png"));		
 	}
 
+	/**
+	 * This method shows a basic message with ok button.
+	 * @param message  Message to be displayed to the user.
+	 */
+	public static void showBasicDialog(String message){
+	    JOptionPane.showMessageDialog(null, message);
+	}
 }
