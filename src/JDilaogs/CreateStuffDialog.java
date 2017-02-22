@@ -13,6 +13,7 @@ import java.awt.Color;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
@@ -118,11 +119,13 @@ public class CreateStuffDialog extends JDialog{
     
       sl_characterPanel = new SpringLayout();
       characterPanel.setLayout(sl_characterPanel);
-      
 
       CharactersListModel characterList = new CharactersListModel();
-      JList<String> list = new JList<String>(characterList);
-     
+      JList<String> characterJlist = new JList<String>(characterList);
+
+      JScrollPane scrollPane = new JScrollPane();
+      scrollPane.setViewportView(characterJlist);
+      
       sl_characterPanel.putConstraint(SpringLayout.NORTH, characterJlist, 10, SpringLayout.NORTH, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.WEST, characterJlist, 10, SpringLayout.WEST, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 600, SpringLayout.WEST, characterPanel);
@@ -186,6 +189,9 @@ public class CreateStuffDialog extends JDialog{
                 
         DefaultListModel<String> mapsJlistModel = new DefaultListModel<>();
         JList<String> mapsJlist = new JList<String>(mapsJlistModel);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(mapsJlist);
+        
         sl_mapsPanel.putConstraint(SpringLayout.NORTH, mapsJlist, 10, SpringLayout.NORTH, mapsPanel);
         sl_mapsPanel.putConstraint(SpringLayout.WEST, mapsJlist, 10, SpringLayout.WEST, mapsPanel);
         
@@ -326,6 +332,8 @@ public class CreateStuffDialog extends JDialog{
         
         DefaultListModel<String> itemJlistModel = new DefaultListModel<>();
         JList<String> itemJlist = new JList<String>(itemJlistModel);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(itemJlist);
         
         itemJlist.setFont(new Font("Tahoma", Font.BOLD, 12));
         itemJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
