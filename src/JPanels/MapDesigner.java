@@ -2,7 +2,6 @@ package JPanels;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
@@ -13,12 +12,18 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 import GameComponents.SharedVariables;
+import JDilaogs.CreateStuffDialog;
+import JDilaogs.DialogHelper;
+import ModelClasses.Map;
+import jaxb.MapJaxb;
 import mainPackage.GameLauncher;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+
 import java.awt.Font;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -26,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JRadioButton;
 
 /**
  * Map Designer helps user to create custom maps.
@@ -37,29 +43,74 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("serial")
 public class MapDesigner extends JPanel {
 
+    private JPanel mapJPanelArray[][];   //Map grid
+    private String mapName;
+    private int mapWidth, mapHeight;
+    private Map mapObject;
+  
   /**
    * Map Designer helps user to create custom maps.
    * @param mapName Name of the map.
    * @param width   Width of the map.
    * @param height  Height of the map.
+   * @wbp.parser.constructor
    */
-  public MapDesigner(String mapName, int width, int height) {
-      initComponents(mapName, width, height);     
+  public MapDesigner(String mapName, int mapWidth, int mapHeight) {
+      this.mapName = mapName;
+      this.mapHeight = mapHeight;
+      this.mapWidth = mapWidth;
+      initComponents();     
+  }
+
+  /**
+   * This constructor is called when a map is being loaded
+   * @param mapName This will specify map name
+   */
+  public MapDesigner(String mapName){
+      this.mapName = mapName;
+      mapObject = MapJaxb.getMapFromXml(mapName);
+      
+      if(mapObject == null){
+          DialogHelper.showBasicDialog("Problem loading map");
+          GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+      }
+      
+      else{        
+        mapWidth = mapObject.mapWidth;
+        mapHeight = mapObject.mapHeight;
+        initComponents();        
+        loadMap(mapObject.convertStringArrayToJPanel());
+      }      
+  }
+  
+  /**
+   * Load previously saved map data to display on current map
+   * @param loadedMapData  This is the previous map data
+   */
+  private void loadMap(JPanel[][] loadedMapData) {
+    
+    for(int i = 0; i < mapWidth; i++)    
+        for(int j = 0; j < mapHeight; j++)
+          mapJPanelArray[i][j].setBackground(loadedMapData[i][j].getBackground());
+    
   }
 
   /**
    * Initializes all the UI components.
    * @param mapName Name of the map.
-   * @param width   Width of the map.
-   * @param height  Height of the map.
+   * @param mapWidth   Width of the map.
+   * @param mapHeight  Height of the map.
    */
-  private void initComponents(String mapName, int width, int height) {
+  private void initComponents() {
     
       GridBagLayout gridBagLayout = new GridBagLayout();
       gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0};
       gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
       gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 0.5};
       gridBagLayout.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0};
+      
+      ButtonGroup RadioButtonGroup = new ButtonGroup();
+      
       setLayout(gridBagLayout);
       
       {     //Map panel
@@ -75,18 +126,17 @@ public class MapDesigner extends JPanel {
             gbc_mapPanel.gridy = 0;
             add(mapPanel, gbc_mapPanel);
             
-            mapPanel.setLayout(new GridLayout(width, height));
+            mapPanel.setLayout(new GridLayout(mapWidth, mapHeight));
             mapPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            JPanel panel[][] = new JPanel[width][height];
-            for(int i = 0; i < width; i++)
+            mapJPanelArray = new JPanel[mapWidth][mapHeight];
+            for(int i = 0; i < mapWidth; i++)
             {
-                for(int j = 0; j < height; j++)
+                for(int j = 0; j < mapHeight; j++)
                 {
-                    panel[i][j] = new JPanel();
-                    panel[i][j].setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);                  
-                    panel[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    panel[i][j].setPreferredSize(new Dimension(35, 35));
-                    panel[i][j].addMouseListener(new MouseListener() {
+                    mapJPanelArray[i][j] = new JPanel();
+                    mapJPanelArray[i][j].setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);                  
+                    mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                    mapJPanelArray[i][j].addMouseListener(new MouseListener() {
                       
                       @Override
                       public void mouseReleased(MouseEvent e) {
@@ -95,46 +145,62 @@ public class MapDesigner extends JPanel {
                       
                       @Override
                       public void mousePressed(MouseEvent e) {
-                        
+                        mapCellClicked(((JPanel) e.getSource()), RadioButtonGroup);
                       }
                       
                       @Override
                       public void mouseExited(MouseEvent e) {
-                        ((JPanel) e.getSource()).setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);
+                        if(((JPanel) e.getSource()).getBackground() == SharedVariables.MAP_MOUSE_HOVER_COLOR)
+                          ((JPanel) e.getSource()).setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);
                       }
                       
                       @Override
                       public void mouseEntered(MouseEvent e) {
-                        ((JPanel) e.getSource()).setBackground(SharedVariables.MAP_MOUSE_HOVER_COLOR);
+                        if(((JPanel) e.getSource()).getBackground() == SharedVariables.MAP_DEFAULT_CELL_COLOR)
+                          ((JPanel) e.getSource()).setBackground(SharedVariables.MAP_MOUSE_HOVER_COLOR);
                       }
                       
                       @Override
                       public void mouseClicked(MouseEvent e) {
-                                                
-                      }
+                          
+                      }                   
                     });
-                    mapPanel.add(panel[i][j]);
+                    mapPanel.add(mapJPanelArray[i][j]);
                 }
             }             
       }
       
-      {     //Design panel
-            JPanel designPanel = new JPanel();
+      initDesignPanel(mapName, RadioButtonGroup);
+      
+  }
+
+  /**
+   * Initializes Design panel
+   * @param mapName This contains map name.
+   * @param RadioButtonGroup    RadioButtonGroup reference to link radio buttons.
+   */
+  private void initDesignPanel(String mapName, ButtonGroup RadioButtonGroup) {
+    
+         JPanel designPanel = new JPanel();
+         
+        {   //Initialize Design panel          
             designPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.GRAY, null));
             designPanel.setBackground(Color.WHITE);
-            GridBagConstraints gbc_designPanel = new GridBagConstraints();
-            gbc_designPanel.gridheight = 5;
-            gbc_designPanel.fill = GridBagConstraints.BOTH;
-            gbc_designPanel.gridx = 4;
-            gbc_designPanel.gridy = 0;
-            add(designPanel, gbc_designPanel);
-            GridBagLayout gbl_designPanel = new GridBagLayout();
-            gbl_designPanel.columnWidths = new int[]{0};
-            gbl_designPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-            gbl_designPanel.columnWeights = new double[]{1.0};
-            gbl_designPanel.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
-            designPanel.setLayout(gbl_designPanel);
-            
+            GridBagConstraints gbc_designPanel_1 = new GridBagConstraints();
+            gbc_designPanel_1.gridheight = 5;
+            gbc_designPanel_1.fill = GridBagConstraints.BOTH;
+            gbc_designPanel_1.gridx = 4;
+            gbc_designPanel_1.gridy = 0;
+            add(designPanel, gbc_designPanel_1);
+            GridBagLayout gbl_designPanel_1 = new GridBagLayout();
+            gbl_designPanel_1.columnWidths = new int[]{0};
+            gbl_designPanel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            gbl_designPanel_1.columnWeights = new double[]{1.0};
+            gbl_designPanel_1.rowWeights = new double[]{0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0};
+            designPanel.setLayout(gbl_designPanel_1);
+        }
+        
+        {   //Initialize Map name panel
             JPanel mapNamePanel = new JPanel();
             mapNamePanel.setBackground(Color.WHITE);
             mapNamePanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), new EtchedBorder()));
@@ -156,7 +222,9 @@ public class MapDesigner extends JPanel {
             lblMapNameValue.setFont(new Font("Tahoma", Font.PLAIN, 12));
             lblMapNameValue.setHorizontalAlignment(SwingConstants.CENTER);
             mapNamePanel.add(lblMapNameValue);
-            
+        }
+        
+        {   //Initialize Components panel
             JPanel componentsPanel = new JPanel();
             componentsPanel.setBackground(Color.WHITE);
             componentsPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), new EtchedBorder()));
@@ -169,73 +237,230 @@ public class MapDesigner extends JPanel {
             designPanel.add(componentsPanel, gbc_componentsPanel);
             componentsPanel.setLayout(new GridLayout(0, 2));           
             
-            componentsPanel.add(new JButton("test"));         
-            JLabel label = new JLabel("Wall");
-            label.setFont(new Font("Tahoma", Font.BOLD, 12));
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            componentsPanel.add(label);
+            //Wall
+            JRadioButton rdbtnWall = new JRadioButton("");
+            rdbtnWall.setSelected(true);
+            rdbtnWall.setHorizontalAlignment(SwingConstants.CENTER);
+            rdbtnWall.setBackground(Color.BLACK);
+            rdbtnWall.setActionCommand(SharedVariables.WALL_STRING);
+            componentsPanel.add(rdbtnWall);                 
+            JLabel wallLabel = new JLabel("Wall");
+            wallLabel.setLabelFor(rdbtnWall);
+            wallLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+            wallLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            componentsPanel.add(wallLabel);
             
-            componentsPanel.add(new JButton("test"));
-            JLabel label_1 = new JLabel("Player");
-            label_1.setHorizontalAlignment(SwingConstants.CENTER);
-            label_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-            componentsPanel.add(label_1);
+            /*//Player
+            JRadioButton rdbtnPlayer = new JRadioButton("");
+            rdbtnPlayer.setBackground(Color.BLUE);
+            rdbtnPlayer.setHorizontalAlignment(SwingConstants.CENTER);
+            rdbtnPlayer.setActionCommand(SharedVariables.PLAYER_STRING);
+            componentsPanel.add(rdbtnPlayer);
+            JLabel playerLabel = new JLabel("Player");
+            playerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            playerLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+            componentsPanel.add(playerLabel);*/
             
-            componentsPanel.add(new JButton("test"));
-            JLabel label_2 = new JLabel("Monster");
-            label_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-            label_2.setHorizontalAlignment(SwingConstants.CENTER);
-            componentsPanel.add(label_2);
+            //Monster
+            JRadioButton rdbtnMonster = new JRadioButton("");
+            rdbtnMonster.setBackground(Color.RED);
+            rdbtnMonster.setHorizontalAlignment(SwingConstants.CENTER);
+            rdbtnMonster.setActionCommand(SharedVariables.MONSTER_STRING);
+            componentsPanel.add(rdbtnMonster);
+            JLabel monsterLabel = new JLabel("Monster");
+            monsterLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+            monsterLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            componentsPanel.add(monsterLabel);
             
-            componentsPanel.add(new JButton("test"));
-            JLabel label_3 = new JLabel("Entry door");
-            label_3.setFont(new Font("Tahoma", Font.BOLD, 12));
-            label_3.setHorizontalAlignment(SwingConstants.CENTER);
-            componentsPanel.add(label_3);
+            //Entry door
+            JRadioButton rdbtnEntryDoor = new JRadioButton("");
+            rdbtnEntryDoor.setBackground(Color.MAGENTA);
+            rdbtnEntryDoor.setHorizontalAlignment(SwingConstants.CENTER);
+            rdbtnEntryDoor.setActionCommand(SharedVariables.ENTRY_DOOR_STRING);
+            componentsPanel.add(rdbtnEntryDoor);
+            JLabel entryDoorLabel = new JLabel("Entry door");
+            entryDoorLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+            entryDoorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            componentsPanel.add(entryDoorLabel);
             
-            componentsPanel.add(new JButton("test"));
-            JLabel label_4 = new JLabel("Exit door");
-            label_4.setFont(new Font("Tahoma", Font.BOLD, 12));
-            label_4.setHorizontalAlignment(SwingConstants.CENTER);
-            componentsPanel.add(label_4);
+            //Exit door
+            JRadioButton rdbtnExitDoor = new JRadioButton("");
+            rdbtnExitDoor.setBackground(Color.PINK);
+            rdbtnExitDoor.setHorizontalAlignment(SwingConstants.CENTER);
+            rdbtnExitDoor.setActionCommand(SharedVariables.EXIT_DOOR_STRING);
+            componentsPanel.add(rdbtnExitDoor);
+            JLabel exitDoorLabel = new JLabel("Exit door");
+            exitDoorLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+            exitDoorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            componentsPanel.add(exitDoorLabel);
             
-            componentsPanel.add(new JButton("test"));
-            JLabel label_5 = new JLabel("Chest");
-            label_5.setFont(new Font("Tahoma", Font.BOLD, 12));
-            label_5.setHorizontalAlignment(SwingConstants.CENTER);
-            componentsPanel.add(label_5);
+            //Chest
+            JRadioButton rdbtnChest = new JRadioButton("");
+            rdbtnChest.setBackground(Color.YELLOW);
+            rdbtnChest.setHorizontalAlignment(SwingConstants.CENTER);
+            rdbtnChest.setActionCommand(SharedVariables.CHEST_STRING);
+            componentsPanel.add(rdbtnChest);
+            JLabel chestLabel = new JLabel("Chest");
+            chestLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+            chestLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            componentsPanel.add(chestLabel);
             
-            componentsPanel.add(new JButton("test"));
-            JLabel label_6 = new JLabel("Key");
-            label_6.setFont(new Font("Tahoma", Font.BOLD, 12));
-            label_6.setHorizontalAlignment(SwingConstants.CENTER);
-            componentsPanel.add(label_6);
+            //Key
+            JRadioButton rdbtnKey = new JRadioButton("");
+            rdbtnKey.setBackground(Color.CYAN);
+            rdbtnKey.setHorizontalAlignment(SwingConstants.CENTER);
+            rdbtnKey.setActionCommand(SharedVariables.KEY_STRING);
+            componentsPanel.add(rdbtnKey);
+            JLabel keyLabel = new JLabel("Key");
+            keyLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+            keyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            componentsPanel.add(keyLabel);
             
-            JButton btnCancel = new JButton("Cancel");
-            btnCancel.addActionListener(new ActionListener() {
+            //Adding radio buttons to radio group
+            RadioButtonGroup.add(rdbtnWall);
+            //RadioButtonGroup.add(rdbtnPlayer);
+            RadioButtonGroup.add(rdbtnMonster);
+            RadioButtonGroup.add(rdbtnKey);
+            RadioButtonGroup.add(rdbtnEntryDoor);
+            RadioButtonGroup.add(rdbtnExitDoor);
+            RadioButtonGroup.add(rdbtnChest);
+        }
+        
+        initSaveAndCancelButtons(designPanel);
+            
+  }
+
+  /**
+   * Initializes clear map, save and cancel buttons
+   * @param designPanel Reference to design panel
+   */
+  private void initSaveAndCancelButtons(JPanel designPanel) {
+    
+      JButton btnNewButton = new JButton("Clear map");
+      btnNewButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent arg0) {
+          for(int i = 0; i < mapWidth; i++)          
+              for(int j = 0; j < mapHeight; j++)               
+                  mapJPanelArray[i][j].setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);                           
+        }
+      });
+      btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+      GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+      gbc_btnNewButton.fill = GridBagConstraints.BOTH;
+      gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+      gbc_btnNewButton.gridx = 0;
+      gbc_btnNewButton.gridy = 10;
+      designPanel.add(btnNewButton, gbc_btnNewButton);
+      
+      JPanel panel = new JPanel();
+      GridBagConstraints gbc_panel = new GridBagConstraints();
+      gbc_panel.fill = GridBagConstraints.BOTH;
+      gbc_panel.gridx = 0;
+      gbc_panel.gridy = 11;
+      designPanel.add(panel, gbc_panel);
+      panel.setLayout(new GridLayout(1, 0, 0, 0));
+      JButton btnCancel = new JButton("Cancel");        
+      btnCancel.addActionListener(new ActionListener() {
               @Override
-			public void actionPerformed(ActionEvent e) {
-                  GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
-              }
-            });
-            btnCancel.setFont(new Font("Tahoma", Font.BOLD, 14));
-            GridBagConstraints gbc_btnCancel = new GridBagConstraints();
-            gbc_btnCancel.fill = GridBagConstraints.BOTH;
-            gbc_btnCancel.insets = new Insets(0, 0, 5, 0);
-            gbc_btnCancel.gridx = 0;
-            gbc_btnCancel.gridy = 8;
-            designPanel.add(btnCancel, gbc_btnCancel);
-            
-            
-            JButton btnSaveButton = new JButton("Save");
-            btnSaveButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-            GridBagConstraints gbc_btnSaveButton = new GridBagConstraints();
-            btnSaveButton.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-            gbc_btnSaveButton.fill = GridBagConstraints.BOTH;
-            gbc_btnSaveButton.gridx = 0;
-            gbc_btnSaveButton.gridy = 9;
-            designPanel.add(btnSaveButton, gbc_btnSaveButton);
+        public void actionPerformed(ActionEvent e) {
+            GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+        }
+      });
+      btnCancel.setFont(new Font("Tahoma", Font.BOLD, 14));
+      panel.add(btnCancel);
+      
+      JButton btnSaveButton = new JButton("Save");        
+      btnSaveButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent arg0) {
+            if(validateMap()){
+              MapJaxb.convertMapObjectToXml(new Map(mapName, mapWidth, mapHeight, mapJPanelArray));
+              GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+              new CreateStuffDialog(2, mapName);  
+            }            
+        }
+
+        private boolean validateMap() {
+          
+          //boolean isPlayerExists = isObjectPlaced(SharedVariables.MAP_PLAYER_CELL_COLOR);
+          boolean isExitDoorExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING));
+          boolean isEntryDoorExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING));
+          boolean isObjectiveExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING)) || isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.KEY_STRING));
+
+          /*if(!isPlayerExists){
+            DialogHelper.showBasicDialog("Need a player to continue");
+            return false;
+          }
+          
+          else */if(!isExitDoorExists){
+            DialogHelper.showBasicDialog("Need a exit door to continue");
+            return false;
+          }
+          
+          else if(!isEntryDoorExists){
+            DialogHelper.showBasicDialog("Need a entry door to continue");
+            return false;
+          }
+          
+          else if(!isObjectiveExists){
+            DialogHelper.showBasicDialog("Need a object to continue, place either a monster or a key");
+            return false;
+          }
+          
+          return true;
+        }
+      });
+      btnSaveButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+      btnSaveButton.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+      panel.add(btnSaveButton);
+  }
+
+  /**
+   * This method is called on map edit click event, which places the components (player, wall etc).
+   * @param jPanel  This contains reference to the clicked JPanel
+   * @param radioButtonGroup    This contains reference to RadioButtonGroup, which states which component should be placed.
+   */
+  private void mapCellClicked(JPanel jPanel, final ButtonGroup radioButtonGroup) {
+         
+      if(getColorFromSelectedRadioButton(radioButtonGroup) == jPanel.getBackground())
+          jPanel.setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);  
+      
+      else{
+        if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.MAP_PLAYER_CELL_COLOR && isObjectPlaced(SharedVariables.MAP_PLAYER_CELL_COLOR))
+          DialogHelper.showBasicDialog("You have already placed a player");
+      
+      else if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING) && isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING)))
+          DialogHelper.showBasicDialog("You have already placed a entry door");
+        
+      else if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING) && isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING)))
+        DialogHelper.showBasicDialog("You have already placed a exit door");      
+        
+      else
+        jPanel.setBackground(getColorFromSelectedRadioButton(radioButtonGroup));  
       }
+                  
+  }
+  
+  /**
+   * This method returns selected radio button color.
+   * @param radioButtonGroup    This contains reference to Radio button group.
+   * @return    Returns selected radio button color.
+   */
+  private Color getColorFromSelectedRadioButton(final ButtonGroup radioButtonGroup){
+        return SharedVariables.mapCellHashMap.get(radioButtonGroup.getSelection().getActionCommand());
+  }
+
+  /**
+   * This method check whether user played player character or not
+   * @return   Boolean value of the search
+   */
+  private Boolean isObjectPlaced(Color objectColor){
+    
+    for(int i = 0; i < mapWidth; i++)    
+        for(int j = 0; j < mapHeight; j++)
+            if(mapJPanelArray[i][j].getBackground() == objectColor)
+              return true;
+           
+      return false;
   }
 
 }
