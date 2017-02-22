@@ -8,7 +8,7 @@ import GameComponents.Dice;
 import JDilaogs.DialogHelper;
 import model.character.Character;
 import model.character.CharactersList;
-import model.character.classes.CharacterClassFactory;
+import model.character.classes.CharacterClass;
 import model.character.wearables.weapons.WeaponFactory;
 
 import javax.swing.JLabel;
@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 
 @SuppressWarnings("serial")
 public class CreateCharacterDialog extends JDialog {
@@ -58,6 +59,7 @@ public class CreateCharacterDialog extends JDialog {
 			this.txtFields = txtFields;
 		}
 		
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			// Initiate the dice object with a 4D6 (returns sum of highest 3 rolls)
 			Dice dice = new Dice(4, 6, 3);
@@ -90,6 +92,7 @@ public class CreateCharacterDialog extends JDialog {
 			this.characterList = characterList;
 		}
 		
+		@Override
 		public void actionPerformed(ActionEvent e) {	
 			Character character = new Character();
 			
@@ -219,12 +222,10 @@ public class CreateCharacterDialog extends JDialog {
 		gbc.gridx = 9;
 		gbc.gridy = 0;
 		contentPanel.add(this.cbClass, gbc);
-		ArrayList<String> characterClasses = CharacterClassFactory.getAllowedClasses();
-		Iterator<String> characterClassesIterator = characterClasses.iterator();
+		Set<String> characterClasses = CharacterClass.getAllowedClasses();
 		
-		while(characterClassesIterator.hasNext())
+		for(String cClass: characterClasses)
 		{
-			String cClass = characterClassesIterator.next();
 			this.cbClass.addItem(cClass);
 		}
 		

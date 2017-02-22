@@ -106,7 +106,8 @@ public class LaunchScreen extends JPanel {
 		});
 		
 	     btnCreateStuff.addActionListener(new ActionListener() {
-	         public void actionPerformed(ActionEvent arg0) {
+	         @Override
+			public void actionPerformed(ActionEvent arg0) {
 	           new CreateStuffDialog();
 	         }
 	     });

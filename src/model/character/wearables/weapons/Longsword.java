@@ -11,5 +11,7 @@ public class Longsword extends WeaponAbstract{
 	public Longsword(){
 		this.weaponLevel = 1;
 		this.setType("melee");
+		this.diceSides = 6;
+		this.numberOfRolls = 4;
 	}
 }

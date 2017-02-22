@@ -3,19 +3,16 @@ package model.character;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Observable;
-
-import javax.swing.JOptionPane;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import GameComponents.Dice;
 import GameComponents.SharedVariables;
-import model.character.classes.CharacterClassFactory;
-import model.character.classes.CharacterClassInterface;
+import model.character.classes.CharacterClass;
+import model.character.classes.CharacterClassStructure;
 import model.character.wearables.weapons.WeaponFactory;
 import model.character.wearables.weapons.WeaponsInterface;
 
@@ -169,18 +166,16 @@ public class Character extends Observable {
 	 */
 	public void build() {
 		// Build characters class and get hit score
-		CharacterClassInterface cClass = CharacterClassFactory.get(
-											CharacterClassFactory.getValidParam(this.getCharacterClass())
-										 );
+		CharacterClass cClass = new CharacterClass(this.getCharacterClass(), this);
+		CharacterClassStructure	cClassVal = cClass.get();
 		
-		cClass.setCharacterObj(this);
-		
-		this.hitScore = cClass.getHitScore(
-							new Dice(cClass.getNumberOfRolls(), 
-									 cClass.getDiceSides(), 
-									 cClass.getNumberOfRolls()
+		cClass.calculateHitScore(
+							new Dice(cClassVal.getNumberOfRolls(), 
+									 cClassVal.getDiceSides(), 
+									 cClassVal.getNumberOfRolls()
 								)
 						);
+		this.hitScore = cClass.getHitScore();
 		this.isBuilt = true;
 	}
 
