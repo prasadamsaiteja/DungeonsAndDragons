@@ -1,5 +1,6 @@
 package JFrames;
 
+import java.awt.Frame;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -25,7 +26,7 @@ public class MainFrame extends JFrame {
 	    setIconImage(Toolkit.getDefaultToolkit().getImage("app_icon.png"));
 		setUndecorated(true);
 		getContentPane().add(new LaunchScreen());
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setVisible(true);
 	}
 

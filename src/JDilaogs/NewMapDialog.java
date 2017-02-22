@@ -14,6 +14,8 @@ import mainPackage.GameLauncher;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -60,14 +62,14 @@ public class NewMapDialog extends JDialog {
 
 		{ 	//Map dimension text field width			
 			map_dimesions_x.setBounds(110, 45, 32, 23);
-			map_dimesions_x.setHorizontalAlignment(JTextField.CENTER);
+			map_dimesions_x.setHorizontalAlignment(SwingConstants.CENTER);
 			contentPanel.add(map_dimesions_x);
 			map_dimesions_x.setColumns(10);
 		}
 
 		{ 	//Map dimension text field height			
 			map_dimesions_y.setColumns(10);
-			map_dimesions_y.setHorizontalAlignment(JTextField.CENTER);
+			map_dimesions_y.setHorizontalAlignment(SwingConstants.CENTER);
 			map_dimesions_y.setBounds(179, 45, 32, 23);
 			contentPanel.add(map_dimesions_y);
 		}
@@ -83,7 +85,8 @@ public class NewMapDialog extends JDialog {
 				{
 					JButton okButton = new JButton("Next");
 					okButton.addActionListener(new ActionListener() {
-					  public void actionPerformed(ActionEvent e) {
+					  @Override
+					public void actionPerformed(ActionEvent e) {
 					      if(parent != null)
 					          parent.dispose();
 					      dispose();		

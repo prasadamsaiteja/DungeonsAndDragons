@@ -213,7 +213,8 @@ public class MapDesigner extends JPanel {
             
             JButton btnCancel = new JButton("Cancel");
             btnCancel.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
+              @Override
+			public void actionPerformed(ActionEvent e) {
                   GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
               }
             });

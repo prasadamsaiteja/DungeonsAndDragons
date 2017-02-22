@@ -4,24 +4,17 @@ import java.awt.Rectangle;
 
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import JDialogs.CreateCharacterDialog;
 import JDialogs.actionlisteners.CharacterDialogBtnAddActionListener;
 import JDialogs.viewmodels.CharactersListModel;
-import model.character.Character;
-import model.character.CharactersList;
 
 /**
  * This class is a JDialog which helps user to create new campaign, map or character.
@@ -49,7 +42,7 @@ public class CreateStuffDialog extends JDialog{
    */
   private void initComponents() {
     
-    JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+    JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP);
     tabbedPane.setBounds(10, 11, 615, 312);
     getContentPane().add(tabbedPane);
     
@@ -78,7 +71,8 @@ public class CreateStuffDialog extends JDialog{
     {   //Done button
         JButton btnDone = new JButton("Done");
         btnDone.addActionListener(new ActionListener() {
-          public void actionPerformed(ActionEvent arg0) {
+          @Override
+		public void actionPerformed(ActionEvent arg0) {
             dispose();
           }
         });
@@ -140,7 +134,8 @@ public class CreateStuffDialog extends JDialog{
         
         JButton btnAdd = new JButton("Create");
         btnAdd.addActionListener(new ActionListener() {
-          public void actionPerformed(ActionEvent arg0) {              
+          @Override
+		public void actionPerformed(ActionEvent arg0) {              
               new NewMapDialog(CreateStuffDialog.this);
           }
         });
