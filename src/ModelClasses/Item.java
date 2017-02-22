@@ -9,13 +9,13 @@ import GameComponents.SharedVariables.ItemType;
 public class Item {
   
       @XmlElement(name="itemName")   
-      private String itemName;     
+      public String itemName;     
       @XmlElement(name="itemType")   
-      private ItemType itemType;
+      public ItemType itemType;
       @XmlElement(name="itemClass")   
-      private String itemClass;     
+      public String itemClass;     
       @XmlElement(name="itemLevel")   
-      private int itemLevel;
+      public int itemLevel;
       
       public Item(String itemName, ItemType itemType, String itemClass, int itemLevel){
           itemName = this.itemName;
