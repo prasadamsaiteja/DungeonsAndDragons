@@ -43,6 +43,7 @@ public class LaunchScreen extends JPanel {
 
 	/**
 	 * This method initialize the UI components.
+	 * 
      * @param btnNewCampaign   This contains the reference to new campaign button.
      * @param btnCreateStuff   This contains the reference to create stuff button.
      * @param exitButton       This contains the reference to exit button.
@@ -59,34 +60,33 @@ public class LaunchScreen extends JPanel {
 			setLayout(gridBagLayout);
 		}
 		
+		Dimension btnDim = new Dimension(120, 120);
+		Font btnFont = new Font("Tahoma", Font.BOLD, 11);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(0, 0, 5, 5);
+		
 		{	//New game button			
-			btnNewCampaign.setPreferredSize(new Dimension(120, 120));
-			btnNewCampaign.setFont(new Font("Tahoma", Font.BOLD, 11));
-			GridBagConstraints gbc_btnNewCampaign = new GridBagConstraints();
-			gbc_btnNewCampaign.insets = new Insets(0, 0, 5, 5);
-			gbc_btnNewCampaign.gridx = 1;
-			gbc_btnNewCampaign.gridy = 1;
-			add(btnNewCampaign, gbc_btnNewCampaign);
+			btnNewCampaign.setPreferredSize(btnDim);
+			btnNewCampaign.setFont(btnFont);
+			gbc.gridx = 1;
+			gbc.gridy = 1;
+			add(btnNewCampaign, gbc);
 		}
 		
 		{	//Load game button			
-			btnCreateStuff.setPreferredSize(new Dimension(120, 120));
-			btnCreateStuff.setFont(new Font("Tahoma", Font.BOLD, 11));
-			GridBagConstraints gbc_btnCreateStuff = new GridBagConstraints();
-			gbc_btnCreateStuff.insets = new Insets(0, 0, 5, 5);
-			gbc_btnCreateStuff.gridx = 3;
-			gbc_btnCreateStuff.gridy = 1;
-			add(btnCreateStuff, gbc_btnCreateStuff);
+			btnCreateStuff.setPreferredSize(btnDim);
+			btnCreateStuff.setFont(btnFont);
+			gbc.gridx = 5;
+			gbc.gridy = 2;
+			add(btnCreateStuff, gbc);
 		}
 		
 		{	//Exit game button			
-			btnExit.setPreferredSize(new Dimension(120, 120));
-			btnExit.setFont(new Font("Tahoma", Font.BOLD, 11));
-			GridBagConstraints gbc_btnExit = new GridBagConstraints();
-			gbc_btnExit.insets = new Insets(0, 0, 5, 5);
-			gbc_btnExit.gridx = 5;
-			gbc_btnExit.gridy = 1;
-			add(btnExit, gbc_btnExit);
+			btnExit.setPreferredSize(btnDim);
+			btnExit.setFont(btnFont);
+			gbc.gridx = 5;
+			gbc.gridy = 1;
+			add(btnExit, gbc);
 		}
 	}
 	
@@ -106,7 +106,8 @@ public class LaunchScreen extends JPanel {
 		});
 		
 	     btnCreateStuff.addActionListener(new ActionListener() {
-	         public void actionPerformed(ActionEvent arg0) {
+	         @Override
+			public void actionPerformed(ActionEvent arg0) {
 	           new CreateStuffDialog();
 	         }
 	     });
