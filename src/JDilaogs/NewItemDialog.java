@@ -1,6 +1,8 @@
 package JDilaogs;
 
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -23,12 +25,13 @@ import GameComponents.SharedVariables.HelmetClass;
 import GameComponents.SharedVariables.RingClass;
 import GameComponents.SharedVariables.ShieldClass;
 import GameComponents.SharedVariables.WeaponClass;
+import ModelClasses.Item;
+import jaxb.ItemJaxb;
 
 import java.awt.Font;
 import javax.swing.JSlider;
 import javax.swing.JComboBox;
 
-@SuppressWarnings("serial")
 /**
  * This class create dialog for new item
  * @author saiteja prasadam
@@ -36,8 +39,8 @@ import javax.swing.JComboBox;
  * @since 2/20/2017
  *
  */
+@SuppressWarnings("serial")
 public class NewItemDialog extends JDialog {
-  private JTextField itemNameTextField;
 
     public NewItemDialog(){
         DialogHelper.setDialogProperties(this, "New Item", new Rectangle(440, 227));
@@ -46,6 +49,9 @@ public class NewItemDialog extends JDialog {
         initComponents();
     }
 
+    /**
+     * This method initializes the UI components
+     */
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void initComponents() {
       
@@ -63,7 +69,7 @@ public class NewItemDialog extends JDialog {
         lblItemName.setBounds(10, 11, 101, 20);
         panel.add(lblItemName);
         
-        itemNameTextField = new JTextField();
+        JTextField itemNameTextField = new JTextField();
         itemNameTextField.setBounds(141, 13, 263, 20);
         panel.add(itemNameTextField);
         itemNameTextField.setColumns(10);
@@ -162,6 +168,7 @@ public class NewItemDialog extends JDialog {
         
         //JSlider 
         JSlider itemLevelSlider = new JSlider(JSlider.HORIZONTAL, 1, 20, 1);
+        ItemLevelValueLabel.setText(String.valueOf(itemLevelSlider.getValue()));
         itemLevelSlider.setBackground(Color.WHITE);
         itemLevelSlider.setBounds(141, 104, 235, 26);
         itemLevelSlider.addChangeListener(new ChangeListener() {
@@ -174,6 +181,18 @@ public class NewItemDialog extends JDialog {
         //Create Item button
         JButton btnCreateItem = new JButton("Create Item");
         btnCreateItem.setBounds(308, 163, 116, 23);
+        btnCreateItem.addActionListener(new ActionListener() {
+          
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              if(itemNameTextField.getText().length() < 4){
+                  DialogHelper.showBasicDialog("Item name should have more than 4 characters");
+                  return ;
+              }
+              
+              ItemJaxb.convertItemObjectToXml(new Item(itemNameTextField.getText(), (GameComponents.SharedVariables.ItemType) itemTypesComboBox.getSelectedItem(), (String) itemClassComboBox.getSelectedItem(), itemLevelSlider.getValue()));
+          }
+        });
         getContentPane().add(btnCreateItem);
     }
 }
