@@ -1,4 +1,4 @@
-package jaxb;
+package views.jaxb;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,8 +11,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import GameComponents.SharedVariables;
-import ModelClasses.Map;
+import components.SharedVariables;
+import model.Map;
 
 public class MapJaxb {
 

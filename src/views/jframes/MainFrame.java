@@ -1,4 +1,4 @@
-package JFrames;
+package views.jframes;
 
 import java.awt.Frame;
 import java.awt.Toolkit;
@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import JPanels.LaunchScreen;
+import views.jpanels.LaunchScreen;
 
 /**
  * This class create main JFrame in which JPanels are placed.

@@ -1,12 +1,12 @@
-package JDialogs.actionlisteners;
+package views.jdialogs.actionlisteners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
 
-import JDialogs.CreateCharacterDialog;
-import JDilaogs.CreateStuffDialog;
+import views.jdialogs.CreateCharacterDialog;
+import views.jdialogs.CreateStuffDialog;
 
 public class CharacterDialogBtnAddActionListener implements ActionListener {
 	private DefaultListModel<String> characterList;

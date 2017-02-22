@@ -1,4 +1,4 @@
- package JDilaogs;
+ package views.jdialogs;
 
 import java.awt.Rectangle;
 

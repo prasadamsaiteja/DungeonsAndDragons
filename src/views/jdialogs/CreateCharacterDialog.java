@@ -1,11 +1,10 @@
-package JDialogs;
+package views.jdialogs;
 
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.event.ListDataListener;
 
-import GameComponents.Dice;
-import JDilaogs.DialogHelper;
+import components.Dice;
 import model.character.Character;
 import model.character.CharactersList;
 import model.character.classes.CharacterClass;

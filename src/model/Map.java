@@ -1,10 +1,10 @@
-package ModelClasses;
+package model;
 
 import javax.swing.JPanel;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import GameComponents.SharedVariables;
+import components.SharedVariables;
 
 @XmlRootElement(name="Map")
 /**
