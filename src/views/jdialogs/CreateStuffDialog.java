@@ -1,4 +1,4 @@
-package JDilaogs;
+package views.jdialogs;
 
 import java.awt.Rectangle;
 
@@ -17,17 +17,17 @@ import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
-import JDialogs.actionlisteners.CharacterDialogBtnAddActionListener;
-import JDialogs.viewmodels.CharactersListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import GameComponents.ExtensionMethods;
-import GameComponents.SharedVariables;
-import JPanels.MapDesigner;
-import ModelClasses.Map;
-import jaxb.MapJaxb;
-import mainPackage.GameLauncher;
+import components.ExtensionMethods;
+import components.SharedVariables;
+import main.GameLauncher;
+import model.Map;
+import views.jaxb.MapJaxb;
+import views.jdialogs.actionlisteners.CharacterDialogBtnAddActionListener;
+import views.jdialogs.viewmodels.CharactersListModel;
+import views.jpanels.MapDesigner;
 
 import java.awt.Font;
 import java.awt.GridLayout;

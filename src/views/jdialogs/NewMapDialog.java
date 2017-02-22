@@ -1,4 +1,4 @@
-package JDilaogs;
+package views.jdialogs;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -9,8 +9,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import JPanels.MapDesigner;
-import mainPackage.GameLauncher;
+import main.GameLauncher;
+import views.jpanels.MapDesigner;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;

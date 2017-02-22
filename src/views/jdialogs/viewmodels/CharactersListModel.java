@@ -1,4 +1,4 @@
-package JDialogs.viewmodels;
+package views.jdialogs.viewmodels;
 
 import java.util.ArrayList;
 import java.util.Observable;

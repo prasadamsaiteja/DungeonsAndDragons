@@ -11,7 +11,7 @@ import java.util.Observable;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
-import GameComponents.SharedVariables;
+import components.SharedVariables;
 
 /**
  * Singleton class that loads all the available characters in a list 

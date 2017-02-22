@@ -1,4 +1,4 @@
-package GameComponents;
+package components;
 
 import java.io.File;
 

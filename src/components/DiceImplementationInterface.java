@@ -1,4 +1,4 @@
-package GameComponents;
+package components;
 
 public interface DiceImplementationInterface {
 	public int getDiceSides();

@@ -1,9 +1,9 @@
-package JPanels;
+package views.jpanels;
 
 import javax.swing.JPanel;
 
-import JDilaogs.CreateStuffDialog;
-import JDilaogs.NewCampaigneDialog;
+import views.jdialogs.CreateStuffDialog;
+import views.jdialogs.NewCampaigneDialog;
 
 import java.awt.Color;
 import java.awt.Dimension;

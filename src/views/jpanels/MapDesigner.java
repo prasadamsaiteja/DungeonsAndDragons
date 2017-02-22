@@ -1,4 +1,4 @@
-package JPanels;
+package views.jpanels;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -11,12 +11,12 @@ import java.awt.Insets;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
-import GameComponents.SharedVariables;
-import JDilaogs.CreateStuffDialog;
-import JDilaogs.DialogHelper;
-import ModelClasses.Map;
-import jaxb.MapJaxb;
-import mainPackage.GameLauncher;
+import components.SharedVariables;
+import main.GameLauncher;
+import model.Map;
+import views.jaxb.MapJaxb;
+import views.jdialogs.CreateStuffDialog;
+import views.jdialogs.DialogHelper;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
