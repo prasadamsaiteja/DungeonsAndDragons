@@ -3,25 +3,27 @@ package ModelClasses;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import GameComponents.SharedVariables.ItemType;
-
 @XmlRootElement(name="Item")
 public class Item {
   
       @XmlElement(name="itemName")   
       public String itemName;     
       @XmlElement(name="itemType")   
-      public ItemType itemType;
+      public String itemType;
       @XmlElement(name="itemClass")   
       public String itemClass;     
       @XmlElement(name="itemLevel")   
       public int itemLevel;
       
-      public Item(String itemName, ItemType itemType, String itemClass, int itemLevel){
-          itemName = this.itemName;
-          itemType = this.itemType;
-          itemClass = this.itemClass;
-          itemLevel = this.itemLevel;
+      public Item(String name, String type, String itemclass, int level){
+          itemName = name;
+          itemType = type;
+          itemClass = itemclass;
+          itemLevel = level;
       }
 
+      /**
+       * Instantiates a new map.
+       */
+      public Item(){}
 }

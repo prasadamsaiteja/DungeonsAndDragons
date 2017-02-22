@@ -9,10 +9,10 @@ import java.nio.file.Paths;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import GameComponents.SharedVariables;
 import ModelClasses.Item;
-import ModelClasses.Map;
 
 /**
  * This class helps to handle item object to xml operations
@@ -31,7 +31,7 @@ public class ItemJaxb {
     	try {
             Marshaller marshaller = JAXBContext.newInstance(Item.class).createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); //This lets format type to XML
-                                  
+                                
             File file = new File(SharedVariables.ItemsDirectory + File.separator + item.itemName + ".xml");
             if(!file.exists()){
               Path pathToFile = Paths.get(SharedVariables.ItemsDirectory + File.separator + item.itemName + ".xml");
@@ -50,4 +50,45 @@ public class ItemJaxb {
     
     }
 
+    /**
+     * Delete item xml file 
+     * @param itemName name of the item
+     * @return return if the file is deleted or not
+     */
+    public static final boolean deleteItemXml(String itemName){
+      
+      try{
+        File file = new File(SharedVariables.ItemsDirectory + File.separator + itemName + ".xml");
+        return file.delete();  
+      }
+      
+      catch(Exception ignored){
+        return false;
+      }
+      
+    }
+
+    /**
+     * Get Item object from xml file
+     * @param itemName name of the item 
+     * @return  Returns the Item object from xml
+     */
+    public static Item getItemFromXml(String itemName) {
+      
+      try {      
+          File itemFile = new File(SharedVariables.ItemsDirectory + File.separator + itemName + ".xml");
+          
+          if(!itemFile.exists())
+            return null;
+               
+          Unmarshaller unmarshaller = JAXBContext.newInstance(Item.class).createUnmarshaller();
+          return (Item) unmarshaller.unmarshal(itemFile);
+          
+        } 
+        
+        catch (JAXBException e) {
+          return null;
+        }
+
+    }
 }

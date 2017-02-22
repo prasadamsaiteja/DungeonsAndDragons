@@ -42,10 +42,21 @@ import javax.swing.JComboBox;
 @SuppressWarnings("serial")
 public class NewItemDialog extends JDialog {
 
-    public NewItemDialog(){
+    private CreateStuffDialog parentDialog;
+    private Item loadedItem;
+  
+    public NewItemDialog(CreateStuffDialog jDialog){
         DialogHelper.setDialogProperties(this, "New Item", new Rectangle(440, 227));
         getContentPane().setLayout(null);
-        
+        parentDialog = jDialog;
+        initComponents();
+    }
+
+    public NewItemDialog(Item itemFromXml, CreateStuffDialog jDialog) {
+        loadedItem = itemFromXml;
+        DialogHelper.setDialogProperties(this, "New Item", new Rectangle(440, 227));
+        getContentPane().setLayout(null);
+        parentDialog = jDialog;
         initComponents();
     }
 
@@ -73,6 +84,10 @@ public class NewItemDialog extends JDialog {
         itemNameTextField.setBounds(141, 13, 263, 20);
         panel.add(itemNameTextField);
         itemNameTextField.setColumns(10);
+        if(loadedItem != null){
+            itemNameTextField.setText(loadedItem.itemName);
+            itemNameTextField.setEnabled(false);
+        }
         
         //Item type
         JLabel lblItemType = new JLabel("Item Type");
@@ -87,7 +102,9 @@ public class NewItemDialog extends JDialog {
         for(ArmorClass values : SharedVariables.ArmorClass.values())
           itemTypesComboBoxModel.addElement(values.toString());
         
-        itemTypesComboBox.setBounds(141, 44, 263, 20);
+        if(loadedItem != null)
+          itemTypesComboBox.setSelectedItem(loadedItem.itemType);
+        itemTypesComboBox.setBounds(141, 44, 263, 20);        
         itemTypesComboBox.addItemListener(new ItemListener() {
           
           @Override
@@ -152,6 +169,8 @@ public class NewItemDialog extends JDialog {
         lblItemClass.setBounds(10, 73, 101, 20);
         panel.add(lblItemClass);
                 
+        if(loadedItem != null)
+          itemClassComboBox.setSelectedItem(loadedItem.itemClass);
         itemClassComboBox.setBounds(141, 75, 263, 20);
         panel.add(itemClassComboBox);      
         
@@ -168,6 +187,8 @@ public class NewItemDialog extends JDialog {
         
         //JSlider 
         JSlider itemLevelSlider = new JSlider(JSlider.HORIZONTAL, 1, 20, 1);
+        if(loadedItem != null)
+          itemLevelSlider.setValue(loadedItem.itemLevel);
         ItemLevelValueLabel.setText(String.valueOf(itemLevelSlider.getValue()));
         itemLevelSlider.setBackground(Color.WHITE);
         itemLevelSlider.setBounds(141, 104, 235, 26);
@@ -190,7 +211,12 @@ public class NewItemDialog extends JDialog {
                   return ;
               }
               
-              ItemJaxb.convertItemObjectToXml(new Item(itemNameTextField.getText(), (GameComponents.SharedVariables.ItemType) itemTypesComboBox.getSelectedItem(), (String) itemClassComboBox.getSelectedItem(), itemLevelSlider.getValue()));
+              ItemJaxb.convertItemObjectToXml(new Item(itemNameTextField.getText(), itemTypesComboBox.getSelectedItem().toString(), (String) itemClassComboBox.getSelectedItem().toString(), itemLevelSlider.getValue()));
+              if(parentDialog != null)
+                parentDialog.dispose();
+              
+              new CreateStuffDialog(4, itemNameTextField.getText());
+              dispose();
           }
         });
         getContentPane().add(btnCreateItem);

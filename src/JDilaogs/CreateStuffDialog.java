@@ -22,6 +22,7 @@ import GameComponents.ExtensionMethods;
 import GameComponents.SharedVariables;
 import JPanels.MapDesigner;
 import ModelClasses.Map;
+import jaxb.ItemJaxb;
 import jaxb.MapJaxb;
 import mainPackage.GameLauncher;
 
@@ -301,7 +302,9 @@ public class CreateStuffDialog extends JDialog{
 
         });
         
-        mapsJlist.setSelectedValue(lastCreateMapName, true);
+        if(defaultTab == 2)
+          mapsJlist.setSelectedValue(lastCreateMapName, true);
+        
         return mapsPanel;
   }
   
@@ -321,6 +324,10 @@ public class CreateStuffDialog extends JDialog{
         DefaultListModel<String> itemJlistModel = new DefaultListModel<>();
         JList<String> itemJlist = new JList<String>(itemJlistModel);
         
+        String[] itemsList = ExtensionMethods.getItemsList();
+        for(String itemName : itemsList)
+            itemJlistModel.addElement(itemName);
+        
         itemJlist.setFont(new Font("Tahoma", Font.BOLD, 12));
         itemJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         sl_itemsPanel.putConstraint(SpringLayout.NORTH, itemJlist, 10, SpringLayout.NORTH, itemsPanel);
@@ -337,7 +344,7 @@ public class CreateStuffDialog extends JDialog{
           
           @Override
           public void actionPerformed(ActionEvent e) {
-              new NewItemDialog();
+              new NewItemDialog(CreateStuffDialog.this);
           }
         });
         itemsPanel.add(btnAdd);
@@ -346,7 +353,14 @@ public class CreateStuffDialog extends JDialog{
         btnEdit.setEnabled(false);
         sl_itemsPanel.putConstraint(SpringLayout.EAST, btnEdit, 92, SpringLayout.WEST, itemJlist);        
         sl_itemsPanel.putConstraint(SpringLayout.NORTH, btnEdit, 6, SpringLayout.SOUTH, itemJlist);
-        sl_itemsPanel.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, itemJlist);        
+        sl_itemsPanel.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, itemJlist);  
+        btnEdit.addActionListener(new ActionListener() {
+          
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              new NewItemDialog(ItemJaxb.getItemFromXml(itemJlist.getSelectedValue()), CreateStuffDialog.this);
+          }
+        });
         itemsPanel.add(btnEdit);         
         
         JButton btnRemove = new JButton("Remove");
@@ -354,6 +368,18 @@ public class CreateStuffDialog extends JDialog{
         sl_itemsPanel.putConstraint(SpringLayout.NORTH, btnRemove, 6, SpringLayout.SOUTH, itemJlist);
         sl_itemsPanel.putConstraint(SpringLayout.WEST, btnRemove, -114, SpringLayout.WEST, btnAdd);
         sl_itemsPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);
+        btnRemove.addActionListener(new ActionListener() {
+          
+          @Override
+          public void actionPerformed(ActionEvent arg0) {
+              ItemJaxb.deleteItemXml(itemJlist.getSelectedValue());
+              
+              itemJlistModel.clear();
+              String[] itemsList = ExtensionMethods.getItemsList();
+              for(String itemName : itemsList)
+                  itemJlistModel.addElement(itemName);
+          }
+        });
         itemsPanel.add(btnRemove);
         
         itemJlist.addListSelectionListener(new ListSelectionListener() {
@@ -373,6 +399,9 @@ public class CreateStuffDialog extends JDialog{
                      
              }
          });
+        
+        if(defaultTab == 4)
+          itemJlist.setSelectedValue(lastCreateMapName, true);
         
         return itemsPanel;
   }
@@ -441,4 +470,5 @@ public class CreateStuffDialog extends JDialog{
             
       return campaignPanel;
   }
+
 }
