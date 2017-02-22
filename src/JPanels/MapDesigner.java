@@ -361,6 +361,7 @@ public class MapDesigner extends JPanel {
       panel.setLayout(new GridLayout(1, 0, 0, 0));
       JButton btnCancel = new JButton("Cancel");        
       btnCancel.addActionListener(new ActionListener() {
+              @Override
         public void actionPerformed(ActionEvent e) {
             GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
         }

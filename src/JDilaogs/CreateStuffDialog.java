@@ -13,8 +13,12 @@ import java.awt.Color;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
+import JDialogs.actionlisteners.CharacterDialogBtnAddActionListener;
+import JDialogs.viewmodels.CharactersListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -71,7 +75,7 @@ public class CreateStuffDialog extends JDialog{
    */
   private void initComponents() {
     
-    JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+    JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP);
     tabbedPane.setBounds(10, 11, 615, 312);
     getContentPane().add(tabbedPane);
     
@@ -93,7 +97,8 @@ public class CreateStuffDialog extends JDialog{
     {   //Done button
         JButton btnDone = new JButton("Done");
         btnDone.addActionListener(new ActionListener() {
-          public void actionPerformed(ActionEvent arg0) {
+          @Override
+		public void actionPerformed(ActionEvent arg0) {
             dispose();
           }
         });
@@ -114,17 +119,21 @@ public class CreateStuffDialog extends JDialog{
     
       sl_characterPanel = new SpringLayout();
       characterPanel.setLayout(sl_characterPanel);
+
+      CharactersListModel characterList = new CharactersListModel();
+      JList<String> characterJlist = new JList<String>(characterList);
+
+      JScrollPane scrollPane = new JScrollPane();
+      scrollPane.setViewportView(characterJlist);
       
-      DefaultListModel<String> characterJlistModel = new DefaultListModel<>();
-      JList<String> characterJlist = new JList<String>(characterJlistModel);
-      
-      characterJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
       sl_characterPanel.putConstraint(SpringLayout.NORTH, characterJlist, 10, SpringLayout.NORTH, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.WEST, characterJlist, 10, SpringLayout.WEST, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 600, SpringLayout.WEST, characterPanel);
       characterPanel.add(characterJlist);      
       
       JButton btnAdd = new JButton("Create");
+      ActionListener btnAddActionListener = new CharacterDialogBtnAddActionListener(CreateStuffDialog.this, characterList);
+      btnAdd.addActionListener(btnAddActionListener);
       sl_characterPanel.putConstraint(SpringLayout.NORTH, btnAdd, 251, SpringLayout.NORTH, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.SOUTH, characterJlist, -6, SpringLayout.NORTH, btnAdd);
       sl_characterPanel.putConstraint(SpringLayout.WEST, btnAdd, -112, SpringLayout.EAST, characterPanel);
@@ -143,8 +152,7 @@ public class CreateStuffDialog extends JDialog{
       sl_characterPanel.putConstraint(SpringLayout.NORTH, btnRemove, 6, SpringLayout.SOUTH, characterJlist);
       sl_characterPanel.putConstraint(SpringLayout.WEST, btnRemove, -114, SpringLayout.WEST, btnAdd);
       sl_characterPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);
-      characterPanel.add(btnRemove); 
-      
+      characterPanel.add(btnRemove);      
       characterJlist.addListSelectionListener(new ListSelectionListener() {          
         @SuppressWarnings("rawtypes")
         @Override
@@ -181,6 +189,9 @@ public class CreateStuffDialog extends JDialog{
                 
         DefaultListModel<String> mapsJlistModel = new DefaultListModel<>();
         JList<String> mapsJlist = new JList<String>(mapsJlistModel);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(mapsJlist);
+        
         sl_mapsPanel.putConstraint(SpringLayout.NORTH, mapsJlist, 10, SpringLayout.NORTH, mapsPanel);
         sl_mapsPanel.putConstraint(SpringLayout.WEST, mapsJlist, 10, SpringLayout.WEST, mapsPanel);
         
@@ -195,7 +206,8 @@ public class CreateStuffDialog extends JDialog{
         JButton btnAdd = new JButton("Create");        
         sl_mapsPanel.putConstraint(SpringLayout.EAST, mapsJlist, 0, SpringLayout.EAST, btnAdd);
         btnAdd.addActionListener(new ActionListener() {
-          public void actionPerformed(ActionEvent arg0) {              
+          @Override
+		public void actionPerformed(ActionEvent arg0) {              
               new NewMapDialog(CreateStuffDialog.this);
           }
         });
@@ -320,6 +332,8 @@ public class CreateStuffDialog extends JDialog{
         
         DefaultListModel<String> itemJlistModel = new DefaultListModel<>();
         JList<String> itemJlist = new JList<String>(itemJlistModel);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(itemJlist);
         
         itemJlist.setFont(new Font("Tahoma", Font.BOLD, 12));
         itemJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
