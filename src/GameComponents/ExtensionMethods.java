@@ -18,5 +18,22 @@ public class ExtensionMethods {
         
         return fileName;
       }
+      
+    /*  public static String[] getCampaignsList(){
+    	  File f=new File(SharedVariables.CampaignsDirectory);
+    	  if(f.exists()){
+    		  System.out.println("I am in If condition getCampaignsList() ");
+    		  return  new String[0];
+    	  }
+    	  File[] fileList = f.listFiles();
+          String[] fileName = new String[fileList.length];
+          for(int i=0; i<fileList.length;i++) {
+        	  		fileName[i] = fileList[i].getName();
+            		System.out.println("file Name added is"+ fileName[i]);
+          }
+    	  return fileName;
+      }
+      */
+      
   
 }
