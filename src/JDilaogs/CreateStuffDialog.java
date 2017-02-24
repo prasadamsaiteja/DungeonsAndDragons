@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
+import javax.swing.BorderFactory;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -12,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+
 import java.awt.Dimension;
 
 import javax.swing.JList;
@@ -58,6 +60,7 @@ public class CreateStuffDialog extends JDialog{
   private SpringLayout sl_characterPanel;
   private int defaultTab = 0;
   private String lastCreateMapName;
+
  
   /**
    * This class is a JDialog which helps user to create new campaign, map or character.
@@ -517,7 +520,7 @@ public class CreateStuffDialog extends JDialog{
     
       SpringLayout sl_campaignPanel = new SpringLayout();
       campaignPanel.setLayout(sl_campaignPanel);
-      
+
       DefaultListModel<String> campaignJlistModel = new DefaultListModel<>();
       JList<String> campaignJlist = new JList<String>(campaignJlistModel);
       
@@ -534,6 +537,15 @@ public class CreateStuffDialog extends JDialog{
       sl_campaignPanel.putConstraint(SpringLayout.WEST, btnAdd, -112, SpringLayout.EAST, campaignPanel);
       sl_campaignPanel.putConstraint(SpringLayout.EAST, btnAdd, -10, SpringLayout.EAST, campaignPanel);
       campaignPanel.add(btnAdd);
+      
+      btnAdd.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			//Create a Name for the Campaign
+			CampaignNameDialog CND=new CampaignNameDialog();
+		
+		}
+	});
       
       JButton btnEdit = new JButton("Edit");
       btnEdit.setEnabled(false);
