@@ -26,7 +26,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import JDialogs.CreateCharacterDialog;
-import JDialogs.actionlisteners.CharacterDialogBtnAddActionListener;
 import JDialogs.viewmodels.CharactersListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
