@@ -36,7 +36,7 @@ public class CharactersListModel extends DefaultListModel<String> implements Obs
 		ArrayList<Character> list = cList.getCharacters();
   	    this.removeAllElements();
 		for (Character c : list){
-	    	  String listElement = c.getName()+" (Level: "+c.getLevel()+")";
+	    	  String listElement = c.getName();
 	          this.addElement(listElement);  
 	     }
 	}

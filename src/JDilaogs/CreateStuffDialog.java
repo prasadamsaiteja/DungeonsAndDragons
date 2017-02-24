@@ -4,12 +4,19 @@ import java.awt.Rectangle;
 
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -17,10 +24,17 @@ import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
+
+import JDialogs.CreateCharacterDialog;
 import JDialogs.actionlisteners.CharacterDialogBtnAddActionListener;
 import JDialogs.viewmodels.CharactersListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 
 import GameComponents.ExtensionMethods;
 import GameComponents.SharedVariables;
@@ -28,9 +42,12 @@ import JPanels.MapDesigner;
 import ModelClasses.Map;
 import jaxb.MapJaxb;
 import mainPackage.GameLauncher;
+import model.character.Character;
+import model.character.CharactersList;
 
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Insets;
 
 /**
  * This class is a JDialog which helps user to create new campaign, map or character.
@@ -68,6 +85,31 @@ public class CreateStuffDialog extends JDialog{
     defaultTab = defaultTabIndex;
     lastCreateMapName = mapName;
     initComponents();
+  }
+  
+  /**
+   * add styles to a style doc
+   * @param doc
+   */
+  protected void addStylesToDocument(StyledDocument doc) {
+      //Initialize some styles.
+      Style def = StyleContext.getDefaultStyleContext().
+                      getStyle(StyleContext.DEFAULT_STYLE);
+
+      Style regular = doc.addStyle("regular", def);
+      StyleConstants.setFontFamily(def, "SansSerif");
+
+      Style s = doc.addStyle("italic", regular);
+      StyleConstants.setItalic(s, true);
+
+      s = doc.addStyle("bold", regular);
+      StyleConstants.setBold(s, true);
+
+      s = doc.addStyle("small", regular);
+      StyleConstants.setFontSize(s, 10);
+
+      s = doc.addStyle("large", regular);
+      StyleConstants.setFontSize(s, 16);
   }
 
   /**
@@ -123,54 +165,132 @@ public class CreateStuffDialog extends JDialog{
       CharactersListModel characterList = new CharactersListModel();
       JList<String> characterJlist = new JList<String>(characterList);
 
-      JScrollPane scrollPane = new JScrollPane();
-      scrollPane.setViewportView(characterJlist);
+      //JScrollPane scrollPane = new JScrollPane();
+      //scrollPane.setViewportView(characterJlist);
       
       sl_characterPanel.putConstraint(SpringLayout.NORTH, characterJlist, 10, SpringLayout.NORTH, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.WEST, characterJlist, 10, SpringLayout.WEST, characterPanel);
-      sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 600, SpringLayout.WEST, characterPanel);
+      sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 320, SpringLayout.WEST, characterPanel);
       characterPanel.add(characterJlist);      
       
       JButton btnAdd = new JButton("Create");
-      ActionListener btnAddActionListener = new CharacterDialogBtnAddActionListener(CreateStuffDialog.this, characterList);
-      btnAdd.addActionListener(btnAddActionListener);
-      sl_characterPanel.putConstraint(SpringLayout.NORTH, btnAdd, 251, SpringLayout.NORTH, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.SOUTH, characterJlist, -6, SpringLayout.NORTH, btnAdd);
+      btnAdd.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			new CreateCharacterDialog(CreateStuffDialog.this);
+		}
+      });
+      sl_characterPanel.putConstraint(SpringLayout.NORTH, btnAdd, 251, SpringLayout.NORTH, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.WEST, btnAdd, -112, SpringLayout.EAST, characterPanel);
       sl_characterPanel.putConstraint(SpringLayout.EAST, btnAdd, -10, SpringLayout.EAST, characterPanel);
       characterPanel.add(btnAdd);
       
       JButton btnEdit = new JButton("Edit");
-      btnEdit.setEnabled(false);
-      sl_characterPanel.putConstraint(SpringLayout.EAST, btnEdit, 92, SpringLayout.WEST, characterJlist);        
       sl_characterPanel.putConstraint(SpringLayout.NORTH, btnEdit, 6, SpringLayout.SOUTH, characterJlist);
-      sl_characterPanel.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, characterJlist);
+      sl_characterPanel.putConstraint(SpringLayout.WEST, btnEdit, 10, SpringLayout.WEST, characterPanel);
+      btnEdit.setEnabled(false);
+      btnEdit.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			new CreateCharacterDialog(CreateStuffDialog.this, CharactersList.getByName(characterJlist.getSelectedValue()));
+		}
+      });
       characterPanel.add(btnEdit);  
       
       JButton btnRemove = new JButton("Remove");
+      sl_characterPanel.putConstraint(SpringLayout.NORTH, btnRemove, 251, SpringLayout.NORTH, characterPanel);
+      sl_characterPanel.putConstraint(SpringLayout.EAST, btnEdit, -266, SpringLayout.WEST, btnRemove);
       btnRemove.setEnabled(false);
-      sl_characterPanel.putConstraint(SpringLayout.NORTH, btnRemove, 6, SpringLayout.SOUTH, characterJlist);
+      btnRemove.addActionListener(new ActionListener() {	
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			CharactersList.getByName(characterJlist.getSelectedValue()).delete();
+		}
+      });
       sl_characterPanel.putConstraint(SpringLayout.WEST, btnRemove, -114, SpringLayout.WEST, btnAdd);
       sl_characterPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);
-      characterPanel.add(btnRemove);      
+      characterPanel.add(btnRemove);
+
+      JPanel charPreviewPanel = new JPanel();
+      sl_characterPanel.putConstraint(SpringLayout.NORTH, charPreviewPanel, 10, SpringLayout.NORTH, characterPanel);
+      sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 6, SpringLayout.EAST, characterJlist);
+      sl_characterPanel.putConstraint(SpringLayout.SOUTH, charPreviewPanel, 0, SpringLayout.SOUTH, characterJlist);
+      sl_characterPanel.putConstraint(SpringLayout.EAST, charPreviewPanel, 0, SpringLayout.EAST, btnAdd);
+      charPreviewPanel.setBackground(Color.WHITE);
+      
+      // Create a text pane
+      JTextPane textPane = new JTextPane();
+      StyledDocument doc = textPane.getStyledDocument();
+      addStylesToDocument(doc);
+      textPane.setEditable(false);
+      try {
+		doc.insertString(doc.getLength(), "Select a character to get his details", doc.getStyle("bold"));
+      } catch (BadLocationException e1) {
+		e1.printStackTrace();
+      }
+      
+      JScrollPane areaScrollPane = new JScrollPane(textPane);
+      areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+      areaScrollPane.setPreferredSize(new Dimension(250, 200));
+      charPreviewPanel.add(areaScrollPane);
+      characterPanel.add(charPreviewPanel);
+
       characterJlist.addListSelectionListener(new ListSelectionListener() {          
         @SuppressWarnings("rawtypes")
         @Override
         public void valueChanged(ListSelectionEvent e) {
               
-             if(((JList) e.getSource()).getSelectedValue() == null){
-                 btnRemove.setEnabled(false);
-                 btnEdit.setEnabled(false);
-             }
-             
-             else{
-               btnRemove.setEnabled(true);
-               btnEdit.setEnabled(true);
-               }
-                   
-           }
+        	try {
+        		if(((JList) e.getSource()).getSelectedValue() == null){
+        			btnRemove.setEnabled(false);
+        			btnEdit.setEnabled(false);                 
+                	doc.remove(0, doc.getLength());
+             		doc.insertString(doc.getLength(), "Select a character to get his details", doc.getStyle("bold"));
+             	}else{
+             		btnRemove.setEnabled(true);
+             		btnEdit.setEnabled(true);            	 
+					updateCharacterPreview(doc, (String)((JList) e.getSource()).getSelectedValue());
+				}
+        	}catch (BadLocationException e1) {
+				e1.printStackTrace();
+			}
+            
+         }
+        
+        private void updateCharacterPreview(StyledDocument doc, String selectedValue) throws BadLocationException{
+          	// get character information
+          	Character c = CharactersList.getByName(selectedValue);
+          	doc.remove(0, doc.getLength());
+          	doc.insertString(doc.getLength(), "Character Details:\n\n", doc.getStyle("bold"));
+          	
+          	doc.insertString(doc.getLength(), "Name: ", doc.getStyle("bold"));
+          	doc.insertString(doc.getLength(), c.getName(), doc.getStyle("italics"));
+          	
+          	doc.insertString(doc.getLength(), "\nClass: ", doc.getStyle("bold"));
+          	doc.insertString(doc.getLength(), c.getCharacterClass(), doc.getStyle("italics"));
+
+          	doc.insertString(doc.getLength(), "\nLevel: ", doc.getStyle("bold"));
+          	doc.insertString(doc.getLength(), String.valueOf(c.getLevel()), doc.getStyle("italics"));
+          	
+          	doc.insertString(doc.getLength(), "\nStrength: ", doc.getStyle("bold"));
+          	doc.insertString(doc.getLength(), String.valueOf(c.getStrength()), doc.getStyle("italics"));
+
+          	doc.insertString(doc.getLength(), "\nDexterity: ", doc.getStyle("bold"));
+          	doc.insertString(doc.getLength(), String.valueOf(c.getDexterity()), doc.getStyle("italics"));
+          	
+          	doc.insertString(doc.getLength(), "\nConstitution: ", doc.getStyle("bold"));
+          	doc.insertString(doc.getLength(), String.valueOf(c.getConstitution()), doc.getStyle("italics"));
+
+          	doc.insertString(doc.getLength(), "\nHit Score: ", doc.getStyle("bold"));
+          	doc.insertString(doc.getLength(), String.valueOf(c.getHitScore()), doc.getStyle("italics"));
+          	
+          	doc.insertString(doc.getLength(), "\nWeapon: ", doc.getStyle("bold"));
+          	doc.insertString(doc.getLength(), String.valueOf(c.getWeaponName()), doc.getStyle("italics"));
+          }
+        
        });
-      
+
       return characterPanel;
   }
 
@@ -189,8 +309,8 @@ public class CreateStuffDialog extends JDialog{
                 
         DefaultListModel<String> mapsJlistModel = new DefaultListModel<>();
         JList<String> mapsJlist = new JList<String>(mapsJlistModel);
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setViewportView(mapsJlist);
+        //JScrollPane scrollPane = new JScrollPane();
+        //scrollPane.setViewportView(mapsJlist);
         
         sl_mapsPanel.putConstraint(SpringLayout.NORTH, mapsJlist, 10, SpringLayout.NORTH, mapsPanel);
         sl_mapsPanel.putConstraint(SpringLayout.WEST, mapsJlist, 10, SpringLayout.WEST, mapsPanel);
@@ -332,8 +452,8 @@ public class CreateStuffDialog extends JDialog{
         
         DefaultListModel<String> itemJlistModel = new DefaultListModel<>();
         JList<String> itemJlist = new JList<String>(itemJlistModel);
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setViewportView(itemJlist);
+        //JScrollPane scrollPane = new JScrollPane();
+        //scrollPane.setViewportView(itemJlist);
         
         itemJlist.setFont(new Font("Tahoma", Font.BOLD, 12));
         itemJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
