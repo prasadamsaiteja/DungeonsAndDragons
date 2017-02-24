@@ -22,7 +22,7 @@ import GameComponents.SharedVariables;
  * 
  * @author Supreet Singh (s_supree)
  */
-public class Bagpack extends Observable {
+public class Backpack extends Observable {
 		
 	private
 	
@@ -30,7 +30,7 @@ public class Bagpack extends Observable {
 		int maxAllowedItems = 10;
 		static String fileName = "backpack.xml";
 		HashMap<String, ArrayList<String>> items = new HashMap<String, ArrayList<String>>();
-		static Bagpack _inst = null;
+		static Backpack _inst = null;
 		
 		/**
 		 * increment item counter
@@ -164,14 +164,14 @@ public class Bagpack extends Observable {
 	 * 
 	 * @return Backpack instance
 	 */
-	 public static Bagpack init(){
+	 public static Backpack init(){
 		/*
 		 * Flow:
 		 * - Checks if an existing instance exists and returns it
 		 * - if not, then it checks data folder for existence of xml file and if found, uses it to load the instance
 		 * - else, returns a new instance
 		 */
-		if (Bagpack._inst == null){
+		if (Backpack._inst == null){
 			// if backpack xml file exist then read it and load it
 			String filePath = SharedVariables.DataDirectory + File.separator + fileName;
 			File f = new File(filePath);
@@ -185,7 +185,7 @@ public class Bagpack extends Observable {
 							xml += sCurrentLine;
 						}
 						XStream xstream = new XStream(new StaxDriver());
-						Bagpack._inst = (Bagpack) xstream.fromXML(xml);
+						Backpack._inst = (Backpack) xstream.fromXML(xml);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -193,11 +193,11 @@ public class Bagpack extends Observable {
 					e1.printStackTrace();
 				}
 			}else{
-				Bagpack._inst = new Bagpack();
+				Backpack._inst = new Backpack();
 			}
 		}
 		
-		return Bagpack._inst;
+		return Backpack._inst;
 	}
 	
 	/**
@@ -205,22 +205,22 @@ public class Bagpack extends Observable {
 	 * @param force
 	 * @return Backpack instance
 	 */
-	public static Bagpack init(boolean forceReset){
+	public static Backpack init(boolean forceReset){
 		/*
 		 * if forced, it will delete any existence instance or file and reset backpack
 		 */
 		if (forceReset){
-			Bagpack._inst = null;
+			Backpack._inst = null;
 			String filePath = SharedVariables.DataDirectory + File.separator + fileName;
 			File f = new File(filePath);
 			f.delete();
 		}
-		return Bagpack.init();
+		return Backpack.init();
 	}
 	
-	public static Bagpack reload(){
-		Bagpack._inst = null;
-		return Bagpack.init();
+	public static Backpack reload(){
+		Backpack._inst = null;
+		return Backpack.init();
 	}
 
 //	public static void main(String[] args){

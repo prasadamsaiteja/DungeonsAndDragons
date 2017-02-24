@@ -40,7 +40,7 @@ import JPanels.MapDesigner;
 import ModelClasses.Map;
 import jaxb.MapJaxb;
 import mainPackage.GameLauncher;
-import model.Bagpack;
+import model.Backpack;
 import model.character.Character;
 import model.character.CharactersList;
 
@@ -251,7 +251,7 @@ public class CreateStuffDialog extends JDialog{
 		}
 		
 		private void updatePreview(StyledDocument doc) throws BadLocationException{			
-			Bagpack b = Bagpack.init();
+			Backpack b = Backpack.init();
 			Set<String> itemTypes = b.getItemTypes();
 			
           	doc.remove(0, doc.getLength());
