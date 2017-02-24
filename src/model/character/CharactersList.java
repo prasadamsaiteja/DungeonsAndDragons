@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 
 import com.thoughtworks.xstream.XStream;
@@ -92,5 +93,16 @@ public class CharactersList extends Observable {
 	public static ArrayList<Character> get(){
 		CharactersList inst = CharactersList.init();
 		return inst.getCharacters();
+	}
+	
+	public static Character getByName(String characterName){
+		ArrayList<Character> characters = get();
+		Iterator<Character> characterIterator = characters.iterator();
+		while (characterIterator.hasNext()){
+			Character c = characterIterator.next();
+			if (c.getName().equals(characterName))
+				return c;
+		}
+		return null;
 	}
 }

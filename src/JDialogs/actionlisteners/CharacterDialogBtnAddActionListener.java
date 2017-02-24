@@ -12,13 +12,12 @@ public class CharacterDialogBtnAddActionListener implements ActionListener {
 	private DefaultListModel<String> characterList;
 	private CreateStuffDialog jdialog;
 	
-	public CharacterDialogBtnAddActionListener(CreateStuffDialog jdialog, DefaultListModel<String> characterList){
+	public CharacterDialogBtnAddActionListener(CreateStuffDialog jdialog){
 		this.jdialog = jdialog;
-		this.characterList = characterList;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		new CreateCharacterDialog(this.jdialog, this.characterList);
+		new CreateCharacterDialog(this.jdialog);
 	}
 }
