@@ -255,7 +255,7 @@ public class CreateStuffDialog extends JDialog{
 			Set<String> itemTypes = b.getItemTypes();
 			
           	doc.remove(0, doc.getLength());
-			doc.insertString(doc.getLength(), "Bagpack Details:\n", doc.getStyle("bold"));
+			doc.insertString(doc.getLength(), "Backpack Details:\n", doc.getStyle("bold"));
 			for (String itemType: itemTypes){
 				doc.insertString(doc.getLength(), "\n"+itemType+"\n", doc.getStyle("bold"));
 				Iterator<String> i = b.getByType(itemType).iterator();
