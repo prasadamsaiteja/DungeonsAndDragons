@@ -87,7 +87,7 @@ public class NewItemDialog extends JDialog {
         for(ArmorClass values : SharedVariables.ArmorClass.values())
           itemTypesComboBoxModel.addElement(values.toString());
         
-        itemTypesComboBox.setBounds(141, 44, 263, 20);
+        itemTypesComboBox.setBounds(141, 44, 263, 30);
         itemTypesComboBox.addItemListener(new ItemListener() {
           
           @Override
