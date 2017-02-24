@@ -14,17 +14,11 @@ public class addItem {
       public int count;
       
       
-      public Item(String itemName, ItemType itemType, String itemClass){
+      public addItem(String itemName, ItemType itemType, String itemClass){
           itemName = this.itemName;
           itemType = this.itemType;
           itemClass = this.itemClass;
       }
-      
-      public Item()
-      {
-    	  
-      }
-
       public String getItemName()
       {
     	  return itemName;
@@ -32,28 +26,18 @@ public class addItem {
       
       public void values(){
     	  
-    	  if(level<=4)
-        {
-    		  count = 1;
-    	  }
-    	  else if(level<=8)
-    	  {
-    		 count = 2;
-    	  }
-    	  else if (level<=12)
-    	  {
-    		  count= 3;
-    	  }
-    	  else if (level<=16)
-    	  {
-    		  count = 4;
-    	  }
-    	  else
-    		  count= 5;
+    	  if(level<=4){count = 1;}
+	      
+    	  else if(level<=8){count =2;}
     	 
+    	  else if (level<=12){count=3;}
+    	  
+    	  else if (level<=16){count=4;}
+    	  
+    	  else
+   	  count= 5; 
       }
  @SuppressWarnings("fallthrough") 
- 
       public void calculateValues()
       {
 	      values();
@@ -62,8 +46,7 @@ public class addItem {
     	  case Belt :
     		  strength = strength + count;
     		  break;
-    	  case Weapon :
-    		
+		  case Weapon :
     		  break;
     	  case Armor :
     		  armorClass = armorClass + count;
@@ -81,5 +64,4 @@ public class addItem {
     		  armorClass = armorClass + count;
     	  }
       }
-    	  
 }
