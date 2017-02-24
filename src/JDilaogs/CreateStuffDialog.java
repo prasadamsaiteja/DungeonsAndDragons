@@ -4,18 +4,14 @@ import java.awt.Rectangle;
 
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 
 import javax.swing.JList;
@@ -46,7 +42,6 @@ import model.character.CharactersList;
 
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Insets;
 
 /**
  * This class is a JDialog which helps user to create new campaign, map or character.
@@ -230,7 +225,7 @@ public class CreateStuffDialog extends JDialog{
       }
       
       JScrollPane areaScrollPane = new JScrollPane(textPane);
-      areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+      areaScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
       areaScrollPane.setPreferredSize(new Dimension(250, 200));
       charPreviewPanel.add(areaScrollPane);
       characterPanel.add(charPreviewPanel);
@@ -364,7 +359,7 @@ public class CreateStuffDialog extends JDialog{
           @Override
           public void actionPerformed(ActionEvent e) {
               if(mapsJlist.getSelectedValue() != null){
-                    MapJaxb.deleteMapXml((String) mapsJlist.getSelectedValue());         
+                    MapJaxb.deleteMapXml(mapsJlist.getSelectedValue());         
                     mapsJlistModel.clear();
                     
                     String[] mapsList = ExtensionMethods.getMapsList();
