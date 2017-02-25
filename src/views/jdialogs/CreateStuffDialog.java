@@ -7,12 +7,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.BorderFactory;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.awt.event.ActionEvent;
@@ -43,7 +41,6 @@ import model.character.CharactersList;
 import model.jaxb.CampaignJaxb;
 import model.jaxb.ItemJaxb;
 import model.jaxb.MapJaxb;
-import views.jdialogs.actionlisteners.CharacterDialogBtnAddActionListener;
 import views.jdialogs.viewmodels.CharactersListModel;
 import views.jpanels.MapDesigner;
 
@@ -175,8 +172,6 @@ public class CreateStuffDialog extends JDialog{
       characterPanel.add(characterJlist);      
       
       JButton btnAdd = new JButton("Create");
-      ActionListener btnAddActionListener = new CharacterDialogBtnAddActionListener(CreateStuffDialog.this, characterList);
-      btnAdd.addActionListener(btnAddActionListener);
       sl_characterPanel.putConstraint(SpringLayout.SOUTH, characterJlist, -6, SpringLayout.NORTH, btnAdd);
       btnAdd.addActionListener(new ActionListener() {
 		@Override
