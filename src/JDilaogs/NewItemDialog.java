@@ -102,6 +102,7 @@ public class NewItemDialog extends JDialog {
         for(ArmorClass values : SharedVariables.ArmorClass.values())
           itemTypesComboBoxModel.addElement(values.toString());
         
+        itemTypesComboBox.setBounds(141, 44, 263, 30);
         if(loadedItem != null)
           itemTypesComboBox.setSelectedItem(loadedItem.itemType);
         itemTypesComboBox.setBounds(141, 44, 263, 20);        
