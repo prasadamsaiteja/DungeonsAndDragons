@@ -1,4 +1,4 @@
-package views.jdialogs;
+package views.jdialogs.campaignDialog;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -25,6 +25,7 @@ import java.util.Iterator;
 import components.ExtensionMethods;
 import model.Campaign;
 import model.jaxb.CampaignJaxb;
+import views.jdialogs.DialogHelper;
 
 /**
  * 

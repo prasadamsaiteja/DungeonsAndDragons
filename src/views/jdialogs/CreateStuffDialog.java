@@ -41,6 +41,8 @@ import model.character.CharactersList;
 import model.jaxb.CampaignJaxb;
 import model.jaxb.ItemJaxb;
 import model.jaxb.MapJaxb;
+import views.jdialogs.campaignDialog.CampaignNameDialog;
+import views.jdialogs.campaignDialog.NewCampaignInfoDialog;
 import views.jdialogs.viewmodels.CharactersListModel;
 import views.jpanels.MapDesigner;
 

@@ -3,7 +3,7 @@ package views.jpanels;
 import javax.swing.JPanel;
 
 import views.jdialogs.CreateStuffDialog;
-import views.jdialogs.NewCampaigneDialog;
+import views.jdialogs.campaignDialog.NewCampaigneDialog;
 
 import java.awt.Color;
 import java.awt.Dimension;
