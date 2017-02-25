@@ -1,5 +1,6 @@
 package ModelClasses;
-
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import GameComponents.SharedVariables.ItemType;
 
 @XmlRootElement(name="Item")
@@ -21,17 +22,21 @@ public class Item {
 	  @XmlElement(name="itemClass")
       private String itemClass;
 	  @XmlElement(name="itemLevel")
-      private int level;
+      private int itemLevel;
 	  private int armorClass;
       private int strength;
+      private int constitution;
+      private int dexterity;
       private int damagebonus;
+      private int attackbonus;
       private int count;
       
       
-      public Item(String itemName, ItemType itemType, String itemClass){
+      public Item(String itemName, ItemType itemType, String itemClass, int itemLevel){
           itemName = this.itemName;
           itemType = this.itemType;
           itemClass = this.itemClass;
+          itemLevel = this.itemLevel;
       }
       
       public Item()
@@ -46,22 +51,23 @@ public class Item {
       
       public void values(){
     	  
-    	  if(level<=4){
+    	  if(itemLevel<=4){
     		  count = 1;
     	  }
-    	  else if(level<=8){
+    	  else if(itemLevel<=8){
     		  count = 2;
     	  }
-    	  else if (level<=12){
+    	  else if (itemLevel<=12){
     		  count = 3;
     	  }
-    	  else if (level<=16){
+    	  else if (itemLevel<=16){
     		  count = 4;
     	  }
     	  else
     		  count = 5;
     	 
       }
+      
  @SuppressWarnings("fallthrough") 
  
       public void calculateValues()
@@ -70,26 +76,65 @@ public class Item {
     	  switch(itemType)
     	  {
     	  case Belt :
-    		  strength = strength + count;
+    		  if(itemClass.equals("Constitution")){
+    		  constitution = constitution + count;
+    		  break;}
+    		  else
+    			  strength = strength + count;
     		  break;
     	  case Weapon :
-    		damagebonus = damagebonus + count;
+    		if(itemClass.equalsIgnoreCase("AttackBonus")){
+    			attackbonus = attackbonus + count;
+    			break;}
+    		else
+    			damagebonus = damagebonus + count;
     		  break;
     	  case Armor :
     		  armorClass = armorClass + count;
     		  break;
     	  case Ring :
-    		  armorClass = armorClass + count;
+    		  if(itemClass.equalsIgnoreCase("ArmorClass")){
+    			  armorClass = armorClass + count;
+    			  break;}
+    		  else if(itemClass.equalsIgnoreCase("Constitution")){
+    			  constitution = constitution + count;
+    		  break;}
+    		  else
+    		  strength = strength + count;
     		  break;
     	  case Shield :
     		  armorClass = armorClass + count;
     		  break;
     	  case Boots :
-    		  armorClass = armorClass + count;
+    		  if(itemClass.equalsIgnoreCase("Dexterity")){
+    			  dexterity = dexterity + count;
+    			  break;}
+    		  else 
+    			  armorClass = armorClass + count;
     		  break;
     	  case Helmet:
     		  armorClass = armorClass + count;
     	  }
       }
-    	  
+ 
+   public int getArmorClass(){
+	   return armorClass;
+   }
+   public int getDexterity(){
+	   return dexterity;
+   }
+   public int getStrength(){
+	   return strength;
+   }
+   public int getConstitution(){
+	   return constitution;
+   }
+   public int getDamageBonus(){
+	   return damagebonus;
+   }
+   public int getAttackBonus(){
+	   return attackbonus;
+   }
+   
+   
 }
