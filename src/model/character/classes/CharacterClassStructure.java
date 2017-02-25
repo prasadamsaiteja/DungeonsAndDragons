@@ -1,6 +1,6 @@
 package model.character.classes;
 
-import GameComponents.DiceImplementationInterface;
+import model.interfaces.DiceImplementationInterface;
 
 /**
  * Custom data structure for storing charcter classes
