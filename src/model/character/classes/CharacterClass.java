@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.management.RuntimeErrorException;
 
-import GameComponents.Dice;
+import components.Dice;
 import model.character.Character;
 
 /**

@@ -14,7 +14,7 @@ import java.util.Set;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
-import GameComponents.SharedVariables;
+import components.SharedVariables;
 
 /**
  * Maintains the state of backpack by allowing to equip and unequip items. 
