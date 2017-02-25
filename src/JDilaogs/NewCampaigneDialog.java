@@ -75,6 +75,7 @@ public class NewCampaigneDialog extends JDialog{
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBackground(new Color(255, 0, 0));
 		btnCancel.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
