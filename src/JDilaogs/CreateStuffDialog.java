@@ -12,6 +12,9 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -40,6 +43,7 @@ import ModelClasses.Map;
 import jaxb.CampaignJaxb;
 import jaxb.MapJaxb;
 import mainPackage.GameLauncher;
+import model.Backpack;
 import model.character.Character;
 import model.character.CharactersList;
 
@@ -232,6 +236,40 @@ public class CreateStuffDialog extends JDialog{
       areaScrollPane.setPreferredSize(new Dimension(250, 200));
       charPreviewPanel.add(areaScrollPane);
       characterPanel.add(charPreviewPanel);
+      
+      JButton btnBagpack = new JButton("Bagpack");
+      sl_characterPanel.putConstraint(SpringLayout.NORTH, btnBagpack, 251, SpringLayout.NORTH, characterPanel);
+      sl_characterPanel.putConstraint(SpringLayout.EAST, btnBagpack, -7, SpringLayout.WEST, btnRemove);
+      btnBagpack.setEnabled(true);
+      btnBagpack.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				updatePreview(doc);
+			} catch (BadLocationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		private void updatePreview(StyledDocument doc) throws BadLocationException{			
+			Backpack b = Backpack.init();
+			Set<String> itemTypes = b.getItemTypes();
+			
+          	doc.remove(0, doc.getLength());
+			doc.insertString(doc.getLength(), "Backpack Details:\n", doc.getStyle("bold"));
+			for (String itemType: itemTypes){
+				doc.insertString(doc.getLength(), "\n"+itemType+"\n", doc.getStyle("bold"));
+				Iterator<String> i = b.getByType(itemType).iterator();
+				while (i.hasNext()){
+					doc.insertString(doc.getLength(), "- "+i.next()+"\n", doc.getStyle("italic"));
+				}
+			}
+		}
+		
+      });
+      characterPanel.add(btnBagpack);
 
       characterJlist.addListSelectionListener(new ListSelectionListener() {          
         @SuppressWarnings("rawtypes")

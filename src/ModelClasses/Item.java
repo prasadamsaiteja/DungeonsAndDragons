@@ -1,5 +1,8 @@
 package ModelClasses;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import GameComponents.SharedVariables.ItemType;
 
 @XmlRootElement(name="Item")
