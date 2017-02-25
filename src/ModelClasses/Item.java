@@ -3,7 +3,17 @@ package ModelClasses;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
 @XmlRootElement(name="Item")
+/** This is an item class which is used to store the items currently used by the 
+ * character while playing the game. It affects various classes of selected items
+ * based on the level of the character.
+ *  
+ * @author Priyanka A
+ * 
+ * @version 1.0
+ * @since 2/24/2017 
+ */
 public class Item {
   
       @XmlElement(name="itemName")   
@@ -18,6 +28,7 @@ public class Item {
       private int strength;
       private int damagebonus;
       private int count;
+      
       
       public Item(String name, String type, String itemclass, int level){
           itemName = name;
@@ -87,4 +98,10 @@ public class Item {
        * Instantiates a new map.
        */
       public Item(){}
+    		  break;
+    	  case Helmet:
+    		  armorClass = armorClass + count;
+    	  }
+      }
+    	  
 }

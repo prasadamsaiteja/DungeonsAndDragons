@@ -31,7 +31,23 @@ public class ExtensionMethods {
             if(fileList[i].getName().endsWith(".xml"))
               fileName[i] = fileList[i].getName().replaceFirst("[.][^.]+$", "");
         
-        return fileName;
+        return fileName;        
       }
+      
+      public static String[] getCampaignsList(){
+    	  File f=new File(SharedVariables.CampaignsDirectory);
+    	  if(!f.exists()){
+    		  return  new String[0];
+    	  }
+    	  File[] fileList = f.listFiles();
+          String[] fileName = new String[fileList.length];
+          for(int i=0; i<fileList.length;i++) {
+        	  if(fileList[i].getName().endsWith(".xml"))
+                  fileName[i] = fileList[i].getName().replaceFirst("[.][^.]+$", "");
+            
+          }
+    	  return fileName;
+    }      
   
+
 }
