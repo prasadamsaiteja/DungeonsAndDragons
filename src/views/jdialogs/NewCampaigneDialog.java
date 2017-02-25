@@ -17,6 +17,11 @@ import javax.swing.border.MatteBorder;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 @SuppressWarnings("serial")
+/**
+ * The class that sets the name for the campaign
+ * @author RahulReddy
+ *
+ */
 public class NewCampaigneDialog extends JDialog{
 
 	public NewCampaigneDialog(){

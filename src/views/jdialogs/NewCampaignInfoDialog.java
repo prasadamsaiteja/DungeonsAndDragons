@@ -27,7 +27,8 @@ import model.Campaign;
 import model.jaxb.CampaignJaxb;
 
 /**
- * 
+ * Class that displays the information of Campaign that shows the list of maps in the Data folder and 
+ * User selected maps for a specific campaign
  * @author RahulReddy
  *
  */
@@ -38,12 +39,19 @@ public class NewCampaignInfoDialog extends JDialog {
 	ArrayList<String> addedMaps;
 	private Campaign campaignObject;
 
+	/**
+	 * Constructor for initialising the components
+	 * @param nameValue Name of the campaign from the CampaignName dialog
+	 */
 	public NewCampaignInfoDialog(String nameValue) {
 		DialogHelper.setDialogProperties(NewCampaignInfoDialog.this, "New Campaign", new Rectangle(554, 448));
 		this.campaignName = nameValue;
 		initComponents();
 	}
-
+	/**
+	 * Constructor for initialising the components 
+	 * @param campaignFromXml Gets the campaign Object for having list of values
+	 */
 	public NewCampaignInfoDialog(Campaign campaignFromXml) {
 		DialogHelper.setDialogProperties(NewCampaignInfoDialog.this, "Edit Campaign", new Rectangle(554, 448));
 		campaignObject = campaignFromXml;
@@ -208,7 +216,10 @@ public class NewCampaignInfoDialog extends JDialog {
 		});
 		
 	}
-
+	/**
+	 * Sets the list properties of the JList
+	 * @param List gets the List for setting its properties
+	 */
 	public void setListProperties(JList<String> List) {
 		List.setLayoutOrientation(JList.VERTICAL);
 		List.setBackground(SystemColor.menu);
