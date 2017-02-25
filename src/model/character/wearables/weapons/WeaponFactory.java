@@ -15,7 +15,6 @@ public class WeaponFactory {
 		for (WeaponFactory.allowedWeapons allowedClass: WeaponFactory.allowedWeapons.values() ){	
 			int weaponLevel = 0;	
 			String weaponClassName = "model.character.wearables.weapons."+allowedClass.toString();
-			System.out.println(weaponClassName);
 			
 			try {
 				WeaponsInterface weaponObj = (WeaponsInterface) Class.forName(weaponClassName).newInstance();

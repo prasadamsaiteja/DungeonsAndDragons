@@ -1,12 +1,14 @@
 package model.character.classes;
 
+import GameComponents.DiceImplementationInterface;
+
 /**
  * Custom data structure for storing charcter classes
  * 
  * @author Supreet Singh (s_supree)
  * @since 1.0.0
  */
-public class CharacterClassStructure {
+public class CharacterClassStructure implements DiceImplementationInterface {
 	private int numberOfRolls;
 	private int diceSides;
 	

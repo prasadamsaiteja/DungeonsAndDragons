@@ -32,7 +32,6 @@ public class Character extends Observable {
 	private boolean isBuilt = false;
 	private int hitScore = 0;
 	private String weaponName;
-	private WeaponsInterface weapon;
 	private String fname;
 
 	/**
@@ -151,13 +150,23 @@ public class Character extends Observable {
 	 * draws/redraws the character and notifies observers
 	 */
 	public void draw() {
-		System.out.println(this.getWeaponName());
-		// set weapon
-		this.weapon = WeaponFactory.get(
-										WeaponFactory.getValidParam(this.getWeaponName())
-								  );
 		this.setChanged();
 		this.notifyObservers();
+	}
+	
+	/**
+	 * Set file name
+	 * @param fname
+	 */
+	private void setFileName(String fname) {
+		this.fname = fname;
+	}
+	
+	/**
+	 * @return file name or null if not present
+	 */
+	private String getFileName() {
+		return this.fname;
 	}
 
 	/**
@@ -165,42 +174,52 @@ public class Character extends Observable {
 	 * characters lifetime and calculates - hit score, based on chacaters class
 	 */
 	public void build() {
-		// Build characters class and get hit score
-		CharacterClass cClass = new CharacterClass(this.getCharacterClass(), this);
-		CharacterClassStructure	cClassVal = cClass.get();
-		
-		cClass.calculateHitScore(
-							new Dice(cClassVal.getNumberOfRolls(), 
-									 cClassVal.getDiceSides(), 
-									 cClassVal.getNumberOfRolls()
-								)
-						);
-		this.hitScore = cClass.getHitScore();
-		this.isBuilt = true;
+		if (!this.isBuilt){
+			// Build characters class and get hit score
+			CharacterClass cClass = new CharacterClass(this.getCharacterClass(), this);
+			CharacterClassStructure	cClassVal = cClass.get();
+			
+			cClass.calculateHitScore(
+								new Dice(cClassVal.getNumberOfRolls(), 
+										 cClassVal.getDiceSides(), 
+										 cClassVal.getNumberOfRolls()
+									)
+							);
+			this.hitScore = cClass.getHitScore();
+			this.isBuilt = true;
+		}
 	}
 
 	public void hit(int damage) throws Exception {
 		this.hitScore -= damage;
 	}
 
+	/**
+	 * @return calculate hit score
+	 */
 	public int getHitScore() {
 		return this.hitScore;
 	}
 	
+	/**
+	 * saves character state in the generated xml file
+	 * 
+	 * @return
+	 */
 	public boolean save() {	
-		if (!this.isBuilt){
-			this.build();
+		this.build();
+		
+		if (this.getFileName() == null){
 			Date d = new Date();
 			long dTime = d.getTime();
-			this.fname = this.name + dTime;
+			this.setFileName(this.name + dTime);
 		}
 		
 		XStream xstream = new XStream(new StaxDriver());		
 		String xml = xstream.toXML(this);
 		FileWriter out;
 		try {
-			String filepath = SharedVariables.CharactersDirectory+File.separator+this.fname+".xml";
-			System.out.println(filepath);
+			String filepath = SharedVariables.CharactersDirectory+File.separator+this.getFileName()+".xml";
 			out = new FileWriter(filepath);
 			out.write(xml);
 			out.close();
@@ -209,25 +228,14 @@ public class Character extends Observable {
 		}
 		return true;
 	}
-
-	/*
-	public static void main(String[] args) {
-		Character character = new Character();
-		character.setConstitution(12);
-		character.setLevel(2);
-		character.setCharacterClass("Rogue");
-		if (!character.isInitialized()) {
-			character.build();
+	
+	/**
+	 *  deletes the characters xml file
+	 */
+	public void delete() {
+		if (this.getFileName() != null){
+			(new File(SharedVariables.CharactersDirectory+File.separator+this.fname+".xml")).delete();
+			CharactersList.init().updateCharactersList();
 		}
-		ArrayList<String> weapons = WeaponFactory.getAllowedWeapons(character.getLevel());
-		System.out.println(weapons);
-		System.out.println(character.getHitScore());
-		try {
-			character.hit(12);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println(character.getHitScore());
 	}
-	*/
 }
