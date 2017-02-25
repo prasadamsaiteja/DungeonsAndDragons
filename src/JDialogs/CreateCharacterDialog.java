@@ -38,7 +38,6 @@ public class CreateCharacterDialog extends JDialog {
 	private JTextField txtStr;
 	private JTextField txtDex;
 	private JTextField txtCons;
-	private JTextField txtFileName = null; // only useful if character is in edit mode
 	private JButton btnRoll;
 	private JButton btnSave;
 	private JComboBox<String> cbClass;

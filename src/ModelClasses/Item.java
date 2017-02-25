@@ -3,7 +3,6 @@ package ModelClasses;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import GameComponents.SharedVariables.ItemType;
 
 @XmlRootElement(name="Item")
 /** This is an item class which is used to store the items currently used by the 
@@ -17,27 +16,27 @@ import GameComponents.SharedVariables.ItemType;
  */
 public class Item {
   
-	  @XmlElement(name="itemName")
-      private String itemName;
-	  @XmlElement(name="itemType")
-      private ItemType itemType; 
-	  @XmlElement(name="itemClass")
-      private String itemClass;
-	  @XmlElement(name="itemLevel")
-      private int level;
-	  private int armorClass;
+      @XmlElement(name="itemName")   
+      public String itemName;     
+      @XmlElement(name="itemType")   
+      public String itemType;
+      @XmlElement(name="itemClass")   
+      public String itemClass;     
+      @XmlElement(name="itemLevel")   
+      public int itemLevel;
+      private int armorClass;
       private int strength;
       private int damagebonus;
       private int count;
       
       
-      public Item(String itemName, ItemType itemType, String itemClass){
-          itemName = this.itemName;
-          itemType = this.itemType;
-          itemClass = this.itemClass;
+      public Item(String name, String type, String itemclass, int level){
+          itemName = name;
+          itemType = type;
+          itemClass = itemclass;
+          itemLevel = level;
       }
-      
-      public Item()
+   public Item()
       {
     	  
       }
@@ -89,6 +88,16 @@ public class Item {
     		  break;
     	  case Boots :
     		  armorClass = armorClass + count;
+    		  break;
+    	  case Helmet:
+    		  armorClass = armorClass + count;
+    	  }
+      }
+    	  
+      /**
+       * Instantiates a new map.
+       */
+      public Item(){}
     		  break;
     	  case Helmet:
     		  armorClass = armorClass + count;

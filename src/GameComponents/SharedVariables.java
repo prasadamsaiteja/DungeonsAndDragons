@@ -14,6 +14,12 @@ import java.util.Map.Entry;
  */
 public class SharedVariables {
   
+       //character abilities
+       public static int constitution=1 ;
+       public static int dexterity=1 ;
+       public static int strength=1 ;
+       public static int level=1 ;
+  
        //Map element colors       
        public static final Color MAP_MOUSE_HOVER_COLOR = Color.gray;
        public static final Color MAP_DEFAULT_CELL_COLOR = Color.WHITE;
@@ -84,6 +90,7 @@ public class SharedVariables {
 
        public static final String DataDirectory = "Data";
        public static final String MapsDirectory = DataDirectory + File.separator + "Maps";
+       public static final String ItemsDirectory = DataDirectory + File.separator + "Items";
        public static final String CampaignsDirectory = DataDirectory + File.separator + "Campaigns";
        public static final String CharactersDirectory = DataDirectory + File.separator + "Characters";
 }
