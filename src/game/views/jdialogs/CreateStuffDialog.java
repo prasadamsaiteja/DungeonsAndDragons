@@ -41,8 +41,8 @@ import game.model.character.CharactersList;
 import game.model.jaxb.CampaignJaxb;
 import game.model.jaxb.ItemJaxb;
 import game.model.jaxb.MapJaxb;
-import views.jdialogs.campaignDialog.CampaignNameDialog;
-import views.jdialogs.campaignDialog.NewCampaignInfoDialog;
+import game.views.jdialogs.campaignDialog.CampaignNameDialog;
+import game.views.jdialogs.campaignDialog.NewCampaignInfoDialog;
 import game.views.jdialogs.viewmodels.CharactersListModel;
 import game.views.jpanels.MapDesigner;
 

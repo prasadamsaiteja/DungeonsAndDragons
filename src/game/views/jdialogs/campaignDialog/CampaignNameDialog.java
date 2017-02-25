@@ -1,5 +1,5 @@
 
-package game.views.jdialogs;
+package game.views.jdialogs.campaignDialog;
 
 import java.awt.Rectangle;
 
@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+
+import views.jdialogs.DialogHelper;
+
 import javax.swing.JButton;
 
 import java.awt.Font;
