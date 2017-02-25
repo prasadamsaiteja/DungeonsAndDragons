@@ -9,12 +9,11 @@ import java.util.Observable;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
-import GameComponents.Dice;
-import GameComponents.SharedVariables;
+import components.Dice;
+import components.SharedVariables;
 import model.character.classes.CharacterClass;
 import model.character.classes.CharacterClassStructure;
-import model.character.wearables.weapons.WeaponFactory;
-import model.character.wearables.weapons.WeaponsInterface;
+
 
 /**
  * Build a new character
@@ -23,6 +22,7 @@ import model.character.wearables.weapons.WeaponsInterface;
  *
  */
 public class Character extends Observable {
+  
 	private String characterClass;
 	private String name;
 	private int level;

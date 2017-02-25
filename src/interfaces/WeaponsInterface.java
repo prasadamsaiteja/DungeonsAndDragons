@@ -1,6 +1,4 @@
-package model.character.wearables.weapons;
-
-import interfaces.DiceImplementationInterface;
+package interfaces;
 
 public interface WeaponsInterface extends DiceImplementationInterface {
 	public enum type{melee,ranged};
