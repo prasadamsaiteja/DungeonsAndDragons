@@ -605,9 +605,8 @@ public class CreateStuffDialog extends JDialog{
       
       btnAdd.addActionListener(new ActionListener() {
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			//Create a Name for the Campaign
-			CampaignNameDialog CND=new CampaignNameDialog();
+		public void actionPerformed(ActionEvent arg0) {		
+			new CampaignNameDialog();
 			dispose();
 		
 		}

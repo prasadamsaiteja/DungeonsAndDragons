@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * Rolls the dice and calculates the sum
- * Created by supreetuniversity on 2017-02-02.
+ * Created by supreet university on 2017-02-02.
  */
 
 public class Dice {
@@ -48,7 +48,7 @@ public class Dice {
     public int getRollSum(){
         int sumOfRoll = 0;
 
-        ArrayList<Integer> rolledNumbers = new ArrayList();
+        ArrayList<Integer> rolledNumbers = new ArrayList<>();
 
         // Let's roll the numbers
         int n_o_t = this.numberOfRolls;
