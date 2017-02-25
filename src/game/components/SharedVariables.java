@@ -44,12 +44,12 @@ public class SharedVariables {
        public static enum ItemType{ Armor, Helmet, Shield, Belt, Boots, Ring, Weapon }
        
        public static enum HelmetClass { Intelligence, Wisdom, ArmorClass}
-       public static enum ArmorClass { ArmorClass}
+       public static enum ArmorClass { Light, Medium, Heavy}
        public static enum ShieldClass { ArmorClass}
        public static enum RingClass { ArmorClass, Strength, Constitution, Wisdom, Charisma}
        public static enum BeltClass { Constitution, Strength }
        public static enum BootsClass { ArmorClass, Dexterity}
-       public static enum WeaponClass { AttackBonus, DamageBonus }
+       public static enum WeaponClass { Melee, Ranged }
        
        public static final HashMap<String, Color> mapCellHashMap = new HashMap<>();
        static
