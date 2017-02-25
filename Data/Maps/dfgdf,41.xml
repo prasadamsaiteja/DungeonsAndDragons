@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Map>
+    <Name>dfgdf,41</Name>
+    <Width>4</Width>
+    <Height>5</Height>
+    <Map_rows>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+    </Map_rows>
+    <Map_rows>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>WALL</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+    </Map_rows>
+    <Map_rows>
+        <item>EMPTY</item>
+        <item>WALL</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+    </Map_rows>
+    <Map_rows>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+        <item>WALL</item>
+        <item>EMPTY</item>
+        <item>EMPTY</item>
+    </Map_rows>
+</Map>
