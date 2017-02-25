@@ -61,7 +61,6 @@ public class CreateStuffDialog extends JDialog{
   private SpringLayout sl_characterPanel;
   private int defaultTab = 0;
   private String lastCreateMapName;
-
  
   /**
    * This class is a JDialog which helps user to create new campaign, map or character.
@@ -422,33 +421,11 @@ public class CreateStuffDialog extends JDialog{
                       mapJPanelArray[i][j] = new JPanel();
                       mapJPanelArray[i][j].setBackground(SharedVariables.mapCellHashMap.get(mapObject.mapCellValues[i][j]));                    
                       mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
-                      mapPreviewPanel.add(mapJPanelArray[i][j]);                      
+                      mapPreviewPanel.add(mapJPanelArray[i][j]);      
                   }
                   mapPreviewPanel.revalidate();
               	  mapPreviewPanel.repaint();
-              }                
-              
-          private void updateMapPreview(JPanel mapPreviewPanel, String mapName) {
-                        
-              Map mapObject = MapJaxb.getMapFromXml(mapName);
-             
-              mapPreviewPanel.removeAll();              
-              mapPreviewPanel.setLayout(new GridLayout(mapObject.mapWidth, mapObject.mapHeight));
-              JPanel[][] mapJPanelArray = new JPanel[mapObject.mapWidth][mapObject.mapHeight];
-              
-              for(int i = 0; i < mapObject.mapWidth; i++)            
-                  for(int j = 0; j < mapObject.mapHeight; j++)
-                  {
-                      mapJPanelArray[i][j] = new JPanel();
-                      mapJPanelArray[i][j].setBackground(SharedVariables.mapCellHashMap.get(mapObject.mapCellValues[i][j]));                    
-                      mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
-                      mapPreviewPanel.add(mapJPanelArray[i][j]);                      
-                  }                
-              
-              mapPreviewPanel.revalidate();
-              mapPreviewPanel.repaint();
-          }
-
+              }    
         });
         
         mapsJlist.setSelectedValue(lastCreateMapName, true);
