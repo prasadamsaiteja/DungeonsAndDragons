@@ -20,12 +20,11 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import components.ExtensionMethods;
-import model.Campaign;
-import model.jaxb.CampaignJaxb;
-import views.jdialogs.DialogHelper;
+import game.components.ExtensionMethods;
+import game.model.Campaign;
+import game.model.jaxb.CampaignJaxb;
+import game.views.jdialogs.DialogHelper;
 
 /**
  * 

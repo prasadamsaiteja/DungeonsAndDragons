@@ -2,7 +2,6 @@ package game.views.jdialogs;
 
 import javax.swing.JDialog;
 import javax.swing.JTextField;
-import javax.swing.event.ListDataListener;
 
 import game.components.Dice;
 import game.model.character.Character;
@@ -31,6 +30,7 @@ import java.util.Set;
 
 @SuppressWarnings("serial")
 public class CreateCharacterDialog extends JDialog {
+  
 	private JDialog parent;
 	private JTextField txtName;
 	private JTextField txtLvl;

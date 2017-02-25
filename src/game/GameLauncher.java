@@ -24,11 +24,19 @@ public class GameLauncher {
 	public static void main(String[] args) {
 
 		try {
-			MetalLookAndFeel.setCurrentTheme(new OceanTheme());
-			UIManager.setLookAndFeel(new MetalLookAndFeel());
-		} catch (UnsupportedLookAndFeelException e) {
+		    String osName = System.getProperty("os.name").toLowerCase();
+		    if(osName.startsWith("mac os x")){
+		        MetalLookAndFeel.setCurrentTheme(new OceanTheme());
+	            UIManager.setLookAndFeel(new MetalLookAndFeel());  
+		    } 
+		    
+		    else
+		        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		    
+			
+		} catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
-		}	
+		} 
 		
 		mainFrameObject = new MainFrame();
 	}

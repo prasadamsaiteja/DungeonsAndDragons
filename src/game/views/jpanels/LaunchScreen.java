@@ -3,7 +3,6 @@ package game.views.jpanels;
 import javax.swing.JPanel;
 
 import game.views.jdialogs.CreateStuffDialog;
-import views.jdialogs.campaignDialog.NewCampaigneDialog;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -97,14 +96,7 @@ public class LaunchScreen extends JPanel {
 	 * @param exitButton       This contains the reference to exit button.
 	 */
 	private void buttonsOnclickListeners(JButton btnNewCampaign, JButton btnCreateStuff, JButton exitButton) {
-		
-		btnNewCampaign.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				new NewCampaigneDialog();
-			}
-		});
-		
+				
 	     btnCreateStuff.addActionListener(new ActionListener() {
 	         @Override
 			public void actionPerformed(ActionEvent arg0) {

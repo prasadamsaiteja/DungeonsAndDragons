@@ -1,9 +1,9 @@
-package model;
+package game.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import model.character.Character;
-import java.lang.Math.*;
+
+import game.model.character.Character;
 
 @XmlRootElement(name = "Item")
 /**
@@ -134,11 +134,11 @@ public class Item {
 	 */
 
 	public void setCharacterClassValues() {
-		charObj.setArmorClass(armorClass);
+		//charObj.setArmorClass(armorClass);
 		charObj.setDexterity(dexterity);
 		charObj.setStrength(strength);
-		charObj.setDamageBonus(damagebonus);
-		charObj.setAttackBonus(attackbonus);
+		//charObj.setDamageBonus(damagebonus);
+		//charObj.setAttackBonus(attackbonus);
 		charObj.setConstitution(constitution);
 	}
 
