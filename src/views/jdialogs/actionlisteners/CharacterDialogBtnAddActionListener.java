@@ -9,6 +9,7 @@ import views.jdialogs.CreateCharacterDialog;
 import views.jdialogs.CreateStuffDialog;
 
 public class CharacterDialogBtnAddActionListener implements ActionListener {
+  
 	private DefaultListModel<String> characterList;
 	private CreateStuffDialog jdialog;
 	

@@ -7,12 +7,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.BorderFactory;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.awt.event.ActionEvent;
@@ -610,9 +608,8 @@ public class CreateStuffDialog extends JDialog{
       
       btnAdd.addActionListener(new ActionListener() {
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			//Create a Name for the Campaign
-			CampaignNameDialog CND=new CampaignNameDialog();
+		public void actionPerformed(ActionEvent arg0) {		
+			new CampaignNameDialog();
 			dispose();
 		
 		}
