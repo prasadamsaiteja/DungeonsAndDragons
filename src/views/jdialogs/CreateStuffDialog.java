@@ -41,7 +41,6 @@ import model.character.CharactersList;
 import model.jaxb.CampaignJaxb;
 import model.jaxb.ItemJaxb;
 import model.jaxb.MapJaxb;
-import views.jdialogs.actionlisteners.CharacterDialogBtnAddActionListener;
 import views.jdialogs.viewmodels.CharactersListModel;
 import views.jpanels.MapDesigner;
 
@@ -173,8 +172,6 @@ public class CreateStuffDialog extends JDialog{
       characterPanel.add(characterJlist);      
       
       JButton btnAdd = new JButton("Create");
-      ActionListener btnAddActionListener = new CharacterDialogBtnAddActionListener(CreateStuffDialog.this, characterList);
-      btnAdd.addActionListener(btnAddActionListener);
       sl_characterPanel.putConstraint(SpringLayout.SOUTH, characterJlist, -6, SpringLayout.NORTH, btnAdd);
       btnAdd.addActionListener(new ActionListener() {
 		@Override
