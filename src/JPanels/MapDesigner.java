@@ -62,6 +62,10 @@ public class MapDesigner extends JPanel {
       initComponents();     
   }
 
+  /**
+   * This constructor is called when a map is being loaded
+   * @param mapName This will specify map name
+   */
   public MapDesigner(String mapName){
       this.mapName = mapName;
       mapObject = MapJaxb.getMapFromXml(mapName);
@@ -79,6 +83,10 @@ public class MapDesigner extends JPanel {
       }      
   }
   
+  /**
+   * Load previously saved map data to display on current map
+   * @param loadedMapData  This is the previous map data
+   */
   private void loadMap(JPanel[][] loadedMapData) {
     
     for(int i = 0; i < mapWidth; i++)    
@@ -128,7 +136,6 @@ public class MapDesigner extends JPanel {
                     mapJPanelArray[i][j] = new JPanel();
                     mapJPanelArray[i][j].setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);                  
                     mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    mapJPanelArray[i][j].setPreferredSize(new Dimension(35, 35));
                     mapJPanelArray[i][j].addMouseListener(new MouseListener() {
                       
                       @Override
@@ -367,12 +374,12 @@ public class MapDesigner extends JPanel {
         public void actionPerformed(ActionEvent arg0) {
             MapJaxb.convertMapObjectToXml(new Map(mapName, mapWidth, mapHeight, mapJPanelArray));
             GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
-            new CreateStuffDialog(2);
+            new CreateStuffDialog(2, mapName);
         }
       });
       btnSaveButton.setFont(new Font("Tahoma", Font.BOLD, 14));
       btnSaveButton.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-      panel.add(btnSaveButton);    
+      panel.add(btnSaveButton);
   }
 
   /**

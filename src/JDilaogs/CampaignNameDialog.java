@@ -1,3 +1,4 @@
+
 package JDilaogs;
 
 import java.awt.Rectangle;
@@ -5,28 +6,33 @@ import java.awt.Rectangle;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import java.awt.Font;
 import javax.swing.JPanel;
-import java.awt.SystemColor;
-import javax.swing.border.MatteBorder;
-import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
+
+import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 /**
  * 
  * @author RahulReddy
  *
  */
-public class CampaignNameDialog extends JDialog {
-	private JTextField campaignName_TextField;
-	private JTextField campaignNameValue;
+@SuppressWarnings("serial")
+public class CampaignNameDialog extends JDialog {	
+	
 	public CampaignNameDialog() {
-		// TODO Auto-generated constructor stub
 		DialogHelper.setDialogProperties(this,"Campaign Name", new Rectangle(440,150));
 		getContentPane().setLayout(null);
+	
+		initComponents();
+	}
+
+	private void initComponents() {
 		
+		//Jpanel
 		JPanel contentPanel = new JPanel();
 		contentPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		contentPanel.setBackground(SystemColor.inactiveCaption);
@@ -34,33 +40,37 @@ public class CampaignNameDialog extends JDialog {
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 		
+		//Campaign name Jlabel
 		JLabel lblCampaignName = new JLabel("Enter Campaign Name :");
 		lblCampaignName.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblCampaignName.setBounds(10, 25, 173, 21);
 		contentPanel.add(lblCampaignName);
 		
-		campaignNameValue = new JTextField();
+		//Campaign Name JTextField
+		JTextField campaignNameValue = new JTextField();
 		campaignNameValue.setBackground(SystemColor.menu);
 		campaignNameValue.setBounds(193, 21, 218, 31);
 		contentPanel.add(campaignNameValue);
 		campaignNameValue.setColumns(10);
 		
-		JButton btn_addName = new JButton("OK");
-		btn_addName.addActionListener(new ActionListener() {
+		//Next JButton
+		JButton btn_Next = new JButton("Next");
+		btn_Next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(campaignNameValue!=null)
+				
+				//Opens a Dialog with a list of loaded Maps
+				if(campaignNameValue.getText().length() >= 4)
 				{
-					NewCampaignInfoDialog ncid=new NewCampaignInfoDialog(campaignNameValue.getText());
-					System.out.println("value is" + campaignNameValue.getText());
+					new NewCampaignInfoDialog(campaignNameValue.getText());
+					dispose();					
 				}
-				else{
-					
-				}	
+				else
+					DialogHelper.showBasicDialog("Campaign name should be atleast 4 characters");				
 			}
 			
 		});
-		btn_addName.setBounds(158, 81, 89, 23);
-		contentPanel.add(btn_addName);
-	
+		btn_Next.setBounds(158, 81, 89, 23);
+		contentPanel.add(btn_Next);
 	}
+
 }
