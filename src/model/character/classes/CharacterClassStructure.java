@@ -1,6 +1,6 @@
 package model.character.classes;
 
-import model.interfaces.DiceImplementationInterface;
+import interfaces.DiceImplementationInterface;
 
 /**
  * Custom data structure for storing charcter classes

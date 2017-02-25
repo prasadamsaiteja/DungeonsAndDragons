@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-import javax.swing.JList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -15,11 +14,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @since   2/20/2017
  */
 public class Campaign {
-	@XmlElement(name="Campaign_Name")
-	String campaignName;
 	
-	//@XmlElement(name="Player Name")
-	//String playerName;
+    @XmlElement(name="Campaign_Name")
+	String campaignName;
 	
 	@XmlElement(name="Loaded_Maps")
 	public ArrayList<String> maps;

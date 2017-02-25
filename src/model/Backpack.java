@@ -66,7 +66,7 @@ public class Backpack extends Observable {
 	public void equip(String itemType, String itemName) throws Throwable{
 		ArrayList<String> itemList;
 		if (!items.containsKey(itemType)){
-			itemList = new ArrayList();
+			itemList = new ArrayList<>();
 			items.put(itemType, itemList);
 		}else{
 			itemList = items.get(itemType);

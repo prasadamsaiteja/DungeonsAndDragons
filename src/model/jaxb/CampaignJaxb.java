@@ -13,7 +13,7 @@ import javax.xml.bind.Unmarshaller;
 
 import components.SharedVariables;
 import model.Campaign;
-import model.Map;
+
 /**
  * 
  * @author RahulReddy
@@ -21,7 +21,8 @@ import model.Map;
  * @since   2/20/2017
  */
 public class CampaignJaxb {
-	 public static final void convertCampaignInfoToXml(Campaign campaign){
+	 
+    public static final void convertCampaignInfoToXml(Campaign campaign){
          
 	      try {
 	          Marshaller marshaller = JAXBContext.newInstance(Campaign.class).createMarshaller();
@@ -43,36 +44,39 @@ public class CampaignJaxb {
 	        e.printStackTrace();
 	      }  
 	  }
-	  public static final boolean deleteCampaignXml(String campaignName){
-		    
-		    try{
-		      File file = new File(SharedVariables.CampaignsDirectory + File.separator + campaignName + ".xml");
-		      return file.delete();  
-		    }
-		    
-		    catch(Exception ignored){
-		      return false;
-		    }
-		    
-		  }
-	  public static Campaign getCampaignFromXml(String campaignName) {
-	      
-		    try {      
-		        File campaignFile = new File(SharedVariables.CampaignsDirectory + File.separator + campaignName + ".xml");
-		        
-		        if(!campaignFile.exists())
-		          return null;
-		             
-		        Unmarshaller unmarshaller = JAXBContext.newInstance(Campaign.class).createUnmarshaller();
-		        return (Campaign) unmarshaller.unmarshal(campaignFile);
-		        
-		      } 
-		      
-		      catch (JAXBException e) {
-		        return null;
-		      }
+	 
+    public static final boolean deleteCampaignXml(String campaignName){
+      
+        try{
+          File file = new File(SharedVariables.CampaignsDirectory + File.separator + campaignName + ".xml");
+          return file.delete();  
+        }
+        
+        catch(Exception ignored){
+          return false;
+        }
+      
+    }
+    
+	  
+    public static Campaign getCampaignFromXml(String campaignName) {
+      
+      try {      
+          File campaignFile = new File(SharedVariables.CampaignsDirectory + File.separator + campaignName + ".xml");
+          
+          if(!campaignFile.exists())
+            return null;
+               
+          Unmarshaller unmarshaller = JAXBContext.newInstance(Campaign.class).createUnmarshaller();
+          return (Campaign) unmarshaller.unmarshal(campaignFile);
+          
+        } 
+        
+        catch (JAXBException e) {
+          return null;
+        }
 
-		  }
+    }
 
 	
 }

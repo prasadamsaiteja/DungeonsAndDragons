@@ -21,11 +21,13 @@ public class CharacterClass {
 	 * @author Supreet Singh (s_supree)
 	 */
 	private static class DefinedClasses {
+	  
 		/**
 		 * @return a hashmap with character class and corresponding structure
 		 */
 		public static HashMap<String, CharacterClassStructure> getCharacterList(){
-			HashMap<String, CharacterClassStructure> characterList = new HashMap();
+		  
+			HashMap<String, CharacterClassStructure> characterList = new HashMap<>();
 			
 			// Add character classes
 

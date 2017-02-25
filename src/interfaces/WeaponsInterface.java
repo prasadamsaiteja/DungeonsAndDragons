@@ -1,4 +1,4 @@
-package model.interfaces;
+package interfaces;
 
 public interface WeaponsInterface extends DiceImplementationInterface {
 	public enum type{melee,ranged};
