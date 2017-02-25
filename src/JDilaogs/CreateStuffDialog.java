@@ -4,11 +4,13 @@ import java.awt.Rectangle;
 
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
+import javax.swing.BorderFactory;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -35,6 +37,7 @@ import GameComponents.ExtensionMethods;
 import GameComponents.SharedVariables;
 import JPanels.MapDesigner;
 import ModelClasses.Map;
+import jaxb.CampaignJaxb;
 import jaxb.MapJaxb;
 import mainPackage.GameLauncher;
 import model.character.Character;
@@ -418,13 +421,11 @@ public class CreateStuffDialog extends JDialog{
                       mapJPanelArray[i][j] = new JPanel();
                       mapJPanelArray[i][j].setBackground(SharedVariables.mapCellHashMap.get(mapObject.mapCellValues[i][j]));                    
                       mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
-                      mapPreviewPanel.add(mapJPanelArray[i][j]);                      
-                  }                
-              
-              mapPreviewPanel.revalidate();
-              mapPreviewPanel.repaint();
-          }
-
+                      mapPreviewPanel.add(mapJPanelArray[i][j]);      
+                  }
+                  mapPreviewPanel.revalidate();
+              	  mapPreviewPanel.repaint();
+              }    
         });
         
         mapsJlist.setSelectedValue(lastCreateMapName, true);
@@ -517,9 +518,13 @@ public class CreateStuffDialog extends JDialog{
     
       SpringLayout sl_campaignPanel = new SpringLayout();
       campaignPanel.setLayout(sl_campaignPanel);
-      
+
       DefaultListModel<String> campaignJlistModel = new DefaultListModel<>();
       JList<String> campaignJlist = new JList<String>(campaignJlistModel);
+      
+      String[] campaignsList = ExtensionMethods.getCampaignsList();
+      for(String campaignName : campaignsList)
+    	  campaignJlistModel.addElement(campaignName);
       
       campaignJlist.setFont(new Font("Tahoma", Font.BOLD, 12));
       campaignJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -535,12 +540,32 @@ public class CreateStuffDialog extends JDialog{
       sl_campaignPanel.putConstraint(SpringLayout.EAST, btnAdd, -10, SpringLayout.EAST, campaignPanel);
       campaignPanel.add(btnAdd);
       
+      btnAdd.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			//Create a Name for the Campaign
+			CampaignNameDialog CND=new CampaignNameDialog();
+			dispose();
+		
+		}
+	});
+      
       JButton btnEdit = new JButton("Edit");
       btnEdit.setEnabled(false);
       sl_campaignPanel.putConstraint(SpringLayout.EAST, btnEdit, 92, SpringLayout.WEST, campaignJlist);
       sl_campaignPanel.putConstraint(SpringLayout.NORTH, btnEdit, 6, SpringLayout.SOUTH, campaignJlist);
       sl_campaignPanel.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, campaignJlist);
+      btnEdit.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(campaignJlist.getSelectedValue()!=null){
+				new NewCampaignInfoDialog(CampaignJaxb.getCampaignFromXml(campaignJlist.getSelectedValue()));
+			}
+		}
+	});
+      
       campaignPanel.add(btnEdit);
+      
       
       JButton btnRemove = new JButton("Remove");
       btnRemove.setEnabled(false);
@@ -548,6 +573,20 @@ public class CreateStuffDialog extends JDialog{
       sl_campaignPanel.putConstraint(SpringLayout.WEST, btnRemove, -114, SpringLayout.WEST, btnAdd);
       sl_campaignPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);
       campaignPanel.add(btnRemove);
+      
+      btnRemove.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(campaignJlist.getSelectedValue()!=null){
+				CampaignJaxb.deleteCampaignXml(campaignJlist.getSelectedValue());
+				campaignJlistModel.clear();
+			      String[] campaignsList = ExtensionMethods.getCampaignsList();
+			      for(String campaignName : campaignsList)
+			    	  campaignJlistModel.addElement(campaignName);
+			}
+		}
+	});
       
       campaignJlist.addListSelectionListener(new ListSelectionListener() {
         @SuppressWarnings("rawtypes")
