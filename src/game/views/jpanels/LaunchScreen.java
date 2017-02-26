@@ -45,12 +45,9 @@ public class LaunchScreen extends JPanel
     /**
      * This method initialize the UI components.
      * 
-     * @param btnNewCampaign
-     *            This contains the reference to new campaign button.
-     * @param btnCreateStuff
-     *            This contains the reference to create stuff button.
-     * @param exitButton
-     *            This contains the reference to exit button.
+     * @param btnNewCampaign This contains the reference to new campaign button.
+     * @param btnCreateStuff This contains the reference to create stuff button.
+     * @param exitButton This contains the reference to exit button.
      */
     private void initComponents(JButton btnNewCampaign, JButton btnCreateStuff, JButton btnExit)
     {
@@ -102,12 +99,9 @@ public class LaunchScreen extends JPanel
     /**
      * This method sets onClick listeners for three buttons
      * 
-     * @param btnNewCampaign
-     *            This contains the reference to new campaign button.
-     * @param btnCreateStuff
-     *            This contains the reference to create stuff button.
-     * @param exitButton
-     *            This contains the reference to exit button.
+     * @param btnNewCampaign This contains the reference to new campaign button.
+     * @param btnCreateStuff This contains the reference to create stuff button.
+     * @param exitButton This contains the reference to exit button.
      */
     private void buttonsOnclickListeners(JButton btnNewCampaign, JButton btnCreateStuff, JButton exitButton)
     {

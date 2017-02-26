@@ -4,6 +4,7 @@ import javax.swing.JDialog;
 import javax.swing.JTextField;
 
 import game.components.Dice;
+import game.model.Item;
 import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.character.classes.CharacterClass;
@@ -314,7 +315,7 @@ public class CreateCharacterDialog extends JDialog
         this.txtStr.setName("strength");
         if (this.characterExistsFlag)
         {
-            this.txtStr.setText(String.valueOf(this.character.getStrength()));
+            this.txtStr.setText(String.valueOf(this.character.getOriginalStrength()));
         }
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -335,7 +336,7 @@ public class CreateCharacterDialog extends JDialog
         this.txtDex.setName("dexterity");
         if (this.characterExistsFlag)
         {
-            this.txtDex.setText(String.valueOf(this.character.getDexterity()));
+            this.txtDex.setText(String.valueOf(this.character.getOriginalDexterity()));
         }
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -356,7 +357,7 @@ public class CreateCharacterDialog extends JDialog
         this.txtCons.setName("constitution");
         if (this.characterExistsFlag)
         {
-            this.txtCons.setText(String.valueOf(this.character.getConstitution()));
+            this.txtCons.setText(String.valueOf(this.character.getOriginalConstitution()));
         }
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -378,12 +379,19 @@ public class CreateCharacterDialog extends JDialog
         gbc.gridy = 3;
         contentPanel.add(this.cbWeapon, gbc);
 
-        ArrayList<String> weapons = WeaponFactory.getAllowedWeapons(2);
-        Iterator<String> weaponsIterator = weapons.iterator();
+
+        int level = 1;
+        if (this.characterExistsFlag)
+        {
+            level = this.character.getLevel();
+        }
+        
+        ArrayList<Item> weapons = Item.getItems("Weapon", level);
+        Iterator<Item> weaponsIterator = weapons.iterator();
         while (weaponsIterator.hasNext())
         {
-            String weapon = weaponsIterator.next();
-            this.cbWeapon.addItem(weapon);
+            Item weapon = weaponsIterator.next();
+            this.cbWeapon.addItem(weapon.itemName);
         }
 
         if (this.characterExistsFlag)

@@ -1,9 +1,15 @@
 package game.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import game.components.ExtensionMethods;
 import game.model.character.Character;
+import game.model.jaxb.ItemJaxb;
 
 @XmlRootElement(name = "Item")
 /**
@@ -30,14 +36,9 @@ public class Item
 
     /** creating an object of class Character */
 
-    Character charObj = new Character();
+    Character charObj = null;
 
     private int armorClass = 0;
-    private int strength = charObj.getStrength();
-    private int damagebonus;
-    private int attackbonus;
-    private int dexterity = charObj.getDexterity();
-    private int constitution = charObj.getConstitution();
     private int count;
 
     public Item(String name, String type, String itemclass, int level)
@@ -60,13 +61,9 @@ public class Item
 
     public void setInitialArmorClass()
     {
-        if (itemClass.equalsIgnoreCase("Light"))
+        if (itemClass.equalsIgnoreCase("Light") || itemName.equalsIgnoreCase("Medium"))
         {
-            armorClass = armorClass + dexterity;
-        }
-        else if (itemName.equalsIgnoreCase("Medium"))
-        {
-            armorClass = armorClass + dexterity;
+            armorClass = armorClass + charObj.getOriginalDexterity();
         }
         else
             armorClass = 14;
@@ -93,84 +90,27 @@ public class Item
         else
             count = 5;
     }
-
+    
     /**
-     * This method is used to calculate the ability modifier values for each of
-     * the items used by the character.
+     * return the modifier
+     * @return
      */
-    @SuppressWarnings("fallthrough")
-
-    public void calculateModifiersValue()
-    {
-        setInitialArmorClass();
+    public int getModifier(){
         calculateLevelCount();
-        switch (itemType)
+        if (itemType.equalsIgnoreCase("Armor"))
         {
-            case "Belt":
-                if (itemClass.equalsIgnoreCase("Strength"))
-                {
-                    strength = strength + count;
-                    break;
-                }
-                else
-                    constitution = constitution + count;
-                break;
-            case "Weapon":
-                if (itemClass.equalsIgnoreCase("Ranged"))
-                {
-                    damagebonus = dexterity + count;
-                    break;
-                }
-                else
-                    attackbonus = strength + count;
-                break;
-            case "Armor":
-                armorClass = armorClass + count;
-                break;
-            case "Ring":
-                if (itemClass.equalsIgnoreCase("ArmorClass"))
-                {
-                    armorClass = armorClass + count;
-                    break;
-                }
-                else if (itemClass.equalsIgnoreCase("Strength"))
-                {
-                    strength = strength + count;
-                    break;
-                }
-                else
-                    constitution = constitution + count;
-                break;
-            case "Shield":
-                armorClass = armorClass + count;
-                break;
-            case "Boots":
-                if (itemClass.equalsIgnoreCase("ArmorClass"))
-                {
-                    armorClass = armorClass + count;
-                    break;
-                }
-                else
-                    dexterity = dexterity + count;
-                break;
-            case "Helmet":
-                armorClass = armorClass + count;
+            setInitialArmorClass();
+            count += armorClass;
         }
+        
+        return count;
     }
-
+    
     /**
-     * this method is used to update these ability modifier values in the
-     * character class.
+     * @param character sets the character class object
      */
-
-    public void setCharacterClassValues()
-    {
-        // charObj.setArmorClass(armorClass);
-        charObj.setDexterity(dexterity);
-        charObj.setStrength(strength);
-        // charObj.setDamageBonus(damagebonus);
-        // charObj.setAttackBonus(attackbonus);
-        charObj.setConstitution(constitution);
+    public void setCharacter(Character character){
+        charObj = character;
     }
 
     /**
@@ -179,4 +119,44 @@ public class Item
     public Item()
     {
     }
+    
+    public static HashMap<String, ArrayList<Item>> getItems()
+    {
+        HashMap<String, ArrayList<Item>> hMap = new HashMap<String, ArrayList<Item>>();
+        
+        String[] items = ExtensionMethods.getItemsList();
+        for (String item: items)
+        {
+            Item i = ItemJaxb.getItemFromXml(item);
+            if (hMap.containsKey(i.itemType)){
+                ArrayList<Item> hMapItemList = hMap.get(i.itemType);
+                hMapItemList.add(i);
+            }else{
+                ArrayList<Item> hMapItemList = new ArrayList<Item>();
+                hMap.put(i.itemType, hMapItemList);
+                hMapItemList.add(i);
+            }
+        }
+        return hMap;
+    }
+    
+    public static ArrayList<Item> getItems(String itemType, int level)
+    {
+        HashMap<String, ArrayList<Item>> hMap = getItems();
+        
+        if (!hMap.containsKey(itemType)){
+            // no item found for this item type
+            return new ArrayList<Item>();
+        }
+        
+        ArrayList<Item> hMapList = hMap.get(itemType);
+        Iterator<Item> hMapListIterator = hMapList.iterator();
+        while(hMapListIterator.hasNext()){
+            Item i = hMapListIterator.next();
+            if (i.itemLevel > level){
+                hMapListIterator.remove();
+            }
+        }
+        return hMapList;
+    }    
 }
