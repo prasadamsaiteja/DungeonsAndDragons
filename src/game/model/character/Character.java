@@ -3,10 +3,7 @@ package game.model.character;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Observable;
 
 import com.thoughtworks.xstream.XStream;
@@ -44,7 +41,6 @@ public class Character extends Observable
     private String armor;
     private String helmet;
     private String fname;
-    private HashMap<String, ArrayList<Item>> itemModifiers = new HashMap<String, ArrayList<Item>>();
 
     /**
      * @param String name
@@ -99,14 +95,14 @@ public class Character extends Observable
         this.strength = strength;
         return this;
     }
-    
+
     /**
      * retrieve character strength
      *
      * @return int strength
      */
     public int getOriginalStrength()
-    {        
+    {
         return strength;
     }
 
@@ -118,18 +114,20 @@ public class Character extends Observable
     public int getStrength()
     {
         int strength = 0;
-        
+
         Item ringObject = this.getRingObject();
-        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Strength")){
+        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Strength"))
+        {
             strength += ringObject.getModifier();
         }
-        
+
         Item beltObject = this.getBeltObject();
-        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Strength")){
+        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Strength"))
+        {
             strength += beltObject.getModifier();
         }
-        
-        return strength+getOriginalStrength();
+
+        return strength + getOriginalStrength();
     }
 
     /**
@@ -149,7 +147,7 @@ public class Character extends Observable
     {
         return dexterity;
     }
-    
+
     /**
      * @return dexterity
      */
@@ -157,7 +155,8 @@ public class Character extends Observable
     {
         int dexterity = 0;
         Item bootsObject = this.getBootsObject();
-        if (bootsObject != null && bootsObject.itemClass.equalsIgnoreCase("Dexterity")){
+        if (bootsObject != null && bootsObject.itemClass.equalsIgnoreCase("Dexterity"))
+        {
             dexterity += bootsObject.getModifier();
         }
         return dexterity + getOriginalDexterity();
@@ -171,7 +170,7 @@ public class Character extends Observable
         this.constitution = constitution;
         return this;
     }
-    
+
     /**
      * return constitution
      */
@@ -186,17 +185,19 @@ public class Character extends Observable
     public int getConstitution()
     {
         int constitution = 0;
-        
+
         Item ringObject = this.getRingObject();
-        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Constitution")){
+        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Constitution"))
+        {
             constitution += ringObject.getModifier();
         }
-        
+
         Item beltObject = this.getBeltObject();
-        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Constitution")){
+        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Constitution"))
+        {
             constitution += beltObject.getModifier();
         }
-        
+
         return constitution + getOriginalConstitution();
     }
 
@@ -222,7 +223,7 @@ public class Character extends Observable
     {
         return this.weaponName;
     }
-    
+
     /**
      * @return the beltName
      */
@@ -246,7 +247,8 @@ public class Character extends Observable
     {
         int attackBonus = 0;
         Item weaponObj = this.getWeaponObject();
-        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Ranged")){
+        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Ranged"))
+        {
             attackBonus += this.getStrength() + weaponObj.getModifier();
         }
         return attackBonus;
@@ -259,44 +261,49 @@ public class Character extends Observable
     {
         int damageBonus = 0;
         Item weaponObj = this.getWeaponObject();
-        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee")){
+        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))
+        {
             damageBonus += this.getDexterity() + weaponObj.getModifier();
         }
         return damageBonus;
     }
 
-
     /**
      * @return the armor class
      */
     public int getArmorClass()
-    { 
+    {
         int armorClass = 0;
         Item ringObject = this.getRingObject();
-        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("ArmorClass")){
+        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("ArmorClass"))
+        {
             armorClass += ringObject.getModifier();
         }
-        
+
         Item armorObject = this.getArmorObject();
-        if (armorObject != null){
+        if (armorObject != null)
+        {
             armorClass += armorObject.getModifier();
         }
-        
+
         Item shieldObject = this.getShieldObject();
-        if (shieldObject != null){
+        if (shieldObject != null)
+        {
             armorClass += shieldObject.getModifier();
         }
-        
+
         Item helmetObject = this.getHelmetObject();
-        if (helmetObject != null){
+        if (helmetObject != null)
+        {
             armorClass += helmetObject.getModifier();
         }
-        
+
         Item bootsObject = this.getBootsObject();
-        if (bootsObject != null && bootsObject.itemClass.equalsIgnoreCase("ArmorClass")){
+        if (bootsObject != null && bootsObject.itemClass.equalsIgnoreCase("ArmorClass"))
+        {
             armorClass += bootsObject.getModifier();
         }
-        
+
         return armorClass;
     }
 
@@ -379,7 +386,7 @@ public class Character extends Observable
     {
         this.helmet = helmet;
     }
-    
+
     /**
      * @return
      */
@@ -387,10 +394,10 @@ public class Character extends Observable
     {
         if (this.getWeaponName() == null)
             return null;
-        
+
         return ItemJaxb.getItemFromXml(this.getWeaponName());
     }
-    
+
     /**
      * @return
      */
@@ -398,11 +405,10 @@ public class Character extends Observable
     {
         if (this.getShield() == null)
             return null;
-        
+
         return ItemJaxb.getItemFromXml(this.getShield());
     }
-    
-    
+
     /**
      * @return
      */
@@ -410,11 +416,10 @@ public class Character extends Observable
     {
         if (this.getRingName() == null)
             return null;
-        
+
         return ItemJaxb.getItemFromXml(this.getRingName());
     }
-    
-    
+
     /**
      * @return
      */
@@ -422,11 +427,10 @@ public class Character extends Observable
     {
         if (this.getHelmet() == null)
             return null;
-        
+
         return ItemJaxb.getItemFromXml(this.getHelmet());
     }
-    
-    
+
     /**
      * @return
      */
@@ -434,11 +438,10 @@ public class Character extends Observable
     {
         if (this.getArmor() == null)
             return null;
-        
+
         return ItemJaxb.getItemFromXml(this.getArmor());
     }
-    
-    
+
     /**
      * @return
      */
@@ -446,10 +449,10 @@ public class Character extends Observable
     {
         if (this.getBoots() == null)
             return null;
-        
+
         return ItemJaxb.getItemFromXml(this.getBoots());
     }
-    
+
     /**
      * @return
      */
@@ -457,7 +460,7 @@ public class Character extends Observable
     {
         if (this.getBeltName() == null)
             return null;
-        
+
         return ItemJaxb.getItemFromXml(this.getBeltName());
     }
 
@@ -468,14 +471,7 @@ public class Character extends Observable
     {
         if (!this.isBuilt)
             return;
-        
 
-        ArrayList<Item> list = new ArrayList<Item>();
-        
-        Item weaponObj = getWeaponObject();
-        itemModifiers.put(weaponObj.itemClass.toLowerCase(), list);
-        list.add(weaponObj);
-        
         this.setChanged();
         this.notifyObservers();
     }

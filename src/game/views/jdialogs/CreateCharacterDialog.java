@@ -379,13 +379,12 @@ public class CreateCharacterDialog extends JDialog
         gbc.gridy = 3;
         contentPanel.add(this.cbWeapon, gbc);
 
-
         int level = 1;
         if (this.characterExistsFlag)
         {
             level = this.character.getLevel();
         }
-        
+
         ArrayList<Item> weapons = Item.getItems("Weapon", level);
         Iterator<Item> weaponsIterator = weapons.iterator();
         while (weaponsIterator.hasNext())
