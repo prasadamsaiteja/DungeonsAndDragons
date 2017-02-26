@@ -6,4 +6,4 @@
 ***
 ###Conventions installation directions
 
-Under Window/Preferences select Java/Code Style/Formatter. Import the settings file by selecting Import.
+Download `lib/tools/soenTeam13.xml`. Under Window/Preferences select Java/Code Style/Formatter. Import the settings file by selecting Import.
