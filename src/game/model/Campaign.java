@@ -18,7 +18,7 @@ public class Campaign
 {
 
     @XmlElement(name = "Campaign_Name")
-    String campaignName;
+    private String campaignName;
 
     @XmlElement(name = "Loaded_Maps")
     public ArrayList<String> maps;

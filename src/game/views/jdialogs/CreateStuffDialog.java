@@ -99,7 +99,7 @@ public class CreateStuffDialog extends JDialog
      * 
      * @param doc
      */
-    protected void addStylesToDocument(StyledDocument doc)
+    private void addStylesToDocument(StyledDocument doc)
     {
         // Initialize some styles.
         Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);

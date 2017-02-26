@@ -34,12 +34,12 @@ public class LaunchScreen extends JPanel
     public LaunchScreen()
     {
 
-        JButton btnNewCampaign = new JButton("New campaign");
+        JButton btnStartCampaign = new JButton("Start campaign");
         JButton btnCreateStuff = new JButton("Create stuff");
         JButton btnExit = new JButton("Exit game");
 
-        initComponents(btnNewCampaign, btnCreateStuff, btnExit);
-        buttonsOnclickListeners(btnNewCampaign, btnCreateStuff, btnExit);
+        initComponents(btnStartCampaign, btnCreateStuff, btnExit);
+        buttonsOnclickListeners(btnStartCampaign, btnCreateStuff, btnExit);
     }
 
     /**
@@ -71,7 +71,7 @@ public class LaunchScreen extends JPanel
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 0, 5, 5);
 
-        { // New game button
+        {   //Start campaign button
             btnNewCampaign.setPreferredSize(btnDim);
             btnNewCampaign.setFont(btnFont);
             gbc.gridx = 1;
@@ -79,10 +79,10 @@ public class LaunchScreen extends JPanel
             add(btnNewCampaign, gbc);
         }
 
-        { // Load game button
+        {  // Create stuff button
             btnCreateStuff.setPreferredSize(btnDim);
             btnCreateStuff.setFont(btnFont);
-            gbc.gridx = 5;
+            gbc.gridx = 2;
             gbc.gridy = 2;
             add(btnCreateStuff, gbc);
         }
