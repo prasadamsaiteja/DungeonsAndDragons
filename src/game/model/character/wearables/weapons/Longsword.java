@@ -7,11 +7,13 @@ package game.model.character.wearables.weapons;
  * @since 1.0.0
  */
 
-public class Longsword extends WeaponAbstract{
-	public Longsword(){
-		this.weaponLevel = 1;
-		this.setType("melee");
-		this.diceSides = 6;
-		this.numberOfRolls = 4;
-	}
+public class Longsword extends WeaponAbstract
+{
+    public Longsword()
+    {
+        this.weaponLevel = 1;
+        this.setType("melee");
+        this.diceSides = 6;
+        this.numberOfRolls = 4;
+    }
 }
