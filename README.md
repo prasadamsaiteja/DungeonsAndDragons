@@ -1,4 +1,4 @@
 # DungeonsAndDragons
 ***
 ###Index
-- [Conventions](/wiki/Conventions)
+- [Conventions](https://github.com/prasadamsaiteja/DungeonsAndDragons/wiki/Conventions)
