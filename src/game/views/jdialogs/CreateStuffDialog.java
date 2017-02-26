@@ -365,10 +365,10 @@ public class CreateStuffDialog extends JDialog
 
                 doc.insertString(doc.getLength(), "\nArmor Class: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getArmorClass()), doc.getStyle("italics"));
-                
+
                 doc.insertString(doc.getLength(), "\nAttack Bonus: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getAttackBonus()), doc.getStyle("italics"));
-                
+
                 doc.insertString(doc.getLength(), "\nDamage Bonus: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getDamageBonus()), doc.getStyle("italics"));
             }

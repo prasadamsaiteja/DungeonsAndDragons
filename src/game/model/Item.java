@@ -12,6 +12,7 @@ import game.model.character.Character;
 import game.model.jaxb.ItemJaxb;
 
 @XmlRootElement(name = "Item")
+
 /**
  * This is an item class which is used to store the items currently used by the
  * character while playing the game. It affects various classes of selected
@@ -69,69 +70,50 @@ public class Item
             armorClass = 14;
     }
 
-    public void calculateLevelCount()
-    {
-        if (itemLevel <= 4)
-        {
-            count = 1;
-        }
-        else if (itemLevel <= 8)
-        {
-            count = 2;
-        }
-        else if (itemLevel <= 12)
-        {
-            count = 3;
-        }
-        else if (itemLevel <= 16)
-        {
-            count = 4;
-        }
-        else
-            count = 5;
-    }
-    
     /**
      * return the modifier
+     * 
      * @return
      */
-    public int getModifier(){
-        calculateLevelCount();
+    public int getModifier()
+    {
+        count = (int) Math.ceil((double) itemLevel / (double) 4);
         if (itemType.equalsIgnoreCase("Armor"))
         {
             setInitialArmorClass();
             count += armorClass;
         }
-        
+
         return count;
     }
-    
+
     /**
      * @param character sets the character class object
      */
-    public void setCharacter(Character character){
+    public void setCharacter(Character character)
+    {
         charObj = character;
     }
 
     /**
-     * Instantiates a new map.
+     * @return a hash map containing all the items segment based on their item
+     *         type
      */
-    public Item()
-    {
-    }
-    
     public static HashMap<String, ArrayList<Item>> getItems()
     {
         HashMap<String, ArrayList<Item>> hMap = new HashMap<String, ArrayList<Item>>();
-        
+
         String[] items = ExtensionMethods.getItemsList();
-        for (String item: items)
+        for (String item : items)
         {
             Item i = ItemJaxb.getItemFromXml(item);
-            if (hMap.containsKey(i.itemType)){
+            if (hMap.containsKey(i.itemType))
+            {
                 ArrayList<Item> hMapItemList = hMap.get(i.itemType);
                 hMapItemList.add(i);
-            }else{
+            }
+            else
+            {
                 ArrayList<Item> hMapItemList = new ArrayList<Item>();
                 hMap.put(i.itemType, hMapItemList);
                 hMapItemList.add(i);
@@ -139,24 +121,32 @@ public class Item
         }
         return hMap;
     }
-    
+
+    /**
+     * @param itemType
+     * @param level
+     * @return an array list of items based on provided item type and level
+     */
     public static ArrayList<Item> getItems(String itemType, int level)
     {
         HashMap<String, ArrayList<Item>> hMap = getItems();
-        
-        if (!hMap.containsKey(itemType)){
+
+        if (!hMap.containsKey(itemType))
+        {
             // no item found for this item type
             return new ArrayList<Item>();
         }
-        
+
         ArrayList<Item> hMapList = hMap.get(itemType);
         Iterator<Item> hMapListIterator = hMapList.iterator();
-        while(hMapListIterator.hasNext()){
+        while (hMapListIterator.hasNext())
+        {
             Item i = hMapListIterator.next();
-            if (i.itemLevel > level){
+            if (i.itemLevel > level)
+            {
                 hMapListIterator.remove();
             }
         }
         return hMapList;
-    }    
+    }
 }
