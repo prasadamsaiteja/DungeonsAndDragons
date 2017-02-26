@@ -54,6 +54,11 @@ public class Item
     {
         return itemName;
     }
+    
+    public String getItemType()
+    {
+        return itemType;
+    }
 
     /**
      * Armor Class value should be set based on the armor type chosen. AC is
@@ -107,19 +112,26 @@ public class Item
         for (String item : items)
         {
             Item i = ItemJaxb.getItemFromXml(item);
-            if (hMap.containsKey(i.itemType))
+            if (i != null)
             {
-                ArrayList<Item> hMapItemList = hMap.get(i.itemType);
-                hMapItemList.add(i);
-            }
-            else
-            {
-                ArrayList<Item> hMapItemList = new ArrayList<Item>();
-                hMap.put(i.itemType, hMapItemList);
-                hMapItemList.add(i);
+                if (hMap.containsKey(i.getItemType()))
+                {
+                    ArrayList<Item> hMapItemList = hMap.get(i.getItemType());
+                    hMapItemList.add(i);
+                }
+                else
+                {
+                    ArrayList<Item> hMapItemList = new ArrayList<Item>();
+                    hMap.put(i.itemType, hMapItemList);
+                    hMapItemList.add(i);
+                }
             }
         }
         return hMap;
+    }
+    
+    public Item(){
+        
     }
 
     /**
@@ -127,7 +139,7 @@ public class Item
      * @param level
      * @return an array list of items based on provided item type and level
      */
-    public static ArrayList<Item> getItems(String itemType, int level)
+    public static ArrayList<Item> getItems(String itemType, int characterLevel)
     {
         HashMap<String, ArrayList<Item>> hMap = getItems();
 
@@ -142,7 +154,7 @@ public class Item
         while (hMapListIterator.hasNext())
         {
             Item i = hMapListIterator.next();
-            if (i.itemLevel > level)
+            if (i.itemLevel > characterLevel)
             {
                 hMapListIterator.remove();
             }
