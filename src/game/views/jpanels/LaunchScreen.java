@@ -82,8 +82,8 @@ public class LaunchScreen extends JPanel
         {  // Create stuff button
             btnCreateStuff.setPreferredSize(btnDim);
             btnCreateStuff.setFont(btnFont);
-            gbc.gridx = 2;
-            gbc.gridy = 2;
+            gbc.gridx = 3;
+            gbc.gridy = 1;
             add(btnCreateStuff, gbc);
         }
 

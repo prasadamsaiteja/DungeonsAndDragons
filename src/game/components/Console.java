@@ -7,7 +7,7 @@ package game.components;
  * @version 1.0
  * @since 2/2/2017
  */
-public class Console
+public class Console // NO_UCD (unused code)
 {
 
     /**

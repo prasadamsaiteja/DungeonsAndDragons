@@ -176,14 +176,16 @@ public class CreateStuffDialog extends JDialog
         characterPanel.setLayout(sl_characterPanel);
 
         CharactersListModel characterList = new CharactersListModel();
-        JList<String> characterJlist = new JList<String>(characterList);
+        JList<String> characterJlist = new JList<String>(characterList);        
 
         // JScrollPane scrollPane = new JScrollPane();
         // scrollPane.setViewportView(characterJlist);
 
         sl_characterPanel.putConstraint(SpringLayout.NORTH, characterJlist, 10, SpringLayout.NORTH, characterPanel);
         sl_characterPanel.putConstraint(SpringLayout.WEST, characterJlist, 10, SpringLayout.WEST, characterPanel);
-        sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 320, SpringLayout.WEST, characterPanel);
+        sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 600, SpringLayout.WEST, characterPanel);
+        characterJlist.setFont(new Font("Tahoma", Font.BOLD, 12));
+        characterJlist.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         characterPanel.add(characterJlist);
 
         JButton btnAdd = new JButton("Create");
@@ -234,9 +236,10 @@ public class CreateStuffDialog extends JDialog
 
         JPanel charPreviewPanel = new JPanel();
         sl_characterPanel.putConstraint(SpringLayout.NORTH, charPreviewPanel, 10, SpringLayout.NORTH, characterPanel);
-        sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 6, SpringLayout.EAST, characterJlist);
-        sl_characterPanel.putConstraint(SpringLayout.SOUTH, charPreviewPanel, 0, SpringLayout.SOUTH, characterJlist);
-        sl_characterPanel.putConstraint(SpringLayout.EAST, charPreviewPanel, 0, SpringLayout.EAST, btnAdd);
+        sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 599, SpringLayout.WEST, characterPanel);
+        sl_characterPanel.putConstraint(SpringLayout.SOUTH, charPreviewPanel, -6, SpringLayout.NORTH, btnAdd);
+        sl_characterPanel.putConstraint(SpringLayout.EAST, charPreviewPanel, -10, SpringLayout.EAST, characterPanel);
+        charPreviewPanel.setVisible(false);
         charPreviewPanel.setBackground(Color.WHITE);
 
         // Create a text pane
@@ -252,8 +255,10 @@ public class CreateStuffDialog extends JDialog
         {
             e1.printStackTrace();
         }
+        charPreviewPanel.setLayout(null);
 
         JScrollPane areaScrollPane = new JScrollPane(textPane);
+        areaScrollPane.setBounds(0, 0, 274, 235);
         areaScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         areaScrollPane.setPreferredSize(new Dimension(250, 200));
         charPreviewPanel.add(areaScrollPane);
@@ -314,14 +319,19 @@ public class CreateStuffDialog extends JDialog
                     {
                         btnRemove.setEnabled(false);
                         btnEdit.setEnabled(false);
+                        charPreviewPanel.setVisible(false);
+                        sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 600, SpringLayout.WEST, characterPanel);
+                        sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 599, SpringLayout.WEST, characterPanel);
                         doc.remove(0, doc.getLength());
-                        doc.insertString(doc.getLength(), "Select a character to get his details",
-                                doc.getStyle("bold"));
+                        doc.insertString(doc.getLength(), "Select a character to get his details", doc.getStyle("bold"));
                     }
                     else
                     {
                         btnRemove.setEnabled(true);
                         btnEdit.setEnabled(true);
+                        charPreviewPanel.setVisible(true);
+                        sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 6, SpringLayout.EAST, characterJlist);
+                        sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 320, SpringLayout.WEST, characterPanel);
                         updateCharacterPreview(doc, (String) ((JList) e.getSource()).getSelectedValue());
                     }
                 }
