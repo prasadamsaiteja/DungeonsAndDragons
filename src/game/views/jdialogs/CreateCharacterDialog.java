@@ -22,6 +22,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -31,14 +32,20 @@ class CreateCharacterDialog extends JDialog
 
     private JDialog parent;
     private JTextField txtName;
-    private JTextField txtLvl;
     private JTextField txtStr;
     private JTextField txtDex;
     private JTextField txtCons;
     private JButton btnRoll;
     private JButton btnSave;
+    private JComboBox<String> cbLvl;
     private JComboBox<String> cbClass;
     private JComboBox<String> cbWeapon;
+    private JComboBox<String> cbArmor;
+    private JComboBox<String> cbRing;
+    private JComboBox<String> cbHelmet;
+    private JComboBox<String> cbShield;
+    private JComboBox<String> cbBoots;
+    private JComboBox<String> cbBelt;
     private Character character = null;
     private boolean characterExistsFlag = false;
 
@@ -88,9 +95,6 @@ class CreateCharacterDialog extends JDialog
                         case "name":
                             character.setName(txtField.getText());
                             break;
-                        case "level":
-                            character.setLevel(Integer.parseInt(txtField.getText()));
-                            break;
                         case "strength":
                             character.setStrength(Integer.parseInt(txtField.getText()));
                             break;
@@ -106,14 +110,6 @@ class CreateCharacterDialog extends JDialog
                 {
                     @SuppressWarnings("unchecked")
                     JComboBox<String> cBox = (JComboBox<String>) component;
-                    cBox.addActionListener(new ActionListener()
-                    {
-
-                        @Override
-                        public void actionPerformed(ActionEvent e)
-                        {
-                        }
-                    });
                     Integer index = cBox.getSelectedIndex();
                     String item = cBox.getItemAt(index);
                     String name = cBox.getName();
@@ -123,8 +119,29 @@ class CreateCharacterDialog extends JDialog
                         case "characterClass":
                             character.setCharacterClass(item);
                             break;
+                        case "level":
+                            character.setLevel(Integer.valueOf(item));
+                            break;
                         case "weapon":
                             character.setWeaponName(item);
+                            break;
+                        case "armor":
+                            character.setArmor(item);
+                            break;
+                        case "shield":
+                            character.setShield(item);
+                            break;
+                        case "boots":
+                            character.setBoots(item);
+                            break;
+                        case "ring":
+                            character.setRingName(item);
+                            break;
+                        case "belt":
+                            character.setBeltName(item);
+                            break;
+                        case "helmet":
+                            character.setHelmet(item);
                             break;
                     }
                 }
@@ -136,11 +153,52 @@ class CreateCharacterDialog extends JDialog
             JOptionPane.showMessageDialog(null, "Character saved!!!");
         }
     }
+    
+    private class ItemsListUpdater
+    {
+        private HashMap<String, JComboBox<String>> itemList = new HashMap<String, JComboBox<String>>();
+        private int level = 1;
+        
+        public void addItemComboBox(String itemType, JComboBox<String> cbModel)
+        {
+            this.itemList.putIfAbsent(itemType, cbModel);
+            this.draw(itemType);
+        }
+        
+        public void setLevel(int level)
+        {
+            this.level = level;
+            this.draw();
+        }
+        
+        public void draw()
+        {
+            Set<String> itemTypes = itemList.keySet();
+            for (String itemType: itemTypes){
+                draw(itemType);
+            }
+        }
+        
+        public void draw(String itemType)
+        {
+            if (itemList.containsKey(itemType))
+            {
+                JComboBox<String> cbModel = itemList.get(itemType);
+                
+                ArrayList<Item> items = Item.getItems(itemType, level);
+                Iterator<Item> itemsIterator = items.iterator();
+                while (itemsIterator.hasNext())
+                {
+                    Item item = itemsIterator.next();
+                    cbModel.addItem(item.getItemName());
+                }
+            }
+        }  
+    }
 
-    CreateCharacterDialog(JDialog jdialog)
     {
         this.parent = jdialog;
-        DialogHelper.setDialogProperties(this, "New Character", new Rectangle(0, 0, 600, 250));
+        DialogHelper.setDialogProperties(this, "New Character", new Rectangle(0, 0, 600, 300));
         this.btnRoll = new JButton("Roll");
         this.btnSave = new JButton("Save");
         this.txtStr = new JTextField();
@@ -153,7 +211,7 @@ class CreateCharacterDialog extends JDialog
         this.parent = jdialog;
         this.character = existingCharacter;
         this.characterExistsFlag = true;
-        DialogHelper.setDialogProperties(this, this.character.getName(), new Rectangle(0, 0, 600, 250));
+        DialogHelper.setDialogProperties(this, this.character.getName(), new Rectangle(0, 0, 600, 300));
         this.btnSave = new JButton("Save");
         this.txtStr = new JTextField();
         this.drawDialog();
@@ -166,13 +224,16 @@ class CreateCharacterDialog extends JDialog
           gridBagLayout.columnWidths = new int[]
           { 36, 11, 77, 39, 20, 32, 49, 34, 93, 84, 0 };
           gridBagLayout.rowHeights = new int[]
-          { 27, 16, 26, 29, 0 };
+        { 27, 16, 26, 29, 0, 0,};
           gridBagLayout.columnWeights = new double[]
           { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
           gridBagLayout.rowWeights = new double[]
-          { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+        { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
           // getContentPane().setLayout(gridBagLayout);
-  
+        
+        // create a new instance of items list updater
+        ItemsListUpdater listUpdater = new ItemsListUpdater();
+
           JPanel contentPanel = new JPanel();
           contentPanel.setLayout(gridBagLayout);
   
@@ -207,21 +268,36 @@ class CreateCharacterDialog extends JDialog
           gbc.gridy = 0;
           contentPanel.add(lblLevel, gbc);
   
-          txtLvl = new JTextField();
-          txtLvl.setColumns(4);
-          this.txtLvl.setName("level");
+        cbLvl = new JComboBox<String>();
+        this.cbLvl.setName("level");
+        
+        for (int i = 1; i <= 30; i++)
+        {
+            this.cbLvl.addItem(String.valueOf(i));
+        }
+        
+        this.cbLvl.addActionListener(new ActionListener()
+        {
+            
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                listUpdater.setLevel(Integer.valueOf(cbLvl.getSelectedItem().toString()));
+            }
+        });
   
           if (this.characterExistsFlag)
           {
-              this.txtLvl.setText(String.valueOf(this.character.getLevel()));
-              this.txtLvl.setEditable(false);
+            this.cbLvl.setSelectedItem(String.valueOf(this.character.getLevel()));
+            this.cbLvl.setEnabled(false);
           }
+        
           gbc.anchor = GridBagConstraints.NORTH;
           gbc.fill = GridBagConstraints.HORIZONTAL;
           gbc.gridx = 6;
           gbc.gridy = 0;
           gbc.gridwidth = 2;
-          contentPanel.add(this.txtLvl, gbc);
+        contentPanel.add(this.cbLvl, gbc);
   
           JLabel lblClass = new JLabel("Class");
           gbc.anchor = GridBagConstraints.WEST;
@@ -333,26 +409,159 @@ class CreateCharacterDialog extends JDialog
           gbc.gridx = 2;
           gbc.gridy = 3;
           contentPanel.add(this.cbWeapon, gbc);
-  
-          int level = 1;
+        
+        listUpdater.addItemComboBox("Weapon", this.cbWeapon);
+
           if (this.characterExistsFlag)
           {
-              level = this.character.getLevel();
+            this.cbWeapon.setSelectedItem(String.valueOf(this.character.getWeaponName()));
           }
-  
-          ArrayList<Item> weapons = Item.getItems("Weapon", level);
-          Iterator<Item> weaponsIterator = weapons.iterator();
-          while (weaponsIterator.hasNext())
+        
+        // Add Armor combo box
+        JLabel Armors = new JLabel("Armor");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridx = 4;
+        gbc.gridy = 3;
+        contentPanel.add(Armors, gbc);
+        
+        this.cbArmor = new JComboBox<String>();
+        this.cbArmor.setName("armor");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 6;
+        gbc.gridy = 3;
+        contentPanel.add(this.cbArmor, gbc);
+        
+        listUpdater.addItemComboBox("Armor", this.cbArmor);
+
+        if (this.characterExistsFlag)
           {
-              Item weapon = weaponsIterator.next();
-              this.cbWeapon.addItem(weapon.itemName);
+            this.cbArmor.setSelectedItem(String.valueOf(this.character.getArmor()));
           }
-  
+        
+        // Add Shield combo box
+        JLabel Shields = new JLabel("Shield");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridx = 8;
+        gbc.gridwidth = 1;
+        gbc.gridy = 3;
+        contentPanel.add(Shields, gbc);
+        
+        this.cbShield = new JComboBox<String>();
+        this.cbShield.setName("shield");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 9;
+        gbc.gridwidth = 2;
+        gbc.gridy = 3;
+        contentPanel.add(this.cbShield, gbc);
+        
+        listUpdater.addItemComboBox("Shield", this.cbShield);
+
           if (this.characterExistsFlag)
           {
-              this.cbWeapon.setSelectedItem(String.valueOf(this.character.getWeaponName()));
+            this.cbShield.setSelectedItem(String.valueOf(this.character.getShield()));
+        }
+        
+        // new row
+        
+        // Add helmet combo box
+        JLabel Helmets = new JLabel("Helmet");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        gbc.gridy = 4;
+        contentPanel.add(Helmets, gbc);
+
+        this.cbHelmet = new JComboBox<String>();
+        this.cbHelmet.setName("helmet");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 2;
+        gbc.gridwidth = 2;
+        gbc.gridy = 4;
+        contentPanel.add(this.cbHelmet, gbc);
+        
+        listUpdater.addItemComboBox("Helmet", this.cbHelmet);
+
+        if (this.characterExistsFlag)
+        {
+            this.cbHelmet.setSelectedItem(String.valueOf(this.character.getHelmet()));
+        }
+        
+        // Add Armor combo box
+        JLabel Boots = new JLabel("Boots");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridx = 4;
+        gbc.gridwidth = 2;
+        gbc.gridy = 4;
+        contentPanel.add(Boots, gbc);
+        
+        this.cbBoots = new JComboBox<String>();
+        this.cbBoots.setName("boots");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 6;
+        gbc.gridwidth = 2;
+        gbc.gridy = 4;
+        contentPanel.add(this.cbBoots, gbc);
+        
+        listUpdater.addItemComboBox("Boots", this.cbBoots);
+
+        if (this.characterExistsFlag)
+        {
+            this.cbBoots.setSelectedItem(String.valueOf(this.character.getBoots()));
+        }
+        
+        // Add belts combo box
+        JLabel Belts = new JLabel("Belt");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridx = 8;
+        gbc.gridwidth = 1;
+        gbc.gridy = 4;
+        contentPanel.add(Belts, gbc);
+        
+        this.cbBelt = new JComboBox<String>();
+        this.cbBelt.setName("belt");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 9;
+        gbc.gridwidth = 2;
+        gbc.gridy = 4;
+        contentPanel.add(this.cbBelt, gbc);
+        
+        listUpdater.addItemComboBox("Belt", this.cbBelt);
+
+        if (this.characterExistsFlag)
+        {
+            this.cbBelt.setSelectedItem(String.valueOf(this.character.getBeltName()));
+        }
+        
+        // new row
+
+        // Add rings combo box
+        
+        JLabel Rings = new JLabel("Ring");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        contentPanel.add(Rings, gbc);
+
+        this.cbRing = new JComboBox<String>();
+        this.cbRing.setName("ring");
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 2;
+        gbc.gridy = 5;
+        contentPanel.add(this.cbRing, gbc);
+        
+        listUpdater.addItemComboBox("Ring", this.cbRing);
+
+        if (this.characterExistsFlag)
+        {
+            this.cbRing.setSelectedItem(String.valueOf(this.character.getRingName()));
           }
-  
+        
           gbc.insets = new Insets(10, 5, 5, 5);
   
           // don't show roll button if character is in edit mode
@@ -409,9 +618,15 @@ class CreateCharacterDialog extends JDialog
         dialogComponents.add(this.txtDex);
         dialogComponents.add(this.txtCons);
         dialogComponents.add(this.txtName);
-        dialogComponents.add(this.txtLvl);
+        dialogComponents.add(this.cbLvl);
         dialogComponents.add(this.cbClass);
         dialogComponents.add(this.cbWeapon);
+        dialogComponents.add(this.cbArmor);
+        dialogComponents.add(this.cbShield);
+        dialogComponents.add(this.cbHelmet);
+        dialogComponents.add(this.cbRing);
+        dialogComponents.add(this.cbBoots);
+        dialogComponents.add(this.cbBelt);
 
         ActionListener btnSaveActionListener;
         if (this.characterExistsFlag)

@@ -358,6 +358,7 @@ public class CreateStuffDialog extends JDialog
                 doc.insertString(doc.getLength(), "\nLevel: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getLevel()), doc.getStyle("italics"));
 
+                doc.insertString(doc.getLength(), "\n\nAbility modifiers:\n ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), "\nStrength: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getStrength()), doc.getStyle("italics"));
 
@@ -369,10 +370,7 @@ public class CreateStuffDialog extends JDialog
 
                 doc.insertString(doc.getLength(), "\nHit Score: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getHitScore()), doc.getStyle("italics"));
-
-                doc.insertString(doc.getLength(), "\nWeapon: ", doc.getStyle("bold"));
-                doc.insertString(doc.getLength(), String.valueOf(c.getWeaponName()), doc.getStyle("italics"));
-
+                
                 doc.insertString(doc.getLength(), "\nArmor Class: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getArmorClass()), doc.getStyle("italics"));
 
@@ -381,6 +379,28 @@ public class CreateStuffDialog extends JDialog
 
                 doc.insertString(doc.getLength(), "\nDamage Bonus: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getDamageBonus()), doc.getStyle("italics"));
+
+                doc.insertString(doc.getLength(), "\n\nItems:\n ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), "\nWeapon: ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), String.valueOf(c.getWeaponName()), doc.getStyle("italics"));
+
+                doc.insertString(doc.getLength(), "\nArmor: ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), String.valueOf(c.getArmor()), doc.getStyle("italics"));
+
+                doc.insertString(doc.getLength(), "\nBoots: ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), String.valueOf(c.getBoots()), doc.getStyle("italics"));
+
+                doc.insertString(doc.getLength(), "\nShield: ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), String.valueOf(c.getShield()), doc.getStyle("italics"));
+
+                doc.insertString(doc.getLength(), "\nBelt: ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), String.valueOf(c.getBeltName()), doc.getStyle("italics"));
+
+                doc.insertString(doc.getLength(), "\nRing: ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), String.valueOf(c.getRingName()), doc.getStyle("italics"));
+
+                doc.insertString(doc.getLength(), "\nHelmet: ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), String.valueOf(c.getHelmet()), doc.getStyle("italics"));
             }
 
         });

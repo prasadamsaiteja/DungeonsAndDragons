@@ -395,7 +395,9 @@ public class Character extends Observable
         if (this.getWeaponName() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getWeaponName());
+        Item i = ItemJaxb.getItemFromXml(this.getWeaponName());
+        i.setCharacter(this);
+        return i;
     }
 
     /**
@@ -406,7 +408,9 @@ public class Character extends Observable
         if (this.getShield() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getShield());
+        Item i = ItemJaxb.getItemFromXml(this.getShield());
+        i.setCharacter(this);
+        return i;
     }
 
     /**
@@ -417,7 +421,9 @@ public class Character extends Observable
         if (this.getRingName() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getRingName());
+        Item i = ItemJaxb.getItemFromXml(this.getRingName());
+        i.setCharacter(this);
+        return i;
     }
 
     /**
@@ -428,7 +434,9 @@ public class Character extends Observable
         if (this.getHelmet() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getHelmet());
+        Item i = ItemJaxb.getItemFromXml(this.getHelmet());
+        i.setCharacter(this);
+        return i;
     }
 
     /**
@@ -439,7 +447,9 @@ public class Character extends Observable
         if (this.getArmor() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getArmor());
+        Item i = ItemJaxb.getItemFromXml(this.getArmor());
+        i.setCharacter(this);
+        return i;
     }
 
     /**
@@ -450,7 +460,9 @@ public class Character extends Observable
         if (this.getBoots() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getBoots());
+        Item i = ItemJaxb.getItemFromXml(this.getBoots());
+        i.setCharacter(this);
+        return i;
     }
 
     /**
@@ -461,7 +473,9 @@ public class Character extends Observable
         if (this.getBeltName() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getBeltName());
+        Item i = ItemJaxb.getItemFromXml(this.getBeltName());
+        i.setCharacter(this);
+        return i;
     }
 
     /**
