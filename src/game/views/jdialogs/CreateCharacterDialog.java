@@ -196,6 +196,7 @@ class CreateCharacterDialog extends JDialog
         }  
     }
 
+    public CreateCharacterDialog(JDialog jdialog)
     {
         this.parent = jdialog;
         DialogHelper.setDialogProperties(this, "New Character", new Rectangle(0, 0, 600, 300));
@@ -206,7 +207,7 @@ class CreateCharacterDialog extends JDialog
         this.initActionListeners();
     }
 
-    CreateCharacterDialog(JDialog jdialog, Character existingCharacter)
+    public CreateCharacterDialog(JDialog jdialog, Character existingCharacter)
     {
         this.parent = jdialog;
         this.character = existingCharacter;
