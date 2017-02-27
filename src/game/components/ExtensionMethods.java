@@ -5,6 +5,10 @@ import java.io.File;
 public class ExtensionMethods
 {
 
+    /**
+     * This method returns all the maps saved
+     * @return  List of maps names saved
+     */
     public static String[] getMapsList()
     {
 
@@ -21,6 +25,10 @@ public class ExtensionMethods
         return fileName;
     }
 
+    /**
+     * This method returns all the items saved
+     * @return List of items names saved
+     */
     public static String[] getItemsList()
     {
 
@@ -37,6 +45,10 @@ public class ExtensionMethods
         return fileName;
     }
 
+    /**
+     * This method returns all the campaign saved
+     * @return List of campaigns names saved
+     */
     public static String[] getCampaignsList()
     {
         File f = new File(SharedVariables.CampaignsDirectory);

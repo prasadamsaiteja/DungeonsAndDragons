@@ -36,10 +36,10 @@ public class NewCampaignInfoDialog extends JDialog
 {
 
     private String campaignName;
-    ArrayList<String> addedMaps;
+    private ArrayList<String> addedMaps;
     private Campaign campaignObject;
 
-    public NewCampaignInfoDialog(String nameValue)
+    NewCampaignInfoDialog(String nameValue)
     {
         DialogHelper.setDialogProperties(NewCampaignInfoDialog.this, "New Campaign", new Rectangle(554, 448));
         this.campaignName = nameValue;
@@ -56,7 +56,7 @@ public class NewCampaignInfoDialog extends JDialog
     /**
      * This Method Initializes the Components in the Current Dialog
      */
-    public void initComponents()
+    private void initComponents()
     {
 
         getContentPane().setBackground(Color.LIGHT_GRAY);

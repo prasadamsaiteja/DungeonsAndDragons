@@ -15,11 +15,12 @@ import java.util.Map.Entry;
 public class SharedVariables
 {
 
-    // character abilities
-    public static int constitution = 1;
-    public static int dexterity = 1;
-    public static int strength = 1;
-    public static int level = 1;
+    //Directory structure information for storing items, maps, character, campaign etc.
+    public static final String DataDirectory = "Data";
+    public static final String MapsDirectory = DataDirectory + File.separator + "Maps";
+    public static final String ItemsDirectory = DataDirectory + File.separator + "Items";
+    public static final String CampaignsDirectory = DataDirectory + File.separator + "Campaigns";
+    public static final String CharactersDirectory = DataDirectory + File.separator + "Characters";
 
     // Map element colors
     public static final Color MAP_MOUSE_HOVER_COLOR = Color.gray;
@@ -36,10 +37,10 @@ public class SharedVariables
     public static final String WALL_STRING = "WALL";
     public static final String MONSTER_STRING = "MONSTER";
     public static final String KEY_STRING = "KEY";
-    public static final String CHEST_STRING = "CHEST";
-    public static final String PLAYER_STRING = "PLAYER";
+    public static final String CHEST_STRING = "CHEST";    
     public static final String ENTRY_DOOR_STRING = "ENTRY_DOOR";
     public static final String EXIT_DOOR_STRING = "EXIT_DOOR";
+    private static final String PLAYER_STRING = "PLAYER";
     private static final String DEFAULT_CELL_STRING = "EMPTY";
 
     public static enum ItemType
@@ -124,9 +125,4 @@ public class SharedVariables
         return mapCellHashMap.get(cellStringValue);
     }
 
-    public static final String DataDirectory = "Data";
-    public static final String MapsDirectory = DataDirectory + File.separator + "Maps";
-    public static final String ItemsDirectory = DataDirectory + File.separator + "Items";
-    public static final String CampaignsDirectory = DataDirectory + File.separator + "Campaigns";
-    public static final String CharactersDirectory = DataDirectory + File.separator + "Characters";
 }

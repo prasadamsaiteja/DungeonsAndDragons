@@ -33,10 +33,9 @@ public class Dice
         this.maximumTurnsCount = maximumTurnsCount;
     }
 
-    /*
-     * roll the dice
-     * 
-     * @return
+    /**
+     * Roll the dice
+     * @return number from dice roll
      */
     private int roll()
     {
