@@ -35,6 +35,7 @@ public class Dice
 
     /**
      * Roll the dice
+     * 
      * @return number from dice roll
      */
     private int roll()

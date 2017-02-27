@@ -39,7 +39,7 @@ public class Item
 
     private int armorClass = 0;
     private int count;
-    
+
     public Item(String name, String type, String itemclass, int level)
     {
         itemName = name;
@@ -52,7 +52,7 @@ public class Item
     {
         return itemName;
     }
-    
+
     public String getItemType()
     {
         return itemType;
@@ -98,7 +98,8 @@ public class Item
     }
 
     /**
-     * @return a hash map containing all the items segment based on their item type
+     * @return a hash map containing all the items segment based on their item
+     *         type
      */
     private static HashMap<String, ArrayList<Item>> getItems()
     {
@@ -125,9 +126,10 @@ public class Item
         }
         return hMap;
     }
-    
-    public Item(){
-        
+
+    public Item()
+    {
+
     }
 
     /**
