@@ -10,7 +10,6 @@ import game.model.character.CharactersList;
 import game.model.character.classes.CharacterClass;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
