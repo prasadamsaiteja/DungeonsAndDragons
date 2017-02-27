@@ -15,7 +15,8 @@ import java.util.Map.Entry;
 public class SharedVariables
 {
 
-    //Directory structure information for storing items, maps, character, campaign etc.
+    // Directory structure information for storing items, maps, character,
+    // campaign etc.
     public static final String DataDirectory = "Data";
     public static final String MapsDirectory = DataDirectory + File.separator + "Maps";
     public static final String ItemsDirectory = DataDirectory + File.separator + "Items";
@@ -37,7 +38,7 @@ public class SharedVariables
     public static final String WALL_STRING = "WALL";
     public static final String MONSTER_STRING = "MONSTER";
     public static final String KEY_STRING = "KEY";
-    public static final String CHEST_STRING = "CHEST";    
+    public static final String CHEST_STRING = "CHEST";
     public static final String ENTRY_DOOR_STRING = "ENTRY_DOOR";
     public static final String EXIT_DOOR_STRING = "EXIT_DOOR";
     private static final String PLAYER_STRING = "PLAYER";

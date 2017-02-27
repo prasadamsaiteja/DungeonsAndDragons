@@ -176,7 +176,7 @@ public class CreateStuffDialog extends JDialog
         characterPanel.setLayout(sl_characterPanel);
 
         CharactersListModel characterList = new CharactersListModel();
-        JList<String> characterJlist = new JList<String>(characterList);        
+        JList<String> characterJlist = new JList<String>(characterList);
 
         // JScrollPane scrollPane = new JScrollPane();
         // scrollPane.setViewportView(characterJlist);
@@ -320,18 +320,23 @@ public class CreateStuffDialog extends JDialog
                         btnRemove.setEnabled(false);
                         btnEdit.setEnabled(false);
                         charPreviewPanel.setVisible(false);
-                        sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 600, SpringLayout.WEST, characterPanel);
-                        sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 599, SpringLayout.WEST, characterPanel);
+                        sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 600, SpringLayout.WEST,
+                                characterPanel);
+                        sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 599, SpringLayout.WEST,
+                                characterPanel);
                         doc.remove(0, doc.getLength());
-                        doc.insertString(doc.getLength(), "Select a character to get his details", doc.getStyle("bold"));
+                        doc.insertString(doc.getLength(), "Select a character to get his details",
+                                doc.getStyle("bold"));
                     }
                     else
                     {
                         btnRemove.setEnabled(true);
                         btnEdit.setEnabled(true);
                         charPreviewPanel.setVisible(true);
-                        sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 6, SpringLayout.EAST, characterJlist);
-                        sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 320, SpringLayout.WEST, characterPanel);
+                        sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 6, SpringLayout.EAST,
+                                characterJlist);
+                        sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 320, SpringLayout.WEST,
+                                characterPanel);
                         updateCharacterPreview(doc, (String) ((JList) e.getSource()).getSelectedValue());
                     }
                 }
@@ -370,7 +375,7 @@ public class CreateStuffDialog extends JDialog
 
                 doc.insertString(doc.getLength(), "\nHit Score: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getHitScore()), doc.getStyle("italics"));
-                
+
                 doc.insertString(doc.getLength(), "\nArmor Class: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getArmorClass()), doc.getStyle("italics"));
 

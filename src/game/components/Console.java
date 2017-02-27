@@ -1,7 +1,8 @@
 package game.components;
 
 /**
- * This class contains common methods used for displaying data to console and keeping log entries.
+ * This class contains common methods used for displaying data to console and
+ * keeping log entries.
  * 
  * @author saiteja prasadam
  * @version 1.0

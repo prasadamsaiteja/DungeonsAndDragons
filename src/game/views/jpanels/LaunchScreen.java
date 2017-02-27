@@ -71,7 +71,7 @@ public class LaunchScreen extends JPanel
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 0, 5, 5);
 
-        {   //Start campaign button
+        { // Start campaign button
             btnNewCampaign.setPreferredSize(btnDim);
             btnNewCampaign.setFont(btnFont);
             gbc.gridx = 1;
@@ -79,7 +79,7 @@ public class LaunchScreen extends JPanel
             add(btnNewCampaign, gbc);
         }
 
-        {  // Create stuff button
+        { // Create stuff button
             btnCreateStuff.setPreferredSize(btnDim);
             btnCreateStuff.setFont(btnFont);
             gbc.gridx = 3;
