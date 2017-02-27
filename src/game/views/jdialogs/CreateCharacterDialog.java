@@ -29,6 +29,7 @@ import java.util.Set;
 class CreateCharacterDialog extends JDialog
 {
 
+    @SuppressWarnings("unused")
     private JDialog parent;
     private JTextField txtName;
     private JTextField txtLvl;

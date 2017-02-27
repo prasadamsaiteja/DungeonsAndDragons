@@ -35,7 +35,7 @@ public class Backpack extends Observable
     /**
      * increment item counter
      */
-    void incrementItemCount()
+    private void incrementItemCount()
     {
         backpackItemCount += 1;
     }
@@ -43,7 +43,7 @@ public class Backpack extends Observable
     /**
      * decrement item counter
      */
-    void decrementItemCount()
+    private void decrementItemCount()
     {
         backpackItemCount -= 1;
     }
@@ -51,7 +51,7 @@ public class Backpack extends Observable
     /**
      * notify observers of a change in state
      */
-    void update()
+    private void update()
     {
         this.setChanged();
         this.notifyObservers();
@@ -64,7 +64,7 @@ public class Backpack extends Observable
      * @param String itemName
      * @throws Throwable
      */
-    public void equip(String itemType, String itemName) throws Throwable
+    public void equip(String itemType, String itemName) throws Throwable // NO_UCD (unused code)
     {
         ArrayList<String> itemList;
         if (!items.containsKey(itemType))
@@ -104,7 +104,7 @@ public class Backpack extends Observable
      * @param itemType
      * @param itemName
      */
-    public void unequip(String itemType, String itemName)
+    public void unequip(String itemType, String itemName) // NO_UCD (unused code)
     {
         ArrayList<String> itemList;
         if (!items.containsKey(itemType))
@@ -131,7 +131,7 @@ public class Backpack extends Observable
      * 
      * @throws IOException
      */
-    public void save() throws IOException
+    public void save() throws IOException // NO_UCD (unused code)
     {
         String filePath = SharedVariables.DataDirectory + File.separator + fileName;
 
@@ -161,7 +161,7 @@ public class Backpack extends Observable
     /**
      * @return backpack size
      */
-    public int size()
+    public int size() // NO_UCD (unused code)
     {
         return backpackItemCount;
     }
@@ -238,7 +238,7 @@ public class Backpack extends Observable
      * @param force
      * @return Backpack instance
      */
-    public static Backpack init(boolean forceReset)
+    public static Backpack init(boolean forceReset) // NO_UCD (unused code)
     {
         /*
          * if forced, it will delete any existence instance or file and reset
@@ -254,7 +254,7 @@ public class Backpack extends Observable
         return Backpack.init();
     }
 
-    public static Backpack reload()
+    public static Backpack reload() // NO_UCD (unused code)
     {
         Backpack._inst = null;
         return Backpack.init();

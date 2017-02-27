@@ -3,7 +3,7 @@ package game.model.character.classes;
 import game.interfaces.DiceImplementationInterface;
 
 /**
- * Custom data structure for storing charcter classes
+ * Custom data structure for storing character classes
  * 
  * @author Supreet Singh (s_supree)
  * @since 1.0.0
