@@ -39,8 +39,6 @@ public class Item
 
     private int armorClass = 0;
     private int count;
-
-    public Item(){}
     
     public Item(String name, String type, String itemclass, int level)
     {
