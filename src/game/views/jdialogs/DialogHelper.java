@@ -47,7 +47,7 @@ public class DialogHelper
         dialog.setVisible(true);
         dialog.setResizable(false);
         dialog.setIconImage(Toolkit.getDefaultToolkit()
-                .getImage("C:\\Users\\saite\\Documents\\Eclipse\\Projects\\DungeonsAndDragons\\app_icon.png"));
+                .getImage("C:\\Users\\saite\\Documents\\Eclipse\\Projects\\DungeonsAndDragons\\img\\app_icon.png"));
     }
 
     /**
