@@ -467,7 +467,7 @@ public class Character extends Observable
     /**
      * draws/redraws the character and notifies observers
      */
-    public void draw()
+    private void draw()
     {
         if (!this.isBuilt)
             return;
@@ -498,7 +498,7 @@ public class Character extends Observable
      * builds and initializes the character this method is run just once in a
      * characters lifetime and calculates - hit score, based on chacaters class
      */
-    public void build()
+    private void build()
     {
         if (!this.isBuilt)
         {

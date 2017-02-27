@@ -26,13 +26,11 @@ import game.components.SharedVariables;
 public class Backpack extends Observable
 {
 
-    private
-
-    int backpackItemCount = 0;
-    int maxAllowedItems = 10;
-    static String fileName = "backpack.xml";
-    HashMap<String, ArrayList<String>> items = new HashMap<String, ArrayList<String>>();
-    static Backpack _inst = null;
+    private int backpackItemCount = 0;
+    private int maxAllowedItems = 10;
+    private static String fileName = "backpack.xml";
+    private HashMap<String, ArrayList<String>> items = new HashMap<String, ArrayList<String>>();
+    private static Backpack _inst = null;
 
     /**
      * increment item counter
@@ -261,30 +259,5 @@ public class Backpack extends Observable
         Backpack._inst = null;
         return Backpack.init();
     }
-
-    // public static void main(String[] args){
-    // Backpack b = Backpack.init(true);
-    // try {
-    // b.equip("Weapon", "Longsword");
-    // b.equip("Weapon", "Dagger");
-    // b.equip("Weapon", "Bow");
-    // b.equip("Armor", "Leather");
-    // b.equip("Shoes", "Leather");
-    // b.equip("Armor", "Metal");
-    // b.equip("Armor", "Aluminium");
-    // b.equip("Ring", "Gold");
-    // b.equip("Ring", "Diamond");
-    // b.save();
-    // System.out.println(b.size());
-    // Set<String> keys = b.getItemTypes();
-    // for (String key: keys){
-    //
-    // System.out.println(key);
-    // System.out.println(b.getByType(key));
-    // }
-    // } catch (Throwable e) {
-    // e.printStackTrace();
-    // }
-    // }
 
 }

@@ -35,13 +35,13 @@ public class Item
     @XmlElement(name = "itemLevel")
     public int itemLevel;
 
-    /** creating an object of class Character */
-
-    Character charObj = null;
+    private Character characterObj = null;
 
     private int armorClass = 0;
     private int count;
 
+    public Item(){}
+    
     public Item(String name, String type, String itemclass, int level)
     {
         itemName = name;
@@ -64,12 +64,11 @@ public class Item
      * Armor Class value should be set based on the armor type chosen. AC is
      * used for almost all the items used.
      */
-
-    public void setInitialArmorClass()
+    private void setInitialArmorClass()
     {
         if (itemClass.equalsIgnoreCase("Light") || itemName.equalsIgnoreCase("Medium"))
         {
-            armorClass = armorClass + charObj.getOriginalDexterity();
+            armorClass = armorClass + characterObj.getOriginalDexterity();
         }
         else
             armorClass = 14;
@@ -97,14 +96,13 @@ public class Item
      */
     public void setCharacter(Character character)
     {
-        charObj = character;
+        characterObj = character;
     }
 
     /**
-     * @return a hash map containing all the items segment based on their item
-     *         type
+     * @return a hash map containing all the items segment based on their item type
      */
-    public static HashMap<String, ArrayList<Item>> getItems()
+    private static HashMap<String, ArrayList<Item>> getItems()
     {
         HashMap<String, ArrayList<Item>> hMap = new HashMap<String, ArrayList<Item>>();
 

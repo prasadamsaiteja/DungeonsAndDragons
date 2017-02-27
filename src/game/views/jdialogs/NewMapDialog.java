@@ -31,7 +31,7 @@ import java.awt.event.ActionEvent;
  * @since 1/26/2017
  */
 @SuppressWarnings("serial")
-public class NewMapDialog extends JDialog
+class NewMapDialog extends JDialog
 {
 
     private JDialog parent;
@@ -43,7 +43,7 @@ public class NewMapDialog extends JDialog
      * @param jdialog Parent JDilaog reference which is required to dispose
      *            parent dialog if needed.
      */
-    public NewMapDialog(JDialog jdialog)
+    NewMapDialog(JDialog jdialog)
     {
 
         this.parent = jdialog;

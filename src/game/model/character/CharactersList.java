@@ -26,7 +26,7 @@ public class CharactersList extends Observable
     private String dirPath = SharedVariables.CharactersDirectory;
     private ArrayList<Character> characters;
 
-    public static CharactersList inst = null;
+    private static CharactersList inst = null;
 
     public CharactersList()
     {

@@ -18,7 +18,7 @@ public class Map
 {
 
     @XmlElement(name = "Name")
-    public String mapName;
+    private String mapName;
     @XmlElement(name = "Width")
     public int mapWidth;
     @XmlElement(name = "Height")

@@ -82,7 +82,7 @@ public class CharacterClass
      * @param cClass
      * @return true or false
      */
-    public static boolean isClassAllowed(String cClass)
+    private static boolean isClassAllowed(String cClass)
     {
         return DefinedClasses.getCharacterList().containsKey(cClass);
     }

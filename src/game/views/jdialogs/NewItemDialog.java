@@ -40,14 +40,14 @@ import javax.swing.JComboBox;
  * @since 2/20/2017
  *
  */
-@SuppressWarnings("serial")
-public class NewItemDialog extends JDialog
+@SuppressWarnings("serial") 
+class NewItemDialog extends JDialog
 {
 
     private CreateStuffDialog parentDialog;
     private Item loadedItem;
 
-    public NewItemDialog(CreateStuffDialog jDialog)
+    NewItemDialog(CreateStuffDialog jDialog)
     {
         DialogHelper.setDialogProperties(this, "New Item", new Rectangle(440, 227));
         getContentPane().setLayout(null);
@@ -55,7 +55,7 @@ public class NewItemDialog extends JDialog
         initComponents();
     }
 
-    public NewItemDialog(Item itemFromXml, CreateStuffDialog jDialog)
+    NewItemDialog(Item itemFromXml, CreateStuffDialog jDialog)
     {
         loadedItem = itemFromXml;
         DialogHelper.setDialogProperties(this, "New Item", new Rectangle(440, 227));
