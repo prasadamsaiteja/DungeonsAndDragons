@@ -40,7 +40,7 @@ import javax.swing.JComboBox;
  * @since 2/20/2017
  *
  */
-@SuppressWarnings("serial") 
+@SuppressWarnings("serial")
 class NewItemDialog extends JDialog
 {
 

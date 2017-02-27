@@ -263,6 +263,7 @@ public class Character extends Observable
         Item weaponObj = this.getWeaponObject();
         if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))
         {
+            System.out.print(weaponObj.getModifier() + "\n");
             damageBonus += this.getDexterity() + weaponObj.getModifier();
         }
         return damageBonus;
@@ -395,7 +396,12 @@ public class Character extends Observable
         if (this.getWeaponName() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getWeaponName());
+        Item i = ItemJaxb.getItemFromXml(this.getWeaponName());
+        if (i != null)
+        {
+            i.setCharacter(this);
+        }
+        return i;
     }
 
     /**
@@ -406,7 +412,11 @@ public class Character extends Observable
         if (this.getShield() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getShield());
+        Item i = ItemJaxb.getItemFromXml(this.getShield());
+        if (i != null)
+            i.setCharacter(this);
+
+        return i;
     }
 
     /**
@@ -417,7 +427,11 @@ public class Character extends Observable
         if (this.getRingName() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getRingName());
+        Item i = ItemJaxb.getItemFromXml(this.getRingName());
+        if (i != null)
+            i.setCharacter(this);
+
+        return i;
     }
 
     /**
@@ -428,7 +442,11 @@ public class Character extends Observable
         if (this.getHelmet() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getHelmet());
+        Item i = ItemJaxb.getItemFromXml(this.getHelmet());
+        if (i != null)
+            i.setCharacter(this);
+
+        return i;
     }
 
     /**
@@ -439,7 +457,11 @@ public class Character extends Observable
         if (this.getArmor() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getArmor());
+        Item i = ItemJaxb.getItemFromXml(this.getArmor());
+        if (i != null)
+            i.setCharacter(this);
+
+        return i;
     }
 
     /**
@@ -450,7 +472,11 @@ public class Character extends Observable
         if (this.getBoots() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getBoots());
+        Item i = ItemJaxb.getItemFromXml(this.getBoots());
+        if (i != null)
+            i.setCharacter(this);
+
+        return i;
     }
 
     /**
@@ -461,7 +487,11 @@ public class Character extends Observable
         if (this.getBeltName() == null)
             return null;
 
-        return ItemJaxb.getItemFromXml(this.getBeltName());
+        Item i = ItemJaxb.getItemFromXml(this.getBeltName());
+        if (i != null)
+            i.setCharacter(this);
+
+        return i;
     }
 
     /**
@@ -548,6 +578,14 @@ public class Character extends Observable
         FileWriter out;
         try
         {
+            // check if the directory exists and if not then make it
+            File dir = new File(SharedVariables.CharactersDirectory);
+            if (!dir.isDirectory())
+            {
+                dir.mkdirs();
+            }
+
+            // write file to path
             String filepath = SharedVariables.CharactersDirectory + File.separator + this.getFileName() + ".xml";
             out = new FileWriter(filepath);
             out.write(xml);
