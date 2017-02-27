@@ -10,4 +10,8 @@ Download `lib/tools/soenTeam13.xml`. Under Window/Preferences select Java/Code S
 
 ###API Documentation
 
-View dugnens and dragons API Documentation [here](https://dungeons-and-dragons.000webhostapp.com/).
+View dungeons and dragons API Documentation [here](https://dungeons-and-dragons.000webhostapp.com/).
+
+###Class Diagram
+
+View dungeons and dragons class diagram [here](https://github.com/prasadamsaiteja/DungeonsAndDragons/blob/master/class%20diagram.png).
