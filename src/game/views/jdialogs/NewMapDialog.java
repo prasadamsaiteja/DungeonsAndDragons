@@ -70,7 +70,6 @@ class NewMapDialog extends JDialog
         NumberFormat format = NumberFormat.getInstance();
         NumberFormatter formatter = new NumberFormatter(format);
         formatter.setValueClass(Integer.class);
-        formatter.setMinimum(5);
         formatter.setMaximum(80);
         formatter.setAllowsInvalid(false);
         formatter.setCommitsOnValidEdit(true);
@@ -95,7 +94,6 @@ class NewMapDialog extends JDialog
 
         { // Map dimension text field width
             map_dimesions_x = new JFormattedTextField(formatter);
-            map_dimesions_x.setText("5");
             map_dimesions_x.setBounds(110, 45, 32, 23);
             map_dimesions_x.setHorizontalAlignment(SwingConstants.CENTER);
             contentPanel.add(map_dimesions_x);
@@ -104,7 +102,6 @@ class NewMapDialog extends JDialog
 
         { // Map dimension text field height
             map_dimesions_y = new JFormattedTextField(formatter);
-            map_dimesions_y.setText("5");
             map_dimesions_y.setColumns(10);
             map_dimesions_y.setHorizontalAlignment(SwingConstants.CENTER);
             map_dimesions_y.setBounds(179, 45, 32, 23);
@@ -131,6 +128,21 @@ class NewMapDialog extends JDialog
                                 DialogHelper.showBasicDialog("Map name should be atleast 5 characters");
                                 return;
                             }
+                            
+                            try
+                            { 
+                              if(Integer.parseInt(map_dimesions_x.getText()) < 4 || Integer.parseInt(map_dimesions_y.getText()) < 4)
+                              {
+                                  DialogHelper.showBasicDialog("Map dimension should be atleast 5x5 matrix");
+                                  return;
+                              }
+                            }
+                            
+                            catch(Exception ex){
+                                DialogHelper.showBasicDialog("Map dimension should be atleast 5x5 matrix");
+                                return;
+                            }
+                            
 
                             if (parent != null)
                                 parent.dispose();
