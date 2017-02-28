@@ -79,17 +79,48 @@ class CreateCharacterDialog extends JDialog
         public void actionPerformed(ActionEvent e)
         {
             if (character == null)
-                character = new Character();
+                character = new Character();         
 
+            
+            Iterator<Component> ci1 = this.dialogComponents.iterator();
+            
+            // if ability modifiers have not been set yet, then show a dialog
+            while (ci1.hasNext())
+            {
+                Component c1 = ci1.next();
+                if (c1 instanceof JTextField)
+                {
+                    JTextField txtField1 = (JTextField) c1;
+                    switch (txtField1.getName())
+                    {
+                        case "name":
+                            if (txtField1.getText().length() < 4)
+                            {
+                                DialogHelper.showBasicDialog("Character name needs to be atleast 4 characters long");
+                                return;
+                            }
+                        case "strength":
+                        case "dexterity":
+                        case "constitution":
+                            if (txtField1.getText().equals(""))
+                            {
+                                DialogHelper.showBasicDialog("Ability modifiers need to be rolled");
+                                return;
+                            }
+                    }
+                }
+            }
+                
+            Iterator<Component> ci2 = this.dialogComponents.iterator();
+                
             // Iterate through the component list and set the appropriate value
             // in character object
-            Iterator<Component> componentIterator = this.dialogComponents.iterator();
-            while (componentIterator.hasNext())
+            while (ci2.hasNext())
             {
-                Component component = componentIterator.next();
-                if (component instanceof JTextField)
+                Component c2 = ci2.next();
+                if (c2 instanceof JTextField)
                 {
-                    JTextField txtField = (JTextField) component;
+                    JTextField txtField = (JTextField) c2;
                     switch (txtField.getName())
                     {
                         case "name":
@@ -106,10 +137,10 @@ class CreateCharacterDialog extends JDialog
                             break;
                     }
                 }
-                else if (component instanceof JComboBox)
+                else if (c2 instanceof JComboBox)
                 {
                     @SuppressWarnings("unchecked")
-                    JComboBox<String> cBox = (JComboBox<String>) component;
+                    JComboBox<String> cBox = (JComboBox<String>) c2;
                     Integer index = cBox.getSelectedIndex();
                     String item = cBox.getItemAt(index);
                     String name = cBox.getName();
@@ -226,11 +257,11 @@ class CreateCharacterDialog extends JDialog
         gridBagLayout.columnWidths = new int[]
         { 36, 11, 77, 39, 20, 32, 49, 34, 93, 84, 0 };
         gridBagLayout.rowHeights = new int[]
-        { 27, 16, 26, 29, 0, 0, };
+        { 27, 16, 26, 29, 0, 0, 0, 0};
         gridBagLayout.columnWeights = new double[]
         { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
         gridBagLayout.rowWeights = new double[]
-        { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+        { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
         // getContentPane().setLayout(gridBagLayout);
 
         // create a new instance of items list updater
@@ -397,11 +428,18 @@ class CreateCharacterDialog extends JDialog
         gbc.gridx = 9;
         gbc.gridy = 2;
         contentPanel.add(this.txtCons, gbc);
+        
+        JLabel lblItems = new JLabel("Items:");
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        contentPanel.add(lblItems, gbc);
 
         JLabel Weapons = new JLabel("Weapon");
         gbc.anchor = GridBagConstraints.WEST;
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         contentPanel.add(Weapons, gbc);
 
         this.cbWeapon = new JComboBox<String>();
@@ -409,7 +447,7 @@ class CreateCharacterDialog extends JDialog
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 2;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         contentPanel.add(this.cbWeapon, gbc);
 
         listUpdater.addItemComboBox("Weapon", this.cbWeapon);
@@ -423,7 +461,7 @@ class CreateCharacterDialog extends JDialog
         JLabel Armors = new JLabel("Armor");
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridx = 4;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         contentPanel.add(Armors, gbc);
 
         this.cbArmor = new JComboBox<String>();
@@ -431,7 +469,7 @@ class CreateCharacterDialog extends JDialog
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 6;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         contentPanel.add(this.cbArmor, gbc);
 
         listUpdater.addItemComboBox("Armor", this.cbArmor);
@@ -446,7 +484,7 @@ class CreateCharacterDialog extends JDialog
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridx = 8;
         gbc.gridwidth = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         contentPanel.add(Shields, gbc);
 
         this.cbShield = new JComboBox<String>();
@@ -455,7 +493,7 @@ class CreateCharacterDialog extends JDialog
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 9;
         gbc.gridwidth = 2;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         contentPanel.add(this.cbShield, gbc);
 
         listUpdater.addItemComboBox("Shield", this.cbShield);
@@ -472,7 +510,7 @@ class CreateCharacterDialog extends JDialog
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         contentPanel.add(Helmets, gbc);
 
         this.cbHelmet = new JComboBox<String>();
@@ -481,7 +519,7 @@ class CreateCharacterDialog extends JDialog
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 2;
         gbc.gridwidth = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         contentPanel.add(this.cbHelmet, gbc);
 
         listUpdater.addItemComboBox("Helmet", this.cbHelmet);
@@ -496,7 +534,7 @@ class CreateCharacterDialog extends JDialog
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridx = 4;
         gbc.gridwidth = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         contentPanel.add(Boots, gbc);
 
         this.cbBoots = new JComboBox<String>();
@@ -505,7 +543,7 @@ class CreateCharacterDialog extends JDialog
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 6;
         gbc.gridwidth = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         contentPanel.add(this.cbBoots, gbc);
 
         listUpdater.addItemComboBox("Boots", this.cbBoots);
@@ -520,7 +558,7 @@ class CreateCharacterDialog extends JDialog
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridx = 8;
         gbc.gridwidth = 1;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         contentPanel.add(Belts, gbc);
 
         this.cbBelt = new JComboBox<String>();
@@ -529,7 +567,7 @@ class CreateCharacterDialog extends JDialog
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 9;
         gbc.gridwidth = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         contentPanel.add(this.cbBelt, gbc);
 
         listUpdater.addItemComboBox("Belt", this.cbBelt);
@@ -546,7 +584,7 @@ class CreateCharacterDialog extends JDialog
         JLabel Rings = new JLabel("Ring");
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         contentPanel.add(Rings, gbc);
 
         this.cbRing = new JComboBox<String>();
@@ -554,7 +592,7 @@ class CreateCharacterDialog extends JDialog
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 2;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         contentPanel.add(this.cbRing, gbc);
 
         listUpdater.addItemComboBox("Ring", this.cbRing);
@@ -572,14 +610,14 @@ class CreateCharacterDialog extends JDialog
             gbc.anchor = GridBagConstraints.NORTH;
             gbc.gridwidth = 2;
             gbc.gridx = 3;
-            gbc.gridy = 6;
+            gbc.gridy = 7;
             contentPanel.add(this.btnRoll, gbc);
         }
 
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridwidth = 2;
         gbc.gridx = 6;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         contentPanel.add(this.btnSave, gbc);
 
         getContentPane().add(contentPanel);

@@ -11,11 +11,20 @@ import org.junit.Test;
 
 import game.model.character.Character;
 
+/**
+ * 
+ * @author supreet (s_supree)
+ */
 public class DrawTest
 {
     private DummyObserver d1;
     private Character c1;
 
+    /**
+     * A dummy oberserver class we need to test the observable triggers of draw function
+     * 
+     * @author supreet
+     */
     private class DummyObserver implements Observer
     {
         private int dummyParam = 0;

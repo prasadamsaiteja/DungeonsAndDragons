@@ -53,13 +53,14 @@ public class CharacterClass
     /**
      * @param String name
      * @param String character
+     * @throws Exception 
      * @throws {@link RuntimeErrorException}
      */
-    public CharacterClass(String name, Character character)
+    public CharacterClass(String name, Character character) throws Exception
     {
         if (!CharacterClass.isClassAllowed(name))
         {
-            throw new RuntimeErrorException(null);
+            throw new Exception("Class not allowed "+name);
         }
 
         this.name = name;

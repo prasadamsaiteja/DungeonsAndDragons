@@ -541,13 +541,22 @@ public class Character extends Observable
         if (!this.isBuilt)
         {
             // Build characters class and get hit score
-            CharacterClass cClass = new CharacterClass(this.getCharacterClass(), this);
-            CharacterClassStructure cClassVal = cClass.get();
+            CharacterClass cClass;
+            try
+            {
+                cClass = new CharacterClass(this.getCharacterClass(), this);
+                CharacterClassStructure cClassVal = cClass.get();
 
-            cClass.calculateHitScore(
-                    new Dice(cClassVal.getNumberOfRolls(), cClassVal.getDiceSides(), cClassVal.getNumberOfRolls()));
-            this.hitScore = cClass.getHitScore();
-            this.isBuilt = true;
+                cClass.calculateHitScore(
+                        new Dice(cClassVal.getNumberOfRolls(), cClassVal.getDiceSides(), cClassVal.getNumberOfRolls()));
+                this.hitScore = cClass.getHitScore();
+                this.isBuilt = true;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            
         }
     }
 
