@@ -42,6 +42,7 @@ public class NewCampaignInfoDialog extends JDialog {
 	/**
 	 * Constructor for initialising the components
 	 * @param nameValue Name of the campaign from the CampaignName dialog
+	 * @wbp.parser.constructor
 	 */
 	public NewCampaignInfoDialog(String nameValue) {
 		DialogHelper.setDialogProperties(NewCampaignInfoDialog.this, "New Campaign", new Rectangle(554, 448));
@@ -50,7 +51,7 @@ public class NewCampaignInfoDialog extends JDialog {
 	}
 	/**
 	 * Constructor for initialising the components 
-	 * @param campaignFromXml Gets the campaign Object for having list of values
+	 * @param campaignFromXml Gets the campaign Object for using list of values present in the campaignObject
 	 */
 	public NewCampaignInfoDialog(Campaign campaignFromXml) {
 		DialogHelper.setDialogProperties(NewCampaignInfoDialog.this, "Edit Campaign", new Rectangle(554, 448));
@@ -164,14 +165,18 @@ public class NewCampaignInfoDialog extends JDialog {
 				
 				ListModel<String> model = addedMapsList.getModel();
 				String addedMaps_String;
+				if(model.getSize()!=0){
 				for(int i=0; i < model.getSize(); i++){
 				    Object o =  model.getElementAt(i); 
 				    addedMaps_String = o.toString();
 				    addedMaps.add(i , addedMaps_String);
-				    System.out.println("Map added to arraylist at " + i +" position " + addedMaps_String);
 				} 
 				CampaignJaxb.convertCampaignInfoToXml(new Campaign(campaignName, addedMaps));
 				dispose();
+				}else
+				{
+					DialogHelper.showBasicDialog("Please Add Atleast 1 Map to PLAY");
+				}
 			}
 		});
 

@@ -15,13 +15,18 @@ import components.SharedVariables;
 import model.Campaign;
 
 /**
- * 
+ * Class that displays the information of Campaign that shows the list of maps in the Data folder and 
+ * User selected maps for a specific campaign
  * @author RahulReddy
  * @version 1.0
  * @since   2/20/2017
  */
 public class CampaignJaxb {
 	 
+	/**
+	 * This Method converts the Campaign Object information like Maps into XML
+	 * @param campaign It has properties to be saved in XML file
+	 */
     public static final void convertCampaignInfoToXml(Campaign campaign){
          
 	      try {
@@ -44,7 +49,11 @@ public class CampaignJaxb {
 	        e.printStackTrace();
 	      }  
 	  }
-	 
+	 /**
+	  * Removes Campaign from the List and delete the User selected Campaign
+	  * @param campaignName Name of the user selected campaign
+	  * @return boolean whether Campaign is deleted or not
+	  */
     public static final boolean deleteCampaignXml(String campaignName){
       
         try{
@@ -58,7 +67,11 @@ public class CampaignJaxb {
       
     }
     
-	  
+	  /**
+	   * This method loads the XML file of the selected Campaign from the Campaigns folder
+	   * @param campaignName Name of the user selected campaign
+	   * @return Campaign  The campaign object
+	   */
     public static Campaign getCampaignFromXml(String campaignName) {
       
       try {      
