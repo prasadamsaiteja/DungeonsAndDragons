@@ -27,7 +27,8 @@ import game.model.jaxb.CampaignJaxb;
 import game.views.jdialogs.DialogHelper;
 
 /**
- *  This class is a jdialog that sets the name and maps to a particular campaign
+ * This class is a jdialog that sets the name and maps to a particular campaign
+ * 
  * @author RahulReddy
  * @version 1.0.0
  */
@@ -41,6 +42,7 @@ public class NewCampaignInfoDialog extends JDialog
 
     /**
      * Constructor that sets the name of the Campaign in the dialog
+     * 
      * @param nameValue Name of the campaign
      */
     public NewCampaignInfoDialog(String nameValue)
@@ -51,8 +53,10 @@ public class NewCampaignInfoDialog extends JDialog
     }
 
     /**
-     * Constructor that takes the campaign object and performs operations on Added Maps List
-     * @param campaignFromXml Campaign Object 
+     * Constructor that takes the campaign object and performs operations on
+     * Added Maps List
+     * 
+     * @param campaignFromXml Campaign Object
      */
     public NewCampaignInfoDialog(Campaign campaignFromXml)
     {
@@ -154,7 +158,7 @@ public class NewCampaignInfoDialog extends JDialog
         JLabel lblCampaignname = new JLabel(campaignName);
         if (campaignObject != null)
             lblCampaignname.setText(campaignObject.getCampaignName());
-        
+
         lblCampaignname.setBounds(243, 25, 167, 14);
         getContentPane().add(lblCampaignname);
 
@@ -173,25 +177,25 @@ public class NewCampaignInfoDialog extends JDialog
 
                 ListModel<String> model = addedMapsList.getModel();
                 String addedMapsString;
-                
-                if(model.getSize()!=0)
+
+                if (model.getSize() != 0)
                 {
-                for (int i = 0; i < model.getSize(); i++)
-                {
-                    Object o = model.getElementAt(i);
-                    addedMapsString = o.toString();
-                    addedMaps.add(i, addedMapsString);
-                }
-                CampaignJaxb.convertCampaignInfoToXml(new Campaign(campaignName, addedMaps));
-                dispose();
+                    for (int i = 0; i < model.getSize(); i++)
+                    {
+                        Object o = model.getElementAt(i);
+                   	addedMapsString = o.toString();
+                    	addedMaps.add(i, addedMapsString);
+                    }
+                    CampaignJaxb.convertCampaignInfoToXml(new Campaign(campaignName, addedMaps));
+                    dispose();
                 }
                 else
                 {
-                	DialogHelper.showBasicDialog("Please Select 1 Map to PLAY CAMPAIGN");
+                    DialogHelper.showBasicDialog("Please Select 1 Map to PLAY CAMPAIGN");
                 }
             }
         });
-        
+
         // Cancel campaign creation
         JButton btnCancel = new JButton("Cancel");
         btnCancel.setBackground(Color.LIGHT_GRAY);
@@ -240,6 +244,7 @@ public class NewCampaignInfoDialog extends JDialog
     
     /**
      * Sets the List(SAVED,Added) properties present in the dialog
+     * 
      * @param List List Object
      */
     public void setListProperties(JList<String> List)

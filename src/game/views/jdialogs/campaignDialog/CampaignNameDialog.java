@@ -20,15 +20,16 @@ import java.awt.event.ActionEvent;
 
 /**
  * This Class is a dialog for the player to Enter a valid Campaign Name
+ * 
  * @author RahulReddy
  *
  */
 @SuppressWarnings("serial")
 public class CampaignNameDialog extends JDialog
 {
-	/**
-	 * This Constructor sets the dialog properties
-	 */
+    /**
+     * This Constructor sets the dialog properties
+     */
     public CampaignNameDialog()
     {
         DialogHelper.setDialogProperties(this, "Campaign Name", new Rectangle(440, 150));
@@ -36,7 +37,7 @@ public class CampaignNameDialog extends JDialog
 
         initComponents();
     }
-    
+
     /**
      * This method initialises the UI components in the dialog
      */

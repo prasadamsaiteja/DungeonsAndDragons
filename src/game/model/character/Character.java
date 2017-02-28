@@ -66,6 +66,7 @@ public class Character extends Observable
     public void setCharacterClass(String characterClass)
     {
         this.characterClass = characterClass;
+        this.draw();
     }
 
     /**
@@ -73,10 +74,10 @@ public class Character extends Observable
      * 
      * @param int level
      */
-    public Character setLevel(int level)
+    public void setLevel(int level)
     {
         this.level = level;
-        return this;
+        this.draw();
     }
 
     /**
@@ -214,6 +215,7 @@ public class Character extends Observable
     public void setWeaponName(String weaponName)
     {
         this.weaponName = weaponName;
+        this.draw();
     }
 
     /**
@@ -238,6 +240,7 @@ public class Character extends Observable
     public void setBeltName(String beltName)
     {
         this.beltName = beltName;
+        this.draw();
     }
 
     /**
@@ -322,6 +325,7 @@ public class Character extends Observable
     public void setRingName(String ringName)
     {
         this.ringName = ringName;
+        this.draw();
     }
 
     /**
@@ -338,6 +342,7 @@ public class Character extends Observable
     public void setShield(String shield)
     {
         this.shield = shield;
+        this.draw();
     }
 
     /**
@@ -354,6 +359,7 @@ public class Character extends Observable
     public void setBoots(String boots)
     {
         this.boots = boots;
+        this.draw();
     }
 
     /**
@@ -370,6 +376,7 @@ public class Character extends Observable
     public void setArmor(String armor)
     {
         this.armor = armor;
+        this.draw();
     }
 
     /**
@@ -386,6 +393,7 @@ public class Character extends Observable
     public void setHelmet(String helmet)
     {
         this.helmet = helmet;
+        this.draw();
     }
 
     /**
@@ -543,7 +551,13 @@ public class Character extends Observable
         }
     }
 
-    public void hit(int damage) throws Exception
+    /**
+     * keeps a track of characters damage. Damage should reduce everytime a
+     * character is hit
+     * 
+     * @param damage
+     */
+    public void hit(int damage)
     {
         this.hitScore -= damage;
     }

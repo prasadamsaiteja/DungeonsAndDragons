@@ -25,6 +25,7 @@ public class Campaign
 
     /**
      * Constructor that sets the name and maps of campaign to local variables.
+     * 
      * @param campaign_Name name of campaign
      * @param addedMaps list of added maps in the campaign
      */
@@ -43,7 +44,8 @@ public class Campaign
     
     /**
      * Method returns the name of campaign
-     * @return campaignName 
+     * 
+     * @return campaignName
      */
     public String getCampaignName()
     {
