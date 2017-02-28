@@ -41,18 +41,6 @@ public class CharacterClass
             fighterStructure.setNumberOfRolls(1);
             characterList.put("Fighter", fighterStructure);
 
-            // add ninja class
-            CharacterClassStructure ninjaStructure = new CharacterClassStructure();
-            ninjaStructure.setDiceSides(5);
-            ninjaStructure.setNumberOfRolls(4);
-            characterList.put("Ninja", ninjaStructure);
-
-            // add rogue class
-            CharacterClassStructure rogueStructure = new CharacterClassStructure();
-            rogueStructure.setDiceSides(8);
-            rogueStructure.setNumberOfRolls(1);
-            characterList.put("Rogue", rogueStructure);
-
             return characterList;
         }
     }
@@ -80,7 +68,7 @@ public class CharacterClass
 
     /**
      * @param cClass
-     * @return true or false
+     * @return true or false if the class exists
      */
     private static boolean isClassAllowed(String cClass)
     {

@@ -41,7 +41,7 @@ class NewMapDialog extends JDialog
      * maps
      * 
      * @param jdialog Parent JDilaog reference which is required to dispose
-     *            parent dialog if needed.
+     *        parent dialog if needed.
      */
     NewMapDialog(JDialog jdialog)
     {
@@ -128,21 +128,22 @@ class NewMapDialog extends JDialog
                                 DialogHelper.showBasicDialog("Map name should be atleast 5 characters");
                                 return;
                             }
-                            
+
                             try
-                            { 
-                              if(Integer.parseInt(map_dimesions_x.getText()) < 4 || Integer.parseInt(map_dimesions_y.getText()) < 4)
-                              {
-                                  DialogHelper.showBasicDialog("Map dimension should be atleast 5x5 matrix");
-                                  return;
-                              }
+                            {
+                                if (Integer.parseInt(map_dimesions_x.getText()) < 4
+                                    || Integer.parseInt(map_dimesions_y.getText()) < 4)
+                                {
+                                    DialogHelper.showBasicDialog("Map dimension should be atleast 5x5 matrix");
+                                    return;
+                                }
                             }
-                            
-                            catch(Exception ex){
+
+                            catch (Exception ex)
+                            {
                                 DialogHelper.showBasicDialog("Map dimension should be atleast 5x5 matrix");
                                 return;
                             }
-                            
 
                             if (parent != null)
                                 parent.dispose();

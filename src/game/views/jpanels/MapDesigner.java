@@ -470,7 +470,7 @@ public class MapDesigner extends JPanel
      * 
      * @param jPanel This contains reference to the clicked JPanel
      * @param radioButtonGroup This contains reference to RadioButtonGroup,
-     *            which states which component should be placed.
+     *        which states which component should be placed.
      */
     private void mapCellClicked(JPanel jPanel, final ButtonGroup radioButtonGroup)
     {
