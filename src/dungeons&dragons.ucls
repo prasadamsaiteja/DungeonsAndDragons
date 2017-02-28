@@ -1,0 +1,999 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.14" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <enumeration id="1" language="java" name="game.components.SharedVariables.ShieldClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="145" x="2097" y="3592"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="2" language="java" name="game.views.jdialogs.CreateStuffDialog" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/CreateStuffDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="242" x="1525" y="-325"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="game.model.Backpack" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/Backpack.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="369" width="450" x="552" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="game.views.jdialogs.campaignDialog.NewCampaignInfoDialog" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/campaignDialog/NewCampaignInfoDialog.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="171" width="200" x="1624" y="413"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="game.components.Dice" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/Dice.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="143" x="1088" y="2262"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="game.model.jaxb.CampaignJaxb" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/jaxb/CampaignJaxb.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="234" x="1611" y="750"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="game.views.jframes.MainFrame" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jframes/MainFrame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="155" x="21" y="1007"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="8" language="java" name="game.components.SharedVariables.RingClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="137" x="-105" y="3592"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="9" language="java" name="game.components.SharedVariables.BeltClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="133" x="72" y="3592"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="10" language="java" name="game.model.Map" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/Map.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="225" width="275" x="277" y="1007"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="game.views.jdialogs.viewmodels.CharactersListModel" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/viewmodels/CharactersListModel.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="135" width="263" x="1279" y="413"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="game.model.character.CharactersList" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/character/CharactersList.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="286" x="1212" y="750"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="game.views.jdialogs.NewItemDialog" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/NewItemDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="212" x="1950" y="-482"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="game.components.Console" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/Console.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="195" x="805" y="-482"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="game.views.jdialogs.campaignDialog.CampaignNameDialog" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/campaignDialog/CampaignNameDialog.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="163" x="1341" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="game.views.jdialogs.DialogHelper" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/DialogHelper.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="266" x="573" y="750"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="game.components.ExtensionMethods" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/ExtensionMethods.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="156" x="1549" y="2846"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="18" language="java" name="game.components.SharedVariables.ItemType" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="119" x="1938" y="3592"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="19" language="java" name="game.components.SharedVariables.WeaponClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="136" x="1574" y="3592"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="20" language="java" name="game.components.SharedVariables.BootsClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="144" x="409" y="3592"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="21" language="java" name="game.model.jaxb.ItemJaxb" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/jaxb/ItemJaxb.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="191" x="1717" y="2262"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="game.views.jdialogs.NewMapDialog" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/NewMapDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="140" x="162" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="game.views.jdialogs.CreateCharacterDialog" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/CreateCharacterDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="333" width="228" x="1073" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="game.model.character.classes.CharacterClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/character/classes/CharacterClass.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="188" x="879" y="750"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="game.model.Campaign" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/Campaign.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="197" x="1669" y="1007"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="game.model.character.classes.CharacterClassStructure" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/character/classes/CharacterClassStructure.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="189" width="167" x="881" y="2262"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="game.GameLauncher" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/GameLauncher.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="113" x="61" y="750"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="game.components.SharedVariables" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="531" width="388" x="1326" y="3021"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="29" language="java" name="game.components.SharedVariables.HelmetClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="148" x="1750" y="3592"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="30" language="java" name="game.views.jpanels.MapDesigner" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jpanels/MapDesigner.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="297" width="287" x="162" y="413"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="game.views.jpanels.LaunchScreen" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jpanels/LaunchScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="287" x="-2" y="2262"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="game.model.character.classes.CharacterClass.DefinedClasses" 
+    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/model/character/classes/CharacterClass.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="325" x="634" y="1007"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="33" language="java" name="game.components.SharedVariables.ArmorClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="124" x="245" y="3592"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="34" language="java" name="game.model.Item" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/Item.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="241" x="1549" y="2491"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="game.model.character.Character" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/character/Character.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1215" width="175" x="1130" y="1007"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="36" language="java" name="game.interfaces.DiceImplementationInterface" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/interfaces/DiceImplementationInterface.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="188" x="881" y="2491"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="37" language="java" name="game.model.jaxb.MapJaxb" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/jaxb/MapJaxb.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="193" x="298" y="750"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="game.views.jdialogs.CreateCharacterDialog.BtnSaveActionListener" 
+    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jdialogs/CreateCharacterDialog.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="307" x="911" y="413"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <dependency id="39">    
+    <bendpoint x="1854" y="-6"/>    
+    <bendpoint x="1854" y="413"/>    
+    <bendpoint x="1580" y="750"/>    
+    <bendpoint x="1580" y="1007"/>    
+    <bendpoint x="1580" y="2262"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="40">    
+    <bendpoint x="51" y="413"/>    
+    <bendpoint x="30" y="750"/>    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="41">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="42">    
+    <bendpoint x="542" y="413"/>    
+    <bendpoint x="542" y="750"/>    
+    <bendpoint x="603" y="1007"/>    
+    <bendpoint x="603" y="2262"/>    
+    <bendpoint x="603" y="2491"/>    
+    <bendpoint x="603" y="2846"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="43">    
+    <bendpoint x="2106" y="-325"/>    
+    <bendpoint x="2106" y="-6"/>    
+    <bendpoint x="2106" y="413"/>    
+    <bendpoint x="2106" y="750"/>    
+    <bendpoint x="2106" y="1007"/>    
+    <bendpoint x="2106" y="2262"/>    
+    <bendpoint x="2106" y="2491"/>    
+    <bendpoint x="2106" y="2846"/>    
+    <bendpoint x="2106" y="3021"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="44">    
+    <bendpoint x="30" y="-6"/>    
+    <bendpoint x="30" y="413"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="45">    
+    <bendpoint x="838" y="413"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <dependency id="46">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <nesting id="47">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="33"/>  
+  </nesting>  
+  <dependency id="48">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="49">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="50">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="51">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="52">    
+    <bendpoint x="880" y="413"/>    
+    <bendpoint x="1118" y="750"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="53" name="character"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="55">    
+    <bendpoint x="-54" y="-325"/>    
+    <bendpoint x="-54" y="-6"/>    
+    <bendpoint x="-54" y="413"/>    
+    <bendpoint x="-54" y="750"/>    
+    <bendpoint x="-54" y="1007"/>    
+    <bendpoint x="-54" y="2262"/>    
+    <bendpoint x="-54" y="2491"/>    
+    <bendpoint x="-54" y="2846"/>    
+    <bendpoint x="-54" y="3021"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="33"/>  
+  </dependency>  
+  <association id="56">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="57" name="character"/>      
+      <multiplicity id="58" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="59">    
+    <bendpoint x="1820" y="2491"/>    
+    <bendpoint x="1820" y="2846"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="60">    
+    <bendpoint x="9" y="-6"/>    
+    <bendpoint x="9" y="413"/>    
+    <bendpoint x="9" y="750"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="61">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="62" name="inst"/>      
+      <multiplicity id="63" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="64">    
+    <bendpoint x="225" y="750"/>    
+    <bendpoint x="225" y="1007"/>    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="65">    
+    <bendpoint x="458" y="-6"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <nesting id="66">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
+  <dependency id="67">    
+    <bendpoint x="989" y="1007"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="68">    
+    <bendpoint x="2043" y="-325"/>    
+    <bendpoint x="2043" y="-6"/>    
+    <bendpoint x="2043" y="413"/>    
+    <bendpoint x="2043" y="750"/>    
+    <bendpoint x="2043" y="1007"/>    
+    <bendpoint x="2043" y="2262"/>    
+    <bendpoint x="2043" y="2491"/>    
+    <bendpoint x="2043" y="2846"/>    
+    <bendpoint x="2043" y="3021"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="69">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="70">    
+    <bendpoint x="-12" y="1007"/>    
+    <bendpoint x="-12" y="750"/>    
+    <bendpoint x="-12" y="413"/>    
+    <bendpoint x="-12" y="-6"/>    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <nesting id="71">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="29"/>  
+  </nesting>  
+  <dependency id="72">    
+    <bendpoint x="-75" y="-325"/>    
+    <bendpoint x="-75" y="-6"/>    
+    <bendpoint x="-75" y="413"/>    
+    <bendpoint x="-75" y="750"/>    
+    <bendpoint x="-75" y="1007"/>    
+    <bendpoint x="-75" y="2262"/>    
+    <bendpoint x="-75" y="2491"/>    
+    <bendpoint x="-75" y="2846"/>    
+    <bendpoint x="-75" y="3021"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <realization id="73">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="36"/>  
+  </realization>  
+  <dependency id="74">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="75">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <association id="76">    
+    <bendpoint x="1139" y="750"/>    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="77" name="character"/>      
+      <multiplicity id="78" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="79">    
+    <bendpoint x="2022" y="-325"/>    
+    <bendpoint x="2022" y="-6"/>    
+    <bendpoint x="2022" y="413"/>    
+    <bendpoint x="2022" y="750"/>    
+    <bendpoint x="2022" y="1007"/>    
+    <bendpoint x="2022" y="2262"/>    
+    <bendpoint x="2022" y="2491"/>    
+    <bendpoint x="2022" y="2846"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="80">    
+    <bendpoint x="521" y="-325"/>    
+    <bendpoint x="521" y="-6"/>    
+    <bendpoint x="563" y="413"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <nesting id="81">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="20"/>  
+  </nesting>  
+  <dependency id="82">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="83">    
+    <bendpoint x="2064" y="-325"/>    
+    <bendpoint x="2064" y="-6"/>    
+    <bendpoint x="2064" y="413"/>    
+    <bendpoint x="2064" y="750"/>    
+    <bendpoint x="2064" y="1007"/>    
+    <bendpoint x="2064" y="2262"/>    
+    <bendpoint x="2064" y="2491"/>    
+    <bendpoint x="2064" y="2846"/>    
+    <bendpoint x="2064" y="3021"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="84">    
+    <bendpoint x="204" y="750"/>    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="85">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="86" name="characters"/>      
+      <multiplicity id="87" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="88">    
+    <bendpoint x="1572" y="413"/>    
+    <bendpoint x="1538" y="750"/>    
+    <bendpoint x="1538" y="1007"/>    
+    <bendpoint x="1559" y="2262"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="89">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="90">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="91">    
+    <bendpoint x="-96" y="-325"/>    
+    <bendpoint x="-96" y="-6"/>    
+    <bendpoint x="-96" y="413"/>    
+    <bendpoint x="-96" y="750"/>    
+    <bendpoint x="-96" y="1007"/>    
+    <bendpoint x="-96" y="2262"/>    
+    <bendpoint x="-96" y="2491"/>    
+    <bendpoint x="-96" y="2846"/>    
+    <bendpoint x="-96" y="3021"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <nesting id="92">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="38"/>  
+  </nesting>  
+  <dependency id="93">    
+    <bendpoint x="500" y="-6"/>    
+    <bendpoint x="521" y="413"/>    
+    <bendpoint x="521" y="750"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="94">    
+    <bendpoint x="-33" y="-325"/>    
+    <bendpoint x="-33" y="-6"/>    
+    <bendpoint x="-33" y="413"/>    
+    <bendpoint x="-33" y="750"/>    
+    <bendpoint x="-33" y="1007"/>    
+    <bendpoint x="-33" y="2262"/>    
+    <bendpoint x="-33" y="2491"/>    
+    <bendpoint x="-33" y="2846"/>    
+    <bendpoint x="-33" y="3021"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="95">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="96">    
+    <bendpoint x="267" y="750"/>    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="97" name="mapObject"/>      
+      <multiplicity id="98" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="99">    
+    <bendpoint x="817" y="413"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="100">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="101">    
+    <bendpoint x="121" y="413"/>    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="102">    
+    <bendpoint x="859" y="413"/>    
+    <bendpoint x="1097" y="750"/>    
+    <bendpoint x="1097" y="1007"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="103">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="104">    
+    <bendpoint x="2085" y="-325"/>    
+    <bendpoint x="2085" y="-6"/>    
+    <bendpoint x="2085" y="413"/>    
+    <bendpoint x="2085" y="750"/>    
+    <bendpoint x="2085" y="1007"/>    
+    <bendpoint x="2085" y="2262"/>    
+    <bendpoint x="2085" y="2491"/>    
+    <bendpoint x="2085" y="2846"/>    
+    <bendpoint x="2085" y="3021"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <nesting id="105">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="18"/>  
+  </nesting>  
+  <dependency id="106">    
+    <bendpoint x="561" y="2262"/>    
+    <bendpoint x="561" y="2491"/>    
+    <bendpoint x="561" y="2846"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="107">    
+    <bendpoint x="1335" y="1007"/>    
+    <bendpoint x="1335" y="2262"/>    
+    <bendpoint x="1335" y="2491"/>    
+    <bendpoint x="1335" y="2846"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="108">    
+    <bendpoint x="1875" y="-6"/>    
+    <bendpoint x="1875" y="413"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <nesting id="109">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="1"/>  
+  </nesting>  
+  <dependency id="110">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="111">    
+    <bendpoint x="1896" y="-6"/>    
+    <bendpoint x="1896" y="413"/>    
+    <bendpoint x="1896" y="750"/>    
+    <bendpoint x="1896" y="1007"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="112">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <association id="113">    
+    <bendpoint x="1875" y="750"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="114" name="campaignObject"/>      
+      <multiplicity id="115" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="116">    
+    <bendpoint x="479" y="-6"/>    
+    <bendpoint x="479" y="413"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="117">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="118">    
+    <bendpoint x="1555" y="-6"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="119">    
+    <bendpoint x="1614" y="-6"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="120">    
+    <bendpoint x="1356" y="2262"/>    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="121" name="characterObj"/>      
+      <multiplicity id="122" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="123">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="32"/>  
+  </nesting>  
+  <nesting id="124">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="19"/>  
+  </nesting>  
+  <dependency id="125">    
+    <bendpoint x="582" y="1007"/>    
+    <bendpoint x="582" y="2262"/>    
+    <bendpoint x="582" y="2491"/>    
+    <bendpoint x="582" y="2846"/>    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="126">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <association id="127">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="128" name="_inst"/>      
+      <multiplicity id="129" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="131" name="mainFrameObject"/>      
+      <multiplicity id="132" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="133">    
+    <bendpoint x="1534" y="-6"/>    
+    <bendpoint x="1248" y="413"/>    
+    <bendpoint x="1160" y="750"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="134">    
+    <bendpoint x="500" y="413"/>    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <nesting id="135">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <dependency id="136">    
+    <bendpoint x="1917" y="-6"/>    
+    <bendpoint x="1917" y="413"/>    
+    <bendpoint x="1917" y="750"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="137">    
+    <bendpoint x="1559" y="750"/>    
+    <bendpoint x="1517" y="1007"/>    
+    <bendpoint x="1517" y="2262"/>    
+    <bendpoint x="1518" y="2491"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="138">    
+    <bendpoint x="1559" y="1007"/>    
+    <bendpoint x="1538" y="2262"/>    
+    <bendpoint x="1497" y="2491"/>    
+    <bendpoint x="1497" y="2846"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="139">    
+    <bendpoint x="1261" y="2262"/>    
+    <bendpoint x="1261" y="2491"/>    
+    <bendpoint x="1261" y="2846"/>    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="140">    
+    <bendpoint x="1980" y="-6"/>    
+    <bendpoint x="2001" y="413"/>    
+    <bendpoint x="2001" y="750"/>    
+    <bendpoint x="2001" y="1007"/>    
+    <bendpoint x="2001" y="2262"/>    
+    <bendpoint x="2001" y="2491"/>    
+    <bendpoint x="2001" y="2846"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="141">    
+    <bendpoint x="1181" y="750"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="142">    
+    <bendpoint x="1010" y="1007"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="143">    
+    <bendpoint x="246" y="750"/>    
+    <bendpoint x="246" y="1007"/>    
+    <bendpoint x="315" y="2262"/>    
+    <bendpoint x="315" y="2491"/>    
+    <bendpoint x="315" y="2846"/>    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="144">    
+    <bendpoint x="796" y="413"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="145">    
+    <bendpoint x="1593" y="-6"/>    
+    <bendpoint x="1593" y="413"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="146">    
+    <bendpoint x="2001" y="-325"/>    
+    <bendpoint x="2001" y="-6"/>    
+    <bendpoint x="1980" y="413"/>    
+    <bendpoint x="1938" y="750"/>    
+    <bendpoint x="1938" y="1007"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="147">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="148">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="149" name="parentDialog"/>      
+      <multiplicity id="150" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="151">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="152">    
+    <bendpoint x="1042" y="-6"/>    
+    <bendpoint x="775" y="413"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <association id="153">    
+    <bendpoint x="1959" y="-325"/>    
+    <bendpoint x="1959" y="-6"/>    
+    <bendpoint x="1959" y="413"/>    
+    <bendpoint x="1980" y="750"/>    
+    <bendpoint x="1980" y="1007"/>    
+    <bendpoint x="1938" y="2262"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="154" name="loadedItem"/>      
+      <multiplicity id="155" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="156">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="157">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="158">    
+    <bendpoint x="1938" y="-6"/>    
+    <bendpoint x="1938" y="413"/>    
+    <bendpoint x="1959" y="750"/>    
+    <bendpoint x="1959" y="1007"/>    
+    <bendpoint x="1959" y="2262"/>    
+    <bendpoint x="1959" y="2491"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
