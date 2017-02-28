@@ -14,4 +14,4 @@ View dungeons and dragons API Documentation [here](https://dungeons-and-dragons.
 
 ###Class Diagram
 
-View dungeons and dragons class diagram [here](https://github.com/prasadamsaiteja/DungeonsAndDragons/blob/master/class%20diagram.png).
+View dungeons and dragons class diagram [here](https://github.com/prasadamsaiteja/DungeonsAndDragons/blob/master/img/class%20diagram.png).
