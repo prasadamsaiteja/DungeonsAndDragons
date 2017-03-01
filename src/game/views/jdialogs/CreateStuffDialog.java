@@ -72,7 +72,6 @@ public class CreateStuffDialog extends JDialog
      * character.
      * 
      * @param mapName
-     * @param i
      */
     public CreateStuffDialog()
     {
