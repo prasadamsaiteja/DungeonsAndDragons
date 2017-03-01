@@ -33,7 +33,7 @@ public class Map
      * @param mapWidth width of the map.
      * @param mapHeight height of the map.
      * @param mapPanel 2D array of map JPanel, which is then converted to
-     *            integer 2D array.
+     *        integer 2D array.
      */
     public Map(String mapName, int mapWidth, int mapHeight, JPanel mapPanel[][])
     {
@@ -64,7 +64,7 @@ public class Map
      * This method converts JPanel map to String array map.
      * 
      * @param mapPanel This is the map cell Panel array to converted into string
-     *            array.
+     *        array.
      * @return Converted string array from JPanel array.
      */
     private String[][] convertMapJPanelToStringArray(JPanel mapPanel[][])

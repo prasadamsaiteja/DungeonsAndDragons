@@ -64,7 +64,9 @@ public class Backpack extends Observable
      * @param String itemName
      * @throws Throwable
      */
-    public void equip(String itemType, String itemName) throws Throwable // NO_UCD (unused code)
+    public void equip(String itemType, String itemName) throws Throwable // NO_UCD
+                                                                         // (unused
+                                                                         // code)
     {
         ArrayList<String> itemList;
         if (!items.containsKey(itemType))
@@ -104,7 +106,8 @@ public class Backpack extends Observable
      * @param itemType
      * @param itemName
      */
-    public void unequip(String itemType, String itemName) // NO_UCD (unused code)
+    public void unequip(String itemType, String itemName) // NO_UCD (unused
+                                                          // code)
     {
         ArrayList<String> itemList;
         if (!items.containsKey(itemType))

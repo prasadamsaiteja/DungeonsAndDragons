@@ -66,6 +66,7 @@ public class Character extends Observable
     public void setCharacterClass(String characterClass)
     {
         this.characterClass = characterClass;
+        this.draw();
     }
 
     /**
@@ -73,10 +74,10 @@ public class Character extends Observable
      * 
      * @param int level
      */
-    public Character setLevel(int level)
+    public void setLevel(int level)
     {
         this.level = level;
-        return this;
+        this.draw();
     }
 
     /**
@@ -114,19 +115,33 @@ public class Character extends Observable
     public int getStrength()
     {
         int strength = 0;
-
-        Item ringObject = this.getRingObject();
-        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Strength"))
+        
+        try
         {
-            strength += ringObject.getModifier();
+            Item ringObject = this.getRingObject();
+            if (ringObject.itemClass.equalsIgnoreCase("Strength"))
+            {
+                strength += ringObject.getModifier();
+            }            
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());            
         }
 
-        Item beltObject = this.getBeltObject();
-        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Strength"))
+        try
         {
-            strength += beltObject.getModifier();
+            Item beltObject = this.getBeltObject();
+            if (beltObject.itemClass.equalsIgnoreCase("Strength"))
+            {
+                strength += beltObject.getModifier();
+            }            
         }
-
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());            
+        }
+        
         return strength + getOriginalStrength();
     }
 
@@ -154,11 +169,20 @@ public class Character extends Observable
     public int getDexterity()
     {
         int dexterity = 0;
-        Item bootsObject = this.getBootsObject();
-        if (bootsObject != null && bootsObject.itemClass.equalsIgnoreCase("Dexterity"))
+       
+        try
         {
-            dexterity += bootsObject.getModifier();
+            Item bootsObject = this.getBootsObject();
+            if (bootsObject.itemClass.equalsIgnoreCase("Dexterity"))
+            {
+                dexterity += bootsObject.getModifier();
+            }            
         }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());            
+        }
+        
         return dexterity + getOriginalDexterity();
     }
 
@@ -186,17 +210,32 @@ public class Character extends Observable
     {
         int constitution = 0;
 
-        Item ringObject = this.getRingObject();
-        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Constitution"))
+        try
         {
-            constitution += ringObject.getModifier();
+            Item ringObject = this.getRingObject();
+            if (ringObject.itemClass.equalsIgnoreCase("Constitution"))
+            {
+                constitution += ringObject.getModifier();
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());            
         }
 
-        Item beltObject = this.getBeltObject();
-        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Constitution"))
+        try
         {
-            constitution += beltObject.getModifier();
+            Item beltObject = this.getBeltObject();
+            if (beltObject.itemClass.equalsIgnoreCase("Constitution"))
+            {
+                constitution += beltObject.getModifier();
+            }
         }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());            
+        }
+        
 
         return constitution + getOriginalConstitution();
     }
@@ -214,6 +253,7 @@ public class Character extends Observable
     public void setWeaponName(String weaponName)
     {
         this.weaponName = weaponName;
+        this.draw();
     }
 
     /**
@@ -238,6 +278,7 @@ public class Character extends Observable
     public void setBeltName(String beltName)
     {
         this.beltName = beltName;
+        this.draw();
     }
 
     /**
@@ -246,11 +287,20 @@ public class Character extends Observable
     public int getAttackBonus()
     {
         int attackBonus = 0;
-        Item weaponObj = this.getWeaponObject();
-        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Ranged"))
+        
+        try
         {
-            attackBonus += this.getStrength() + weaponObj.getModifier();
+            Item weaponObj = this.getWeaponObject();
+            if (weaponObj.itemClass.equalsIgnoreCase("Ranged"))
+            {
+                attackBonus += this.getStrength() + weaponObj.getModifier();
+            }
         }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());            
+        }
+        
         return attackBonus;
     }
 
@@ -260,12 +310,21 @@ public class Character extends Observable
     public int getDamageBonus()
     {
         int damageBonus = 0;
-        Item weaponObj = this.getWeaponObject();
-        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))
+        
+        try
         {
-            System.out.print(weaponObj.getModifier() + "\n");
-            damageBonus += this.getDexterity() + weaponObj.getModifier();
+            Item weaponObj = this.getWeaponObject();
+            if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))
+            {
+                System.out.print(weaponObj.getModifier() + "\n");
+                damageBonus += this.getDexterity() + weaponObj.getModifier();
+            }
         }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());            
+        }
+        
         return damageBonus;
     }
 
@@ -275,34 +334,64 @@ public class Character extends Observable
     public int getArmorClass()
     {
         int armorClass = 0;
-        Item ringObject = this.getRingObject();
-        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("ArmorClass"))
+        
+        try
         {
-            armorClass += ringObject.getModifier();
+            Item ringObject = this.getRingObject();
+            if (ringObject.itemClass.equalsIgnoreCase("ArmorClass"))
+            {
+                armorClass += ringObject.getModifier();
+            }
         }
-
-        Item armorObject = this.getArmorObject();
-        if (armorObject != null)
+        catch (Exception e)
         {
+            System.out.println(e.getMessage());
+        }
+        
+
+        try
+        {
+            Item armorObject = this.getArmorObject();
             armorClass += armorObject.getModifier();
         }
-
-        Item shieldObject = this.getShieldObject();
-        if (shieldObject != null)
+        catch (Exception e)
         {
+            System.out.println(e.getMessage());
+        }
+        
+
+        try
+        {
+            Item shieldObject = this.getShieldObject();
             armorClass += shieldObject.getModifier();
         }
-
-        Item helmetObject = this.getHelmetObject();
-        if (helmetObject != null)
+        catch (Exception e)
         {
+            System.out.println(e.getMessage());
+        }
+        
+
+        try
+        {
+            Item helmetObject = this.getHelmetObject();
             armorClass += helmetObject.getModifier();
         }
-
-        Item bootsObject = this.getBootsObject();
-        if (bootsObject != null && bootsObject.itemClass.equalsIgnoreCase("ArmorClass"))
+        catch (Exception e)
         {
-            armorClass += bootsObject.getModifier();
+            System.out.println(e.getMessage());
+        }
+
+        try
+        {
+            Item bootsObject = this.getBootsObject();
+            if (bootsObject.itemClass.equalsIgnoreCase("ArmorClass"))
+            {
+                armorClass += bootsObject.getModifier();
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
         }
 
         return armorClass;
@@ -322,6 +411,7 @@ public class Character extends Observable
     public void setRingName(String ringName)
     {
         this.ringName = ringName;
+        this.draw();
     }
 
     /**
@@ -338,6 +428,7 @@ public class Character extends Observable
     public void setShield(String shield)
     {
         this.shield = shield;
+        this.draw();
     }
 
     /**
@@ -354,6 +445,7 @@ public class Character extends Observable
     public void setBoots(String boots)
     {
         this.boots = boots;
+        this.draw();
     }
 
     /**
@@ -370,6 +462,7 @@ public class Character extends Observable
     public void setArmor(String armor)
     {
         this.armor = armor;
+        this.draw();
     }
 
     /**
@@ -386,110 +479,109 @@ public class Character extends Observable
     public void setHelmet(String helmet)
     {
         this.helmet = helmet;
+        this.draw();
     }
 
     /**
      * @return
+     * @throws Exception 
      */
-    public Item getWeaponObject()
+    public Item getWeaponObject() throws Exception
     {
-        if (this.getWeaponName() == null)
-            return null;
-
         Item i = ItemJaxb.getItemFromXml(this.getWeaponName());
-        if (i != null)
-        {
-            i.setCharacter(this);
-        }
+        if (i == null)
+            throw new Exception(this.getWeaponName() + " not found");
+
+        i.setCharacter(this);
         return i;
     }
 
     /**
      * @return
+     * @throws Exception 
      */
-    public Item getShieldObject()
+    public Item getShieldObject() throws Exception
     {
-        if (this.getShield() == null)
-            return null;
-
         Item i = ItemJaxb.getItemFromXml(this.getShield());
-        if (i != null)
-            i.setCharacter(this);
+        if (i == null)
+            throw new Exception(this.getShield() + " not found");
+  
+        i.setCharacter(this);
 
         return i;
     }
 
     /**
      * @return
+     * @throws Exception 
      */
-    public Item getRingObject()
+    public Item getRingObject() throws Exception
     {
-        if (this.getRingName() == null)
-            return null;
-
         Item i = ItemJaxb.getItemFromXml(this.getRingName());
-        if (i != null)
-            i.setCharacter(this);
+        if (i == null)
+            throw new Exception(this.getRingName() + " not found");
+
+        i.setCharacter(this);
 
         return i;
     }
 
     /**
      * @return
+     * @throws Exception 
      */
-    public Item getHelmetObject()
+    public Item getHelmetObject() throws Exception
     {
-        if (this.getHelmet() == null)
-            return null;
-
         Item i = ItemJaxb.getItemFromXml(this.getHelmet());
-        if (i != null)
-            i.setCharacter(this);
+        if (i == null)
+            throw new Exception(this.getHelmet() + " not found");
+    
+        i.setCharacter(this);
 
         return i;
     }
 
     /**
      * @return
+     * @throws Exception 
      */
-    public Item getArmorObject()
+    public Item getArmorObject() throws Exception
     {
-        if (this.getArmor() == null)
-            return null;
-
         Item i = ItemJaxb.getItemFromXml(this.getArmor());
-        if (i != null)
-            i.setCharacter(this);
+        if (i == null)
+            throw new Exception(this.getArmor() + " not found");
+        
+        i.setCharacter(this);
 
         return i;
     }
 
     /**
      * @return
+     * @throws Exception 
      */
-    public Item getBootsObject()
+    public Item getBootsObject() throws Exception
     {
-        if (this.getBoots() == null)
-            return null;
-
         Item i = ItemJaxb.getItemFromXml(this.getBoots());
-        if (i != null)
-            i.setCharacter(this);
+        if (i == null)
+            throw new Exception(this.getBoots() + " not found");
+        
+        i.setCharacter(this);
 
         return i;
     }
 
     /**
      * @return
+     * @throws Exception 
      */
-    public Item getBeltObject()
+    public Item getBeltObject() throws Exception
     {
-        if (this.getBeltName() == null)
-            return null;
-
         Item i = ItemJaxb.getItemFromXml(this.getBeltName());
-        if (i != null)
-            i.setCharacter(this);
+        if (i == null)
+            throw new Exception(this.getBeltName() + " not found");
+
+        i.setCharacter(this);
 
         return i;
     }
@@ -533,17 +625,32 @@ public class Character extends Observable
         if (!this.isBuilt)
         {
             // Build characters class and get hit score
-            CharacterClass cClass = new CharacterClass(this.getCharacterClass(), this);
-            CharacterClassStructure cClassVal = cClass.get();
+            CharacterClass cClass;
+            try
+            {
+                cClass = new CharacterClass(this.getCharacterClass(), this);
+                CharacterClassStructure cClassVal = cClass.get();
 
-            cClass.calculateHitScore(
-                    new Dice(cClassVal.getNumberOfRolls(), cClassVal.getDiceSides(), cClassVal.getNumberOfRolls()));
-            this.hitScore = cClass.getHitScore();
-            this.isBuilt = true;
+                cClass.calculateHitScore(
+                        new Dice(cClassVal.getNumberOfRolls(), cClassVal.getDiceSides(), cClassVal.getNumberOfRolls()));
+                this.hitScore = cClass.getHitScore();
+                this.isBuilt = true;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            
         }
     }
 
-    public void hit(int damage) throws Exception
+    /**
+     * keeps a track of characters damage. Damage should reduce everytime a
+     * character is hit
+     * 
+     * @param damage
+     */
+    public void hit(int damage)
     {
         this.hitScore -= damage;
     }

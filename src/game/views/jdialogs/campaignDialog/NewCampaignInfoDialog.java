@@ -27,9 +27,10 @@ import game.model.jaxb.CampaignJaxb;
 import game.views.jdialogs.DialogHelper;
 
 /**
+ * This class is a jdialog that sets the name and maps to a particular campaign
  * 
  * @author RahulReddy
- *
+ * @version 1.0.0
  */
 @SuppressWarnings("serial")
 public class NewCampaignInfoDialog extends JDialog
@@ -39,13 +40,24 @@ public class NewCampaignInfoDialog extends JDialog
     private ArrayList<String> addedMaps;
     private Campaign campaignObject;
 
-    NewCampaignInfoDialog(String nameValue)
+    /**
+     * Constructor that sets the name of the Campaign in the dialog
+     * 
+     * @param nameValue Name of the campaign
+     */
+    public NewCampaignInfoDialog(String nameValue)
     {
         DialogHelper.setDialogProperties(NewCampaignInfoDialog.this, "New Campaign", new Rectangle(554, 448));
         this.campaignName = nameValue;
         initComponents();
     }
 
+    /**
+     * Constructor that takes the campaign object and performs operations on
+     * Added Maps List
+     * 
+     * @param campaignFromXml Campaign Object
+     */
     public NewCampaignInfoDialog(Campaign campaignFromXml)
     {
         DialogHelper.setDialogProperties(NewCampaignInfoDialog.this, "Edit Campaign", new Rectangle(554, 448));
@@ -68,12 +80,12 @@ public class NewCampaignInfoDialog extends JDialog
         savedMapsPanel.setBounds(36, 56, 197, 320);
 
         // Maps list
-        DefaultListModel<String> savedMaps_listModel = new DefaultListModel<String>();
-        JList<String> savedMapsList = new JList<>(savedMaps_listModel);
+        DefaultListModel<String> savedMapsListModel = new DefaultListModel<String>();
+        JList<String> savedMapsList = new JList<>(savedMapsListModel);
         String[] mapsList = ExtensionMethods.getMapsList();
 
         for (String mapName : mapsList)
-            savedMaps_listModel.addElement(mapName);
+            savedMapsListModel.addElement(mapName);
 
         // Adding Scroll Bar to Maps List
         JScrollPane listScroller = new JScrollPane();
@@ -89,13 +101,13 @@ public class NewCampaignInfoDialog extends JDialog
         addedMapsPanel.setBackground(SystemColor.menu);
         addedMapsPanel.setBounds(317, 56, 197, 320);
 
-        DefaultListModel<String> addedMaps_listModel = new DefaultListModel<String>();
-        JList<String> addedMapsList = new JList<String>(addedMaps_listModel);
+        DefaultListModel<String> addedMapsListModel = new DefaultListModel<String>();
+        JList<String> addedMapsList = new JList<String>(addedMapsListModel);
 
         if (campaignObject != null)
         {
             for (String mapName : campaignObject.maps)
-                addedMaps_listModel.addElement(mapName);
+                addedMapsListModel.addElement(mapName);
         }
 
         // Adding Scroll Bar to maps list 2
@@ -113,12 +125,11 @@ public class NewCampaignInfoDialog extends JDialog
         btnAdd.setEnabled(false);
         btnAdd.addActionListener(new ActionListener()
         {
-
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 if (savedMapsList.getSelectedValue() != null)
-                    addedMaps_listModel.addElement(savedMapsList.getSelectedValue());
+                    addedMapsListModel.addElement(savedMapsList.getSelectedValue());
             }
         });
         btnAdd.setBackground(Color.LIGHT_GRAY);
@@ -131,12 +142,11 @@ public class NewCampaignInfoDialog extends JDialog
         btnRemove.setBounds(242, 205, 65, 23);
         btnRemove.addActionListener(new ActionListener()
         {
-
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 int index = addedMapsList.getSelectedIndex();
-                addedMaps_listModel.remove(index);
+                addedMapsListModel.remove(index);
                 if (index > 0)
                     addedMapsList.setSelectedIndex(index - 1);
             }
@@ -148,6 +158,7 @@ public class NewCampaignInfoDialog extends JDialog
         JLabel lblCampaignname = new JLabel(campaignName);
         if (campaignObject != null)
             lblCampaignname.setText(campaignObject.getCampaignName());
+
         lblCampaignname.setBounds(243, 25, 167, 14);
         getContentPane().add(lblCampaignname);
 
@@ -159,23 +170,29 @@ public class NewCampaignInfoDialog extends JDialog
 
         btnDone.addActionListener(new ActionListener()
         {
-
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 addedMaps = new ArrayList<String>();
 
                 ListModel<String> model = addedMapsList.getModel();
-                String addedMaps_String;
-                for (int i = 0; i < model.getSize(); i++)
+                String addedMapsString;
+
+                if (model.getSize() != 0)
                 {
-                    Object o = model.getElementAt(i);
-                    addedMaps_String = o.toString();
-                    addedMaps.add(i, addedMaps_String);
-                    System.out.println("Map added to arraylist at " + i + " position " + addedMaps_String);
+                    for (int i = 0; i < model.getSize(); i++)
+                    {
+                        Object o = model.getElementAt(i);
+                   	addedMapsString = o.toString();
+                    	addedMaps.add(i, addedMapsString);
+                    }
+                    CampaignJaxb.convertCampaignInfoToXml(new Campaign(campaignName, addedMaps));
+                    dispose();
                 }
-                CampaignJaxb.convertCampaignInfoToXml(new Campaign(campaignName, addedMaps));
-                dispose();
+                else
+                {
+                    DialogHelper.showBasicDialog("Please Select 1 Map to PLAY CAMPAIGN");
+                }
             }
         });
 
@@ -224,7 +241,12 @@ public class NewCampaignInfoDialog extends JDialog
         });
 
     }
-
+    
+    /**
+     * Sets the List(SAVED,Added) properties present in the dialog
+     * 
+     * @param List List Object
+     */
     public void setListProperties(JList<String> List)
     {
         List.setLayoutOrientation(JList.VERTICAL);

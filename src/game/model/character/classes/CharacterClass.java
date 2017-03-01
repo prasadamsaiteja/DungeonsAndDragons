@@ -41,18 +41,6 @@ public class CharacterClass
             fighterStructure.setNumberOfRolls(1);
             characterList.put("Fighter", fighterStructure);
 
-            // add ninja class
-            CharacterClassStructure ninjaStructure = new CharacterClassStructure();
-            ninjaStructure.setDiceSides(5);
-            ninjaStructure.setNumberOfRolls(4);
-            characterList.put("Ninja", ninjaStructure);
-
-            // add rogue class
-            CharacterClassStructure rogueStructure = new CharacterClassStructure();
-            rogueStructure.setDiceSides(8);
-            rogueStructure.setNumberOfRolls(1);
-            characterList.put("Rogue", rogueStructure);
-
             return characterList;
         }
     }
@@ -65,13 +53,14 @@ public class CharacterClass
     /**
      * @param String name
      * @param String character
+     * @throws Exception 
      * @throws {@link RuntimeErrorException}
      */
-    public CharacterClass(String name, Character character)
+    public CharacterClass(String name, Character character) throws Exception
     {
         if (!CharacterClass.isClassAllowed(name))
         {
-            throw new RuntimeErrorException(null);
+            throw new Exception("Class not allowed "+name);
         }
 
         this.name = name;
@@ -80,7 +69,7 @@ public class CharacterClass
 
     /**
      * @param cClass
-     * @return true or false
+     * @return true or false if the class exists
      */
     private static boolean isClassAllowed(String cClass)
     {

@@ -24,9 +24,10 @@ public class Campaign
     public ArrayList<String> maps;
 
     /**
+     * Constructor that sets the name and maps of campaign to local variables.
      * 
-     * @param campaign_Name
-     * @param addedMaps
+     * @param campaign_Name name of campaign
+     * @param addedMaps list of added maps in the campaign
      */
     public Campaign(String campaign_Name, ArrayList<String> addedMaps)
     {
@@ -34,10 +35,18 @@ public class Campaign
         this.maps = addedMaps;
     }
 
+    /**
+     * Default constructor
+     */
     public Campaign()
     {
     }
-
+    
+    /**
+     * Method returns the name of campaign
+     * 
+     * @return campaignName
+     */
     public String getCampaignName()
     {
         return campaignName;
