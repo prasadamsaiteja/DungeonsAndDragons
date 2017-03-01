@@ -16,7 +16,6 @@ public class RollTest
     int diceSides;
     int numberOfRolls;
     int maximumTurnsCount;
-    
 
     @Before
     public void setVals()
@@ -25,20 +24,20 @@ public class RollTest
         numberOfRolls = 4;
         maximumTurnsCount = 3;
     }
-    
+
     @Test
     public void rollSumValidation()
     {
         Dice dice = new Dice(numberOfRolls, diceSides, maximumTurnsCount);
         int sum;
-        
+
         // re-running multiple times to ensure the validity
         for (int i = 0; i < 10; i++)
         {
-            sum = dice.getRollSum();   
-            assertTrue(sum>0);
-            assertTrue(sum<18);
+            sum = dice.getRollSum();
+            assertTrue(sum > 0);
+            assertTrue(sum < 18);
         }
-     }
+    }
 
 }

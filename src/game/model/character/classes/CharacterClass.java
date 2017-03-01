@@ -51,16 +51,15 @@ public class CharacterClass
     // Store allowed character classes
 
     /**
-     * @param String name
-     * @param String character
-     * @throws Exception 
-     * @throws {@link RuntimeErrorException}
+     * @param name allowed character class name
+     * @param character Character object on which this class is applied
+     * @throws Exception if an unallowed class is provided
      */
     public CharacterClass(String name, Character character) throws Exception
     {
         if (!CharacterClass.isClassAllowed(name))
         {
-            throw new Exception("Class not allowed "+name);
+            throw new Exception("Class not allowed " + name);
         }
 
         this.name = name;
@@ -77,7 +76,7 @@ public class CharacterClass
     }
 
     /**
-     * @return a string set of allowed classes
+     * @return string set of allowed classes
      */
     public static Set<String> getAllowedClasses()
     {
@@ -87,7 +86,7 @@ public class CharacterClass
     /**
      * calculate hit score
      * 
-     * @param {@link Dice}
+     * @param dice Dice class object to calculate hit score
      */
     public void calculateHitScore(Dice dice)
     {
@@ -115,9 +114,7 @@ public class CharacterClass
     }
 
     /**
-     * get character class structure of instantiated class
-     * 
-     * @return {@link CharacterClassStructure}
+     * @return character class structure of instantiated class
      */
     public CharacterClassStructure get()
     {

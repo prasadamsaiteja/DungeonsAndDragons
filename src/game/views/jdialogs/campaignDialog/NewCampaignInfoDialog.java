@@ -183,8 +183,8 @@ public class NewCampaignInfoDialog extends JDialog
                     for (int i = 0; i < model.getSize(); i++)
                     {
                         Object o = model.getElementAt(i);
-                   	addedMapsString = o.toString();
-                    	addedMaps.add(i, addedMapsString);
+                        addedMapsString = o.toString();
+                        addedMaps.add(i, addedMapsString);
                     }
                     CampaignJaxb.convertCampaignInfoToXml(new Campaign(campaignName, addedMaps));
                     dispose();
@@ -241,7 +241,7 @@ public class NewCampaignInfoDialog extends JDialog
         });
 
     }
-    
+
     /**
      * Sets the List(SAVED,Added) properties present in the dialog
      * 

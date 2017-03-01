@@ -43,7 +43,7 @@ public class Character extends Observable
     private String fname;
 
     /**
-     * @param String name
+     * @param name set character name
      */
     public void setName(String name)
     {
@@ -61,7 +61,7 @@ public class Character extends Observable
     }
 
     /**
-     * @param String characterClass
+     * @param characterClass set character class
      */
     public void setCharacterClass(String characterClass)
     {
@@ -72,7 +72,7 @@ public class Character extends Observable
     /**
      * set character level
      * 
-     * @param int level
+     * @param level set character level
      */
     public void setLevel(int level)
     {
@@ -81,7 +81,7 @@ public class Character extends Observable
     }
 
     /**
-     * retrieve character level
+     * @return character level
      */
     public int getLevel()
     {
@@ -89,7 +89,8 @@ public class Character extends Observable
     }
 
     /**
-     * @param int strength
+     * @param strength set character strength
+     * @return character object
      */
     public Character setStrength(int strength)
     {
@@ -98,9 +99,7 @@ public class Character extends Observable
     }
 
     /**
-     * retrieve character strength
-     *
-     * @return int strength
+     * @return original strength
      */
     public int getOriginalStrength()
     {
@@ -108,25 +107,23 @@ public class Character extends Observable
     }
 
     /**
-     * retrieve character strength
-     *
-     * @return int strength
+     * @return character strength
      */
     public int getStrength()
     {
         int strength = 0;
-        
+
         try
         {
             Item ringObject = this.getRingObject();
             if (ringObject.itemClass.equalsIgnoreCase("Strength"))
             {
                 strength += ringObject.getModifier();
-            }            
+            }
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());            
+            System.out.println(e.getMessage());
         }
 
         try
@@ -135,19 +132,19 @@ public class Character extends Observable
             if (beltObject.itemClass.equalsIgnoreCase("Strength"))
             {
                 strength += beltObject.getModifier();
-            }            
+            }
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());            
+            System.out.println(e.getMessage());
         }
-        
+
         return strength + getOriginalStrength();
     }
 
     /**
-     * @param dexterity
-     * @return
+     * @param dexterity set character dexterity
+     * @return character object
      */
     public Character setDexterity(int dexterity)
     {
@@ -156,7 +153,7 @@ public class Character extends Observable
     }
 
     /**
-     * @return dexterity
+     * @return original dexterity
      */
     public int getOriginalDexterity()
     {
@@ -164,30 +161,31 @@ public class Character extends Observable
     }
 
     /**
-     * @return dexterity
+     * @return character dexterity
      */
     public int getDexterity()
     {
         int dexterity = 0;
-       
+
         try
         {
             Item bootsObject = this.getBootsObject();
             if (bootsObject.itemClass.equalsIgnoreCase("Dexterity"))
             {
                 dexterity += bootsObject.getModifier();
-            }            
+            }
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());            
+            System.out.println(e.getMessage());
         }
-        
+
         return dexterity + getOriginalDexterity();
     }
 
     /**
-     * @param int constitution
+     * @param constitution set character constitution
+     * @return character object
      */
     public Character setConstitution(int constitution)
     {
@@ -196,7 +194,7 @@ public class Character extends Observable
     }
 
     /**
-     * return constitution
+     * @return original constitution
      */
     public int getOriginalConstitution()
     {
@@ -204,7 +202,7 @@ public class Character extends Observable
     }
 
     /**
-     * return constitution
+     * @return constitution
      */
     public int getConstitution()
     {
@@ -220,7 +218,7 @@ public class Character extends Observable
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());            
+            System.out.println(e.getMessage());
         }
 
         try
@@ -233,9 +231,8 @@ public class Character extends Observable
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());            
+            System.out.println(e.getMessage());
         }
-        
 
         return constitution + getOriginalConstitution();
     }
@@ -248,7 +245,7 @@ public class Character extends Observable
     /**
      * sets the weapon and redraws the character
      *
-     * @param String weapon
+     * @param weaponName set character weapon
      */
     public void setWeaponName(String weaponName)
     {
@@ -287,7 +284,7 @@ public class Character extends Observable
     public int getAttackBonus()
     {
         int attackBonus = 0;
-        
+
         try
         {
             Item weaponObj = this.getWeaponObject();
@@ -298,9 +295,9 @@ public class Character extends Observable
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());            
+            System.out.println(e.getMessage());
         }
-        
+
         return attackBonus;
     }
 
@@ -310,7 +307,7 @@ public class Character extends Observable
     public int getDamageBonus()
     {
         int damageBonus = 0;
-        
+
         try
         {
             Item weaponObj = this.getWeaponObject();
@@ -322,9 +319,9 @@ public class Character extends Observable
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());            
+            System.out.println(e.getMessage());
         }
-        
+
         return damageBonus;
     }
 
@@ -334,7 +331,7 @@ public class Character extends Observable
     public int getArmorClass()
     {
         int armorClass = 0;
-        
+
         try
         {
             Item ringObject = this.getRingObject();
@@ -347,7 +344,6 @@ public class Character extends Observable
         {
             System.out.println(e.getMessage());
         }
-        
 
         try
         {
@@ -358,7 +354,6 @@ public class Character extends Observable
         {
             System.out.println(e.getMessage());
         }
-        
 
         try
         {
@@ -369,7 +364,6 @@ public class Character extends Observable
         {
             System.out.println(e.getMessage());
         }
-        
 
         try
         {
@@ -483,8 +477,8 @@ public class Character extends Observable
     }
 
     /**
-     * @return
-     * @throws Exception 
+     * @return weapon item object
+     * @throws Exception weapon item does not exist
      */
     public Item getWeaponObject() throws Exception
     {
@@ -497,23 +491,23 @@ public class Character extends Observable
     }
 
     /**
-     * @return
-     * @throws Exception 
+     * @return shield item object
+     * @throws Exception shield item does not exist
      */
     public Item getShieldObject() throws Exception
     {
         Item i = ItemJaxb.getItemFromXml(this.getShield());
         if (i == null)
             throw new Exception(this.getShield() + " not found");
-  
+
         i.setCharacter(this);
 
         return i;
     }
 
     /**
-     * @return
-     * @throws Exception 
+     * @return ring item object
+     * @throws Exception ring item does not exist
      */
     public Item getRingObject() throws Exception
     {
@@ -527,53 +521,53 @@ public class Character extends Observable
     }
 
     /**
-     * @return
-     * @throws Exception 
+     * @return helmet item object
+     * @throws Exception helmet item does not exist
      */
     public Item getHelmetObject() throws Exception
     {
         Item i = ItemJaxb.getItemFromXml(this.getHelmet());
         if (i == null)
             throw new Exception(this.getHelmet() + " not found");
-    
+
         i.setCharacter(this);
 
         return i;
     }
 
     /**
-     * @return
-     * @throws Exception 
+     * @return armor item object
+     * @throws Exception armor item does not exist
      */
     public Item getArmorObject() throws Exception
     {
         Item i = ItemJaxb.getItemFromXml(this.getArmor());
         if (i == null)
             throw new Exception(this.getArmor() + " not found");
-        
+
         i.setCharacter(this);
 
         return i;
     }
 
     /**
-     * @return
-     * @throws Exception 
+     * @return boots item object
+     * @throws Exception boots item does not exist
      */
     public Item getBootsObject() throws Exception
     {
         Item i = ItemJaxb.getItemFromXml(this.getBoots());
         if (i == null)
             throw new Exception(this.getBoots() + " not found");
-        
+
         i.setCharacter(this);
 
         return i;
     }
 
     /**
-     * @return
-     * @throws Exception 
+     * @return belt item object
+     * @throws Exception belt item not found
      */
     public Item getBeltObject() throws Exception
     {
@@ -640,7 +634,7 @@ public class Character extends Observable
             {
                 e.printStackTrace();
             }
-            
+
         }
     }
 
@@ -648,7 +642,7 @@ public class Character extends Observable
      * keeps a track of characters damage. Damage should reduce everytime a
      * character is hit
      * 
-     * @param damage
+     * @param damage set damage to a character
      */
     public void hit(int damage)
     {
@@ -666,7 +660,7 @@ public class Character extends Observable
     /**
      * saves character state in the generated xml file
      * 
-     * @return
+     * @return true if the operation was successful else false
      */
     public boolean save()
     {

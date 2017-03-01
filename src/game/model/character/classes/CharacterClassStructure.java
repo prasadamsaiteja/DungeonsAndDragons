@@ -16,7 +16,7 @@ public class CharacterClassStructure implements DiceImplementationInterface
     /**
      * set number of dice rolls
      * 
-     * @param nOfRolls
+     * @param nOfRolls set number of dice rolls
      */
     public void setNumberOfRolls(int nOfRolls)
     {
@@ -26,7 +26,7 @@ public class CharacterClassStructure implements DiceImplementationInterface
     /**
      * set number of dice sides
      * 
-     * @param sideDices
+     * @param sideDices set dice sides
      */
     public void setDiceSides(int sideDices)
     {

@@ -9,11 +9,8 @@ import tests.game.model.character.character.ArmorClassTest;
 import tests.game.model.character.character.DrawTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({
-    DrawTest.class,
-    ArmorClassTest.class,
-    RollTest.class    
-})
+@SuiteClasses(
+{ DrawTest.class, ArmorClassTest.class, RollTest.class })
 
 /**
  * @author supreet (s_supree)
