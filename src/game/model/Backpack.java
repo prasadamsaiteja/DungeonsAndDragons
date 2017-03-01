@@ -60,9 +60,9 @@ public class Backpack extends Observable
     /**
      * equip an item
      * 
-     * @param String itemType
-     * @param String itemName
-     * @throws Throwable
+     * @param itemType item type to equip
+     * @param itemName item name to equip
+     * @throws Exception if item can not be added
      */
     public void equip(String itemType, String itemName) throws Throwable // NO_UCD
                                                                          // (unused
@@ -103,8 +103,8 @@ public class Backpack extends Observable
     /**
      * un-equip an item
      * 
-     * @param itemType
-     * @param itemName
+     * @param itemType item type to unequip
+     * @param itemName item name to unequip
      */
     public void unequip(String itemType, String itemName) // NO_UCD (unused
                                                           // code)
@@ -132,7 +132,7 @@ public class Backpack extends Observable
     /**
      * saves the state of backpack in xml file
      * 
-     * @throws IOException
+     * @throws IOException if save file fails
      */
     public void save() throws IOException // NO_UCD (unused code)
     {
@@ -170,7 +170,7 @@ public class Backpack extends Observable
     }
 
     /**
-     * @param String itemType
+     * @param itemType item type
      * @return array list of all items for that item type
      */
     public ArrayList<String> getByType(String itemType)
@@ -236,9 +236,9 @@ public class Backpack extends Observable
     }
 
     /**
-     * {@inheritDoc Backpack}
+     * Resets Backpack and initializes
      * 
-     * @param force
+     * @param forceReset true or false
      * @return Backpack instance
      */
     public static Backpack init(boolean forceReset) // NO_UCD (unused code)

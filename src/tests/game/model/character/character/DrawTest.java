@@ -21,7 +21,8 @@ public class DrawTest
     private Character c1;
 
     /**
-     * A dummy oberserver class we need to test the observable triggers of draw function
+     * A dummy oberserver class we need to test the observable triggers of draw
+     * function
      * 
      * @author supreet
      */

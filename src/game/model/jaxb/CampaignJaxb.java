@@ -15,18 +15,21 @@ import game.components.SharedVariables;
 import game.model.Campaign;
 
 /**
- * This Class converts the Campaign object to  XML
+ * This Class converts the Campaign object to XML
+ * 
  * @author RahulReddy
  * @version 1.0
  * @since 2/20/2017
  */
 public class CampaignJaxb
 {
-	
-/**
- * This Method converts the campaign object to XML and stores in Campaign Folder
- * @param campaign Campaign Object
- */
+
+    /**
+     * This Method converts the campaign object to XML and stores in Campaign
+     * Folder
+     * 
+     * @param campaign Campaign Object
+     */
     public static final void convertCampaignInfoToXml(Campaign campaign)
     {
         try
@@ -34,10 +37,12 @@ public class CampaignJaxb
             Marshaller marshaller = JAXBContext.newInstance(Campaign.class).createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // This lets format type to XML
 
-            File file = new File(SharedVariables.CampaignsDirectory + File.separator + campaign.getCampaignName() + ".xml");
+            File file = new File(SharedVariables.CampaignsDirectory + File.separator + campaign.getCampaignName()
+                                 + ".xml");
             if (!file.exists())
             {
-                Path pathToFile = Paths.get(SharedVariables.CampaignsDirectory + File.separator + campaign.getCampaignName() + ".xml");
+                Path pathToFile = Paths
+                        .get(SharedVariables.CampaignsDirectory + File.separator + campaign.getCampaignName() + ".xml");
                 Files.createDirectories(pathToFile.getParent());
                 Files.createFile(pathToFile);
             }
@@ -57,9 +62,10 @@ public class CampaignJaxb
 
     /**
      * This Method deletes the campaign from the Campaign list and the XML file
+     * 
      * @param campaignName Name of the Campaign
      * @return boolean whether the campaign is deleted or not
-     */ 
+     */
     public static final boolean deleteCampaignXml(String campaignName)
     {
 
@@ -75,9 +81,10 @@ public class CampaignJaxb
         }
 
     }
-    
+
     /**
-     * This method loads the campaign using XML file 
+     * This method loads the campaign using XML file
+     * 
      * @param campaignName Name of the Campaign
      * @return campaign Object
      */
@@ -95,7 +102,7 @@ public class CampaignJaxb
             return (Campaign) unmarshaller.unmarshal(campaignFile);
 
         }
-        
+
         catch (JAXBException e)
         {
             return null;

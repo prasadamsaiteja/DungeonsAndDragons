@@ -25,7 +25,7 @@ public class ArmorClassTest
     private String existingBoots;
     private String nonExistingHelmet;
     private String existingHelmet;
-    
+
     private int itemLevel;
 
     @Before
@@ -33,44 +33,43 @@ public class ArmorClassTest
     {
         nonExistingArmor = "nonExistingItem";
         existingArmor = "ExistingArmor";
-        
+
         nonExistingRing = "nonExistingRing";
         existingRing = "existingRing";
-        
+
         nonExistingShield = "nonExistingShield";
         existingShield = "existingShield";
-        
+
         nonExistingBoots = "nonExistingBoots";
         existingBoots = "existingBoots";
-        
+
         nonExistingHelmet = "nonExistingHelmet";
         existingHelmet = "existingHelmet";
-        
+
         itemLevel = 5;
-        
+
         // create dummy armor
         createDummyItem(existingArmor, "Armor", "Light", itemLevel);
-        
+
         // create dummy ring
         createDummyItem(existingRing, "Ring", "ArmorClass", itemLevel);
-        
+
         // create dummy shield
         createDummyItem(existingShield, "Shield", "ArmorClass", itemLevel);
-        
+
         // create dummy helmet
         createDummyItem(existingHelmet, "Helmet", "ArmorClass", itemLevel);
-        
+
         // create dummy boots
         createDummyItem(existingBoots, "Boots", "ArmorClass", itemLevel);
 
     }
-    
+
     private void createDummyItem(String itemName, String itemType, String itemClass, int armorLevel)
     {
         Item itemObj = new Item(itemName, itemType, itemClass, armorLevel);
         ItemJaxb.convertItemObjectToXml(itemObj);
     }
-    
 
     @Test
     public void getArmorObject_NoItemSet_throwsException()
@@ -83,9 +82,9 @@ public class ArmorClassTest
         }
         catch (Exception e)
         {
-        } 
+        }
     }
-    
+
     @Test
     public void getArmorObject_NonExistentArmor_throwsException()
     {
@@ -98,9 +97,9 @@ public class ArmorClassTest
         }
         catch (Exception e)
         {
-        } 
+        }
     }
-    
+
     @Test
     public void getArmorObject_ExistentArmor_noExceptionThrown()
     {
@@ -113,9 +112,9 @@ public class ArmorClassTest
         catch (Exception e)
         {
             fail(e.getMessage());
-        } 
+        }
     }
-    
+
     @Test
     public void getArmorObject_ExistentArmor_modifiedArmorClass()
     {
@@ -123,15 +122,15 @@ public class ArmorClassTest
         c1.setArmor(existingArmor);
         try
         {
-            int expectedArmorClass = (int)Math.ceil((double)itemLevel/(double)4);
+            int expectedArmorClass = (int) Math.ceil((double) itemLevel / (double) 4);
             assertEquals(expectedArmorClass, c1.getArmorClass());
         }
         catch (Exception e)
         {
             fail(e.getMessage());
-        } 
+        }
     }
-    
+
     @Test
     public void getRingObject_NoItemSet_throwsException()
     {
@@ -143,9 +142,9 @@ public class ArmorClassTest
         }
         catch (Exception e)
         {
-        } 
+        }
     }
-    
+
     @Test
     public void getRingObject_NonExistentItem_throwsException()
     {
@@ -158,9 +157,9 @@ public class ArmorClassTest
         }
         catch (Exception e)
         {
-        } 
+        }
     }
-    
+
     @Test
     public void getRingObject_ExistingItem_noExceptionThrown()
     {
@@ -173,9 +172,9 @@ public class ArmorClassTest
         catch (Exception e)
         {
             fail(e.getMessage());
-        } 
+        }
     }
-    
+
     @Test
     public void getRingObject_ExistingItem_modifiedArmorClass()
     {
@@ -183,15 +182,15 @@ public class ArmorClassTest
         c1.setRingName(existingRing);
         try
         {
-            int expectedArmorClass = (int)Math.ceil((double)itemLevel/(double)4);
+            int expectedArmorClass = (int) Math.ceil((double) itemLevel / (double) 4);
             assertEquals(expectedArmorClass, c1.getArmorClass());
         }
         catch (Exception e)
         {
             fail(e.getMessage());
-        } 
+        }
     }
-    
+
     @Test
     public void getShieldObject_NoItemSet_throwsException()
     {
@@ -203,9 +202,9 @@ public class ArmorClassTest
         }
         catch (Exception e)
         {
-        } 
+        }
     }
-    
+
     @Test
     public void getShieldObject_NonExistentItem_throwsException()
     {
@@ -218,9 +217,9 @@ public class ArmorClassTest
         }
         catch (Exception e)
         {
-        } 
+        }
     }
-    
+
     @Test
     public void getShieldObject_ExistingItem_noExceptionThrown()
     {
@@ -233,9 +232,9 @@ public class ArmorClassTest
         catch (Exception e)
         {
             fail(e.getMessage());
-        } 
+        }
     }
-    
+
     @Test
     public void getShieldObject_ExistingItem_modifiedArmorClass()
     {
@@ -243,15 +242,15 @@ public class ArmorClassTest
         c1.setShield(existingShield);
         try
         {
-            int expectedArmorClass = (int)Math.ceil((double)itemLevel/(double)4);
+            int expectedArmorClass = (int) Math.ceil((double) itemLevel / (double) 4);
             assertEquals(expectedArmorClass, c1.getArmorClass());
         }
         catch (Exception e)
         {
             fail(e.getMessage());
-        } 
+        }
     }
-    
+
     @Test
     public void getHelmetObject_NoItemSet_throwsException()
     {
@@ -263,9 +262,9 @@ public class ArmorClassTest
         }
         catch (Exception e)
         {
-        } 
+        }
     }
-    
+
     @Test
     public void getHelmetObject_NonExistentItem_throwsException()
     {
@@ -278,9 +277,9 @@ public class ArmorClassTest
         }
         catch (Exception e)
         {
-        } 
+        }
     }
-    
+
     @Test
     public void getHelmetObject_ExistingItem_noExceptionThrown()
     {
@@ -293,9 +292,9 @@ public class ArmorClassTest
         catch (Exception e)
         {
             fail(e.getMessage());
-        } 
+        }
     }
-    
+
     @Test
     public void getHelmetObject_ExistingItem_modifiedArmorClass()
     {
@@ -303,15 +302,15 @@ public class ArmorClassTest
         c1.setHelmet(existingHelmet);
         try
         {
-            int expectedArmorClass = (int)Math.ceil((double)itemLevel/(double)4);
+            int expectedArmorClass = (int) Math.ceil((double) itemLevel / (double) 4);
             assertEquals(expectedArmorClass, c1.getArmorClass());
         }
         catch (Exception e)
         {
             fail(e.getMessage());
-        } 
+        }
     }
-    
+
     @Test
     public void getBootsObject_NoItemSet_throwsException()
     {
@@ -323,9 +322,9 @@ public class ArmorClassTest
         }
         catch (Exception e)
         {
-        } 
+        }
     }
-    
+
     @Test
     public void getBootsObject_NonExistentItem_throwsException()
     {
@@ -338,9 +337,9 @@ public class ArmorClassTest
         }
         catch (Exception e)
         {
-        } 
+        }
     }
-    
+
     @Test
     public void getBootsObject_ExistingItem_noExceptionThrown()
     {
@@ -353,9 +352,9 @@ public class ArmorClassTest
         catch (Exception e)
         {
             fail(e.getMessage());
-        } 
+        }
     }
-    
+
     @Test
     public void getBootsObject_ExistingItem_modifiedArmorClass()
     {
@@ -363,15 +362,15 @@ public class ArmorClassTest
         c1.setBoots(existingBoots);
         try
         {
-            int expectedArmorClass = (int)Math.ceil((double)itemLevel/(double)4);
+            int expectedArmorClass = (int) Math.ceil((double) itemLevel / (double) 4);
             assertEquals(expectedArmorClass, c1.getArmorClass());
         }
         catch (Exception e)
         {
             fail(e.getMessage());
-        } 
+        }
     }
-    
+
     @After
     public void destroyCreatedObjects()
     {

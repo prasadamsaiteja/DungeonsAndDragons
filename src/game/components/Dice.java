@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * Rolls the dice and calculates the sum 
+ * Rolls the dice and calculates the sum
  * 
  * @author supreet (s_supree)
  */
@@ -22,9 +22,10 @@ public class Dice
      * turns to be counted i.e. in 4d6 with 3 maximum turns the highest three
      * would be counted
      *
-     * @param numberOfRolls
-     * @param diceSides
-     * @param maximumTurnsCount
+     * @param numberOfRolls set number of dice rolls
+     * @param diceSides set dice sides
+     * @param maximumTurnsCount set maximum turns to be used for calculating the
+     *        sum
      */
     public Dice(int numberOfRolls, int diceSides, int maximumTurnsCount)
     {
@@ -49,7 +50,7 @@ public class Dice
      * Rolls the dice and finds the sum of the highest n rolls where n is the
      * provided maximumTurnsCount
      * 
-     * @return
+     * @return sum of roll
      */
     public int getRollSum()
     {

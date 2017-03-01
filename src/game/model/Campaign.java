@@ -41,7 +41,7 @@ public class Campaign
     public Campaign()
     {
     }
-    
+
     /**
      * Method returns the name of campaign
      * 

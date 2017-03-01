@@ -79,11 +79,10 @@ class CreateCharacterDialog extends JDialog
         public void actionPerformed(ActionEvent e)
         {
             if (character == null)
-                character = new Character();         
+                character = new Character();
 
-            
             Iterator<Component> ci1 = this.dialogComponents.iterator();
-            
+
             // if ability modifiers have not been set yet, then show a dialog
             while (ci1.hasNext())
             {
@@ -110,9 +109,9 @@ class CreateCharacterDialog extends JDialog
                     }
                 }
             }
-                
+
             Iterator<Component> ci2 = this.dialogComponents.iterator();
-                
+
             // Iterate through the component list and set the appropriate value
             // in character object
             while (ci2.hasNext())
@@ -257,7 +256,7 @@ class CreateCharacterDialog extends JDialog
         gridBagLayout.columnWidths = new int[]
         { 36, 11, 77, 39, 20, 32, 49, 34, 93, 84, 0 };
         gridBagLayout.rowHeights = new int[]
-        { 27, 16, 26, 29, 0, 0, 0, 0};
+        { 27, 16, 26, 29, 0, 0, 0, 0 };
         gridBagLayout.columnWeights = new double[]
         { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
         gridBagLayout.rowWeights = new double[]
@@ -428,7 +427,7 @@ class CreateCharacterDialog extends JDialog
         gbc.gridx = 9;
         gbc.gridy = 2;
         contentPanel.add(this.txtCons, gbc);
-        
+
         JLabel lblItems = new JLabel("Items:");
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridwidth = 2;
