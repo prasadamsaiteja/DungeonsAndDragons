@@ -43,8 +43,10 @@ public class CharactersList extends Observable
     /**
      * Traverses recursively through characters directory and loads them
      * 
-     * @param dPath
-     * @return
+     * @param dPath set directory path from where to fetch list of all
+     *        characters
+     * @return an array list of Character class with all the characters found in
+     *         the directory
      */
     private ArrayList<Character> getCharacters(String dPath)
     {
@@ -97,11 +99,17 @@ public class CharactersList extends Observable
         return characters;
     }
 
+    /**
+     * @return an array list of Character class with all the characters found
+     */
     public ArrayList<Character> getCharacters()
     {
         return this.characters;
     }
 
+    /**
+     * @return initialized CharactersList object
+     */
     public static CharactersList init()
     {
         if (null == CharactersList.inst)
@@ -109,12 +117,20 @@ public class CharactersList extends Observable
         return CharactersList.inst;
     }
 
+    /**
+     * @return an array list of Character class with all the characters found
+     */
     public static ArrayList<Character> get()
     {
         CharactersList inst = CharactersList.init();
         return inst.getCharacters();
     }
 
+    /**
+     * @param characterName
+     * @return Character object, if characterName is a valid character name, or
+     *         null, if otherwise
+     */
     public static Character getByName(String characterName)
     {
         ArrayList<Character> characters = get();

@@ -40,7 +40,7 @@ public class FileExistsTest
         item = ItemJaxb.getItemFromXml(name);
         assertEquals(name, item.getItemName());
     }
-    
+
     @After
     public void destroyCreatedObjects()
     {
