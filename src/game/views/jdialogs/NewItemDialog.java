@@ -47,6 +47,10 @@ class NewItemDialog extends JDialog
     private CreateStuffDialog parentDialog;
     private Item loadedItem;
 
+    /**
+     * This constructor is called when a new item is to be created
+     * @param jDialog
+     */
     NewItemDialog(CreateStuffDialog jDialog)
     {
         DialogHelper.setDialogProperties(this, "New Item", new Rectangle(440, 227));
@@ -55,6 +59,11 @@ class NewItemDialog extends JDialog
         initComponents();
     }
 
+    /**
+     * This constructor is called when item is to be edited
+     * @param itemFromXml item object extracted from xml
+     * @param jDialog parent jDialog object reference, kept to disclose if necessary.
+     */
     NewItemDialog(Item itemFromXml, CreateStuffDialog jDialog)
     {
         loadedItem = itemFromXml;
@@ -101,17 +110,12 @@ class NewItemDialog extends JDialog
         lblItemType.setFont(font);
         lblItemType.setBounds(10, 42, 101, 20);
         panel.add(lblItemType);
-
-        JComboBox itemTypesComboBox = new JComboBox(SharedVariables.ItemType.values());
-        DefaultComboBoxModel itemTypesComboBoxModel = new DefaultComboBoxModel();
+        
+        DefaultComboBoxModel itemTypesComboBoxModel = new DefaultComboBoxModel(SharedVariables.ArmorClass.values()); 
         JComboBox itemClassComboBox = new JComboBox(itemTypesComboBoxModel);
+        JComboBox itemTypesComboBox = new JComboBox(SharedVariables.ItemType.values());
 
-        for (ArmorClass values : SharedVariables.ArmorClass.values())
-            itemTypesComboBoxModel.addElement(values.toString());
-
-        itemTypesComboBox.setBounds(141, 44, 263, 30);
-        if (loadedItem != null)
-            itemTypesComboBox.setSelectedItem(loadedItem.itemType);
+        itemTypesComboBox.setBounds(141, 44, 263, 30);        
         itemTypesComboBox.setBounds(141, 44, 263, 20);
         itemTypesComboBox.addItemListener(new ItemListener()
         {
@@ -121,10 +125,11 @@ class NewItemDialog extends JDialog
             {
 
                 if (event.getStateChange() == ItemEvent.SELECTED)
-                {
+                {                 
+                  
                     switch (event.getItem().toString())
                     {
-
+                                          
                         case "Armor":
                             itemTypesComboBoxModel.removeAllElements();
                             for (ArmorClass values : SharedVariables.ArmorClass.values())
@@ -173,6 +178,10 @@ class NewItemDialog extends JDialog
             }
 
         });
+        
+        if(loadedItem != null)
+          itemTypesComboBox.setSelectedItem(SharedVariables.ItemType.valueOf(loadedItem.itemType));
+        
         panel.add(itemTypesComboBox);
 
         // Item Class
@@ -180,10 +189,44 @@ class NewItemDialog extends JDialog
         lblItemClass.setFont(font);
         lblItemClass.setBounds(10, 73, 101, 20);
         panel.add(lblItemClass);
-
+        
         if (loadedItem != null)
-            itemClassComboBox.setSelectedItem(loadedItem.itemClass);
+        {            
+            switch (loadedItem.itemType)
+            {
+              
+                case "Armor":
+                    itemClassComboBox.setSelectedItem(SharedVariables.ArmorClass.valueOf(loadedItem.itemClass));
+                    break;
+
+                case "Helmet":
+                    itemClassComboBox.setSelectedItem(SharedVariables.HelmetClass.valueOf(loadedItem.itemClass));
+                    break;
+
+                case "Shield":
+                    itemClassComboBox.setSelectedItem(SharedVariables.ShieldClass.valueOf(loadedItem.itemClass));
+                    break;
+
+                case "Belt":
+                    itemClassComboBox.setSelectedItem(SharedVariables.BeltClass.valueOf(loadedItem.itemClass));
+                    break;  
+
+                case "Boots":
+                    itemClassComboBox.setSelectedItem(SharedVariables.BootsClass.valueOf(loadedItem.itemClass));
+                    break;
+
+                case "Ring":
+                    itemClassComboBox.setSelectedItem(SharedVariables.RingClass.valueOf(loadedItem.itemClass));
+                    break;
+
+                case "Weapon":
+                    itemClassComboBox.setSelectedItem(SharedVariables.WeaponClass.valueOf(loadedItem.itemClass));
+                    break;              
+            }           
+        }
+            
         itemClassComboBox.setBounds(141, 75, 263, 20);
+          
         panel.add(itemClassComboBox);
 
         // Item level
@@ -200,7 +243,11 @@ class NewItemDialog extends JDialog
         // JSlider
         JSlider itemLevelSlider = new JSlider(JSlider.HORIZONTAL, 1, 20, 1);
         if (loadedItem != null)
+        {
             itemLevelSlider.setValue(loadedItem.itemLevel);
+            itemLevelSlider.setEnabled(false);
+        }
+            
         ItemLevelValueLabel.setText(String.valueOf(itemLevelSlider.getValue()));
         itemLevelSlider.setBackground(Color.WHITE);
         itemLevelSlider.setBounds(141, 104, 235, 26);
@@ -228,9 +275,7 @@ class NewItemDialog extends JDialog
                     return;
                 }
 
-                ItemJaxb.convertItemObjectToXml(
-                        new Item(itemNameTextField.getText(), itemTypesComboBox.getSelectedItem().toString(),
-                                 (String) itemClassComboBox.getSelectedItem().toString(), itemLevelSlider.getValue()));
+                ItemJaxb.convertItemObjectToXml(new Item(itemNameTextField.getText(), itemTypesComboBox.getSelectedItem().toString(), (String) itemClassComboBox.getSelectedItem().toString(), itemLevelSlider.getValue()));
                 if (parentDialog != null)
                     parentDialog.dispose();
 

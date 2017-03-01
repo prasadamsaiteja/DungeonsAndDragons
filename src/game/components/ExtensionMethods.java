@@ -2,6 +2,12 @@ package game.components;
 
 import java.io.File;
 
+/**
+ * This class contains essential methods required by game components
+ * @author saiteja prasadam
+ * @since 2/5/2017
+ *
+ */
 public class ExtensionMethods
 {
 
