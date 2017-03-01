@@ -71,7 +71,8 @@ public class ItemJaxb
         try
         {
             File file = new File(SharedVariables.ItemsDirectory + File.separator + itemName + ".xml");
-            return file.delete();
+            file.delete();
+            return true;
         }
 
         catch (Exception ignored)
