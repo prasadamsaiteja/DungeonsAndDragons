@@ -6,10 +6,10 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * Rolls the dice and calculates the sum Created by supreet university on
- * 2017-02-02.
+ * Rolls the dice and calculates the sum 
+ * 
+ * @author supreet (s_supree)
  */
-
 public class Dice
 {
 
