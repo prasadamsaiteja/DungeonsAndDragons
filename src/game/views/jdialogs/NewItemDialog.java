@@ -269,9 +269,9 @@ class NewItemDialog extends JDialog
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (itemNameTextField.getText().length() < 4)
+                if (itemNameTextField.getText().length() < 3)
                 {
-                    DialogHelper.showBasicDialog("Item name should have more than 4 characters");
+                    DialogHelper.showBasicDialog("Item name should have more than 3 characters");
                     return;
                 }
 
