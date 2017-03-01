@@ -28,6 +28,9 @@ public class ArmorClassTest
 
     private int itemLevel;
 
+    /**
+     * Set default values and create dummy items
+     */
     @Before
     public void createVars()
     {
@@ -71,6 +74,9 @@ public class ArmorClassTest
         ItemJaxb.convertItemObjectToXml(itemObj);
     }
 
+    /**
+     * No armor set should through exception when getting armor object
+     */
     @Test
     public void getArmorObject_NoItemSet_throwsException()
     {
@@ -85,6 +91,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Non existing armor should throw exception when getting armor object
+     */
     @Test
     public void getArmorObject_NonExistentArmor_throwsException()
     {
@@ -100,6 +109,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Existing armor should throw no exception when getting armor object
+     */
     @Test
     public void getArmorObject_ExistentArmor_noExceptionThrown()
     {
@@ -115,6 +127,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Existing armor should modify armor class
+     */
     @Test
     public void getArmorObject_ExistentArmor_modifiedArmorClass()
     {
@@ -131,6 +146,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * If no ring present, exception should be thrown when fetching ring object
+     */
     @Test
     public void getRingObject_NoItemSet_throwsException()
     {
@@ -145,6 +163,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Non-Existing ring should throw an exception when getting ring object
+     */
     @Test
     public void getRingObject_NonExistentItem_throwsException()
     {
@@ -160,6 +181,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Existing ring should throw no exception when getting ring object
+     */
     @Test
     public void getRingObject_ExistingItem_noExceptionThrown()
     {
@@ -175,6 +199,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Existing ring should affect and enhance armor class
+     */
     @Test
     public void getRingObject_ExistingItem_modifiedArmorClass()
     {
@@ -191,6 +218,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * If shield not set, exception should be thrown when getting shield object
+     */
     @Test
     public void getShieldObject_NoItemSet_throwsException()
     {
@@ -205,6 +235,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Non-Existing shield should throw exception when getting shield object
+     */
     @Test
     public void getShieldObject_NonExistentItem_throwsException()
     {
@@ -220,6 +253,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Existing shield should throw no exception when getting shield object
+     */
     @Test
     public void getShieldObject_ExistingItem_noExceptionThrown()
     {
@@ -235,6 +271,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Existing shield should affect and enhance armor class
+     */
     @Test
     public void getShieldObject_ExistingItem_modifiedArmorClass()
     {
@@ -251,13 +290,16 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * If Helmet not set, exception should be thrown when fetching helmet object
+     */
     @Test
     public void getHelmetObject_NoItemSet_throwsException()
     {
         Character c1 = new Character();
         try
         {
-            Item helmetObjectItemNotSet = c1.getArmorObject();
+            Item helmetObjectItemNotSet = c1.getHelmetObject();
             fail("Exception didn't throw");
         }
         catch (Exception e)
@@ -265,6 +307,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Non-Existing helmet should throw exception when getting helmet object
+     */
     @Test
     public void getHelmetObject_NonExistentItem_throwsException()
     {
@@ -280,6 +325,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Existing helmet should throw no exception when getting helmet object
+     */
     @Test
     public void getHelmetObject_ExistingItem_noExceptionThrown()
     {
@@ -295,6 +343,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Existing helmet should affect and enhance armor class
+     */
     @Test
     public void getHelmetObject_ExistingItem_modifiedArmorClass()
     {
@@ -311,6 +362,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * If not set, boots object should throw an exception when trying to fetch
+     */
     @Test
     public void getBootsObject_NoItemSet_throwsException()
     {
@@ -325,6 +379,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Non-Existing boots should throw exception when getting boots object
+     */
     @Test
     public void getBootsObject_NonExistentItem_throwsException()
     {
@@ -340,6 +397,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Existing boots should throw no exception when getting boots object
+     */
     @Test
     public void getBootsObject_ExistingItem_noExceptionThrown()
     {
@@ -355,6 +415,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Existing boots should affect and enhance armor class
+     */
     @Test
     public void getBootsObject_ExistingItem_modifiedArmorClass()
     {
@@ -371,6 +434,9 @@ public class ArmorClassTest
         }
     }
 
+    /**
+     * Destroy all the dynamically created items
+     */
     @After
     public void destroyCreatedObjects()
     {

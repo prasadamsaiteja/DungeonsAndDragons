@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import game.model.Item;
 import game.model.jaxb.*;
 
 /**
@@ -17,7 +18,7 @@ import game.model.jaxb.*;
  *
  */
 
-public class ItemTestCase1
+public class DeleteFileTest
 {
     private static String name;
 
@@ -29,6 +30,8 @@ public class ItemTestCase1
     public void beforeEachTest()
     {
         name = "Dagger";
+        Item itemObj = new Item(name, "Weapon", "melee", 1);
+        ItemJaxb.convertItemObjectToXml(itemObj);
     }
 
     /**

@@ -17,6 +17,9 @@ public class RollTest
     int numberOfRolls;
     int maximumTurnsCount;
 
+    /**
+     * Set the value of dice sides, number of rolls and maximum turns count
+     */
     @Before
     public void setVals()
     {
@@ -25,6 +28,10 @@ public class RollTest
         maximumTurnsCount = 3;
     }
 
+    /**
+     * Roll sum validates the sum of dice rolls based on dice sides, number of
+     * rolls and maximum turns count
+     */
     @Test
     public void rollSumValidation()
     {

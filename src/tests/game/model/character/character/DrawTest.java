@@ -42,6 +42,10 @@ public class DrawTest
         }
     }
 
+    /**
+     * Create a dummy observer class and dummy character observable class and
+     * add observer to character
+     */
     @Before
     public void createVars()
     {
@@ -50,6 +54,9 @@ public class DrawTest
         c1.addObserver(d1);
     }
 
+    /**
+     * if character is not yet built, draw should not trigger observers
+     */
     @Test
     public void characterNotBuilt_noTriggerToObserver()
     {
@@ -57,6 +64,9 @@ public class DrawTest
         assertEquals(0, d1.getDummyParam());
     }
 
+    /**
+     * if character is built, observer should eb triggered
+     */
     @Test
     public void characterBuilt_TriggerObserver()
     {
@@ -73,5 +83,4 @@ public class DrawTest
             e.printStackTrace();
         }
     }
-
 }

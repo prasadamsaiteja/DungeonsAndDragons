@@ -35,7 +35,12 @@ public class CampaignJaxb
         try
         {
             Marshaller marshaller = JAXBContext.newInstance(Campaign.class).createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // This lets format type to XML
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // This
+                                                                                    // lets
+                                                                                    // format
+                                                                                    // type
+                                                                                    // to
+                                                                                    // XML
 
             File file = new File(SharedVariables.CampaignsDirectory + File.separator + campaign.getCampaignName()
                                  + ".xml");

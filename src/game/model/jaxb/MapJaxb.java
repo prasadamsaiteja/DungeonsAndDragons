@@ -15,7 +15,9 @@ import game.components.SharedVariables;
 import game.model.Map;
 
 /**
- * This method contains method that helps to saved, get and delete map object to xml files.
+ * This method contains method that helps to saved, get and delete map object to
+ * xml files.
+ * 
  * @author saiteja prasadam
  * @version 1.0.0
  * @since 2/10/2017
@@ -35,7 +37,12 @@ public class MapJaxb
         try
         {
             Marshaller marshaller = JAXBContext.newInstance(Map.class).createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // This lets format type to XML
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // This
+                                                                                    // lets
+                                                                                    // format
+                                                                                    // type
+                                                                                    // to
+                                                                                    // XML
 
             File file = new File(SharedVariables.MapsDirectory + File.separator + map.getMapName() + ".xml");
             if (!file.exists())

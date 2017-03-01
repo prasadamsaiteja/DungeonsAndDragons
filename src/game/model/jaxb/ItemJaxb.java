@@ -35,7 +35,12 @@ public class ItemJaxb
         try
         {
             Marshaller marshaller = JAXBContext.newInstance(Item.class).createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // This lets format type to XML
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // This
+                                                                                    // lets
+                                                                                    // format
+                                                                                    // type
+                                                                                    // to
+                                                                                    // XML
 
             File file = new File(SharedVariables.ItemsDirectory + File.separator + item.itemName + ".xml");
             if (!file.exists())

@@ -9,14 +9,14 @@ import org.junit.Test;
 
 public class TestCampaignName extends TestCase
 {
-	String name="Demo.xml";
-	ArrayList<String> maps;
-	Campaign campapignName=new Campaign("Demo.xml",maps);
-	
-	@Test
-	public void testCampaignName()
-	{
-		assertEquals(campapignName.getCampaignName(),name);
-	}
+    String name = "Demo.xml";
+    ArrayList<String> maps;
+    Campaign campapignName = new Campaign("Demo.xml", maps);
+
+    @Test
+    public void testCampaignName()
+    {
+        assertEquals(campapignName.getCampaignName(), name);
+    }
 
 }
