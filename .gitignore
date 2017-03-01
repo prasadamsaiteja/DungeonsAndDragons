@@ -2,4 +2,6 @@
 **/doc/*
 **/Data/*
 **/*.orig
-/bin/
+**/package-info.java
+**/.idea/*
+**/DS_Store/*
