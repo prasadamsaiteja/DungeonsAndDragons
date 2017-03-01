@@ -70,6 +70,9 @@ public class Map
     private String[][] convertMapJPanelToStringArray(JPanel mapPanel[][])
     {
 
+        if(mapPanel == null)
+          return null;
+        
         String[][] tempMapCellValues = new String[mapWidth][mapHeight];
 
         for (int i = 0; i < mapWidth; i++)

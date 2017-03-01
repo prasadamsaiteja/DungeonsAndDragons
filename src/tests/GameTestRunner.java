@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import tests.game.components.dice.RollTest;
+import tests.game.model.MapTest;
 import tests.game.model.character.character.ArmorClassTest;
 import tests.game.model.character.character.DrawTest;
 
@@ -12,7 +13,8 @@ import tests.game.model.character.character.DrawTest;
 @SuiteClasses({
     DrawTest.class,
     ArmorClassTest.class,
-    RollTest.class    
+    RollTest.class,
+    MapTest.class
 })
 
 /**
