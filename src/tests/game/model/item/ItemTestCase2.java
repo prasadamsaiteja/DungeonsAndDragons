@@ -1,4 +1,4 @@
-package tests.game.model;
+package tests.game.model.item;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.Before;
 
 import game.model.jaxb.*;
+import game.model.Item;
 import game.model.Item.*;
 
 /**

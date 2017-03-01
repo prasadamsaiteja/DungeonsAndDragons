@@ -1,4 +1,4 @@
-package tests.game.model;
+package tests.game.model.item;
 
 import static org.junit.Assert.*;
 
@@ -17,25 +17,29 @@ import game.model.jaxb.*;
  *
  */
 
-public class ItemTestCase1{  
-     private static String name;
-    
+public class ItemTestCase1
+{
+    private static String name;
+
     /**
      * This is a before method
      */
-    
-    @Before public void beforeEachTest(){ 
-         name = "Dagger";
+
+    @Before
+    public void beforeEachTest()
+    {
+        name = "Dagger";
     }
-    
+
     /**
      * This is testing the deletion method
      *
      */
-    
+
     @Test
-    public void deleteItem(){
-      assertEquals(true, ItemJaxb.deleteItemXml(name));
+    public void deleteItem()
+    {
+        assertEquals(true, ItemJaxb.deleteItemXml(name));
     }
 
 }

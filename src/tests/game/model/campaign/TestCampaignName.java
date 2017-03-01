@@ -1,4 +1,4 @@
-package tests.game.model;
+package tests.game.model.campaign;
 
 import java.util.ArrayList;
 

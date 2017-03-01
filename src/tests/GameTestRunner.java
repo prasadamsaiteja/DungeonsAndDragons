@@ -5,15 +5,15 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import tests.game.components.dice.RollTest;
-import tests.game.model.MapTest;
-import tests.game.model.TestCampaignName;
-import tests.game.model.TestDeleteFileOperations;
-import tests.game.model.TestSaveFileOperations;
+import tests.game.model.map.MapTest;
+import tests.game.model.campaign.TestCampaignName;
+import tests.game.model.campaign.TestDeleteFileOperations;
+import tests.game.model.campaign.TestSaveFileOperations;
 import tests.game.model.character.character.ArmorClassTest;
 import tests.game.model.character.character.DrawTest;
-import tests.game.model.ItemTestCase1;
-import tests.game.model.ItemTestCase2;
-import tests.game.model.ItemTestCase3;
+import tests.game.model.item.ItemTestCase1;
+import tests.game.model.item.ItemTestCase2;
+import tests.game.model.item.ItemTestCase3;
 
 @RunWith(Suite.class)
 

@@ -1,4 +1,4 @@
-package tests.game.model;
+package tests.game.model.map;
 
 import static org.junit.Assert.assertEquals;
 
