@@ -11,6 +11,9 @@ import tests.game.model.TestDeleteFileOperations;
 import tests.game.model.TestSaveFileOperations;
 import tests.game.model.character.character.ArmorClassTest;
 import tests.game.model.character.character.DrawTest;
+import tests.game.model.ItemTestCase1;
+import tests.game.model.ItemTestCase2;
+import tests.game.model.ItemTestCase3;
 
 @RunWith(Suite.class)
 
@@ -21,7 +24,10 @@ import tests.game.model.character.character.DrawTest;
     MapTest.class,
     TestCampaignName.class,
     TestSaveFileOperations.class,
-    TestDeleteFileOperations.class
+    TestDeleteFileOperations.class,
+    ItemTestCase1.class,
+    ItemTestCase2.class,
+    ItemTestCase3.class
 })
 
 /**
