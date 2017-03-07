@@ -11,6 +11,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 import java.awt.event.ActionEvent;
@@ -34,8 +35,8 @@ import javax.swing.text.StyledDocument;
 import game.GameLauncher;
 import game.components.ExtensionMethods;
 import game.components.SharedVariables;
-import game.model.Backpack;
 import game.model.Map;
+import game.model.character.Backpack;
 import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.jaxb.CampaignJaxb;
@@ -43,11 +44,13 @@ import game.model.jaxb.ItemJaxb;
 import game.model.jaxb.MapJaxb;
 import game.views.jdialogs.campaignDialog.CampaignNameDialog;
 import game.views.jdialogs.campaignDialog.NewCampaignInfoDialog;
+import game.views.jdialogs.characterDialog.CreateCharacterDialog;
 import game.views.jdialogs.viewmodels.CharactersListModel;
 import game.views.jpanels.MapDesigner;
 
 import java.awt.Font;
 import java.awt.GridLayout;
+import javax.swing.JCheckBox;
 
 /**
  * This class is a JDialog which helps user to create new campaign, map or
@@ -233,6 +236,7 @@ public class CreateStuffDialog extends JDialog
         sl_characterPanel.putConstraint(SpringLayout.EAST, btnRemove, -12, SpringLayout.WEST, btnAdd);
         characterPanel.add(btnRemove);
 
+        // Create a new panel for peviewing selected character
         JPanel charPreviewPanel = new JPanel();
         sl_characterPanel.putConstraint(SpringLayout.NORTH, charPreviewPanel, 10, SpringLayout.NORTH, characterPanel);
         sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 599, SpringLayout.WEST, characterPanel);
@@ -262,11 +266,11 @@ public class CreateStuffDialog extends JDialog
         areaScrollPane.setPreferredSize(new Dimension(250, 200));
         charPreviewPanel.add(areaScrollPane);
         characterPanel.add(charPreviewPanel);
-
+        
         JButton btnBagpack = new JButton("Bagpack");
         sl_characterPanel.putConstraint(SpringLayout.NORTH, btnBagpack, 251, SpringLayout.NORTH, characterPanel);
         sl_characterPanel.putConstraint(SpringLayout.EAST, btnBagpack, -7, SpringLayout.WEST, btnRemove);
-        btnBagpack.setEnabled(true);
+        btnBagpack.setEnabled(false);
         btnBagpack.addActionListener(new ActionListener()
         {
 
@@ -275,7 +279,7 @@ public class CreateStuffDialog extends JDialog
             {
                 try
                 {
-                    updatePreview(doc);
+                    manageBackpack(characterJlist.getSelectedValue());
                 }
                 catch (BadLocationException e1)
                 {
@@ -284,22 +288,8 @@ public class CreateStuffDialog extends JDialog
                 }
             }
 
-            private void updatePreview(StyledDocument doc) throws BadLocationException
+            private void manageBackpack(String selectedValue) throws BadLocationException
             {
-                Backpack b = Backpack.init();
-                Set<String> itemTypes = b.getItemTypes();
-
-                doc.remove(0, doc.getLength());
-                doc.insertString(doc.getLength(), "Backpack Details:\n", doc.getStyle("bold"));
-                for (String itemType : itemTypes)
-                {
-                    doc.insertString(doc.getLength(), "\n" + itemType + "\n", doc.getStyle("bold"));
-                    Iterator<String> i = b.getByType(itemType).iterator();
-                    while (i.hasNext())
-                    {
-                        doc.insertString(doc.getLength(), "- " + i.next() + "\n", doc.getStyle("italic"));
-                    }
-                }
             }
 
         });
@@ -318,6 +308,7 @@ public class CreateStuffDialog extends JDialog
                     {
                         btnRemove.setEnabled(false);
                         btnEdit.setEnabled(false);
+                        btnBagpack.setEnabled(false);
                         charPreviewPanel.setVisible(false);
                         sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 600, SpringLayout.WEST,
                                 characterPanel);
@@ -331,6 +322,7 @@ public class CreateStuffDialog extends JDialog
                     {
                         btnRemove.setEnabled(true);
                         btnEdit.setEnabled(true);
+                        btnBagpack.setEnabled(true);
                         charPreviewPanel.setVisible(true);
                         sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 6, SpringLayout.EAST,
                                 characterJlist);
@@ -405,6 +397,32 @@ public class CreateStuffDialog extends JDialog
 
                 doc.insertString(doc.getLength(), "\nHelmet: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getHelmet()), doc.getStyle("italics"));
+                
+                String backpackFileName = c.getBackpackFileName();
+                System.out.println(backpackFileName);
+                doc.insertString(doc.getLength(), "\n\nBackpack Details:\n", doc.getStyle("bold"));
+                try
+                {
+                    Backpack b = Backpack.get(backpackFileName);
+                    Set<String> itemTypes = b.getItemTypes();
+
+                    if (itemTypes != null)
+                    {
+                        for (String itemType : itemTypes)
+                        {
+                            doc.insertString(doc.getLength(), "\n" + itemType + "\n", doc.getStyle("bold"));
+                            Iterator<String> i = b.getByType(itemType).iterator();
+                            while (i.hasNext())
+                            {
+                                doc.insertString(doc.getLength(), "- " + i.next() + "\n", doc.getStyle("italic"));
+                            }
+                        }
+                    }
+                }
+                catch (Throwable e)
+                {
+                    System.out.println(e.getMessage());
+                }
             }
 
         });
@@ -797,5 +815,4 @@ public class CreateStuffDialog extends JDialog
 
         return campaignPanel;
     }
-
 }

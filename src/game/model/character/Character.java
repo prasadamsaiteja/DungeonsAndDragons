@@ -41,6 +41,7 @@ public class Character extends Observable
     private String armor;
     private String helmet;
     private String fname;
+    private String backpackFileName;
 
     /**
      * @param name set character name
@@ -628,6 +629,10 @@ public class Character extends Observable
                 cClass.calculateHitScore(
                         new Dice(cClassVal.getNumberOfRolls(), cClassVal.getDiceSides(), cClassVal.getNumberOfRolls()));
                 this.hitScore = cClass.getHitScore();
+                
+                // build a bucket for the character
+                this.createBackpack();
+                
                 this.isBuilt = true;
             }
             catch (Exception e)
@@ -636,6 +641,40 @@ public class Character extends Observable
             }
 
         }
+    }
+    
+    /**
+     * check if a character has backpack
+     * @return true if backpack exists else false
+     */
+    public boolean hasBackpack()
+    {
+        return this.backpackFileName != null;
+    }
+    
+   /**
+    * Create a backpack for the character
+    */
+    private void createBackpack()
+    {
+        Backpack backpack = new Backpack();
+        try
+        {
+            backpack.save();
+            this.backpackFileName = backpack.getFileName();
+        }
+        catch (IOException e)
+        {
+            this.backpackFileName = null;
+        }
+    }
+    
+    /**
+     * @return backpack
+     */
+    public String getBackpackFileName()
+    {
+        return this.backpackFileName;
     }
 
     /**

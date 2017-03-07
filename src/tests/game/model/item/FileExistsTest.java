@@ -8,7 +8,6 @@ import org.junit.Before;
 
 import game.model.jaxb.*;
 import game.model.Item;
-import game.model.Item.*;
 
 /**
  * This test case is to test the creation of item

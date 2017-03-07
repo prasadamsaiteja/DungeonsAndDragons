@@ -22,6 +22,7 @@ public class SharedVariables
     public static final String ItemsDirectory = DataDirectory + File.separator + "Items";
     public static final String CampaignsDirectory = DataDirectory + File.separator + "Campaigns";
     public static final String CharactersDirectory = DataDirectory + File.separator + "Characters";
+    public static final String BackpackDirectory = DataDirectory + File.separator + "Backpack";
 
     // Map element colors
     public static final Color MAP_MOUSE_HOVER_COLOR = Color.gray;
@@ -51,7 +52,7 @@ public class SharedVariables
 
     public static enum HelmetClass
     {
-        Intelligence, Wisdom, ArmorClass
+        ArmorClass
     }
 
     public static enum ArmorClass
@@ -66,7 +67,7 @@ public class SharedVariables
 
     public static enum RingClass
     {
-        ArmorClass, Strength, Constitution, Wisdom, Charisma
+        ArmorClass, Strength, Constitution
     }
 
     public static enum BeltClass
