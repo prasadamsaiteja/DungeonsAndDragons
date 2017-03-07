@@ -480,12 +480,14 @@ public class MapDesigner extends JPanel
     private void mapCellClicked(JPanel jPanel, final ButtonGroup radioButtonGroup)
     {
 
+        
         if (getColorFromSelectedRadioButton(radioButtonGroup) == jPanel.getBackground())
             jPanel.setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);
 
         else
         {
-            if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING) && ExtensionMethods.getCampaignsList().length != 0){
+            ArrayList<String> chars = CharactersList.getNames();
+            if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING) && chars.size() == 0){
                 DialogHelper.showBasicDialog("You don't have any monsters to place");
                 return;
             }
@@ -510,9 +512,8 @@ public class MapDesigner extends JPanel
                     jPanel.setToolTipText(itemsList.getSelectedItem().toString());
                 }
                 
-                else if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING) && ExtensionMethods.getItemsList().length > 0){         
-                                       
-                    ArrayList<String> chars = CharactersList.getNames();
+                else if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING) && chars.size() > 0){         
+                                                           
                     JComboBox<String> charcterList = new JComboBox<String>(chars.toArray(new String[chars.size()]));
                     ButtonGroup buttonGroup = new ButtonGroup();
                     
