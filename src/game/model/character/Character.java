@@ -605,7 +605,7 @@ public class Character extends Observable
     /**
      * @return file name or null if not present
      */
-    private String getFileName()
+    public String getFileName()
     {
         return this.fname;
     }
