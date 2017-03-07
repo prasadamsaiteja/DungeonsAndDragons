@@ -55,14 +55,11 @@ public class MapJaxb
             marshaller.marshal(map, file);
         }
 
-        catch (JAXBException jaxbException)
+        catch (JAXBException | IOException ignored)
         {
-            jaxbException.printStackTrace();
+            return;
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+       
     }
 
     /**

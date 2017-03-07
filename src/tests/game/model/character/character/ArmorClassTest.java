@@ -83,7 +83,7 @@ public class ArmorClassTest
         Character c1 = new Character();
         try
         {
-            Item armorObjectItemNotSet = c1.getArmorObject();
+            c1.getArmorObject();
             fail("Exception didn't throw");
         }
         catch (Exception e)
@@ -101,7 +101,7 @@ public class ArmorClassTest
         c1.setArmor(nonExistingArmor);
         try
         {
-            Item armorObjectNonExistentItem = c1.getArmorObject();
+            c1.getArmorObject();
             fail("Exception didn't throw");
         }
         catch (Exception e)
@@ -119,7 +119,7 @@ public class ArmorClassTest
         c1.setArmor(existingArmor);
         try
         {
-            Item armorObjectExistentArmor = c1.getArmorObject();
+            c1.getArmorObject();
         }
         catch (Exception e)
         {
@@ -155,7 +155,7 @@ public class ArmorClassTest
         Character c1 = new Character();
         try
         {
-            Item ringObjectItemNotSet = c1.getArmorObject();
+            c1.getArmorObject();
             fail("Exception didn't throw");
         }
         catch (Exception e)
@@ -173,7 +173,7 @@ public class ArmorClassTest
         c1.setRingName(nonExistingRing);
         try
         {
-            Item ringObjectNonExistentItem = c1.getRingObject();
+            c1.getRingObject();
             fail("Exception didn't throw");
         }
         catch (Exception e)
@@ -191,7 +191,7 @@ public class ArmorClassTest
         c1.setRingName(existingRing);
         try
         {
-            Item ringObjectExistingItem = c1.getRingObject();
+            c1.getRingObject();
         }
         catch (Exception e)
         {
@@ -227,7 +227,7 @@ public class ArmorClassTest
         Character c1 = new Character();
         try
         {
-            Item shieldObjectItemNotSet = c1.getArmorObject();
+            c1.getArmorObject();
             fail("Exception didn't throw");
         }
         catch (Exception e)
@@ -245,7 +245,7 @@ public class ArmorClassTest
         c1.setRingName(nonExistingShield);
         try
         {
-            Item shieldObjectNonExistentItem = c1.getRingObject();
+            c1.getRingObject();
             fail("Exception didn't throw");
         }
         catch (Exception e)
@@ -263,7 +263,7 @@ public class ArmorClassTest
         c1.setShield(existingShield);
         try
         {
-            Item shieldObjectExistingItem = c1.getShieldObject();
+            c1.getShieldObject();
         }
         catch (Exception e)
         {
@@ -299,7 +299,7 @@ public class ArmorClassTest
         Character c1 = new Character();
         try
         {
-            Item helmetObjectItemNotSet = c1.getHelmetObject();
+            c1.getHelmetObject();
             fail("Exception didn't throw");
         }
         catch (Exception e)
@@ -317,7 +317,7 @@ public class ArmorClassTest
         c1.setHelmet(nonExistingHelmet);
         try
         {
-            Item helmetObjectNonExistentItem = c1.getHelmetObject();
+            c1.getHelmetObject();
             fail("Exception didn't throw");
         }
         catch (Exception e)
@@ -335,7 +335,7 @@ public class ArmorClassTest
         c1.setHelmet(existingHelmet);
         try
         {
-            Item helmetObjectExistingItem = c1.getHelmetObject();
+            c1.getHelmetObject();
         }
         catch (Exception e)
         {
@@ -371,7 +371,7 @@ public class ArmorClassTest
         Character c1 = new Character();
         try
         {
-            Item bootsObjectItemNotSet = c1.getArmorObject();
+            c1.getArmorObject();
             fail("Exception didn't throw");
         }
         catch (Exception e)
@@ -389,7 +389,7 @@ public class ArmorClassTest
         c1.setBoots(nonExistingBoots);
         try
         {
-            Item bootsObjectNonExistentItem = c1.getBootsObject();
+            c1.getBootsObject();
             fail("Exception didn't throw");
         }
         catch (Exception e)
@@ -407,7 +407,7 @@ public class ArmorClassTest
         c1.setBoots(existingBoots);
         try
         {
-            Item bootsObjectExistingItem = c1.getBootsObject();
+            c1.getBootsObject();
         }
         catch (Exception e)
         {

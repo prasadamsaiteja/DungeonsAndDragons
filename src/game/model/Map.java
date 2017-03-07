@@ -1,5 +1,7 @@
 package game.model;
 
+import java.util.HashMap;
+
 import javax.swing.JPanel;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,6 +27,8 @@ public class Map
     public int mapHeight;
     @XmlElement(name = "Map_rows")
     public String[][] mapCellValues;
+    @XmlElement(name = "Map_data")
+    public HashMap<String, String> mapData;
 
     /**
      * This constructor initializes a map.
@@ -37,6 +41,7 @@ public class Map
      */
     public Map(String mapName, int mapWidth, int mapHeight, JPanel mapPanel[][])
     {
+        this.mapData = new HashMap<>();
         this.mapName = mapName;
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
@@ -76,8 +81,12 @@ public class Map
         String[][] tempMapCellValues = new String[mapWidth][mapHeight];
 
         for (int i = 0; i < mapWidth; i++)
-            for (int j = 0; j < mapHeight; j++)
-                tempMapCellValues[i][j] = SharedVariables.getCellStringFromColor(mapPanel[i][j].getBackground());
+            for (int j = 0; j < mapHeight; j++){
+              tempMapCellValues[i][j] = SharedVariables.getCellStringFromColor(mapPanel[i][j].getBackground());
+              if(mapPanel[i][j].getBackground() == SharedVariables.mapCellHashMap.get(SharedVariables.CHEST_STRING) || mapPanel[i][j].getBackground() == SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING))
+                  mapData.put(String.valueOf(i) + " " + String.valueOf(j), mapPanel[i][j].getToolTipText());
+            }
+                
 
         return tempMapCellValues;
     }
@@ -96,7 +105,11 @@ public class Map
             for (int j = 0; j < mapHeight; j++)
             {
                 JPanel tempJPanel = new JPanel();
-                tempJPanel.setBackground(SharedVariables.getCellColorFromString(mapCellValues[i][j]));
+                tempJPanel.setBackground(SharedVariables.getCellColorFromString(mapCellValues[i][j]));   
+                if((tempJPanel.getBackground() == SharedVariables.mapCellHashMap.get(SharedVariables.CHEST_STRING) || tempJPanel.getBackground() == SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING))){
+                  tempJPanel.setToolTipText(mapData.get(String.valueOf(i) + " " + String.valueOf(j)));                  
+                }
+                  
                 tempMapCellValues[i][j] = tempJPanel;
             }
 

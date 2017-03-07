@@ -3,8 +3,6 @@ package game.model.character.classes;
 import java.util.HashMap;
 import java.util.Set;
 
-import javax.management.RuntimeErrorException;
-
 import game.components.Dice;
 import game.model.character.Character;
 
