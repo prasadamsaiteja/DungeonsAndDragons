@@ -154,6 +154,7 @@ public class CharactersList extends Observable
         ArrayList<String> characterNames = new ArrayList<String>();
         ArrayList<Character> characters = CharactersList.get();
         Iterator<Character> charactersList = characters.iterator();
+        
         while (charactersList.hasNext())
         {
             Character c = charactersList.next();

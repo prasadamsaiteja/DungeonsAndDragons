@@ -15,6 +15,7 @@ import game.GameLauncher;
 import game.components.ExtensionMethods;
 import game.components.SharedVariables;
 import game.model.Map;
+import game.model.character.CharactersList;
 import game.model.jaxb.MapJaxb;
 import game.views.jdialogs.CreateStuffDialog;
 import game.views.jdialogs.DialogHelper;
@@ -33,6 +34,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 
@@ -509,8 +511,9 @@ public class MapDesigner extends JPanel
                 }
                 
                 else if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING) && ExtensionMethods.getItemsList().length > 0){         
-                    
-                    JComboBox<String> charcterList = new JComboBox<String>(ExtensionMethods.getItemsList());
+                                       
+                    ArrayList<String> chars = CharactersList.getNames();
+                    JComboBox<String> charcterList = new JComboBox<String>(chars.toArray(new String[chars.size()]));
                     ButtonGroup buttonGroup = new ButtonGroup();
                     
                     JRadioButton friendlyRadioButton = new JRadioButton("Friendly");
