@@ -1,6 +1,9 @@
 package game.components;
 
 import java.io.File;
+import java.util.ArrayList;
+
+import game.model.character.CharactersList;
 
 /**
  * This class contains essential methods required by game components
@@ -78,25 +81,11 @@ public class ExtensionMethods
     }
 
     /**
-     * This method returns all the charcters saved
-     * 
-     * @return List of charcters names saved
+     * This method returns all the characters saved
+     * @return List of characters names saved
      */
-    public static String[] getCharctersList()
-    {
-        File f = new File(SharedVariables.CharactersDirectory);
-        if (!f.exists())
-        {
-            return new String[0];
-        }
-        File[] fileList = f.listFiles();
-        String[] fileName = new String[fileList.length];
-        for (int i = 0; i < fileList.length; i++)
-        {
-            if (fileList[i].getName().endsWith(".xml"))
-                fileName[i] = fileList[i].getName().replaceFirst("[.][^.]+$", "");
-
-        }
-        return fileName;
+    public static String[] getCharacterList(){
+        ArrayList<String> chars = CharactersList.getNames();
+        return chars.toArray(new String[chars.size()]);
     }
 }

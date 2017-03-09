@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import game.model.jaxb.MapJaxb;
+
 @XmlRootElement(name = "Campaign")
 
 /**
@@ -19,10 +21,10 @@ public class Campaign
 
     @XmlElement(name = "Campaign_Name")
     private String campaignName;
-
     @XmlElement(name = "Loaded_Maps")
-    public ArrayList<String> maps;
-
+    private ArrayList<String> mapNames;
+    private ArrayList<Map> mapList;
+    
     /**
      * Constructor that sets the name and maps of campaign to local variables.
      * 
@@ -32,7 +34,7 @@ public class Campaign
     public Campaign(String campaign_Name, ArrayList<String> addedMaps)
     {
         this.campaignName = campaign_Name;
-        this.maps = addedMaps;
+        this.mapNames = addedMaps;
     }
 
     /**
@@ -52,4 +54,32 @@ public class Campaign
         return campaignName;
     }
 
+    /**
+     * This method returns all the map names saved
+     * @return arraylist of map names
+     */
+    public ArrayList<String> getMapNames(){
+        return mapNames;
+    }
+
+    /**
+     * This method fetches all the map object and store them to mapList
+     */
+    public void fetchMaps(){
+      
+        mapList = new ArrayList<>();
+        for (String mapName : mapNames) {
+            Map map = MapJaxb.getMapFromXml(mapName);
+            if(map != null)
+              mapList.add(map);
+        }
+    }
+
+    /**
+     * This method returns map object list
+     * @return Arraylist of map objects
+     */
+    public ArrayList<Map> getMapList(){
+        return mapList;
+    }
 }

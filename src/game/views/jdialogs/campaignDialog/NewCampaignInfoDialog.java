@@ -106,7 +106,7 @@ public class NewCampaignInfoDialog extends JDialog
 
         if (campaignObject != null)
         {
-            for (String mapName : campaignObject.maps)
+            for (String mapName : campaignObject.getMapNames())
                 addedMapsListModel.addElement(mapName);
         }
 

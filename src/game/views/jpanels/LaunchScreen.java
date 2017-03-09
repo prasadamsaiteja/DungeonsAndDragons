@@ -2,7 +2,11 @@ package game.views.jpanels;
 
 import javax.swing.JPanel;
 
+import game.components.ExtensionMethods;
+import game.model.character.CharactersList;
 import game.views.jdialogs.CreateStuffDialog;
+import game.views.jdialogs.DialogHelper;
+import game.views.jdialogs.StartCampaign;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -103,8 +107,27 @@ public class LaunchScreen extends JPanel
      * @param btnCreateStuff This contains the reference to create stuff button.
      * @param exitButton This contains the reference to exit button.
      */
-    private void buttonsOnclickListeners(JButton btnNewCampaign, JButton btnCreateStuff, JButton exitButton)
+    private void buttonsOnclickListeners(JButton btnStartCampaign, JButton btnCreateStuff, JButton exitButton)
     {
+      
+        btnStartCampaign.addActionListener(new ActionListener() {
+          
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              
+              if(ExtensionMethods.getCampaignsList().length == 0 && CharactersList.getNames().size() == 0)
+                  DialogHelper.showBasicDialog("There are no campaigns and characters created, please create one to proceed");
+            
+              else if(ExtensionMethods.getCampaignsList().length == 0)
+                  DialogHelper.showBasicDialog("There are no campaigns created, please create one to proceed");
+              
+              else if(CharactersList.getNames().size() == 0)
+                DialogHelper.showBasicDialog("There are no characters created, please create one to proceed");   
+              
+              else
+                new StartCampaign();
+          }
+        });
 
         btnCreateStuff.addActionListener(new ActionListener()
         {
