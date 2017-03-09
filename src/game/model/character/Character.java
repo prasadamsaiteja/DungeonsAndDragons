@@ -290,6 +290,7 @@ public class Character extends Observable
             Item weaponObj = this.getWeaponObject();
             if (weaponObj.itemClass.equalsIgnoreCase("Ranged"))
             {
+                // strength modifier + weapon modier and level
                 attackBonus += this.getStrength() + weaponObj.getModifier();
             }
         }
