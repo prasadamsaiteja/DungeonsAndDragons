@@ -43,6 +43,9 @@ public class SharedVariables
     public static final String EXIT_DOOR_STRING = "EXIT_DOOR";
     public static final String PLAYER_STRING = "PLAYER";
     public static final String DEFAULT_CELL_STRING = "EMPTY";
+    
+	public static final int CAMPAIGN_TOTAL_MAPS = 10;
+
 
     public static enum ItemType
     {
