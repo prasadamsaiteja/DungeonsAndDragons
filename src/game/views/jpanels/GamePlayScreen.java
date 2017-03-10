@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
@@ -20,6 +21,7 @@ import javax.swing.border.EtchedBorder;
 
 import game.components.SharedVariables;
 import game.model.Campaign;
+import game.model.Item;
 import game.model.Map;
 import game.model.character.Character;
 import game.model.character.CharactersList;
@@ -39,6 +41,7 @@ public class GamePlayScreen extends JPanel{
     private Character character;
     private Campaign campaign;    
     private Map currentMap;
+    private Object perivousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
   
     /**
      * This is constructor method for this class
@@ -52,9 +55,10 @@ public class GamePlayScreen extends JPanel{
              DialogHelper.showBasicDialog("Error reading saved files");
          
          else{
-             campaign.fetchMaps();
-             this.currentMap = campaign.getMapList().get(0);  
+             this.campaign.fetchMaps();
+             this.currentMap = campaign.getMapList().get(0);               
              setKeyListeners();
+             this.currentMap.initalizeMapData(this.character.getName());
              initComponents();
          }
            
@@ -97,22 +101,27 @@ public class GamePlayScreen extends JPanel{
       mapPanel.setLayout(new GridLayout(currentMap.mapWidth, currentMap.mapHeight));
       mapJPanelArray = new JPanel[currentMap.mapWidth][currentMap.mapHeight];
       for (int i = 0; i < currentMap.mapWidth; i++)      
-          for (int j = 0; j < currentMap.mapHeight; j++)
-          {
-              mapJPanelArray[i][j] = new JPanel();
-              mapJPanelArray[i][j].setBackground(SharedVariables.mapCellHashMap.get(currentMap.mapCellValues[i][j]));
-              
-              if(mapJPanelArray[i][j].getBackground() == SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING))
-                mapJPanelArray[i][j].setBackground(SharedVariables.mapCellHashMap.get(SharedVariables.PLAYER_STRING));
-                
-              mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));              
-              mapPanel.add(mapJPanelArray[i][j]);
-          }
-      
-       
+        for (int j = 0; j < currentMap.mapHeight; j++)
+        {
+            mapJPanelArray[i][j] = new JPanel();
+            mapJPanelArray[i][j] = setMapColorFromMapData(mapJPanelArray[i][j], currentMap.mapData[i][j]);                         
+            mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));              
+            mapPanel.add(mapJPanelArray[i][j]);
+        }
     }
+    
+    /**
+     * This method repaints the map after the action is completed
+     */
+    private void repaintMap() {
+     
+     for (int i = 0; i < currentMap.mapWidth; i++)      
+       for (int j = 0; j < currentMap.mapHeight; j++)       
+           mapJPanelArray[i][j] = setMapColorFromMapData(mapJPanelArray[i][j], currentMap.mapData[i][j]);       
+    }
+   
 
-   /** 
+  /** 
      * Initializes Control panel
      */
     private void initControlPanel()
@@ -155,7 +164,7 @@ public class GamePlayScreen extends JPanel{
                String key = "", value = "";
                if(index == 0){
                    key = "Campaign Name : ";
-                   value = campaign.getCampaignName();
+                   value = campaign.getCampaignName() + " (" + campaign.getMapNames().size() + " maps)";
                }
                
                else if(index == 1){
@@ -165,22 +174,22 @@ public class GamePlayScreen extends JPanel{
                
                else{
                    key = "Current Map Name : ";
-                   value = currentMap.getMapName();
+                   value = currentMap.getMapName() + " (" + campaign.getMapList().indexOf(currentMap) + 1 + " map out of " + campaign.getMapNames().size() + " maps)";
                }
              
                JPanel campaignNameJpanel = new JPanel();
                campaignDetailsPanel.add(campaignNameJpanel);
                campaignNameJpanel.setBackground(Color.WHITE);
-               campaignNameJpanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+               campaignNameJpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
                
                JLabel campaginLabel = new JLabel(key);
                campaginLabel.setHorizontalAlignment(SwingConstants.CENTER);
-               campaginLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+               campaginLabel.setFont(new Font("Tahoma", Font.BOLD, 10));
                campaignNameJpanel.add(campaginLabel);
                
                JLabel campaignNameValueLabel = new JLabel(value);
                campaignNameValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
-               campaignNameValueLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+               campaignNameValueLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
                campaignNameJpanel.add(campaignNameValueLabel);
            }
            
@@ -289,6 +298,69 @@ public class GamePlayScreen extends JPanel{
     }
     
     /**
+     * This method sets the map cell color from map data information
+     * @param jpanel Jpanel of the map cell
+     * @param mapCellObject map cell object contains map cell object
+     * @return returns jpanel with value set
+     */
+    private JPanel setMapColorFromMapData(JPanel jpanel, Object mapCellObject){
+        
+        if(mapCellObject instanceof String)
+            jpanel.setBackground(SharedVariables.getCellColorFromString(mapCellObject.toString()));
+        
+        else if(mapCellObject instanceof Character){
+          if(((Character) mapCellObject).getIsPlayer())
+            jpanel.setBackground(SharedVariables.getCellColorFromString(SharedVariables.PLAYER_STRING));
+          else
+            jpanel.setBackground(SharedVariables.getCellColorFromString(SharedVariables.MONSTER_STRING));                  
+        }
+                    
+        else if(mapCellObject instanceof Item)
+            jpanel.setBackground(SharedVariables.getCellColorFromString(SharedVariables.CHEST_STRING));
+                
+        return jpanel;
+      
+    }
+ 
+    /**
+     * This method moves the player position
+     * @param fromRowNumber from row position of player
+     * @param fromColNumber from col position of player
+     * @param toRowNumber to row position of player
+     * @param toColNumber to col position of player
+     */
+    private void movePlayer(int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber){
+      
+        if(!currentMap.mapData[toRowNumber][toColNumber].equals(SharedVariables.WALL_STRING) && ! (currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){
+          
+            Object tempPreviousMapCellObject = perivousMapCellObject;
+            perivousMapCellObject = currentMap.mapData[toRowNumber][toColNumber];             
+            currentMap.mapData[toRowNumber][toColNumber] = currentMap.mapData[fromRowNumber][fromColNumber];
+            currentMap.mapData[fromRowNumber][fromColNumber] = tempPreviousMapCellObject;              
+            repaintMap(); 
+            
+            if(perivousMapCellObject instanceof Item){              
+              JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) perivousMapCellObject).getItemType() + " (" + ((Item) perivousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION);              
+            }
+        }
+               
+    }
+    
+    /**
+     * This method returns the player position
+     * @return return array of int first int cotians row number and second int contains col number
+     */
+    private int[] getPlayerPosition(){
+      
+        for (int i = 0; i < currentMap.mapWidth; i++)      
+          for (int j = 0; j < currentMap.mapHeight; j++)
+                 if(currentMap.mapData[i][j] instanceof Character && ((Character) currentMap.mapData[i][j]).getIsPlayer())
+                   return new int[]{i, j};
+                                     
+        return null;              
+    }
+       
+    /**
      * This class actionPerformed is triggered when up or w is pressed by the user.
      * @author saiteja prasadam
      * @version 1.0.0
@@ -299,7 +371,12 @@ public class GamePlayScreen extends JPanel{
 
       @Override
       public void actionPerformed(ActionEvent e) {
-          System.out.println("Fired up");
+                      
+           int[] position = getPlayerPosition();
+           int rowNumber = position[0];
+           int colNumber = position[1];
+           if(rowNumber != 0)
+             movePlayer(rowNumber, colNumber, rowNumber - 1, colNumber);                      
       }
     }
     
@@ -314,7 +391,13 @@ public class GamePlayScreen extends JPanel{
 
       @Override
       public void actionPerformed(ActionEvent e) {
-          System.out.println("Fired down");
+          
+          int[] position = getPlayerPosition();
+          int rowNumber = position[0];
+          int colNumber = position[1];
+          
+          if(rowNumber < currentMap.mapHeight - 1)
+            movePlayer(rowNumber, colNumber, rowNumber + 1, colNumber);               
       }
     }
     
@@ -329,7 +412,13 @@ public class GamePlayScreen extends JPanel{
 
       @Override
       public void actionPerformed(ActionEvent e) {
-          System.out.println("Fired left");
+        
+          int[] position = getPlayerPosition();
+          int rowNumber = position[0];
+          int colNumber = position[1];
+          
+          if(colNumber != 0)
+            movePlayer(rowNumber, colNumber, rowNumber, colNumber - 1);    
       }
     }
     
@@ -344,8 +433,14 @@ public class GamePlayScreen extends JPanel{
 
       @Override
       public void actionPerformed(ActionEvent e) {
-          System.out.println("Fired right");
+        
+          int[] position = getPlayerPosition();
+          int rowNumber = position[0];
+          int colNumber = position[1];
+          
+          if(colNumber < currentMap.mapWidth - 1)
+            movePlayer(rowNumber, colNumber, rowNumber, colNumber + 1);       
       }
     }
-    
+            
 }

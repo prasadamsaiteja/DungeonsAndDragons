@@ -1,5 +1,6 @@
 package game.components;
 
+import java.awt.Toolkit;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -87,5 +88,22 @@ public class ExtensionMethods
     public static String[] getCharacterList(){
         ArrayList<String> chars = CharactersList.getNames();
         return chars.toArray(new String[chars.size()]);
+    }
+    
+    public static void playErrorSound(){
+      
+        try{
+          new Thread(new Runnable() {
+            
+            @Override
+            public void run() {
+              final Runnable runnable = (Runnable) Toolkit.getDefaultToolkit().getDesktopProperty("win.sound.exclamation");
+              if (runnable != null) runnable.run();
+            }
+          }).start();
+          
+        }
+        
+        catch(Exception ignored){}
     }
 }

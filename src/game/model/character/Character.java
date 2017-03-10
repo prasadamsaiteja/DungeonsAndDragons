@@ -22,7 +22,7 @@ import game.model.jaxb.ItemJaxb;
  * @author Supreet Singh (s_supree)
  *
  */
-public class Character extends Observable
+public class Character extends Observable implements Cloneable
 {
 
     private String characterClass;
@@ -41,6 +41,8 @@ public class Character extends Observable
     private String armor;
     private String helmet;
     private String fname;
+    private Boolean isFriendlyMonster = true;
+    private Boolean isPlayer = false;
 
     /**
      * @param name set character name
@@ -637,7 +639,7 @@ public class Character extends Observable
 
         }
     }
-
+ 
     /**
      * keeps a track of characters damage. Damage should reduce everytime a
      * character is hit
@@ -709,5 +711,52 @@ public class Character extends Observable
             (new File(SharedVariables.CharactersDirectory + File.separator + this.fname + ".xml")).delete();
             CharactersList.init().updateCharactersList();
         }
+    }
+
+    /**
+     * This returns if the monster is friendly or not
+     * @return returns true if it a friendly monster
+     */
+    public Boolean getIsFriendlyMonster(){
+      return isFriendlyMonster;
+    }
+    
+    /**
+     * This method set if the monster is friendly or not
+     * @param value true/false to set is friendly monster 
+     */
+    public void setIsFriendlyMonster(Boolean value){
+        isFriendlyMonster = value;
+    }
+
+    /**
+     * Return true if the character is a player
+     * @return the isPlayer
+     */
+    public Boolean getIsPlayer() {
+      return this.isPlayer;
+    }
+
+    /**
+     * This method set is the character is a player or not
+     * @param isPlayer the isPlayer to set
+     */
+    public void setIsPlayer(Boolean isPlayer) {
+      this.isPlayer = isPlayer;
+    }
+
+    /**
+     * This method clone this class object 
+     * @retrun Charctaer cloned object
+     */
+    public Character clone(){
+        
+        try{
+          return (Character) super.clone();
+        }
+        
+        catch(CloneNotSupportedException ignored){}
+        
+        return null;
     }
 }

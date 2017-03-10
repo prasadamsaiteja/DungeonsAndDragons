@@ -42,7 +42,7 @@ public class SharedVariables
     public static final String ENTRY_DOOR_STRING = "ENTRY_DOOR";
     public static final String EXIT_DOOR_STRING = "EXIT_DOOR";
     public static final String PLAYER_STRING = "PLAYER";
-    private static final String DEFAULT_CELL_STRING = "EMPTY";
+    public static final String DEFAULT_CELL_STRING = "EMPTY";
 
     public static enum ItemType
     {
