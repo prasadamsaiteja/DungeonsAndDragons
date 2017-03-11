@@ -40,8 +40,9 @@ public class Character extends Observable implements Cloneable
     private String armor;
     private String helmet;
     private String fname;
-    private boolean isBuilt = false;  
+    private boolean isBuilt = false;
     
+    private Boolean isKeyCollected = false;
     private Boolean isFriendlyMonster = true;
     private Boolean isPlayer = false;
 
@@ -761,5 +762,25 @@ public class Character extends Observable implements Cloneable
         catch(CloneNotSupportedException ignored){}
         
         return null;
+    }
+
+    /**
+     * This method returns if the player has key or not 
+     * @return isKeyCollected true if user has key
+     */
+    public Boolean getIsKeyCollected() {
+        
+        if(isKeyCollected == null)     
+           return false;
+        
+        return isKeyCollected;
+    }
+
+    /**
+     * This method set if the player has key or not
+     * @param status of user has key or not
+     */
+    public void setIsKeyCollected(Boolean isKeyCollected) {
+        this.isKeyCollected = isKeyCollected;
     }
 }

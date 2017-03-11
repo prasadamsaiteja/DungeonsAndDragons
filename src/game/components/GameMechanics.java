@@ -65,4 +65,19 @@ public class GameMechanics {
         
         return characters;
     }
+
+    /**
+     * This method returns where there is a map contains a key or not.
+     * @param currentMap Current map object
+     * @return return true if key found else false
+     */
+    public static boolean checkIfKeyExistsInTheMap(Map currentMap){       
+        
+        for (int i = 0; i < currentMap.mapWidth; i++)      
+          for (int j = 0; j < currentMap.mapHeight; j++)
+              if(currentMap.mapCellValues[i][j].equals(SharedVariables.KEY_STRING))
+                  return true;
+        
+        return false;
+    }
 }

@@ -500,12 +500,62 @@ public class GamePlayScreen extends JPanel implements Observer{
                 if(perivousMapCellObject instanceof Item){              
                     JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) perivousMapCellObject).getItemType() + " (" + ((Item) perivousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION);
                 }
+                
+                if(perivousMapCellObject instanceof String && ((String) perivousMapCellObject).equals(SharedVariables.EXIT_DOOR_STRING)){
+                    if(checkIfTheObjectiveIsCompleted())
+                        DialogHelper.showBasicDialog("Level completed");
+                    
+                    else
+                        DialogHelper.showBasicDialog("You need to collecte key (If map has one) or kill all the hostile enemies to complete this level");                        
+                }
+                    
             }
             
-            else if((currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){
-                ((Character) currentMap.mapData[toRowNumber][toColNumber]).hit(((Character) currentMap.mapData[toRowNumber][toColNumber]).getHitScore());
+            else if(currentMap.mapData[toRowNumber][toColNumber] instanceof Character){
+                
+                if(((Character) currentMap.mapData[toRowNumber][toColNumber]).getIsFriendlyMonster() == false)
+                    attackHostileMonster(toRowNumber, toColNumber);
+                else
+                    exchangeItemsFromFriendlyMonsters(toRowNumber, toColNumber);
             }
                    
+        }
+
+        /**
+         * This method lets player to exchange items from friendly monster
+         * @param toRowNumber row number which user is tryiing to goto
+         * @param toColNumber col number which user is trying to goto
+         */
+        private void exchangeItemsFromFriendlyMonsters(int toRowNumber, int toColNumber) {
+            Character friendlyMonster = (Character) currentMap.mapData[toRowNumber][toColNumber];
+            JOptionPane.showConfirmDialog(null, "Do you want to exchange items from this friendly monster (" + friendlyMonster.getName() + ") ?","You approched a friendly monster", JOptionPane.YES_NO_OPTION);
+        }
+
+        /**
+         * This method lets player to attach Hostile monster
+         * @param toRowNumber row number which user is tryiing to goto
+         * @param toColNumber col number which user is trying to goto
+         */
+        private void attackHostileMonster(int toRowNumber, int toColNumber) {
+            Character hostileMonster = (Character) currentMap.mapData[toRowNumber][toColNumber];
+            hostileMonster.hit(hostileMonster.getHitScore());
+        }
+    
+        /**
+         * This method return true or false to state whether the object is completed or not
+         * @return true if objective is completed else false
+         */
+        private boolean checkIfTheObjectiveIsCompleted(){
+            
+            if(character.getIsKeyCollected() == true)
+                return true;
+            
+            ArrayList<Character> characters = GameMechanics.getAllCharacterObjects(currentMap);
+            for(Character character : characters)
+                if(!character.getIsPlayer() && !character.getIsFriendlyMonster() && character.getHitScore() > 0)
+                    return false;
+            
+            return true;            
         }
     }
            
@@ -522,9 +572,9 @@ public class GamePlayScreen extends JPanel implements Observer{
      */
     public void removePreviousObservables() {
       
-      ArrayList<Character> character = GameMechanics.getAllCharacterObjects(currentMap);
-      for(Character characterObject : character)
-        characterObject.deleteObservers();
+          ArrayList<Character> characters = GameMechanics.getAllCharacterObjects(currentMap);        
+          for(Character characterObject : characters)
+            characterObject.deleteObservers();      
     }
     
 }
