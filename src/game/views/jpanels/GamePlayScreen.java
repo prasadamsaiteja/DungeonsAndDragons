@@ -8,6 +8,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -19,6 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import game.components.GameMechanics;
 import game.components.SharedVariables;
 import game.model.Campaign;
 import game.model.Item;
@@ -26,6 +31,7 @@ import game.model.Map;
 import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.jaxb.CampaignJaxb;
+import game.model.onclickListeners.MapClickListener;
 import game.views.jdialogs.DialogHelper;
 
 /**
@@ -35,13 +41,14 @@ import game.views.jdialogs.DialogHelper;
  * @since 3/8/2017
  */
 @SuppressWarnings("serial")
-public class GamePlayScreen extends JPanel{
+public class GamePlayScreen extends JPanel implements Observer{
   
-    private JPanel mapJPanelArray[][]; // Map grid
+    private JPanel mapJPanelArray[][];
     private Character character;
     private Campaign campaign;    
     private Map currentMap;
     private Object perivousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
+    private JPanel characterDetailsPanel;
   
     /**
      * This is constructor method for this class
@@ -104,28 +111,18 @@ public class GamePlayScreen extends JPanel{
         for (int j = 0; j < currentMap.mapHeight; j++)
         {
             mapJPanelArray[i][j] = new JPanel();
-            mapJPanelArray[i][j] = setMapColorFromMapData(mapJPanelArray[i][j], currentMap.mapData[i][j]);                         
+            mapJPanelArray[i][j] = GameMechanics.setMapCellDetailsFromMapObjectData(mapJPanelArray[i][j], currentMap.mapData[i][j]);
+            mapJPanelArray[i][j].addMouseListener(new MapClickListener(this, currentMap.mapData[i][j]));
             mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));              
             mapPanel.add(mapJPanelArray[i][j]);
         }
     }
-    
-    /**
-     * This method repaints the map after the action is completed
-     */
-    private void repaintMap() {
-     
-     for (int i = 0; i < currentMap.mapWidth; i++)      
-       for (int j = 0; j < currentMap.mapHeight; j++)       
-           mapJPanelArray[i][j] = setMapColorFromMapData(mapJPanelArray[i][j], currentMap.mapData[i][j]);       
-    }
-   
-
+          
   /** 
      * Initializes Control panel
      */
     private void initControlPanel()
-   {
+    {
 
        JPanel designPanel = new JPanel();
 
@@ -159,7 +156,7 @@ public class GamePlayScreen extends JPanel{
            designPanel.add(campaignDetailsPanel, gbc_mapNamePanel);
            campaignDetailsPanel.setLayout(new GridLayout(0, 1, 0, 0));
            
-           for(int index = 0; index < 3; index++){
+           for(int index = 0; index < 4; index++){
              
                String key = "", value = "";
                if(index == 0){
@@ -172,12 +169,18 @@ public class GamePlayScreen extends JPanel{
                    value = character.getName();                   
                }
                
-               else{
+               else if(index == 2){
                    key = "Current Map Name : ";
                    value = currentMap.getMapName() + " (" + campaign.getMapList().indexOf(currentMap) + 1 + " map out of " + campaign.getMapNames().size() + " maps)";
                }
+               
+               else{
+                 key = "Level : ";
+                 value = String.valueOf(character.getLevel());
+               }
              
                JPanel campaignNameJpanel = new JPanel();
+               campaignNameJpanel.setBackground(Color.WHITE);
                campaignDetailsPanel.add(campaignNameJpanel);
                campaignNameJpanel.setBackground(Color.WHITE);
                campaignNameJpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
@@ -191,8 +194,7 @@ public class GamePlayScreen extends JPanel{
                campaignNameValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
                campaignNameValueLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
                campaignNameJpanel.add(campaignNameValueLabel);
-           }
-           
+           }           
        }
 
        {    //Initialize Components panel
@@ -206,7 +208,7 @@ public class GamePlayScreen extends JPanel{
            gbc_componentsPanel.gridx = 0;
            gbc_componentsPanel.gridy = 1;
            designPanel.add(componentsPanel, gbc_componentsPanel);
-           componentsPanel.setLayout(new GridLayout(0, 2));
+           componentsPanel.setLayout(new GridLayout(0, 2));           
 
            // Wall
            JPanel wallJpanel = new JPanel();
@@ -271,8 +273,96 @@ public class GamePlayScreen extends JPanel{
            componentsPanel.add(keyJpanel);
            componentsPanel.add(keyLabel);          
        }
+       
+       characterDetailsPanel = new JPanel();
+       characterDetailsPanel.setBackground(Color.WHITE);
+       characterDetailsPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), new EtchedBorder()));
+       GridBagConstraints gbc_characterDetailsPanel = new GridBagConstraints();
+       gbc_characterDetailsPanel.insets = new Insets(0, 0, 5, 0);
+       gbc_characterDetailsPanel.fill = GridBagConstraints.HORIZONTAL;
+       gbc_characterDetailsPanel.anchor = GridBagConstraints.NORTH;
+       gbc_characterDetailsPanel.gridx = 0;
+       gbc_characterDetailsPanel.gridy = 3;
+       designPanel.add(characterDetailsPanel, gbc_characterDetailsPanel);
+       characterDetailsPanel.setLayout(new GridLayout(0, 1, 0, 0));    
+       
+       showPlayerDetails(character.clone());
    }
 
+    /**
+     * This method displays the character details on the screen
+     * @param character Character object that needs to be displayed on the screen
+     */
+    public void showPlayerDetails(Character character) {
+                                
+          this.removePreviousObservables();
+          character.addObserver(this);
+          characterDetailsPanel.removeAll();
+          
+          for(int index = 0; index < 4; index++){
+            
+            String key = "", value = "";
+            if(index == 0){
+                key = "Character Name : ";
+                value = character.getName();
+            }
+            
+            else if(index == 1){
+              
+                key = "Type of character : ";
+                if(character.getIsPlayer() == null || character.getIsPlayer() == true)
+                  value = "Player";
+                else if(character.getIsFriendlyMonster() == true)
+                  value = "Monster (Friendly)";
+                else
+                  value = "Monster (Hostile)";
+            }
+            
+            else if(index == 2){
+                key = "Level : ";
+                value = String.valueOf(character.getLevel());
+            }
+            
+            else{
+                key = "Hit points : ";
+                value = String.valueOf(character.getHitScore() + "HP");
+            }
+          
+            JPanel campaignNameJpanel = new JPanel();            
+            campaignNameJpanel.setBackground(Color.WHITE);
+            campaignNameJpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+            
+            JLabel campaginLabel = new JLabel(key);
+            campaginLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            campaginLabel.setFont(new Font("Tahoma", Font.BOLD, 10));
+            campaignNameJpanel.add(campaginLabel);
+            
+            JLabel campaignNameValueLabel = new JLabel(value);
+            campaignNameValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            campaignNameValueLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
+            campaignNameJpanel.add(campaignNameValueLabel);
+            characterDetailsPanel.add(campaignNameJpanel);  
+            characterDetailsPanel.revalidate();
+        } 
+    
+    }                  
+       
+    /**
+     * This method repaints the map after the action is completed
+     */
+    private void repaintMap() {
+     
+     for (int i = 0; i < currentMap.mapWidth; i++)      
+       for (int j = 0; j < currentMap.mapHeight; j++) {
+         
+         for(MouseListener listener : mapJPanelArray[i][j].getMouseListeners())  
+             mapJPanelArray[i][j].removeMouseListener(listener);
+           
+           mapJPanelArray[i][j].addMouseListener(new MapClickListener(this, currentMap.mapData[i][j]));
+           mapJPanelArray[i][j] = GameMechanics.setMapCellDetailsFromMapObjectData(mapJPanelArray[i][j], currentMap.mapData[i][j]);           
+       }                  
+    }
+    
     /**
      * This method set's up key binding for player moments
      */
@@ -289,158 +379,152 @@ public class GamePlayScreen extends JPanel{
         
         this.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "RIGHT_PRESSED");
         this.getInputMap().put(KeyStroke.getKeyStroke("D"), "RIGHT_PRESSED");
+
+        PlayerMomentMechanics playerMomentMechanics = new PlayerMomentMechanics();
         
-        this.getActionMap().put("UP_PRESSED", new UP_PRESSED());
-        this.getActionMap().put("DOWN_PRESSED", new DOWN_PRESSED());
-        this.getActionMap().put("LEFT_PRESSED", new LEFT_PRESSED());
-        this.getActionMap().put("RIGHT_PRESSED", new RIGHT_PRESSED());
-        
+        this.getActionMap().put("UP_PRESSED", playerMomentMechanics.new UP_PRESSED());
+        this.getActionMap().put("DOWN_PRESSED", playerMomentMechanics.new DOWN_PRESSED());
+        this.getActionMap().put("LEFT_PRESSED", playerMomentMechanics.new LEFT_PRESSED());
+        this.getActionMap().put("RIGHT_PRESSED", playerMomentMechanics.new RIGHT_PRESSED());        
     }
-    
+          
     /**
-     * This method sets the map cell color from map data information
-     * @param jpanel Jpanel of the map cell
-     * @param mapCellObject map cell object contains map cell object
-     * @return returns jpanel with value set
+     * This class contains all the player moment mechanics classes and methods 
+     * @author saiteja prasadm
+     * @since 3/11/2017
+     * @version 1.0.0
      */
-    private JPanel setMapColorFromMapData(JPanel jpanel, Object mapCellObject){
+    class PlayerMomentMechanics{
         
-        if(mapCellObject instanceof String)
-            jpanel.setBackground(SharedVariables.getCellColorFromString(mapCellObject.toString()));
-        
-        else if(mapCellObject instanceof Character){
-          if(((Character) mapCellObject).getIsPlayer())
-            jpanel.setBackground(SharedVariables.getCellColorFromString(SharedVariables.PLAYER_STRING));
-          else
-            jpanel.setBackground(SharedVariables.getCellColorFromString(SharedVariables.MONSTER_STRING));                  
+        /**
+         * This class actionPerformed is triggered when up or w is pressed by the user.
+         * @author saiteja prasadam
+         * @version 1.0.0
+         * @since 3/9/2017
+         *
+         */
+        public class UP_PRESSED extends AbstractAction {
+
+          @Override
+          public void actionPerformed(ActionEvent e) {
+                          
+               int[] position = GameMechanics.getPlayerPosition(currentMap);
+               int rowNumber = position[0];
+               int colNumber = position[1];
+               if(rowNumber != 0)
+                 movePlayer(rowNumber, colNumber, rowNumber - 1, colNumber);                      
+          }
         }
-                    
-        else if(mapCellObject instanceof Item)
-            jpanel.setBackground(SharedVariables.getCellColorFromString(SharedVariables.CHEST_STRING));
+    
+        /**
+         * This class actionPerformed is triggered when down or s is pressed by the user.
+         * @author saiteja prasadam
+         * @version 1.0.0
+         * @since 3/9/2017
+         *
+         */
+        class DOWN_PRESSED extends AbstractAction {
+
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              
+              int[] position = GameMechanics.getPlayerPosition(currentMap);
+              int rowNumber = position[0];
+              int colNumber = position[1];
+              
+              if(rowNumber < currentMap.mapHeight - 1)
+                movePlayer(rowNumber, colNumber, rowNumber + 1, colNumber);               
+          }
+        }
+        
+        /**
+         * This class actionPerformed is triggered when left or a is pressed by the user.
+         * @author saiteja prasadam
+         * @version 1.0.0
+         * @since 3/9/2017
+         *
+         */
+        class LEFT_PRESSED extends AbstractAction {
+
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            
+              int[] position = GameMechanics.getPlayerPosition(currentMap);
+              int rowNumber = position[0];
+              int colNumber = position[1];
+              
+              if(colNumber != 0)
+                movePlayer(rowNumber, colNumber, rowNumber, colNumber - 1);    
+          }
+          
+        }
+        
+        /**
+         * This class actionPerformed is triggered when right or d is pressed by the user.
+         * @author saiteja prasadam
+         * @version 1.0.0
+         * @since 3/9/2017
+         *
+         */
+        class RIGHT_PRESSED extends AbstractAction {
+
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            
+              int[] position = GameMechanics.getPlayerPosition(currentMap);
+              int rowNumber = position[0];
+              int colNumber = position[1];
+              
+              if(colNumber < currentMap.mapWidth - 1)
+                movePlayer(rowNumber, colNumber, rowNumber, colNumber + 1);       
+          }
+        }
+        
+        /**
+         * This method moves the player position
+         * @param fromRowNumber from row position of player
+         * @param fromColNumber from col position of player
+         * @param toRowNumber to row position of player
+         * @param toColNumber to col position of player
+         */
+        private void movePlayer(int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber){
+          
+            if(!currentMap.mapData[toRowNumber][toColNumber].equals(SharedVariables.WALL_STRING) && ! (currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){
+              
+                Object tempPreviousMapCellObject = perivousMapCellObject;
+                perivousMapCellObject = currentMap.mapData[toRowNumber][toColNumber];             
+                currentMap.mapData[toRowNumber][toColNumber] = currentMap.mapData[fromRowNumber][fromColNumber];
+                currentMap.mapData[fromRowNumber][fromColNumber] = tempPreviousMapCellObject;              
+                repaintMap(); 
                 
-        return jpanel;
-      
-    }
- 
-    /**
-     * This method moves the player position
-     * @param fromRowNumber from row position of player
-     * @param fromColNumber from col position of player
-     * @param toRowNumber to row position of player
-     * @param toColNumber to col position of player
-     */
-    private void movePlayer(int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber){
-      
-        if(!currentMap.mapData[toRowNumber][toColNumber].equals(SharedVariables.WALL_STRING) && ! (currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){
-          
-            Object tempPreviousMapCellObject = perivousMapCellObject;
-            perivousMapCellObject = currentMap.mapData[toRowNumber][toColNumber];             
-            currentMap.mapData[toRowNumber][toColNumber] = currentMap.mapData[fromRowNumber][fromColNumber];
-            currentMap.mapData[fromRowNumber][fromColNumber] = tempPreviousMapCellObject;              
-            repaintMap(); 
-            
-            if(perivousMapCellObject instanceof Item){              
-              JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) perivousMapCellObject).getItemType() + " (" + ((Item) perivousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION);              
+                if(perivousMapCellObject instanceof Item){              
+                    JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) perivousMapCellObject).getItemType() + " (" + ((Item) perivousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION);
+                }
             }
-        }
-               
-    }
-    
-    /**
-     * This method returns the player position
-     * @return return array of int first int cotians row number and second int contains col number
-     */
-    private int[] getPlayerPosition(){
-      
-        for (int i = 0; i < currentMap.mapWidth; i++)      
-          for (int j = 0; j < currentMap.mapHeight; j++)
-                 if(currentMap.mapData[i][j] instanceof Character && ((Character) currentMap.mapData[i][j]).getIsPlayer())
-                   return new int[]{i, j};
-                                     
-        return null;              
-    }
-       
-    /**
-     * This class actionPerformed is triggered when up or w is pressed by the user.
-     * @author saiteja prasadam
-     * @version 1.0.0
-     * @since 3/9/2017
-     *
-     */
-    class UP_PRESSED extends AbstractAction {
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-                      
-           int[] position = getPlayerPosition();
-           int rowNumber = position[0];
-           int colNumber = position[1];
-           if(rowNumber != 0)
-             movePlayer(rowNumber, colNumber, rowNumber - 1, colNumber);                      
-      }
-    }
-    
-    /**
-     * This class actionPerformed is triggered when down or s is pressed by the user.
-     * @author saiteja prasadam
-     * @version 1.0.0
-     * @since 3/9/2017
-     *
-     */
-    class DOWN_PRESSED extends AbstractAction {
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-          
-          int[] position = getPlayerPosition();
-          int rowNumber = position[0];
-          int colNumber = position[1];
-          
-          if(rowNumber < currentMap.mapHeight - 1)
-            movePlayer(rowNumber, colNumber, rowNumber + 1, colNumber);               
-      }
-    }
-    
-    /**
-     * This class actionPerformed is triggered when left or a is pressed by the user.
-     * @author saiteja prasadam
-     * @version 1.0.0
-     * @since 3/9/2017
-     *
-     */
-    class LEFT_PRESSED extends AbstractAction {
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        
-          int[] position = getPlayerPosition();
-          int rowNumber = position[0];
-          int colNumber = position[1];
-          
-          if(colNumber != 0)
-            movePlayer(rowNumber, colNumber, rowNumber, colNumber - 1);    
-      }
-    }
-    
-    /**
-     * This class actionPerformed is triggered when right or d is pressed by the user.
-     * @author saiteja prasadam
-     * @version 1.0.0
-     * @since 3/9/2017
-     *
-     */
-    class RIGHT_PRESSED extends AbstractAction {
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        
-          int[] position = getPlayerPosition();
-          int rowNumber = position[0];
-          int colNumber = position[1];
-          
-          if(colNumber < currentMap.mapWidth - 1)
-            movePlayer(rowNumber, colNumber, rowNumber, colNumber + 1);       
-      }
-    }
             
+            else if((currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){
+                ((Character) currentMap.mapData[toRowNumber][toColNumber]).hit(((Character) currentMap.mapData[toRowNumber][toColNumber]).getHitScore());
+            }
+                   
+        }
+    }
+           
+    /**
+     * This method is called when the selected character object gets updated
+     */
+    @Override
+    public void update(Observable arg0, Object arg1) {
+          this.showPlayerDetails((Character) arg0);
+    }
+
+    /**
+     * This method removes all the previous observable attached to the character object
+     */
+    public void removePreviousObservables() {
+      
+      ArrayList<Character> character = GameMechanics.getAllCharacterObjects(currentMap);
+      for(Character characterObject : character)
+        characterObject.deleteObservers();
+    }
+    
 }

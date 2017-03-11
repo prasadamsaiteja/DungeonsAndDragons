@@ -25,14 +25,13 @@ import game.model.jaxb.ItemJaxb;
 public class Character extends Observable implements Cloneable
 {
 
-    private String characterClass;
-    private String name;
     private int level = 1;
     private int strength;
     private int dexterity;
     private int constitution;
-    private boolean isBuilt = false;
-    private int hitScore = 0;
+    private int hitScore = 0;    
+    private String characterClass;
+    private String name;
     private String weaponName;
     private String beltName;
     private String ringName;
@@ -41,6 +40,8 @@ public class Character extends Observable implements Cloneable
     private String armor;
     private String helmet;
     private String fname;
+    private boolean isBuilt = false;  
+    
     private Boolean isFriendlyMonster = true;
     private Boolean isPlayer = false;
 
@@ -650,6 +651,7 @@ public class Character extends Observable implements Cloneable
     public void hit(int damage)
     {
         this.hitScore -= damage;
+        this.draw();
     }
 
     /**
@@ -743,7 +745,7 @@ public class Character extends Observable implements Cloneable
      * @param isPlayer the isPlayer to set
      */
     public void setIsPlayer(Boolean isPlayer) {
-      this.isPlayer = isPlayer;
+        this.isPlayer = isPlayer;
     }
 
     /**

@@ -90,6 +90,9 @@ public class ExtensionMethods
         return chars.toArray(new String[chars.size()]);
     }
     
+    /**
+     * This method plays a error sound, to let the user know something is wrong
+     */
     public static void playErrorSound(){
       
         try{
