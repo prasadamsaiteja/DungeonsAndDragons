@@ -15,6 +15,7 @@ import java.util.Observer;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -47,7 +48,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     private Character character;
     private Campaign campaign;    
     private Map currentMap;
-    private Object perivousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
+    private Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
     private JPanel characterDetailsPanel;
   
     /**
@@ -56,19 +57,32 @@ public class GamePlayScreen extends JPanel implements Observer{
     public GamePlayScreen(String camapaignName, String characterName){
       
          this.campaign = CampaignJaxb.getCampaignFromXml(camapaignName);
-         this.character = CharactersList.getByName(characterName);
+         this.character = CharactersList.getByName(characterName).clone();
+         this.character.setIsPlayer(true);
          
          if(campaign == null || character == null)
              DialogHelper.showBasicDialog("Error reading saved files");
          
          else{
+             this.setKeyListeners();
              this.campaign.fetchMaps();
-             this.currentMap = campaign.getMapList().get(0);               
-             setKeyListeners();
-             this.currentMap.initalizeMapData(this.character.getName());
+             this.currentMap = campaign.getMapList().get(0);             
+             this.currentMap.initalizeMapData(this.character.getName());             
+             this.setMapLevel();
              initComponents();
          }
            
+    }
+    
+    /**
+     * This method set the level of the enemy and item using by players and enemies, matching to the player
+     */
+    private void setMapLevel(){
+        
+        for (int i = 0; i < currentMap.mapWidth; i++)      
+            for (int j = 0; j < currentMap.mapHeight; j++)
+                if(currentMap.mapData[i][j] instanceof Character)
+                    ((Character) currentMap.mapData[i][j]).setLevel(character.getLevel());
     }
     
     /**
@@ -86,6 +100,7 @@ public class GamePlayScreen extends JPanel implements Observer{
         initMapPanel();
         initControlPanel();
     }
+    
 
     /**
      * This method initializes map panel
@@ -107,6 +122,7 @@ public class GamePlayScreen extends JPanel implements Observer{
 
       mapPanel.setLayout(new GridLayout(currentMap.mapWidth, currentMap.mapHeight));
       mapJPanelArray = new JPanel[currentMap.mapWidth][currentMap.mapHeight];
+      
       for (int i = 0; i < currentMap.mapWidth; i++)      
         for (int j = 0; j < currentMap.mapHeight; j++)
         {
@@ -180,8 +196,7 @@ public class GamePlayScreen extends JPanel implements Observer{
                }
              
                JPanel campaignNameJpanel = new JPanel();
-               campaignNameJpanel.setBackground(Color.WHITE);
-               campaignDetailsPanel.add(campaignNameJpanel);
+               campaignNameJpanel.setBackground(Color.WHITE);               
                campaignNameJpanel.setBackground(Color.WHITE);
                campaignNameJpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
                
@@ -194,7 +209,9 @@ public class GamePlayScreen extends JPanel implements Observer{
                campaignNameValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
                campaignNameValueLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
                campaignNameJpanel.add(campaignNameValueLabel);
-           }           
+               campaignDetailsPanel.add(campaignNameJpanel);
+           }  
+                     
        }
 
        {    //Initialize Components panel
@@ -285,9 +302,10 @@ public class GamePlayScreen extends JPanel implements Observer{
        gbc_characterDetailsPanel.gridy = 3;
        designPanel.add(characterDetailsPanel, gbc_characterDetailsPanel);
        characterDetailsPanel.setLayout(new GridLayout(0, 1, 0, 0));    
-       
-       showPlayerDetails(character.clone());
+      
+       showPlayerDetails(character);
    }
+    
 
     /**
      * This method displays the character details on the screen
@@ -299,51 +317,64 @@ public class GamePlayScreen extends JPanel implements Observer{
           character.addObserver(this);
           characterDetailsPanel.removeAll();
           
-          for(int index = 0; index < 4; index++){
-            
-            String key = "", value = "";
-            if(index == 0){
-                key = "Character Name : ";
-                value = character.getName();
-            }
-            
-            else if(index == 1){
+          for(int index = 0; index < 5; index++){
               
-                key = "Type of character : ";
-                if(character.getIsPlayer() == null || character.getIsPlayer() == true)
-                  value = "Player";
-                else if(character.getIsFriendlyMonster() == true)
-                  value = "Monster (Friendly)";
-                else
-                  value = "Monster (Hostile)";
-            }
+              String key = "", value = "";
+              if(index == 0){
+                  key = "Character Name : ";
+                  value = character.getName();
+              }
+              
+              else if(index == 1){
+                
+                  key = "Type of character : ";
+                  
+                  if(character.getIsPlayer() == null || character.getIsPlayer() == true)
+                    value = "Player";
+                  
+                  else if(character.getIsFriendlyMonster() == true)
+                    value = "Monster (Friendly)";
+                  else
+                    value = "Monster (Hostile)";
+              }
+              
+              else if(index == 2){
+                  key = "Level : ";
+                  value = String.valueOf(character.getLevel());
+              }
+              
+              else if(index == 3){
+                  key = "Hit points : ";
+                  value = String.valueOf(character.getHitScore() + "HP");
+              }
+              
+              else if(character.getIsPlayer()){                
+                  key = "Key collected : ";
+                  if(character.getIsKeyCollected())
+                      value = "Yes";
+                  else
+                      value = "No";
+              }
             
-            else if(index == 2){
-                key = "Level : ";
-                value = String.valueOf(character.getLevel());
-            }
-            
-            else{
-                key = "Hit points : ";
-                value = String.valueOf(character.getHitScore() + "HP");
-            }
+              JPanel campaignNameJpanel = new JPanel();            
+              campaignNameJpanel.setBackground(Color.WHITE);
+              campaignNameJpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+              
+              JLabel campaginLabel = new JLabel(key);
+              campaginLabel.setHorizontalAlignment(SwingConstants.CENTER);
+              campaginLabel.setFont(new Font("Tahoma", Font.BOLD, 10));
+              campaignNameJpanel.add(campaginLabel);
+              
+              JLabel campaignNameValueLabel = new JLabel(value);
+              campaignNameValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
+              campaignNameValueLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
+              campaignNameJpanel.add(campaignNameValueLabel);
+              characterDetailsPanel.add(campaignNameJpanel);              
+          } 
           
-            JPanel campaignNameJpanel = new JPanel();            
-            campaignNameJpanel.setBackground(Color.WHITE);
-            campaignNameJpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-            
-            JLabel campaginLabel = new JLabel(key);
-            campaginLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            campaginLabel.setFont(new Font("Tahoma", Font.BOLD, 10));
-            campaignNameJpanel.add(campaginLabel);
-            
-            JLabel campaignNameValueLabel = new JLabel(value);
-            campaignNameValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            campaignNameValueLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
-            campaignNameJpanel.add(campaignNameValueLabel);
-            characterDetailsPanel.add(campaignNameJpanel);  
-            characterDetailsPanel.revalidate();
-        } 
+          JButton openInventory = new JButton("Open Inventory");
+          characterDetailsPanel.add(openInventory);  
+          characterDetailsPanel.revalidate();
     
     }                  
        
@@ -362,6 +393,7 @@ public class GamePlayScreen extends JPanel implements Observer{
            mapJPanelArray[i][j] = GameMechanics.setMapCellDetailsFromMapObjectData(mapJPanelArray[i][j], currentMap.mapData[i][j]);           
        }                  
     }
+    
     
     /**
      * This method set's up key binding for player moments
@@ -387,6 +419,7 @@ public class GamePlayScreen extends JPanel implements Observer{
         this.getActionMap().put("LEFT_PRESSED", playerMomentMechanics.new LEFT_PRESSED());
         this.getActionMap().put("RIGHT_PRESSED", playerMomentMechanics.new RIGHT_PRESSED());        
     }
+    
           
     /**
      * This class contains all the player moment mechanics classes and methods 
@@ -403,7 +436,7 @@ public class GamePlayScreen extends JPanel implements Observer{
          * @since 3/9/2017
          *
          */
-        public class UP_PRESSED extends AbstractAction {
+        class UP_PRESSED extends AbstractAction {
 
           @Override
           public void actionPerformed(ActionEvent e) {
@@ -480,6 +513,7 @@ public class GamePlayScreen extends JPanel implements Observer{
           }
         }
         
+        
         /**
          * This method moves the player position
          * @param fromRowNumber from row position of player
@@ -491,17 +525,22 @@ public class GamePlayScreen extends JPanel implements Observer{
           
             if(!currentMap.mapData[toRowNumber][toColNumber].equals(SharedVariables.WALL_STRING) && ! (currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){
               
-                Object tempPreviousMapCellObject = perivousMapCellObject;
-                perivousMapCellObject = currentMap.mapData[toRowNumber][toColNumber];             
+                Object tempPreviousMapCellObject = previousMapCellObject;
+                previousMapCellObject = currentMap.mapData[toRowNumber][toColNumber];             
                 currentMap.mapData[toRowNumber][toColNumber] = currentMap.mapData[fromRowNumber][fromColNumber];
                 currentMap.mapData[fromRowNumber][fromColNumber] = tempPreviousMapCellObject;              
                 repaintMap(); 
                 
-                if(perivousMapCellObject instanceof Item){              
-                    JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) perivousMapCellObject).getItemType() + " (" + ((Item) perivousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION);
+                if(previousMapCellObject instanceof Item){              
+                    JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) previousMapCellObject).getItemType() + " (" + ((Item) previousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION);
                 }
                 
-                if(perivousMapCellObject instanceof String && ((String) perivousMapCellObject).equals(SharedVariables.EXIT_DOOR_STRING)){
+                else if(previousMapCellObject instanceof String && ((String) previousMapCellObject).equals(SharedVariables.KEY_STRING)){
+                    character.setIsKeyCollected(true);
+                    previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;;
+                }
+                
+                else if(previousMapCellObject instanceof String && ((String) previousMapCellObject).equals(SharedVariables.EXIT_DOOR_STRING)){
                     if(checkIfTheObjectiveIsCompleted())
                         DialogHelper.showBasicDialog("Level completed");
                     
@@ -558,6 +597,7 @@ public class GamePlayScreen extends JPanel implements Observer{
             return true;            
         }
     }
+    
            
     /**
      * This method is called when the selected character object gets updated
@@ -566,6 +606,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     public void update(Observable arg0, Object arg1) {
           this.showPlayerDetails((Character) arg0);
     }
+    
 
     /**
      * This method removes all the previous observable attached to the character object

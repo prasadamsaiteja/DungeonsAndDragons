@@ -241,6 +241,10 @@ public class Character extends Observable implements Cloneable
         return constitution + getOriginalConstitution();
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getCharacterClass()
     {
         return this.characterClass;
@@ -722,7 +726,10 @@ public class Character extends Observable implements Cloneable
      * @return returns true if it a friendly monster
      */
     public Boolean getIsFriendlyMonster(){
-      return isFriendlyMonster;
+        if(this.isFriendlyMonster == null)
+            return false;
+        
+        return isFriendlyMonster;
     }
     
     /**
@@ -738,7 +745,10 @@ public class Character extends Observable implements Cloneable
      * @return the isPlayer
      */
     public Boolean getIsPlayer() {
-      return this.isPlayer;
+        if(this.isPlayer == null)
+            return false;
+        
+        return this.isPlayer;
     }
 
     /**
