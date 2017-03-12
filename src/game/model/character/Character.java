@@ -82,14 +82,13 @@ public class Character extends Observable implements Cloneable
     public void setLevel(int level)
     {
         this.level = level;
-
+        
         try
         {
             if (!this.isPlayer)
             {
                 this.hitScore = 0;
             }
-
             this.calculateHitScore();
         }
         catch (Exception e)
