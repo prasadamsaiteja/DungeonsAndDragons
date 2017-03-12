@@ -30,6 +30,7 @@ public class Character extends Observable implements Cloneable
     private int dexterity;
     private int constitution;
     private int hitScore = 0;
+    private int armorClass = 10;
     private String characterClass;
     private String name;
     private String weaponName;
@@ -114,6 +115,14 @@ public class Character extends Observable implements Cloneable
     {
         return this.level;
     }
+    
+    /**
+     * 
+     */
+    private int getAbilityModifier(int abilityScore)
+    {
+        return (int) Math.round((abilityScore-10)/2);
+    }
 
     /**
      * @param strength set character strength
@@ -168,6 +177,14 @@ public class Character extends Observable implements Cloneable
 
         return strength + getOriginalStrength();
     }
+    
+    /**
+     * @return strength modifier
+     */
+    public int getStrengthModifier()
+    {
+        return this.getAbilityModifier(this.getStrength());
+    }
 
     /**
      * @param dexterity set character dexterity
@@ -208,6 +225,15 @@ public class Character extends Observable implements Cloneable
         }
 
         return dexterity + getOriginalDexterity();
+    }
+    
+    /**
+     * get calculated dexterity modifer 
+     * @return
+     */
+    public int getDexterityModifier()
+    {
+        return this.getAbilityModifier(this.getDexterity());
     }
 
     /**
@@ -265,8 +291,16 @@ public class Character extends Observable implements Cloneable
     }
 
     /**
+     * @return constitution ability modifier
+     */
+    public int getConstitutionModifier()
+    {
+        return this.getAbilityModifier(this.getConstitution());
+    }
+    
+    /**
      * 
-     * @return
+     * @return character class
      */
     public String getCharacterClass()
     {
@@ -358,11 +392,13 @@ public class Character extends Observable implements Cloneable
     }
 
     /**
+     * Calculates armor class and returns the value
+     * NEEDS TO RE CONFIRM LOGIN - IMPORTANT
      * @return the armor class
      */
     public int getArmorClass()
     {
-        int armorClass = 0;
+        int armorClass = 10;
 
         try
         {
@@ -380,6 +416,15 @@ public class Character extends Observable implements Cloneable
         try
         {
             Item armorObject = this.getArmorObject();
+            // FIXME this logic needs to be re-confirmed and fixed
+            if (armorObject.itemClass.equalsIgnoreCase("Light") || armorObject.itemClass.equalsIgnoreCase("Medium"))
+            {
+                armorClass += this.getDexterityModifier();
+            }
+            else
+            {
+                armorClass += 14;
+            }
             armorClass += armorObject.getModifier();
         }
         catch (Exception e)

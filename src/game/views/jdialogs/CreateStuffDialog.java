@@ -354,15 +354,24 @@ public class CreateStuffDialog extends JDialog
                 doc.insertString(doc.getLength(), "\nLevel: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getLevel()), doc.getStyle("italics"));
 
-                doc.insertString(doc.getLength(), "\n\nAbility modifiers:\n ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), "\n\nAbilities:\n ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), "\nStrength: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getStrength()), doc.getStyle("italics"));
+                
+                doc.insertString(doc.getLength(), "\nStrength Modifier: ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), String.valueOf(c.getStrengthModifier()), doc.getStyle("italics"));
 
                 doc.insertString(doc.getLength(), "\nDexterity: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getDexterity()), doc.getStyle("italics"));
+                
+                doc.insertString(doc.getLength(), "\nDexterity Modifier: ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), String.valueOf(c.getDexterityModifier()), doc.getStyle("italics"));
 
                 doc.insertString(doc.getLength(), "\nConstitution: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getConstitution()), doc.getStyle("italics"));
+                
+                doc.insertString(doc.getLength(), "\nConstitution Modifier: ", doc.getStyle("bold"));
+                doc.insertString(doc.getLength(), String.valueOf(c.getConstitutionModifier()), doc.getStyle("italics"));
 
                 doc.insertString(doc.getLength(), "\nHit Score: ", doc.getStyle("bold"));
                 doc.insertString(doc.getLength(), String.valueOf(c.getHitScore()), doc.getStyle("italics"));

@@ -90,7 +90,7 @@ public class CharacterClass
     {
         CharacterClassStructure cStructure = DefinedClasses.getCharacterList().get(this.name);
 
-        hitPoints += this.character.getConstitution() * this.character.getLevel();
+        hitPoints += this.character.getConstitutionModifier() * this.character.getLevel();
 
         if (this.character.getLevel() > 1)
         {
