@@ -22,17 +22,16 @@ import game.model.jaxb.ItemJaxb;
  * @author Supreet Singh (s_supree)
  *
  */
-public class Character extends Observable
+public class Character extends Observable implements Cloneable
 {
 
-    private String characterClass;
-    private String name;
     private int level = 1;
     private int strength;
     private int dexterity;
     private int constitution;
-    private boolean isBuilt = false;
     private int hitScore = 0;
+    private String characterClass;
+    private String name;
     private String weaponName;
     private String beltName;
     private String ringName;
@@ -42,6 +41,11 @@ public class Character extends Observable
     private String helmet;
     private String fname;
     private String backpackFileName;
+    private boolean isBuilt = false;
+
+    private Boolean isKeyCollected = false;
+    private Boolean isFriendlyMonster = true;
+    private Boolean isPlayer = false;
 
     /**
      * @param name set character name
@@ -78,7 +82,30 @@ public class Character extends Observable
     public void setLevel(int level)
     {
         this.level = level;
+
+        try
+        {
+            if (!this.isPlayer)
+            {
+                this.hitScore = 0;
+            }
+
+            this.calculateHitScore();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
         this.draw();
+    }
+
+    /**
+     * increment character level and rebuild character hit score
+     */
+    public void incrementLevel()
+    {
+        this.setLevel(this.getLevel() + 1);
     }
 
     /**
@@ -238,6 +265,10 @@ public class Character extends Observable
         return constitution + getOriginalConstitution();
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getCharacterClass()
     {
         return this.characterClass;
@@ -291,6 +322,7 @@ public class Character extends Observable
             Item weaponObj = this.getWeaponObject();
             if (weaponObj.itemClass.equalsIgnoreCase("Ranged"))
             {
+                // strength modifier + weapon modier and level
                 attackBonus += this.getStrength() + weaponObj.getModifier();
             }
         }
@@ -606,33 +638,51 @@ public class Character extends Observable
     /**
      * @return file name or null if not present
      */
-    private String getFileName()
+    public String getFileName()
     {
         return this.fname;
     }
 
     /**
+     * Calculate hit score
+     * 
+     * @throws Exception
+     */
+    private void calculateHitScore() throws Exception
+    {
+        CharacterClass cClass;
+
+        /*
+         * http://rpg.stackexchange.com/questions/48156/is-con-modifier-%C3%97-
+         * level-added-to-hp-every-level-up
+         */
+        cClass = new CharacterClass(this.getCharacterClass(), this);
+        CharacterClassStructure cClassVal = cClass.get();
+
+        cClass.calculateHitScore(
+                new Dice(cClassVal.getNumberOfRolls(), cClassVal.getDiceSides(), cClassVal.getNumberOfRolls()));
+
+        // add hit score to existing hit score, useful when it's increment level
+        this.hitScore += cClass.getHitScore();
+    }
+
+    /**
      * builds and initializes the character this method is run just once in a
-     * characters lifetime and calculates - hit score, based on chacaters class
+     * characters lifetime and calculates - hit score, based on characters class
      */
     private void build()
     {
         if (!this.isBuilt)
         {
             // Build characters class and get hit score
-            CharacterClass cClass;
+
             try
             {
-                cClass = new CharacterClass(this.getCharacterClass(), this);
-                CharacterClassStructure cClassVal = cClass.get();
+                this.calculateHitScore();
 
-                cClass.calculateHitScore(
-                        new Dice(cClassVal.getNumberOfRolls(), cClassVal.getDiceSides(), cClassVal.getNumberOfRolls()));
-                this.hitScore = cClass.getHitScore();
-                
                 // build a bucket for the character
                 this.createBackpack();
-                
+
                 this.isBuilt = true;
             }
             catch (Exception e)
@@ -642,33 +692,38 @@ public class Character extends Observable
 
         }
     }
-    
+
     /**
      * check if a character has backpack
+     * 
      * @return true if backpack exists else false
      */
     public boolean hasBackpack()
     {
         return this.backpackFileName != null;
     }
-    
-   /**
-    * Create a backpack for the character
-    */
+
+    /**
+     * Create a backpack for the character
+     */
     private void createBackpack()
     {
-        Backpack backpack = new Backpack();
-        try
+        // create a new backpack only if existing backpack does not exist
+        if (this.backpackFileName != null && this.backpackFileName.isEmpty())
         {
-            backpack.save();
-            this.backpackFileName = backpack.getFileName();
-        }
-        catch (IOException e)
-        {
-            this.backpackFileName = null;
+            Backpack backpack = new Backpack();
+            try
+            {
+                backpack.save();
+                this.backpackFileName = backpack.getFileName();
+            }
+            catch (IOException e)
+            {
+                this.backpackFileName = null;
+            }
         }
     }
-    
+
     /**
      * @return backpack
      */
@@ -686,6 +741,7 @@ public class Character extends Observable
     public void hit(int damage)
     {
         this.hitScore -= damage;
+        this.draw();
     }
 
     /**
@@ -748,5 +804,95 @@ public class Character extends Observable
             (new File(SharedVariables.CharactersDirectory + File.separator + this.fname + ".xml")).delete();
             CharactersList.init().updateCharactersList();
         }
+    }
+
+    /**
+     * This returns if the monster is friendly or not
+     * 
+     * @return returns true if it a friendly monster
+     */
+    public Boolean getIsFriendlyMonster()
+    {
+        if (this.isFriendlyMonster == null)
+            return false;
+
+        return isFriendlyMonster;
+    }
+
+    /**
+     * This method set if the monster is friendly or not
+     * 
+     * @param value true/false to set is friendly monster
+     */
+    public void setIsFriendlyMonster(Boolean value)
+    {
+        isFriendlyMonster = value;
+    }
+
+    /**
+     * Return true if the character is a player
+     * 
+     * @return the isPlayer
+     */
+    public Boolean getIsPlayer()
+    {
+        if (this.isPlayer == null)
+            return false;
+
+        return this.isPlayer;
+    }
+
+    /**
+     * This method set is the character is a player or not
+     * 
+     * @param isPlayer the isPlayer to set
+     */
+    public void setIsPlayer(Boolean isPlayer)
+    {
+        this.isPlayer = isPlayer;
+    }
+
+    /**
+     * This method clone this class object
+     * 
+     * @return Character cloned object
+     */
+    public Character clone()
+    {
+
+        try
+        {
+            return (Character) super.clone();
+        }
+
+        catch (CloneNotSupportedException ignored)
+        {
+        }
+
+        return null;
+    }
+
+    /**
+     * This method returns if the player has key or not
+     * 
+     * @return isKeyCollected true if user has key
+     */
+    public Boolean getIsKeyCollected()
+    {
+
+        if (isKeyCollected == null)
+            return false;
+
+        return isKeyCollected;
+    }
+
+    /**
+     * This method set if the player has key or not
+     * 
+     * @param status of user has key or not
+     */
+    public void setIsKeyCollected(Boolean isKeyCollected)
+    {
+        this.isKeyCollected = isKeyCollected;
     }
 }

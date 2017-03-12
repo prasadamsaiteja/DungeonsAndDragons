@@ -44,12 +44,10 @@ public class NewCharacterInfoDialog extends JDialog
     {
         DialogHelper.setDialogProperties(NewCharacterInfoDialog.this, "Edit backpack", new Rectangle(554, 448));
         characterObject = character;
-        initComponents();
+        //initComponents();
     }
 
-    /**
-     * This Method Initializes the Components in the Current Dialog
-     */
+/*
     private void initComponents()
     {
 
@@ -223,7 +221,7 @@ public class NewCharacterInfoDialog extends JDialog
         });
 
     }
-
+*/
     /**
      * Sets the List(SAVED,Added) properties present in the dialog
      * 

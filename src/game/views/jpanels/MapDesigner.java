@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 import game.GameLauncher;
+import game.components.ExtensionMethods;
 import game.components.SharedVariables;
 import game.model.Map;
 import game.model.jaxb.MapJaxb;
@@ -21,8 +22,10 @@ import game.views.jdialogs.DialogHelper;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.FlowLayout;
@@ -55,7 +58,6 @@ public class MapDesigner extends JPanel
      * @param mapName Name of the map.
      * @param width Width of the map.
      * @param height Height of the map.
-     * @wbp.parser.constructor
      */
     public MapDesigner(String mapName, int mapWidth, int mapHeight)
     {
@@ -97,11 +99,11 @@ public class MapDesigner extends JPanel
      */
     private void loadMap(JPanel[][] loadedMapData)
     {
-
         for (int i = 0; i < mapWidth; i++)
-            for (int j = 0; j < mapHeight; j++)
+            for (int j = 0; j < mapHeight; j++){
                 mapJPanelArray[i][j].setBackground(loadedMapData[i][j].getBackground());
-
+                mapJPanelArray[i][j].setToolTipText(loadedMapData[i][j].getToolTipText());
+            }               
     }
 
     /**
@@ -113,86 +115,87 @@ public class MapDesigner extends JPanel
      */
     private void initComponents()
     {
-
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[]
-        { 0, 0, 0, 0, 0 };
-        gridBagLayout.rowHeights = new int[]
-        { 0, 0, 0, 0, 0 };
-        gridBagLayout.columnWeights = new double[]
-        { 1.0, 1.0, 1.0, 1.0, 0.5 };
-        gridBagLayout.rowWeights = new double[]
-        { 1.0, 1.0, 1.0, 1.0, 1.0 };
-
+        gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0 };
+        gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0 };
+        gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, 1.0, 0.5 };
+        gridBagLayout.rowWeights = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0 };
+        
         ButtonGroup RadioButtonGroup = new ButtonGroup();
 
         setLayout(gridBagLayout);
+     
+        initMapPanel(RadioButtonGroup);       
+        initDesignPanel(mapName, RadioButtonGroup);
+    }
 
-        { // Map panel
-            JPanel mapPanel = new JPanel();
-            mapPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.GRAY, null));
-            mapPanel.setBackground(Color.WHITE);
-            GridBagConstraints gbc_mapPanel = new GridBagConstraints();
-            gbc_mapPanel.gridwidth = 4;
-            gbc_mapPanel.gridheight = 5;
-            gbc_mapPanel.insets = new Insets(0, 0, 0, 5);
-            gbc_mapPanel.fill = GridBagConstraints.BOTH;
-            gbc_mapPanel.gridx = 0;
-            gbc_mapPanel.gridy = 0;
-            add(mapPanel, gbc_mapPanel);
-
-            mapPanel.setLayout(new GridLayout(mapWidth, mapHeight));
-            mapPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            mapJPanelArray = new JPanel[mapWidth][mapHeight];
-            for (int i = 0; i < mapWidth; i++)
+    /**
+     * This method initializes map panel
+     * @param RadioButtonGroup Radio button group for selection of place marker
+     */
+    private void initMapPanel(ButtonGroup RadioButtonGroup) {
+        
+        JPanel mapPanel = new JPanel();
+        mapPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.GRAY, null));
+        mapPanel.setBackground(Color.WHITE);
+        GridBagConstraints gbc_mapPanel = new GridBagConstraints();
+        gbc_mapPanel.gridwidth = 4;
+        gbc_mapPanel.gridheight = 5;
+        gbc_mapPanel.insets = new Insets(0, 0, 0, 5);
+        gbc_mapPanel.fill = GridBagConstraints.BOTH;
+        gbc_mapPanel.gridx = 0;
+        gbc_mapPanel.gridy = 0;
+        add(mapPanel, gbc_mapPanel);
+  
+        mapPanel.setLayout(new GridLayout(mapWidth, mapHeight));
+        mapPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        mapJPanelArray = new JPanel[mapWidth][mapHeight];
+        for (int i = 0; i < mapWidth; i++)
+        {
+            for (int j = 0; j < mapHeight; j++)
             {
-                for (int j = 0; j < mapHeight; j++)
+                mapJPanelArray[i][j] = new JPanel();
+                mapJPanelArray[i][j].setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);
+                mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                mapJPanelArray[i][j].addMouseListener(new MouseListener()
                 {
-                    mapJPanelArray[i][j] = new JPanel();
-                    mapJPanelArray[i][j].setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);
-                    mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    mapJPanelArray[i][j].addMouseListener(new MouseListener()
+  
+                    @Override
+                    public void mouseReleased(MouseEvent e)
                     {
-
-                        @Override
-                        public void mouseReleased(MouseEvent e)
-                        {
-
-                        }
-
-                        @Override
-                        public void mousePressed(MouseEvent e)
-                        {
-                            mapCellClicked(((JPanel) e.getSource()), RadioButtonGroup);
-                        }
-
-                        @Override
-                        public void mouseExited(MouseEvent e)
-                        {
-                            if (((JPanel) e.getSource()).getBackground() == SharedVariables.MAP_MOUSE_HOVER_COLOR)
-                                ((JPanel) e.getSource()).setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);
-                        }
-
-                        @Override
-                        public void mouseEntered(MouseEvent e)
-                        {
-                            if (((JPanel) e.getSource()).getBackground() == SharedVariables.MAP_DEFAULT_CELL_COLOR)
-                                ((JPanel) e.getSource()).setBackground(SharedVariables.MAP_MOUSE_HOVER_COLOR);
-                        }
-
-                        @Override
-                        public void mouseClicked(MouseEvent e)
-                        {
-
-                        }
-                    });
-                    mapPanel.add(mapJPanelArray[i][j]);
-                }
+  
+                    }
+  
+                    @Override
+                    public void mousePressed(MouseEvent e)
+                    {
+                        mapCellClicked(((JPanel) e.getSource()), RadioButtonGroup);
+                    }
+  
+                    @Override
+                    public void mouseExited(MouseEvent e)
+                    {
+                        if (((JPanel) e.getSource()).getBackground() == SharedVariables.MAP_MOUSE_HOVER_COLOR)
+                            ((JPanel) e.getSource()).setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);
+                    }
+  
+                    @Override
+                    public void mouseEntered(MouseEvent e)
+                    {
+                        if (((JPanel) e.getSource()).getBackground() == SharedVariables.MAP_DEFAULT_CELL_COLOR)
+                            ((JPanel) e.getSource()).setBackground(SharedVariables.MAP_MOUSE_HOVER_COLOR);
+                    }
+  
+                    @Override
+                    public void mouseClicked(MouseEvent e)
+                    {
+  
+                    }
+                });
+                mapPanel.add(mapJPanelArray[i][j]);
             }
         }
-
-        initDesignPanel(mapName, RadioButtonGroup);
-
+        
     }
 
     /**
@@ -357,7 +360,6 @@ public class MapDesigner extends JPanel
         }
 
         initSaveAndCancelButtons(designPanel);
-
     }
 
     /**
@@ -421,24 +423,11 @@ public class MapDesigner extends JPanel
             private boolean validateMap()
             {
 
-                // boolean isPlayerExists =
-                // isObjectPlaced(SharedVariables.MAP_PLAYER_CELL_COLOR);
-                boolean isExitDoorExists = isObjectPlaced(
-                        SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING));
-                boolean isEntryDoorExists = isObjectPlaced(
-                        SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING));
-                boolean isObjectiveExists = isObjectPlaced(
-                        SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING))
-                                            || isObjectPlaced(
-                                                    SharedVariables.mapCellHashMap.get(SharedVariables.KEY_STRING));
+                boolean isExitDoorExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING));
+                boolean isEntryDoorExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING));
+                boolean isObjectiveExists = isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING)) || isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.KEY_STRING));
 
-                /*
-                 * if(!isPlayerExists){
-                 * DialogHelper.showBasicDialog("Need a player to continue");
-                 * return false; }
-                 * 
-                 * else
-                 */if (!isExitDoorExists)
+                if (!isExitDoorExists)
                 {
                     DialogHelper.showBasicDialog("Need a exit door to continue");
                     return false;
@@ -474,28 +463,67 @@ public class MapDesigner extends JPanel
      */
     private void mapCellClicked(JPanel jPanel, final ButtonGroup radioButtonGroup)
     {
-
+             
         if (getColorFromSelectedRadioButton(radioButtonGroup) == jPanel.getBackground())
             jPanel.setBackground(SharedVariables.MAP_DEFAULT_CELL_COLOR);
 
         else
         {
-            if (getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.MAP_PLAYER_CELL_COLOR
-                && isObjectPlaced(SharedVariables.MAP_PLAYER_CELL_COLOR))
-                DialogHelper.showBasicDialog("You have already placed a player");
-
-            else if (getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap
-                    .get(SharedVariables.ENTRY_DOOR_STRING)
-                     && isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING)))
+            String[] items = ExtensionMethods.getItemsList();
+            String[] characters = ExtensionMethods.getCharacterList();
+          
+            if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING) && characters.length == 0){
+                DialogHelper.showBasicDialog("You don't have any monsters to place");
+                return;
+            }
+                          
+            else if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.CHEST_STRING) && items.length == 0){               
+                DialogHelper.showBasicDialog("You don't have any items to place in the chest");
+                return;
+            }
+                       
+            else if (getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING) && isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.ENTRY_DOOR_STRING)))
                 DialogHelper.showBasicDialog("You have already placed a entry door");
 
-            else if (getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap
-                    .get(SharedVariables.EXIT_DOOR_STRING)
-                     && isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING)))
+            else if (getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING) && isObjectPlaced(SharedVariables.mapCellHashMap.get(SharedVariables.EXIT_DOOR_STRING)))
                 DialogHelper.showBasicDialog("You have already placed a exit door");
 
-            else
+            else{
                 jPanel.setBackground(getColorFromSelectedRadioButton(radioButtonGroup));
+                if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.CHEST_STRING) && items.length > 0){         
+                    
+                    JComboBox<String> itemsList = new JComboBox<String>(ExtensionMethods.getItemsList());
+                    JOptionPane.showMessageDialog(null, itemsList, "Select a item to place in the chest", JOptionPane.QUESTION_MESSAGE);
+                    jPanel.setToolTipText(itemsList.getSelectedItem().toString());
+                }
+                
+                else if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.MONSTER_STRING) && characters.length > 0){         
+                                                           
+                    JComboBox<String> charcterList = new JComboBox<String>(characters);
+                    ButtonGroup buttonGroup = new ButtonGroup();
+                    
+                    JRadioButton friendlyRadioButton = new JRadioButton("Friendly");
+                    JRadioButton hostileRadioButton = new JRadioButton("Hostile");
+                    
+                    friendlyRadioButton.setSelected(true);
+                    friendlyRadioButton.setActionCommand("Friendly");
+                    hostileRadioButton.setActionCommand("Hostile");
+                    
+                    buttonGroup.add(friendlyRadioButton);
+                    buttonGroup.add(hostileRadioButton);
+                    
+                    Object[] things = {
+                        charcterList, friendlyRadioButton, hostileRadioButton
+                    };
+                    
+                    JOptionPane.showMessageDialog(null, things, "Select a character as a monster", JOptionPane.QUESTION_MESSAGE);
+                    jPanel.setToolTipText(charcterList.getSelectedItem().toString() + " - " + buttonGroup.getSelection().getActionCommand());
+                }
+                
+                else
+                  jPanel.setToolTipText("");
+            }
+                
         }
 
     }

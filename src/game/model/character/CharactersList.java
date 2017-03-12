@@ -143,4 +143,40 @@ public class CharactersList extends Observable
         }
         return null;
     }
+    
+    /**
+     * Get all character names
+     * 
+     * @return array list containing character names
+     */
+    public static ArrayList<String> getNames()
+    {
+        ArrayList<String> characterNames = new ArrayList<String>();
+        ArrayList<Character> characters = CharactersList.get();
+        Iterator<Character> charactersList = characters.iterator();
+        
+        while (charactersList.hasNext())
+        {
+            Character c = charactersList.next();
+            characterNames.add(c.getName());
+        }
+        
+        return characterNames;
+    }
+    
+    /**
+     * Get character file name by character name
+     * 
+     * @param characterName character name
+     * @throws Exception 
+     */
+    public static String getFileName(String characterName) throws Exception
+    {
+        Character c = CharactersList.getByName(characterName);
+        
+        if (c == null)
+            throw new Exception("Character not found");
+        
+        return c.getFileName();        
+    }
 }
