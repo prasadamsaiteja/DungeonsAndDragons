@@ -790,7 +790,8 @@ public class Character extends Observable implements Cloneable
      * This method set if the player has key or not
      * @param status of user has key or not
      */
-    public void setIsKeyCollected(Boolean isKeyCollected) {
+    public void setIsKeyCollected(Boolean isKeyCollected) {      
         this.isKeyCollected = isKeyCollected;
+        this.draw();
     }
 }

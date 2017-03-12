@@ -27,7 +27,7 @@ public class Backpack extends Observable
 {
 
     private int backpackItemCount = 0;
-    private int maxAllowedItems = 17;
+    private int maxAllowedItems = 10;
     private static String fileName = "backpack.xml";
     private HashMap<String, ArrayList<String>> items = new HashMap<String, ArrayList<String>>();
     private static Backpack _inst = null;

@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import game.GameLauncher;
 import game.components.GameMechanics;
 import game.components.SharedVariables;
 import game.model.Campaign;
@@ -48,6 +49,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     private Character character;
     private Campaign campaign;    
     private Map currentMap;
+    private int currentMapNumber = 0;
     private Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
     private JPanel characterDetailsPanel;
   
@@ -66,7 +68,7 @@ public class GamePlayScreen extends JPanel implements Observer{
          else{
              this.setKeyListeners();
              this.campaign.fetchMaps();
-             this.currentMap = campaign.getMapList().get(0);             
+             this.currentMap = campaign.getMapList().get(currentMapNumber);             
              this.currentMap.initalizeMapData(this.character.getName());             
              this.setMapLevel();
              initComponents();
@@ -90,6 +92,7 @@ public class GamePlayScreen extends JPanel implements Observer{
      */
     private void initComponents(){
       
+        this.removeAll();
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0 };
         gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0 };
@@ -99,8 +102,7 @@ public class GamePlayScreen extends JPanel implements Observer{
         
         initMapPanel();
         initControlPanel();
-    }
-    
+    }    
 
     /**
      * This method initializes map panel
@@ -187,7 +189,7 @@ public class GamePlayScreen extends JPanel implements Observer{
                
                else if(index == 2){
                    key = "Current Map Name : ";
-                   value = currentMap.getMapName() + " (" + campaign.getMapList().indexOf(currentMap) + 1 + " map out of " + campaign.getMapNames().size() + " maps)";
+                   value = currentMap.getMapName() + " (" + (currentMapNumber + 1) + " map out of " + campaign.getMapNames().size() + " maps)";
                }
                
                else{
@@ -306,7 +308,6 @@ public class GamePlayScreen extends JPanel implements Observer{
        showPlayerDetails(character);
    }
     
-
     /**
      * This method displays the character details on the screen
      * @param character Character object that needs to be displayed on the screen
@@ -393,8 +394,7 @@ public class GamePlayScreen extends JPanel implements Observer{
            mapJPanelArray[i][j] = GameMechanics.setMapCellDetailsFromMapObjectData(mapJPanelArray[i][j], currentMap.mapData[i][j]);           
        }                  
     }
-    
-    
+        
     /**
      * This method set's up key binding for player moments
      */
@@ -419,8 +419,7 @@ public class GamePlayScreen extends JPanel implements Observer{
         this.getActionMap().put("LEFT_PRESSED", playerMomentMechanics.new LEFT_PRESSED());
         this.getActionMap().put("RIGHT_PRESSED", playerMomentMechanics.new RIGHT_PRESSED());        
     }
-    
-          
+              
     /**
      * This class contains all the player moment mechanics classes and methods 
      * @author saiteja prasadm
@@ -542,10 +541,10 @@ public class GamePlayScreen extends JPanel implements Observer{
                 
                 else if(previousMapCellObject instanceof String && ((String) previousMapCellObject).equals(SharedVariables.EXIT_DOOR_STRING)){
                     if(checkIfTheObjectiveIsCompleted())
-                        DialogHelper.showBasicDialog("Level completed");
+                        moveToNextMap();
                     
                     else
-                        DialogHelper.showBasicDialog("You need to collecte key (If map has one) or kill all the hostile enemies to complete this level");                        
+                        DialogHelper.showBasicDialog("You need to collecte key (If map has one) or kill all the hostile enemies to clear this map");                        
                 }
                     
             }
@@ -559,6 +558,29 @@ public class GamePlayScreen extends JPanel implements Observer{
             }
                    
         }
+
+        /**
+         * This method changes the map if the player completes the current map
+         */
+        private void moveToNextMap() {
+            
+            if(currentMapNumber + 1 == campaign.getMapNames().size()){
+                JOptionPane.showConfirmDialog(null, "Congrats, you have completed the campaign, you will now go back to main screen", "Map cleared", JOptionPane.PLAIN_MESSAGE);
+                GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+            }
+            
+            else{
+                JOptionPane.showConfirmDialog(null, "Congrats, you have cleared this map, you will now go to next map", "Map cleared", JOptionPane.PLAIN_MESSAGE);
+                currentMapNumber++;                
+                currentMap = campaign.getMapList().get(currentMapNumber);             
+                currentMap.initalizeMapData(character.getName());      
+                character.setLevel(character.getLevel() + 1);                
+                setMapLevel();
+                initComponents();                
+            }
+            
+        }
+        
 
         /**
          * This method lets player to exchange items from friendly monster
@@ -597,8 +619,7 @@ public class GamePlayScreen extends JPanel implements Observer{
             return true;            
         }
     }
-    
-           
+               
     /**
      * This method is called when the selected character object gets updated
      */
@@ -607,7 +628,6 @@ public class GamePlayScreen extends JPanel implements Observer{
           this.showPlayerDetails((Character) arg0);
     }
     
-
     /**
      * This method removes all the previous observable attached to the character object
      */
