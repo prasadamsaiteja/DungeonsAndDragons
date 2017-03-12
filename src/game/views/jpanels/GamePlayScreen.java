@@ -580,8 +580,7 @@ public class GamePlayScreen extends JPanel implements Observer{
             }
             
         }
-        
-
+       
         /**
          * This method lets player to exchange items from friendly monster
          * @param toRowNumber row number which user is tryiing to goto
