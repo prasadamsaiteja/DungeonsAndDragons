@@ -22,12 +22,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import game.components.ExtensionMethods;
+import game.components.SharedVariables;
 import game.model.Campaign;
 import game.model.jaxb.CampaignJaxb;
 import game.views.jdialogs.DialogHelper;
 
 /**
- * This class is a jdialog that sets the name and maps to a particular campaign
+ * This class is a Jdialog that sets the name and maps to a particular campaign
  * 
  * @author RahulReddy
  * @version 1.0.0
@@ -129,7 +130,17 @@ public class NewCampaignInfoDialog extends JDialog
             public void actionPerformed(ActionEvent e)
             {
                 if (savedMapsList.getSelectedValue() != null)
-                    addedMapsListModel.addElement(savedMapsList.getSelectedValue());
+                {
+                	 if(addedMapsListModel.getSize() > SharedVariables.CAMPAIGN_TOTAL_MAPS)
+                     {
+                     	btnAdd.setEnabled(false);
+                     	DialogHelper.showBasicDialog("The Total Number of Maps you can have is 10");
+                     }
+                	 else
+                	 {
+                     	addedMapsListModel.addElement(savedMapsList.getSelectedValue());
+                	 }
+                }
             }
         });
         btnAdd.setBackground(Color.LIGHT_GRAY);
@@ -147,6 +158,12 @@ public class NewCampaignInfoDialog extends JDialog
             {
                 int index = addedMapsList.getSelectedIndex();
                 addedMapsListModel.remove(index);
+                
+                if(addedMapsListModel.getSize() <= SharedVariables.CAMPAIGN_TOTAL_MAPS)
+                {
+                	btnAdd.setEnabled(true);
+                }
+                
                 if (index > 0)
                     addedMapsList.setSelectedIndex(index - 1);
             }
