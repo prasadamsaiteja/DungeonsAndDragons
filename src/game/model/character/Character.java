@@ -43,9 +43,9 @@ public class Character extends Observable implements Cloneable
     private String backpackFileName;
     private boolean isBuilt = false;
 
-    private Boolean isKeyCollected = false;
-    private Boolean isFriendlyMonster = true;
-    private Boolean isPlayer = false;
+    private boolean isKeyCollected = false;
+    private boolean isFriendlyMonster = true;
+    private boolean isPlayer = false;
 
     /**
      * @param name set character name
@@ -649,6 +649,12 @@ public class Character extends Observable implements Cloneable
      */
     private void calculateHitScore() throws Exception
     {
+        // if no class is set for the character set hit score to 0
+        if (this.getCharacterClass() == null || this.getCharacterClass().isEmpty()){
+            this.hitScore = 0;
+            return;
+        }
+        
         CharacterClass cClass;
 
         /*
@@ -707,19 +713,16 @@ public class Character extends Observable implements Cloneable
      */
     private void createBackpack()
     {
-        // create a new backpack only if existing backpack does not exist
-        if (this.backpackFileName != null && this.backpackFileName.isEmpty())
+
+        Backpack backpack = new Backpack();
+        try
         {
-            Backpack backpack = new Backpack();
-            try
-            {
-                backpack.save();
-                this.backpackFileName = backpack.getFileName();
-            }
-            catch (IOException e)
-            {
-                this.backpackFileName = null;
-            }
+            backpack.save();
+            this.backpackFileName = backpack.getFileName();
+        }
+        catch (IOException e)
+        {
+            this.backpackFileName = null;
         }
     }
 
@@ -810,9 +813,9 @@ public class Character extends Observable implements Cloneable
      * 
      * @return returns true if it a friendly monster
      */
-    public Boolean getIsFriendlyMonster()
+    public boolean getIsFriendlyMonster()
     {
-        if (this.isFriendlyMonster == null)
+        if (this.isFriendlyMonster == false)
             return false;
 
         return isFriendlyMonster;
@@ -823,7 +826,7 @@ public class Character extends Observable implements Cloneable
      * 
      * @param value true/false to set is friendly monster
      */
-    public void setIsFriendlyMonster(Boolean value)
+    public void setFriendlyMonsterFlag(boolean value)
     {
         isFriendlyMonster = value;
     }
@@ -833,11 +836,8 @@ public class Character extends Observable implements Cloneable
      * 
      * @return the isPlayer
      */
-    public Boolean getIsPlayer()
+    public boolean isPlayer()
     {
-        if (this.isPlayer == null)
-            return false;
-
         return this.isPlayer;
     }
 
@@ -846,7 +846,7 @@ public class Character extends Observable implements Cloneable
      * 
      * @param isPlayer the isPlayer to set
      */
-    public void setIsPlayer(Boolean isPlayer)
+    public void setPlayerFlag(boolean isPlayer)
     {
         this.isPlayer = isPlayer;
     }
@@ -876,12 +876,8 @@ public class Character extends Observable implements Cloneable
      * 
      * @return isKeyCollected true if user has key
      */
-    public Boolean getIsKeyCollected()
+    public boolean isKeyCollected()
     {
-
-        if (isKeyCollected == null)
-            return false;
-
         return isKeyCollected;
     }
 
@@ -890,7 +886,7 @@ public class Character extends Observable implements Cloneable
      * 
      * @param status of user has key or not
      */
-    public void setIsKeyCollected(Boolean isKeyCollected)
+    public void setKeyCollectedFlag(boolean isKeyCollected)
     {
         this.isKeyCollected = isKeyCollected;
         this.draw();

@@ -135,7 +135,7 @@ public class Map
                             
               case SharedVariables.ENTRY_DOOR_STRING:
                 Character player = CharactersList.getByName(playerName).clone();
-                player.setIsPlayer(true);
+                player.setPlayerFlag(true);
                 mapData[i][j] = player;
                 break;
                 
@@ -149,11 +149,11 @@ public class Map
                 String monsterType = mapCellInformation.get(String.valueOf(i) + " " + String.valueOf(j)).split(" - ")[1];
                 
                 Character monster = CharactersList.getByName(monsterName).clone();
-                monster.setIsPlayer(false);
+                monster.setPlayerFlag(false);
                 if(monsterType.equals("Friendly"))
-                  monster.setIsFriendlyMonster(true);
+                  monster.setFriendlyMonsterFlag(true);
                 else
-                  monster.setIsFriendlyMonster(false);
+                  monster.setFriendlyMonsterFlag(false);
                                 
                 mapData[i][j] = monster;
                 break;
