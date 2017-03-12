@@ -30,7 +30,6 @@ public class Character extends Observable implements Cloneable
     private int dexterity;
     private int constitution;
     private int hitScore = 0;
-    private int armorClass = 10;
     private String characterClass;
     private String name;
     private String weaponName;
@@ -356,7 +355,7 @@ public class Character extends Observable implements Cloneable
             if (weaponObj.itemClass.equalsIgnoreCase("Ranged"))
             {
                 // strength modifier + weapon modier and level
-                attackBonus += this.getStrength() + weaponObj.getModifier();
+                attackBonus += this.getStrengthModifier() + weaponObj.getModifier();
             }
         }
         catch (Exception e)
@@ -380,7 +379,7 @@ public class Character extends Observable implements Cloneable
             if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))
             {
                 System.out.print(weaponObj.getModifier() + "\n");
-                damageBonus += this.getDexterity() + weaponObj.getModifier();
+                damageBonus += this.getDexterityModifier() + weaponObj.getModifier();
             }
         }
         catch (Exception e)
