@@ -893,5 +893,6 @@ public class Character extends Observable implements Cloneable
     public void setIsKeyCollected(Boolean isKeyCollected)
     {
         this.isKeyCollected = isKeyCollected;
+        this.draw();
     }
 }

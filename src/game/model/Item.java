@@ -12,7 +12,6 @@ import game.model.character.Character;
 import game.model.jaxb.ItemJaxb;
 
 @XmlRootElement(name = "Item")
-
 /**
  * This is an item class which is used to store the items currently used by the
  * character while playing the game. It affects various classes of selected
