@@ -275,6 +275,7 @@ public class CreateStuffDialog extends JDialog
             {
                 try
                 {
+                    new BackpackDialog();
                     updatePreview(doc);
                 }
                 catch (BadLocationException e1)

@@ -203,7 +203,10 @@ public class NewCampaignInfoDialog extends JDialog
                         addedMapsString = o.toString();
                         addedMaps.add(i, addedMapsString);
                     }
-                    CampaignJaxb.convertCampaignInfoToXml(new Campaign(campaignName, addedMaps));
+                    if(campaignObject == null)
+                        CampaignJaxb.convertCampaignInfoToXml(new Campaign(campaignName, addedMaps));
+                    else
+                        CampaignJaxb.convertCampaignInfoToXml(new Campaign(campaignObject.getCampaignName(), addedMaps));
                     dispose();
                 }
                 else

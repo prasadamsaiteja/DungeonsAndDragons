@@ -83,8 +83,8 @@ public class GamePlayScreen extends JPanel implements Observer{
         
         for (int i = 0; i < currentMap.mapWidth; i++)      
             for (int j = 0; j < currentMap.mapHeight; j++)
-                if(currentMap.mapData[i][j] instanceof Character)
-                    ((Character) currentMap.mapData[i][j]).setLevel(character.getLevel());
+                if(currentMap.mapData[i][j] instanceof Character && (!((Character) currentMap.mapData[i][j]).getIsPlayer()))
+                        ((Character) currentMap.mapData[i][j]).setLevel(character.getLevel());
     }
     
     /**
