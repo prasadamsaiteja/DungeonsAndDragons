@@ -60,7 +60,7 @@ public class GamePlayScreen extends JPanel implements Observer{
       
          this.campaign = CampaignJaxb.getCampaignFromXml(camapaignName);
          this.character = CharactersList.getByName(characterName).clone();
-         this.character.setIsPlayer(true);
+         this.character.setPlayerFlag(true);
          
          if(campaign == null || character == null)
              DialogHelper.showBasicDialog("Error reading saved files");
@@ -330,7 +330,7 @@ public class GamePlayScreen extends JPanel implements Observer{
                 
                   key = "Type of character : ";
                   
-                  if(character.getIsPlayer() == null || character.getIsPlayer() == true)
+                  if(character.isPlayer())
                     value = "Player";
                   
                   else if(character.getIsFriendlyMonster() == true)
@@ -349,9 +349,9 @@ public class GamePlayScreen extends JPanel implements Observer{
                   value = String.valueOf(character.getHitScore() + "HP");
               }
               
-              else if(character.getIsPlayer()){                
+              else if(character.isPlayer()){                
                   key = "Key collected : ";
-                  if(character.getIsKeyCollected())
+                  if(character.isKeyCollected())
                       value = "Yes";
                   else
                       value = "No";
@@ -535,7 +535,7 @@ public class GamePlayScreen extends JPanel implements Observer{
                 }
                 
                 else if(previousMapCellObject instanceof String && ((String) previousMapCellObject).equals(SharedVariables.KEY_STRING)){
-                    character.setIsKeyCollected(true);
+                    character.setKeyCollectedFlag(true);
                     previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;;
                 }
                 
@@ -607,12 +607,12 @@ public class GamePlayScreen extends JPanel implements Observer{
          */
         private boolean checkIfTheObjectiveIsCompleted(){
             
-            if(character.getIsKeyCollected() == true)
+            if(character.isKeyCollected() == true)
                 return true;
             
             ArrayList<Character> characters = GameMechanics.getAllCharacterObjects(currentMap);
             for(Character character : characters)
-                if(!character.getIsPlayer() && !character.getIsFriendlyMonster() && character.getHitScore() > 0)
+                if(!character.isPlayer() && !character.getIsFriendlyMonster() && character.getHitScore() > 0)
                     return false;
             
             return true;            

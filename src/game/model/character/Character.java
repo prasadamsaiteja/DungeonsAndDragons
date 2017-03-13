@@ -29,7 +29,7 @@ public class Character extends Observable implements Cloneable
     private int strength;
     private int dexterity;
     private int constitution;
-    private int hitScore = 0;    
+    private int hitScore = 0;
     private String characterClass;
     private String name;
     private String weaponName;
@@ -40,11 +40,12 @@ public class Character extends Observable implements Cloneable
     private String armor;
     private String helmet;
     private String fname;
+    private String backpackFileName;
     private boolean isBuilt = false;
-    
-    private Boolean isKeyCollected = false;
-    private Boolean isFriendlyMonster = true;
-    private Boolean isPlayer = false;
+
+    private boolean isKeyCollected = false;
+    private boolean isFriendlyMonster = true;
+    private boolean isPlayer = false;
 
     /**
      * @param name set character name
@@ -81,7 +82,29 @@ public class Character extends Observable implements Cloneable
     public void setLevel(int level)
     {
         this.level = level;
+        
+        try
+        {
+            if (!this.isPlayer)
+            {
+                this.hitScore = 0;
+            }
+            this.calculateHitScore();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
         this.draw();
+    }
+
+    /**
+     * increment character level and rebuild character hit score
+     */
+    public void incrementLevel()
+    {
+        this.setLevel(this.getLevel() + 1);
     }
 
     /**
@@ -90,6 +113,14 @@ public class Character extends Observable implements Cloneable
     public int getLevel()
     {
         return this.level;
+    }
+    
+    /**
+     * 
+     */
+    private int getAbilityModifier(int abilityScore)
+    {
+        return (int) Math.round((abilityScore-10)/2);
     }
 
     /**
@@ -145,6 +176,14 @@ public class Character extends Observable implements Cloneable
 
         return strength + getOriginalStrength();
     }
+    
+    /**
+     * @return strength modifier
+     */
+    public int getStrengthModifier()
+    {
+        return this.getAbilityModifier(this.getStrength());
+    }
 
     /**
      * @param dexterity set character dexterity
@@ -185,6 +224,15 @@ public class Character extends Observable implements Cloneable
         }
 
         return dexterity + getOriginalDexterity();
+    }
+    
+    /**
+     * get calculated dexterity modifer 
+     * @return
+     */
+    public int getDexterityModifier()
+    {
+        return this.getAbilityModifier(this.getDexterity());
     }
 
     /**
@@ -242,8 +290,16 @@ public class Character extends Observable implements Cloneable
     }
 
     /**
+     * @return constitution ability modifier
+     */
+    public int getConstitutionModifier()
+    {
+        return this.getAbilityModifier(this.getConstitution());
+    }
+    
+    /**
      * 
-     * @return
+     * @return character class
      */
     public String getCharacterClass()
     {
@@ -299,7 +355,7 @@ public class Character extends Observable implements Cloneable
             if (weaponObj.itemClass.equalsIgnoreCase("Ranged"))
             {
                 // strength modifier + weapon modier and level
-                attackBonus += this.getStrength() + weaponObj.getModifier();
+                attackBonus += this.getStrengthModifier() + weaponObj.getModifier();
             }
         }
         catch (Exception e)
@@ -323,7 +379,7 @@ public class Character extends Observable implements Cloneable
             if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))
             {
                 System.out.print(weaponObj.getModifier() + "\n");
-                damageBonus += this.getDexterity() + weaponObj.getModifier();
+                damageBonus += this.getDexterityModifier() + weaponObj.getModifier();
             }
         }
         catch (Exception e)
@@ -335,11 +391,13 @@ public class Character extends Observable implements Cloneable
     }
 
     /**
+     * Calculates armor class and returns the value
+     * NEEDS TO RE CONFIRM LOGIN - IMPORTANT
      * @return the armor class
      */
     public int getArmorClass()
     {
-        int armorClass = 0;
+        int armorClass = 10;
 
         try
         {
@@ -357,6 +415,15 @@ public class Character extends Observable implements Cloneable
         try
         {
             Item armorObject = this.getArmorObject();
+            // FIXME this logic needs to be re-confirmed and fixed
+            if (armorObject.itemClass.equalsIgnoreCase("Light") || armorObject.itemClass.equalsIgnoreCase("Medium"))
+            {
+                armorClass += this.getDexterityModifier();
+            }
+            else
+            {
+                armorClass += 14;
+            }
             armorClass += armorObject.getModifier();
         }
         catch (Exception e)
@@ -620,23 +687,51 @@ public class Character extends Observable implements Cloneable
     }
 
     /**
+     * Calculate hit score
+     * 
+     * @throws Exception
+     */
+    private void calculateHitScore() throws Exception
+    {
+        // if no class is set for the character set hit score to 0
+        if (this.getCharacterClass() == null || this.getCharacterClass().isEmpty()){
+            this.hitScore = 0;
+            return;
+        }
+        
+        CharacterClass cClass;
+
+        /*
+         * http://rpg.stackexchange.com/questions/48156/is-con-modifier-%C3%97-
+         * level-added-to-hp-every-level-up
+         */
+        cClass = new CharacterClass(this.getCharacterClass(), this);
+        CharacterClassStructure cClassVal = cClass.get();
+
+        cClass.calculateHitScore(
+                new Dice(cClassVal.getNumberOfRolls(), cClassVal.getDiceSides(), cClassVal.getNumberOfRolls()));
+
+        // add hit score to existing hit score, useful when it's increment level
+        this.hitScore += cClass.getHitScore();
+    }
+
+    /**
      * builds and initializes the character this method is run just once in a
-     * characters lifetime and calculates - hit score, based on chacaters class
+     * characters lifetime and calculates - hit score, based on characters class
      */
     private void build()
     {
         if (!this.isBuilt)
         {
             // Build characters class and get hit score
-            CharacterClass cClass;
+
             try
             {
-                cClass = new CharacterClass(this.getCharacterClass(), this);
-                CharacterClassStructure cClassVal = cClass.get();
+                this.calculateHitScore();
 
-                cClass.calculateHitScore(
-                        new Dice(cClassVal.getNumberOfRolls(), cClassVal.getDiceSides(), cClassVal.getNumberOfRolls()));
-                this.hitScore = cClass.getHitScore();
+                // build a bucket for the character
+                this.createBackpack();
+
                 this.isBuilt = true;
             }
             catch (Exception e)
@@ -646,7 +741,43 @@ public class Character extends Observable implements Cloneable
 
         }
     }
- 
+
+    /**
+     * check if a character has backpack
+     * 
+     * @return true if backpack exists else false
+     */
+    public boolean hasBackpack()
+    {
+        return this.backpackFileName != null;
+    }
+
+    /**
+     * Create a backpack for the character
+     */
+    private void createBackpack()
+    {
+
+        Backpack backpack = new Backpack();
+        try
+        {
+            backpack.save();
+            this.backpackFileName = backpack.getFileName();
+        }
+        catch (IOException e)
+        {
+            this.backpackFileName = null;
+        }
+    }
+
+    /**
+     * @return backpack
+     */
+    public String getBackpackFileName()
+    {
+        return this.backpackFileName;
+    }
+
     /**
      * keeps a track of characters damage. Damage should reduce everytime a
      * character is hit
@@ -723,74 +854,84 @@ public class Character extends Observable implements Cloneable
 
     /**
      * This returns if the monster is friendly or not
+     * 
      * @return returns true if it a friendly monster
      */
-    public Boolean getIsFriendlyMonster(){
-        if(this.isFriendlyMonster == null)
+    public boolean getIsFriendlyMonster()
+    {
+        if (this.isFriendlyMonster == false)
             return false;
-        
+
         return isFriendlyMonster;
     }
-    
+
     /**
      * This method set if the monster is friendly or not
-     * @param value true/false to set is friendly monster 
+     * 
+     * @param value true/false to set is friendly monster
      */
-    public void setIsFriendlyMonster(Boolean value){
+    public void setFriendlyMonsterFlag(boolean value)
+    {
         isFriendlyMonster = value;
     }
 
     /**
      * Return true if the character is a player
+     * 
      * @return the isPlayer
      */
-    public Boolean getIsPlayer() {
-        if(this.isPlayer == null)
-            return false;
-        
+    public boolean isPlayer()
+    {
         return this.isPlayer;
     }
 
     /**
      * This method set is the character is a player or not
+     * 
      * @param isPlayer the isPlayer to set
      */
-    public void setIsPlayer(Boolean isPlayer) {
+    public void setPlayerFlag(boolean isPlayer)
+    {
         this.isPlayer = isPlayer;
     }
 
     /**
-     * This method clone this class object 
-     * @retrun Charctaer cloned object
+     * This method clone this class object
+     * 
+     * @return Character cloned object
      */
-    public Character clone(){
-        
-        try{
-          return (Character) super.clone();
+    public Character clone()
+    {
+
+        try
+        {
+            return (Character) super.clone();
         }
-        
-        catch(CloneNotSupportedException ignored){}
-        
+
+        catch (CloneNotSupportedException ignored)
+        {
+        }
+
         return null;
     }
 
     /**
-     * This method returns if the player has key or not 
+     * This method returns if the player has key or not
+     * 
      * @return isKeyCollected true if user has key
      */
-    public Boolean getIsKeyCollected() {
-        
-        if(isKeyCollected == null)     
-           return false;
-        
+    public boolean isKeyCollected()
+    {
         return isKeyCollected;
     }
 
     /**
      * This method set if the player has key or not
+     * 
      * @param status of user has key or not
      */
-    public void setIsKeyCollected(Boolean isKeyCollected) {      
+    public void setKeyCollectedFlag(boolean isKeyCollected)
+    {
         this.isKeyCollected = isKeyCollected;
         this.draw();
     }

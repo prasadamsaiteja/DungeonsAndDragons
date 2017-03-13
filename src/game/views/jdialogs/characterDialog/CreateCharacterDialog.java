@@ -1,4 +1,4 @@
-package game.views.jdialogs;
+package game.views.jdialogs.characterDialog;
 
 import javax.swing.JDialog;
 import javax.swing.JTextField;
@@ -8,6 +8,7 @@ import game.model.Item;
 import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.character.classes.CharacterClass;
+import game.views.jdialogs.DialogHelper;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,7 +27,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 @SuppressWarnings("serial")
-class CreateCharacterDialog extends JDialog
+
+public class CreateCharacterDialog extends JDialog
 {
 
     @SuppressWarnings("unused")

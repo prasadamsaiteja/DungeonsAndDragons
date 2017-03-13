@@ -22,7 +22,7 @@ public class GameMechanics {
           jpanel.setBackground(SharedVariables.getCellColorFromString(mapCellObject.toString()));
       
       else if(mapCellObject instanceof Character){
-        if(((Character) mapCellObject).getIsPlayer())
+        if(((Character) mapCellObject).isPlayer())
           jpanel.setBackground(SharedVariables.getCellColorFromString(SharedVariables.PLAYER_STRING));
         else
           jpanel.setBackground(SharedVariables.getCellColorFromString(SharedVariables.MONSTER_STRING));                  
@@ -43,7 +43,7 @@ public class GameMechanics {
     
       for (int i = 0; i < currentMap.mapWidth; i++)      
         for (int j = 0; j < currentMap.mapHeight; j++)
-               if(currentMap.mapData[i][j] instanceof Character && ((Character) currentMap.mapData[i][j]).getIsPlayer())
+               if(currentMap.mapData[i][j] instanceof Character && ((Character) currentMap.mapData[i][j]).isPlayer())
                  return new int[]{i, j};
                                    
       return null;              

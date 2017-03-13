@@ -35,10 +35,15 @@ public class Item
     public int itemLevel;
 
     private Character characterObj = null;
-
-    private int armorClass = 0;
+    
     private int count;
 
+    /**
+     * @param name
+     * @param type
+     * @param itemclass
+     * @param level
+     */
     public Item(String name, String type, String itemclass, int level)
     {
         itemName = name;
@@ -47,28 +52,20 @@ public class Item
         itemLevel = level;
     }
 
+    /**
+     * @return
+     */
     public String getItemName()
     {
         return itemName;
     }
 
+    /**
+     * @return
+     */
     public String getItemType()
     {
         return itemType;
-    }
-
-    /**
-     * Armor Class value should be set based on the armor type chosen. AC is
-     * used for almost all the items used.
-     */
-    private void setInitialArmorClass()
-    {
-        if (itemClass.equalsIgnoreCase("Light") || itemName.equalsIgnoreCase("Medium"))
-        {
-            armorClass = armorClass + characterObj.getOriginalDexterity();
-        }
-        else
-            armorClass = 14;
     }
 
     /**
@@ -79,12 +76,6 @@ public class Item
     public int getModifier()
     {
         count = (int) Math.ceil((double) itemLevel / (double) 4);
-        if (itemType.equalsIgnoreCase("Armor"))
-        {
-            setInitialArmorClass();
-            count += armorClass;
-        }
-
         return count;
     }
 

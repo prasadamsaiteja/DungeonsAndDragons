@@ -1,4 +1,4 @@
-package game.model;
+package game.model.character;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Set;
@@ -28,9 +29,8 @@ public class Backpack extends Observable
 
     private int backpackItemCount = 0;
     private int maxAllowedItems = 10;
-    private static String fileName = "backpack.xml";
+    private String fileName;
     private HashMap<String, ArrayList<String>> items = new HashMap<String, ArrayList<String>>();
-    private static Backpack _inst = null;
 
     /**
      * increment item counter
@@ -46,6 +46,22 @@ public class Backpack extends Observable
     private void decrementItemCount()
     {
         backpackItemCount -= 1;
+    }
+
+    /**
+     * @return file name
+     */
+    public String getFileName()
+    {
+        return fileName;
+    }
+
+    /**
+     * @param fileName String
+     */
+    public void setFileName(String fileName)
+    {
+        this.fileName = fileName;
     }
 
     /**
@@ -128,31 +144,7 @@ public class Backpack extends Observable
         decrementItemCount();
         update();
     }
-
-    /**
-     * saves the state of backpack in xml file
-     * 
-     * @throws IOException if save file fails
-     */
-    public void save() throws IOException // NO_UCD (unused code)
-    {
-        String filePath = SharedVariables.DataDirectory + File.separator + fileName;
-
-        XStream xstream = new XStream(new StaxDriver());
-        String xml = xstream.toXML(this);
-        FileWriter out;
-        try
-        {
-            out = new FileWriter(filePath);
-            out.write(xml);
-            out.close();
-        }
-        catch (IOException e1)
-        {
-            e1.printStackTrace();
-        }
-    }
-
+    
     /**
      * @return set of equipped item types
      */
@@ -184,83 +176,66 @@ public class Backpack extends Observable
     }
 
     /**
-     * Initializes backpack
+     * saves the state of backpack in xml file
      * 
-     * @return Backpack instance
+     * @throws IOException if save file fails
      */
-    public static Backpack init()
+    public void save() throws IOException // NO_UCD (unused code)
     {
-        /*
-         * Flow: - Checks if an existing instance exists and returns it - if
-         * not, then it checks data folder for existence of xml file and if
-         * found, uses it to load the instance - else, returns a new instance
-         */
-        if (Backpack._inst == null)
+        // check if the directory exists and if not then make it
+        File dir = new File(SharedVariables.BackpackDirectory);
+        if (!dir.isDirectory())
         {
-            // if backpack xml file exist then read it and load it
-            String filePath = SharedVariables.DataDirectory + File.separator + fileName;
-            File f = new File(filePath);
-            if (f.exists() && f.canRead())
-            {
-                BufferedReader r;
-                try
-                {
-                    r = new BufferedReader(new FileReader(f.getPath()));
-                    String sCurrentLine, xml = "";
-                    try
-                    {
-                        while ((sCurrentLine = r.readLine()) != null)
-                        {
-                            xml += sCurrentLine;
-                        }
-                        XStream xstream = new XStream(new StaxDriver());
-                        Backpack._inst = (Backpack) xstream.fromXML(xml);
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-                catch (FileNotFoundException e1)
-                {
-                    e1.printStackTrace();
-                }
-            }
-            else
-            {
-                Backpack._inst = new Backpack();
-            }
+            dir.mkdirs();
         }
+        if (this.getFileName() == null)
+        {
+            Date d = new Date();
+            long dTime = d.getTime();
+            this.setFileName("Backpack" + dTime);
+        }
+        
+        String filePath = SharedVariables.BackpackDirectory + File.separator + this.getFileName() + ".xml";
 
-        return Backpack._inst;
+        XStream xstream = new XStream(new StaxDriver());
+        String xml = xstream.toXML(this);
+        FileWriter out;
+        out = new FileWriter(filePath);
+        out.write(xml);
+        out.close();
     }
 
     /**
-     * Resets Backpack and initializes
+     * Initializes backpack
      * 
-     * @param forceReset true or false
      * @return Backpack instance
+     * @throws IOException 
      */
-    public static Backpack init(boolean forceReset) // NO_UCD (unused code)
+    public static Backpack get(String fileName) throws IOException
     {
-        /*
-         * if forced, it will delete any existence instance or file and reset
-         * backpack
-         */
-        if (forceReset)
+        Backpack backpack = null;
+    
+        // if backpack xml file exist then read it and load it
+        String filePath = SharedVariables.BackpackDirectory + File.separator + fileName + ".xml";
+        File f = new File(filePath);
+        if (f.exists() && f.canRead())
         {
-            Backpack._inst = null;
-            String filePath = SharedVariables.DataDirectory + File.separator + fileName;
-            File f = new File(filePath);
-            f.delete();
+            BufferedReader r;
+            r = new BufferedReader(new FileReader(f.getPath()));
+            String sCurrentLine, xml = "";
+            while ((sCurrentLine = r.readLine()) != null)
+            {
+                xml += sCurrentLine;
+            }
+            XStream xstream = new XStream(new StaxDriver());
+            backpack = (Backpack) xstream.fromXML(xml);
+            r.close();
         }
-        return Backpack.init();
-    }
+        else
+        {
+            System.out.println("Can not read: " + filePath);
+        }
 
-    public static Backpack reload() // NO_UCD (unused code)
-    {
-        Backpack._inst = null;
-        return Backpack.init();
+        return backpack;
     }
-
 }
