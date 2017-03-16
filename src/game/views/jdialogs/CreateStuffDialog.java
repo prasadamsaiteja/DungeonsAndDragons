@@ -11,7 +11,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 import java.awt.event.ActionEvent;
@@ -50,7 +49,6 @@ import game.views.jpanels.MapDesigner;
 
 import java.awt.Font;
 import java.awt.GridLayout;
-import javax.swing.JCheckBox;
 
 /**
  * This class is a JDialog which helps user to create new campaign, map or
@@ -273,24 +271,10 @@ public class CreateStuffDialog extends JDialog
         btnBagpack.setEnabled(false);
         btnBagpack.addActionListener(new ActionListener()
         {
-
             @Override
             public void actionPerformed(ActionEvent e)
             {
-//                try
-//                {
-//                    new BackpackDialog();
-//                    //updatePreview(doc);
-//                }
-//                catch (BadLocationException e1)
-//                {
-//                    // TODO Auto-generated catch block
-//                    e1.printStackTrace();
-//                }
-            }
-
-            private void manageBackpack(String selectedValue) throws BadLocationException
-            {
+                new BackpackDialog();   
             }
 
         });
