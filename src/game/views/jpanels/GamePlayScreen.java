@@ -55,6 +55,8 @@ public class GamePlayScreen extends JPanel implements Observer{
   
     /**
      * This is constructor method for this class
+     * @param camapaignName This is the campaign to be loaded
+     * @param characterName This is the character to be loaded
      */
     public GamePlayScreen(String camapaignName, String characterName){
       

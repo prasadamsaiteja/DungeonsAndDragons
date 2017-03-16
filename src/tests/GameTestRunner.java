@@ -15,6 +15,10 @@ import tests.game.model.item.DeleteFileTest;
 import tests.game.model.item.FileExistsTest;
 import tests.game.model.item.ClassIntegrityTest;
 
+/**
+ * This class runs all the test cases classes.
+ * @author supreet (s_supree)
+ */
 @RunWith(Suite.class)
 
 @SuiteClasses(
@@ -22,9 +26,6 @@ import tests.game.model.item.ClassIntegrityTest;
   TestSaveFileOperations.class, TestDeleteFileOperations.class, DeleteFileTest.class, FileExistsTest.class,
   ClassIntegrityTest.class })
 
-/**
- * @author supreet (s_supree)
- */
 public class GameTestRunner
 {
 

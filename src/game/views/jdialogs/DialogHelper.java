@@ -18,9 +18,8 @@ public class DialogHelper
 {
 
     /**
-     * This method moves JDialog to the center of the screen.
-     * 
-     * @param this is reference to JDialog.
+     * This method moves JDialog to the center of the screen. 
+     * @param dialog is reference to JDialog.
      */
     private static void centerDialogToCenter(JDialog dialog)
     {
