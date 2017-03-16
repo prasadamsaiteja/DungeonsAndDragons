@@ -269,19 +269,10 @@ public class CreateStuffDialog extends JDialog
         btnBagpack.setEnabled(false);
         btnBagpack.addActionListener(new ActionListener()
         {
-
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try
-                {
-                    new BackpackDialog();
-		    //updatePreview(doc);
-                }
-                catch (Exception ignored)
-                {
-                    
-                }
+            	new BackpackDialog();
             }
 
         });

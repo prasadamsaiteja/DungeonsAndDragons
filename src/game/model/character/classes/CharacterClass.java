@@ -1,5 +1,6 @@
 package game.model.character.classes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -37,6 +38,14 @@ public class CharacterClass
             CharacterClassStructure fighterStructure = new CharacterClassStructure();
             fighterStructure.setDiceSides(10);
             fighterStructure.setNumberOfRolls(1);
+            
+            ArrayList<String> fighterTypes = new ArrayList<String>();
+            fighterTypes.add("Bully");
+            fighterTypes.add("Nimble");
+            fighterTypes.add("Tank");
+            
+            fighterStructure.setTypes(fighterTypes);
+            
             characterList.put("Fighter", fighterStructure);
 
             return characterList;
@@ -46,6 +55,7 @@ public class CharacterClass
     private Character character;
     private int hitPoints = 0;
     private String name;
+  
     // Store allowed character classes
 
     /**

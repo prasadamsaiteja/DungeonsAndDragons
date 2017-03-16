@@ -1,6 +1,9 @@
 package game.model.character.classes;
 
+import java.util.ArrayList;
+
 import game.interfaces.DiceImplementationInterface;
+
 
 /**
  * Custom data structure for storing character classes
@@ -12,6 +15,7 @@ public class CharacterClassStructure implements DiceImplementationInterface
 {
     private int numberOfRolls;
     private int diceSides;
+    private ArrayList<String> types;
 
     /**
      * set number of dice rolls
@@ -31,6 +35,24 @@ public class CharacterClassStructure implements DiceImplementationInterface
     public void setDiceSides(int sideDices)
     {
         this.diceSides = sideDices;
+    }
+    
+    /**
+     * set allowed character types
+     *  
+     * @param types
+     */
+    public void setTypes(ArrayList<String> types){
+        this.types = types;
+    }
+    
+    /**
+     * get allowed character types
+     * 
+     * @return allowed character types
+     */
+    public ArrayList<String> getTypes(){
+        return this.types;
     }
 
     /**

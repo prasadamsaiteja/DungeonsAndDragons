@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Observable;
 
 import com.thoughtworks.xstream.XStream;
@@ -30,15 +31,10 @@ public class Character extends Observable implements Cloneable
     private int dexterity;
     private int constitution;
     private int hitScore = 0;
+    private HashMap<String, String> items = new HashMap<String, String>();
     private String characterClass;
+    private String characterType;
     private String name;
-    private String weaponName;
-    private String beltName;
-    private String ringName;
-    private String shield;
-    private String boots;
-    private String armor;
-    private String helmet;
     private String fname;
     private String backpackFileName;
     private boolean isBuilt = false;
@@ -72,6 +68,22 @@ public class Character extends Observable implements Cloneable
     {
         this.characterClass = characterClass;
         this.draw();
+    }
+
+    /**
+     * @return the character type
+     */
+    public String getCharacterType()
+    {
+        return characterType;
+    }
+
+    /**
+     * @param characterType the character type to set
+     */
+    public void setCharacterType(String characterType)
+    {
+        this.characterType = characterType;
     }
 
     /**
@@ -305,6 +317,13 @@ public class Character extends Observable implements Cloneable
     {
         return this.characterClass;
     }
+    
+    private String getItem(String itemType){
+        if (this.items.containsKey(itemType))
+            return this.items.get(itemType);
+        
+        return null;
+    }
 
     /**
      * sets the weapon and redraws the character
@@ -313,7 +332,7 @@ public class Character extends Observable implements Cloneable
      */
     public void setWeaponName(String weaponName)
     {
-        this.weaponName = weaponName;
+        this.items.put("Weapon", weaponName);
         this.draw();
     }
 
@@ -322,7 +341,7 @@ public class Character extends Observable implements Cloneable
      */
     public String getWeaponName()
     {
-        return this.weaponName;
+        return this.getItem("Weapon");
     }
 
     /**
@@ -330,7 +349,7 @@ public class Character extends Observable implements Cloneable
      */
     public String getBeltName()
     {
-        return beltName;
+        return this.getItem("Beltname");
     }
 
     /**
@@ -338,7 +357,7 @@ public class Character extends Observable implements Cloneable
      */
     public void setBeltName(String beltName)
     {
-        this.beltName = beltName;
+        this.items.put("Beltname", beltName);
         this.draw();
     }
 
@@ -392,7 +411,7 @@ public class Character extends Observable implements Cloneable
 
     /**
      * Calculates armor class and returns the value
-     * NEEDS TO RE CONFIRM LOGIN - IMPORTANT
+     * NEEDS TO RE CONFIRM LOGIC - IMPORTANT
      * @return the armor class
      */
     public int getArmorClass()
@@ -472,7 +491,7 @@ public class Character extends Observable implements Cloneable
      */
     public String getRingName()
     {
-        return ringName;
+        return this.getItem("Ringname");
     }
 
     /**
@@ -480,7 +499,7 @@ public class Character extends Observable implements Cloneable
      */
     public void setRingName(String ringName)
     {
-        this.ringName = ringName;
+        this.items.put("Ringname", ringName);
         this.draw();
     }
 
@@ -489,7 +508,7 @@ public class Character extends Observable implements Cloneable
      */
     public String getShield()
     {
-        return shield;
+        return this.getItem("Shield");
     }
 
     /**
@@ -497,7 +516,7 @@ public class Character extends Observable implements Cloneable
      */
     public void setShield(String shield)
     {
-        this.shield = shield;
+        this.items.put("Shield", shield);
         this.draw();
     }
 
@@ -506,7 +525,7 @@ public class Character extends Observable implements Cloneable
      */
     public String getBoots()
     {
-        return boots;
+        return this.getItem("Boots");
     }
 
     /**
@@ -514,7 +533,7 @@ public class Character extends Observable implements Cloneable
      */
     public void setBoots(String boots)
     {
-        this.boots = boots;
+        this.items.put("Boots", boots);
         this.draw();
     }
 
@@ -523,7 +542,7 @@ public class Character extends Observable implements Cloneable
      */
     public String getArmor()
     {
-        return armor;
+        return this.getItem("Armor");
     }
 
     /**
@@ -531,7 +550,7 @@ public class Character extends Observable implements Cloneable
      */
     public void setArmor(String armor)
     {
-        this.armor = armor;
+        this.items.put("Armor", armor);
         this.draw();
     }
 
@@ -540,7 +559,7 @@ public class Character extends Observable implements Cloneable
      */
     public String getHelmet()
     {
-        return helmet;
+        return this.items.get("Helmet");
     }
 
     /**
@@ -548,7 +567,7 @@ public class Character extends Observable implements Cloneable
      */
     public void setHelmet(String helmet)
     {
-        this.helmet = helmet;
+        this.items.put("Helmet", helmet);
         this.draw();
     }
 
@@ -727,6 +746,10 @@ public class Character extends Observable implements Cloneable
 
             try
             {
+                // modify ability scores with class type modifiers
+                
+                
+                // calculate hit score from the character class
                 this.calculateHitScore();
 
                 // build a bucket for the character

@@ -22,8 +22,8 @@ import java.awt.Font;
 @SuppressWarnings("serial")
 class BackpackDialog extends JDialog {
     
-    BackpackDialog(){
-        DialogHelper.setDialogProperties(this, "Backpack", new Rectangle(444, 358));
+    public BackpackDialog(){
+        DialogHelper.setDialogProperties(this, "Backpack", new Rectangle(480, 350));
         getContentPane().setLayout(null);
         initComponents();        
     }
@@ -36,11 +36,11 @@ class BackpackDialog extends JDialog {
         
         JPanel backpackPanel = new JPanel();
         backpackPanel.setBackground(Color.WHITE);
-        backpackPanel.setBounds(10, 11, 411, 264);
+        backpackPanel.setBounds(10, 11, 459, 264);
         getContentPane().add(backpackPanel);
         backpackPanel.setLayout(null);
         
-        JList<String> ItemsList = new JList<String>(ExtensionMethods.getItemsList());        
+        JList<String> ItemsList = new JList<String>();        
         ItemsList.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, Color.LIGHT_GRAY));
         ItemsList.setBounds(10, 33, 169, 220);
         backpackPanel.add(ItemsList);
@@ -52,11 +52,11 @@ class BackpackDialog extends JDialog {
         DefaultListModel<String> backpackItemsListModel = new DefaultListModel<String>();
         JList<String> backpackItemsList = new JList<String>(backpackItemsListModel);
         backpackItemsList.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, Color.LIGHT_GRAY));
-        backpackItemsList.setBounds(238, 33, 163, 220);
+        backpackItemsList.setBounds(278, 33, 163, 220);
         backpackPanel.add(backpackItemsList);
         
         JLabel lblBackpackItems = new JLabel("Backpack items");
-        lblBackpackItems.setBounds(280, 8, 72, 14);
+        lblBackpackItems.setBounds(308, 8, 72, 14);
         backpackPanel.add(lblBackpackItems);
         
         JButton addItemButton = new JButton("+");
@@ -70,7 +70,7 @@ class BackpackDialog extends JDialog {
         });
         addItemButton.setEnabled(false);
         addItemButton.setFont(new Font("Tahoma", Font.PLAIN, 8));
-        addItemButton.setBounds(189, 96, 39, 30);
+        addItemButton.setBounds(195, 87, 54, 39);
         backpackPanel.add(addItemButton);
         
         JButton removeItemButton = new JButton("-");
@@ -87,7 +87,7 @@ class BackpackDialog extends JDialog {
             }
         });
         removeItemButton.setFont(new Font("Tahoma", Font.PLAIN, 8));
-        removeItemButton.setBounds(189, 137, 39, 30);
+        removeItemButton.setBounds(191, 138, 60, 39);
         backpackPanel.add(removeItemButton);
         
         ItemsList.addListSelectionListener(new ListSelectionListener() {
