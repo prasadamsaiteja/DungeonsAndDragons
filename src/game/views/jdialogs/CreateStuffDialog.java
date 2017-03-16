@@ -275,15 +275,16 @@ public class CreateStuffDialog extends JDialog
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try
+               /* try
                 {
                     new BackpackDialog();
+
 		    //updatePreview(doc);
                 }
                 catch (Exception ignored)
                 {
                     
-                }
+                }*/
             }
 
         });
