@@ -31,6 +31,7 @@ public class Character extends Observable implements Cloneable
     private int constitution;
     private int hitScore = 0;
     private String characterClass;
+    private String characterType;
     private String name;
     private String weaponName;
     private String beltName;
@@ -72,6 +73,22 @@ public class Character extends Observable implements Cloneable
     {
         this.characterClass = characterClass;
         this.draw();
+    }
+
+    /**
+     * @return the character type
+     */
+    public String getCharacterType()
+    {
+        return characterType;
+    }
+
+    /**
+     * @param characterType the character type to set
+     */
+    public void setCharacterType(String characterType)
+    {
+        this.characterType = characterType;
     }
 
     /**
@@ -727,6 +744,10 @@ public class Character extends Observable implements Cloneable
 
             try
             {
+                // modify ability scores with class type modifiers
+                
+                
+                // calculate hit score from the character class
                 this.calculateHitScore();
 
                 // build a bucket for the character

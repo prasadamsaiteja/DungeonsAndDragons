@@ -277,16 +277,16 @@ public class CreateStuffDialog extends JDialog
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try
-                {
-                    new BackpackDialog();
-		    updatePreview(doc);
-                }
-                catch (BadLocationException e1)
-                {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+//                try
+//                {
+//                    new BackpackDialog();
+//                    //updatePreview(doc);
+//                }
+//                catch (BadLocationException e1)
+//                {
+//                    // TODO Auto-generated catch block
+//                    e1.printStackTrace();
+//                }
             }
 
             private void manageBackpack(String selectedValue) throws BadLocationException
