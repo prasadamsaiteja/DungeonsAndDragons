@@ -5,6 +5,7 @@ import javax.swing.JTextField;
 
 import game.components.Dice;
 import game.model.Item;
+import game.model.builder.FighterDriverClass;
 import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.character.classes.CharacterClass;
@@ -15,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
 import java.awt.GridBagLayout;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -29,6 +31,11 @@ import java.util.Set;
 
 @SuppressWarnings("serial")
 
+/**
+ * This Class is for the dialog that creates the character with a set of properties
+ * @author Supreet
+ * @version 1.0.0
+ */
 public class CreateCharacterDialog extends JDialog
 {
 
@@ -753,18 +760,22 @@ public class CreateCharacterDialog extends JDialog
                 public void actionPerformed(ActionEvent e)
                 {
 
-                    // Initiate the dice object with a 4D6 (returns sum of
-                    // highest 3 rolls)
-                    Dice dice = new Dice(4, 6, 3);
-
+                	FighterDriverClass fighterDriver = new FighterDriverClass(cbType.getSelectedItem().toString()); 
+                 
+                    int str = fighterDriver.fighterDirector.getFighter().getStrength();
+                    int dext = fighterDriver.fighterDirector.getFighter().getDexterity();
+                    int con = fighterDriver.fighterDirector.getFighter().getConstitution();
+                   
                     // Iterate through each text field component and calculate
                     // the roll score
+                    int[] abilityData = { str, dext, con };
                     Iterator<JTextField> txtFieldIterator = txtFieldAbilities.iterator();
+                    int index = 0;
                     while (txtFieldIterator.hasNext())
-                    {
-                        int txtFieldScore = dice.getRollSum();
+                    {                    
                         JTextField txtField = txtFieldIterator.next();
-                        txtField.setText(Integer.toString(txtFieldScore));
+                        txtField.setText(Integer.toString(abilityData[index]));
+                        index++;
                     }
                 }
             });

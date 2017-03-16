@@ -207,10 +207,10 @@ public class Backpack extends Observable
 
     /**
      * Initializes backpack
-     * 
+     * @param fileName Name of the file
      * @return Backpack instance
-     * @throws IOException 
-     */
+     * @throws IOException exception
+     */ 
     public static Backpack get(String fileName) throws IOException
     {
         Backpack backpack = null;

@@ -1,15 +1,19 @@
 package game.model.builder;
 
 /**
- * 
+ * Main Driver class for accessing the fighter object loaded with 
  * @author RahulReddy
- *
+ * @version 1.0.0
  */
 public class FighterDriverClass {
 
-	FighterDirector fighterDirector;
-	Fighter selectedFighter ;
-	FighterBuilder fighterType;
+	public FighterDirector fighterDirector;
+	private FighterBuilder fighterType;
+	
+	/**
+	 * Constructor that checks for the fighter type
+	 * @param fighterName Name of the fighter
+	 */
 	public FighterDriverClass(String fighterName)
 	{
 		if(fighterName.equals("Bully"))
@@ -28,7 +32,5 @@ public class FighterDriverClass {
 		fighterDirector = new FighterDirector();
 		fighterDirector.setFb(fighterType);
 		fighterDirector.constructFighter();
-		
-		selectedFighter = fighterDirector.getFighter();
 	}
 }
