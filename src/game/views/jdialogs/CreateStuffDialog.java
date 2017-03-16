@@ -271,7 +271,6 @@ public class CreateStuffDialog extends JDialog
         btnBagpack.setEnabled(false);
         btnBagpack.addActionListener(new ActionListener()
         {
-
             @Override
             public void actionPerformed(ActionEvent e)
             {
