@@ -104,6 +104,7 @@ class BackpackDialog extends JDialog {
         });
         backpackItemsList.addListSelectionListener(new ListSelectionListener() {
             
+            @SuppressWarnings("rawtypes")
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (((JList) e.getSource()).getSelectedValue() == null)
