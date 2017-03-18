@@ -3,7 +3,6 @@ package game.views.jdialogs.characterDialog;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 
-import game.components.Dice;
 import game.model.Item;
 import game.model.builder.FighterDriverClass;
 import game.model.character.Character;
@@ -29,13 +28,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-@SuppressWarnings("serial")
-
 /**
  * This Class is for the dialog that creates the character with a set of properties
  * @author Supreet
  * @version 1.0.0
  */
+@SuppressWarnings("serial")
 public class CreateCharacterDialog extends JDialog
 {
 

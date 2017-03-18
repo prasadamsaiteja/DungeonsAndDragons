@@ -14,8 +14,6 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import game.components.ExtensionMethods;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 

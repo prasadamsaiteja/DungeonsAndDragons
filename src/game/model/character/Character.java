@@ -239,8 +239,8 @@ public class Character extends Observable implements Cloneable
     }
     
     /**
-     * get calculated dexterity modifer 
-     * @return
+     * get calculated dexterity modifier 
+     * @return int dexterity modifier
      */
     public int getDexterityModifier()
     {
