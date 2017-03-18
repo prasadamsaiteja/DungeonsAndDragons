@@ -1,3 +1,5 @@
+
+
 package game.model.builder;
 
 import game.components.Dice;
@@ -8,21 +10,19 @@ import java.util.Arrays;
 /**
  * Class that sets the abilities for the Bully Class
  * @author RahulReddy
- *
+ * @version 1.0.0
  */
 public class BullyFighterBuilder extends FighterBuilder {
 
-	Fighter bullyType;
-	double strength[],constitution[],dexterity[];
-	double strength2,constitution2,dexterity2;
-	double[] unSortedabilityValues;
-	double[] sortedAbilityValues;
+	int strength[],constitution[],dexterity[];
+	int strength2,constitution2,dexterity2;
+	int[] unSortedabilityValues;
+	int[] sortedAbilityValues;
 		
 	/**
-	 * Constructor for Bully
+	 * Constructor for Bully that sets abilities
 	 */
 	public BullyFighterBuilder() {
-		this.bullyType = new Fighter();
 		setAbilities();		
 	}
 	
@@ -31,16 +31,16 @@ public class BullyFighterBuilder extends FighterBuilder {
 	 */
 	private void setAbilities() {
 
-		unSortedabilityValues=new double[3];
-		sortedAbilityValues=new double[3];
+		unSortedabilityValues=new int[3];
+		sortedAbilityValues=new int[3];
 		
-		strength = new double[4];
+		strength = new int[4];
 		strength[0]= calculateAbilities();
 		
-		constitution = new double[4];
+		constitution = new int[4];
 		constitution[0]= calculateAbilities();
 		
-		dexterity = new double[4];
+		dexterity = new int[4];
 		dexterity[0]= calculateAbilities();
 		
 		unSortedabilityValues[0] = strength[0];
@@ -55,29 +55,28 @@ public class BullyFighterBuilder extends FighterBuilder {
 	 * Overriden Method that builds the strength
 	 */
 	void buildStrength() {
-		bullyType.setStrength((int) sortedAbilityValues[2]);
+		getFighter().setStrength(sortedAbilityValues[2]);
 	}
 	
 	/**
 	 * Overriden Method that builds the Constitution
 	 */
 	void buildConstitution() {
-		bullyType.setConstitution((int) sortedAbilityValues[1]);
+		getFighter().setConstitution(sortedAbilityValues[1]);
 	}
 	
 	/**
 	 * Overriden Method that builds the Dexterity
 	 */
 	void buildDexterity() {
-		bullyType.setDexterity((int) sortedAbilityValues[0]);
+		getFighter().setDexterity( sortedAbilityValues[0]);
 	}
 	
-
 	/**
 	 *  Method for calculating abilities
 	 * @return array random generated values 
 	 */
-	private double calculateAbilities() {
+	private int calculateAbilities() {
 		
 		//for(int i=0 ; i < 4 ; i++) ability[i] = Math.random() * 6 + 1;
 		//return ability[0]=(ability[0]+ability[1]+ability[2]+ability[3]);

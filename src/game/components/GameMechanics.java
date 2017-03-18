@@ -8,6 +8,11 @@ import game.model.Item;
 import game.model.Map;
 import game.model.character.Character;
 
+/**
+ * This class contains all the method required for 
+ * @author saite
+ *
+ */
 public class GameMechanics {
 
   /**
@@ -34,11 +39,11 @@ public class GameMechanics {
       return jpanel;      
   }
 
-  /**
+    /**
      * This method returns the player position
-   * @param Map this is the map object
-   * @return return array of int first int contains row number and second int contains col number
-   */
+     * @param currentMap this is the map object
+     * @return return array of int, The first int contains row number and second int contains column number
+     */
     public static int[] getPlayerPosition(Map currentMap){
     
       for (int i = 0; i < currentMap.mapWidth; i++)      
@@ -71,7 +76,7 @@ public class GameMechanics {
      * @param currentMap Current map object
      * @return return true if key found else false
      */
-    public static boolean checkIfKeyExistsInTheMap(Map currentMap){       
+    public static boolean checkIfKeyExistsInTheMap(Map currentMap){
         
         for (int i = 0; i < currentMap.mapWidth; i++)      
           for (int j = 0; j < currentMap.mapHeight; j++)

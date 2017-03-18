@@ -11,7 +11,6 @@ import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.jaxb.ItemJaxb;
 
-@XmlRootElement(name = "Map")
 /**
  * This class is a generic model for maps.
  * 
@@ -19,6 +18,7 @@ import game.model.jaxb.ItemJaxb;
  * @version 1.0
  * @since 2/3/2017
  */
+@XmlRootElement(name = "Map")
 public class Map
 {
 
@@ -32,6 +32,7 @@ public class Map
     public String[][] mapCellValues;
     @XmlElement(name = "Map_data")
     private HashMap<String, String> mapCellInformation;
+    
     public Object[][] mapData; 
     
     /**

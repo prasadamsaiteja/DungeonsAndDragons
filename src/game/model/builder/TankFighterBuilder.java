@@ -5,23 +5,21 @@ import game.components.Dice;
 import java.util.Arrays;
 
 /**
- * 
+ * Class that sets the abilities for the Tank Class
  * @author RahulReddy
- *
+ * @version 1.0.0
  */
 public class TankFighterBuilder extends FighterBuilder{
 
-	Fighter tankType;
-	double strength[],constitution[],dexterity[];
-	double strength2,constitution2,dexterity2;
-	double[] unSortedabilityValues;
-	double[] sortedAbilityValues;
+	int strength[],constitution[],dexterity[];
+	int strength2,constitution2,dexterity2;
+	int[] unSortedabilityValues;
+	int[] sortedAbilityValues;
 	
 	/**
 	 * Constructor for Tank
 	 */	
 	public TankFighterBuilder() {
-		this.tankType = new Fighter();
 		setAbilities();		
 	}
 	
@@ -30,16 +28,16 @@ public class TankFighterBuilder extends FighterBuilder{
 	 */
 	private void setAbilities() {
 
-		unSortedabilityValues=new double[3];
-		sortedAbilityValues=new double[3];
+		unSortedabilityValues=new int[3];
+		sortedAbilityValues=new int[3];
 		
-		strength = new double[4];
+		strength = new int[4];
 		strength[0]= calculateAbilities();
 		
-		constitution = new double[4];
+		constitution = new int[4];
 		constitution[0]= calculateAbilities();
 		
-		dexterity = new double[4];
+		dexterity = new int[4];
 		dexterity[0]= calculateAbilities();
 		
 		unSortedabilityValues[0] = constitution[0];
@@ -54,21 +52,21 @@ public class TankFighterBuilder extends FighterBuilder{
 	 * Overriden Method that builds the strength
 	 */
 	void buildStrength() {
-		tankType.setStrength((int) sortedAbilityValues[0]);
+		getFighter().setStrength(sortedAbilityValues[0]);
 	}
 	
 	/**
 	 * Overriden Method that builds the Constitution
 	 */
 	void buildConstitution() {
-		tankType.setConstitution((int) sortedAbilityValues[2]);
+		getFighter().setConstitution(sortedAbilityValues[2]);
 	}
 	
 	/**
 	 * Overriden Method that builds the Dexterity
 	 */
 	void buildDexterity() {
-		tankType.setDexterity((int) sortedAbilityValues[1]);
+		getFighter().setDexterity(sortedAbilityValues[1]);
 
 	}
 
@@ -76,7 +74,7 @@ public class TankFighterBuilder extends FighterBuilder{
 	 *  Method for calculating abilities
 	 * @return array random generated values 
 	 */
-	private double calculateAbilities() {
+	private int calculateAbilities() {
 		Dice dice=new Dice(4,6,3);
 		return dice.getRollSum();
 		}

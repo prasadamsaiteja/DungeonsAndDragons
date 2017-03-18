@@ -56,8 +56,8 @@ public class MapDesigner extends JPanel
      * Map Designer helps user to create custom maps.
      * 
      * @param mapName Name of the map.
-     * @param width Width of the map.
-     * @param height Height of the map.
+     * @param mapWidth Width of the map.
+     * @param mapHeight Height of the map.
      */
     public MapDesigner(String mapName, int mapWidth, int mapHeight)
     {

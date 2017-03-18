@@ -15,8 +15,7 @@ import java.util.Map.Entry;
 public class SharedVariables
 {
 
-    // Directory structure information for storing items, maps, character,
-    // campaign etc.
+    // Directory structure information for storing items, maps, character, campaign etc.
     public static final String DataDirectory = "Data";
     public static final String MapsDirectory = DataDirectory + File.separator + "Maps";
     public static final String ItemsDirectory = DataDirectory + File.separator + "Items";
@@ -45,7 +44,7 @@ public class SharedVariables
     public static final String PLAYER_STRING = "PLAYER";
     public static final String DEFAULT_CELL_STRING = "EMPTY";
     
-	public static final int CAMPAIGN_TOTAL_MAPS = 10;
+    public static final int CAMPAIGN_TOTAL_MAPS = 10;
 
 
     public static enum ItemType

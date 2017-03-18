@@ -69,10 +69,7 @@ public class CreateStuffDialog extends JDialog
     private String lastCreateMapName;
 
     /**
-     * This class is a JDialog which helps user to create new campaign, map or
-     * character.
-     * 
-     * @param mapName
+     * This class is a JDialog which helps user to create new campaign, map or character.
      */
     public CreateStuffDialog()
     {
@@ -82,8 +79,9 @@ public class CreateStuffDialog extends JDialog
     }
 
     /**
-     * This class is a JDialog which helps user to create new campaign, map or
-     * character.
+     * This class is a JDialog which helps user to create new campaign, map or character.
+     * @param defaultTabIndex This is the tab index, which tab should be shown as default.
+     * @param mapName This is name of map to be previewed.
      */
     public CreateStuffDialog(int defaultTabIndex, String mapName)
     {

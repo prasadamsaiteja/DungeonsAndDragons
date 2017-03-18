@@ -11,7 +11,6 @@ import game.components.ExtensionMethods;
 import game.model.character.Character;
 import game.model.jaxb.ItemJaxb;
 
-@XmlRootElement(name = "Item")
 /**
  * This is an item class which is used to store the items currently used by the
  * character while playing the game. It affects various classes of selected
@@ -22,6 +21,7 @@ import game.model.jaxb.ItemJaxb;
  * @version 1.0
  * @since 2/24/2017
  */
+@XmlRootElement(name = "Item")
 public class Item
 {
 
@@ -33,16 +33,16 @@ public class Item
     public String itemClass;
     @XmlElement(name = "itemLevel")
     public int itemLevel;
-
+    
+    private int modifier;
     private Character characterObj = null;
     
-    private int count;
-
     /**
-     * @param name
-     * @param type
-     * @param itemclass
-     * @param level
+     * This is the default constructor which create a new item 
+     * @param name Name of the item
+     * @param type type of the item
+     * @param itemclass Class of item
+     * @param level level of the item
      */
     public Item(String name, String type, String itemclass, int level)
     {
@@ -53,7 +53,8 @@ public class Item
     }
 
     /**
-     * @return
+     * This method returns the item name
+     * @return string of item name
      */
     public String getItemName()
     {
@@ -61,7 +62,8 @@ public class Item
     }
 
     /**
-     * @return
+     * This method returns item type
+     * @return string of item type
      */
     public String getItemType()
     {
@@ -69,14 +71,13 @@ public class Item
     }
 
     /**
-     * return the modifier
-     * 
-     * @return
+     *  This method returns item modifier 
+     * @return int of item modifier.
      */
     public int getModifier()
     {
-        count = (int) Math.ceil((double) itemLevel / (double) 4);
-        return count;
+        modifier = (int) Math.ceil((double) itemLevel / (double) 4);
+        return modifier;
     }
 
     /**
@@ -123,8 +124,9 @@ public class Item
     }
 
     /**
-     * @param itemType
-     * @param level
+     * This method get all the item providing type and level of item
+     * @param itemType Item type 
+     * @param characterLevel level of the character
      * @return an array list of items based on provided item type and level
      */
     public static ArrayList<Item> getItems(String itemType, int characterLevel)

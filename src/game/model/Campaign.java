@@ -7,8 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import game.model.jaxb.MapJaxb;
 
-@XmlRootElement(name = "Campaign")
-
 /**
  * Model Class for Campaign
  * 
@@ -16,6 +14,7 @@ import game.model.jaxb.MapJaxb;
  * @version 1.0
  * @since 2/20/2017
  */
+@XmlRootElement(name = "Campaign")
 public class Campaign
 {
 
