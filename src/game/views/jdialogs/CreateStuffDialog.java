@@ -274,7 +274,7 @@ public class CreateStuffDialog extends JDialog
             @Override
             public void actionPerformed(ActionEvent e)
             {
-            	new BackpackDialog();
+            	new BackpackDialog(CharactersList.getByName(characterJlist.getSelectedValue()));
             }
 
         });
