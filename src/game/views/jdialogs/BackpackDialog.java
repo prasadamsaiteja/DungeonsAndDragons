@@ -3,6 +3,7 @@ package game.views.jdialogs;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JDialog;
 import javax.swing.DefaultListModel;
@@ -14,16 +15,28 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import game.model.Item;
+import game.model.character.Character;
+import game.model.jaxb.ItemJaxb;
+import game.views.jdialogs.viewmodels.BackpackDialogBackpackListModel;
+import game.views.jdialogs.viewmodels.BackpackDialogCharacterListModel;
 import javax.swing.JLabel;
 import java.awt.Font;
 
 @SuppressWarnings("serial")
 class BackpackDialog extends JDialog {
     
-    public BackpackDialog(){
+    private Character c;
+    
+    public BackpackDialog(Character c){
+        this.c = c;
+        this.draw();
+    }
+    
+    private void draw(){
         DialogHelper.setDialogProperties(this, "Backpack", new Rectangle(480, 350));
         getContentPane().setLayout(null);
-        initComponents();        
+        initComponents();  
     }
 
     private void initComponents() {
@@ -31,6 +44,16 @@ class BackpackDialog extends JDialog {
         JButton btnSaveButton = new JButton("Save");
         btnSaveButton.setBounds(332, 286, 89, 23);
         getContentPane().add(btnSaveButton);
+        btnSaveButton.addActionListener(new ActionListener()
+        {
+            
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                c.save();
+                dispose();
+            }
+        });
         
         JPanel backpackPanel = new JPanel();
         backpackPanel.setBackground(Color.WHITE);
@@ -38,7 +61,8 @@ class BackpackDialog extends JDialog {
         getContentPane().add(backpackPanel);
         backpackPanel.setLayout(null);
         
-        JList<String> ItemsList = new JList<String>();        
+        BackpackDialogCharacterListModel characterItemsListModel = new BackpackDialogCharacterListModel(this.c);
+        JList<String> ItemsList = new JList<String>(characterItemsListModel);        
         ItemsList.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, Color.LIGHT_GRAY));
         ItemsList.setBounds(10, 33, 169, 220);
         backpackPanel.add(ItemsList);
@@ -47,7 +71,7 @@ class BackpackDialog extends JDialog {
         lblItemslist.setBounds(72, 8, 46, 14);
         backpackPanel.add(lblItemslist);
         
-        DefaultListModel<String> backpackItemsListModel = new DefaultListModel<String>();
+        BackpackDialogBackpackListModel backpackItemsListModel = new BackpackDialogBackpackListModel(this.c);
         JList<String> backpackItemsList = new JList<String>(backpackItemsListModel);
         backpackItemsList.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, Color.LIGHT_GRAY));
         backpackItemsList.setBounds(278, 33, 163, 220);
@@ -63,7 +87,10 @@ class BackpackDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(ItemsList.getSelectedValue() != null)
-                    backpackItemsListModel.addElement(ItemsList.getSelectedValue());
+                {
+                    Item i = ItemJaxb.getItemFromXml(ItemsList.getSelectedValue());
+                    c.sendItemToBackpack(i);
+                }
             }
         });
         addItemButton.setEnabled(false);
@@ -78,9 +105,8 @@ class BackpackDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(backpackItemsList.getSelectedValue() != null){
-                    int index = backpackItemsList.getSelectedIndex();
-                    backpackItemsListModel.remove(index);
-                    backpackItemsList.setSelectedIndex(index - 1);
+                    Item i = ItemJaxb.getItemFromXml(backpackItemsList.getSelectedValue());
+                    c.getItemFromBackpack(i);    
                 }
             }
         });
@@ -100,6 +126,7 @@ class BackpackDialog extends JDialog {
                     addItemButton.setEnabled(true);
             }
         });
+        
         backpackItemsList.addListSelectionListener(new ListSelectionListener() {
             
             @SuppressWarnings("rawtypes")

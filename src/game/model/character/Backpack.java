@@ -15,6 +15,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import game.components.SharedVariables;
+import game.model.Item;
 
 /**
  * Maintains the state of backpack by allowing to equip and unequip items. Uses
@@ -73,6 +74,16 @@ public class Backpack extends Observable
     }
 
     /**
+     * 
+     * @param i
+     * @throws Throwable 
+     */
+    public void equip(Item i) throws Throwable
+    {
+        equip(i.getItemType(), i.getItemName());
+    }
+    
+    /**
      * equip an item
      * 
      * @param itemType item type to equip
@@ -114,6 +125,15 @@ public class Backpack extends Observable
             throw new Exception("Item already exists in backpack");
         }
     }
+    
+    /**
+     * unequips item using item object
+     * @param i
+     */
+    public void unequip(Item i)
+    {
+        unequip(i.getItemType(), i.getItemName());
+    }
 
     /**
      * un-equip an item
@@ -134,6 +154,7 @@ public class Backpack extends Observable
 
         if (!itemList.contains(itemName))
             return;
+        
 
         itemList.remove(itemName);
         if (itemList.size() == 0)
@@ -141,6 +162,7 @@ public class Backpack extends Observable
             items.remove(itemType);
         }
         decrementItemCount();
+        System.out.println("updating observers");
         update();
     }
     
@@ -172,6 +194,14 @@ public class Backpack extends Observable
         }
 
         return items.get(itemType);
+    }
+    
+    /**
+     * @return
+     */
+    public HashMap<String, ArrayList<String>> getAll()
+    {
+        return this.items;
     }
 
     /**

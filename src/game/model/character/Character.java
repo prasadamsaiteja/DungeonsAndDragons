@@ -16,6 +16,7 @@ import game.model.Item;
 import game.model.character.classes.CharacterClass;
 import game.model.character.classes.CharacterClassStructure;
 import game.model.jaxb.ItemJaxb;
+import game.model.Inventory;
 
 /**
  * Build a new character
@@ -31,12 +32,14 @@ public class Character extends Observable implements Cloneable
     private int dexterity;
     private int constitution;
     private int hitScore = 0;
-    private HashMap<String, String> items = new HashMap<String, String>();
+    private HashMap<String, String> items;
     private String characterClass;
     private String characterType;
     private String name;
     private String fname;
     private String backpackFileName;
+    private Backpack backpack;
+    private Inventory inventory;
     private boolean isBuilt = false;
 
     private boolean isKeyCollected = false;
@@ -319,7 +322,7 @@ public class Character extends Observable implements Cloneable
     }
     
     private String getItem(String itemType){
-        if (this.items.containsKey(itemType))
+        if (this.items != null && this.items.containsKey(itemType))
             return this.items.get(itemType);
         
         return null;
@@ -674,6 +677,120 @@ public class Character extends Observable implements Cloneable
 
         return i;
     }
+    
+    /**
+     * gets item from backpack and swaps if an existing item for the item type is present
+     * @param i
+     */
+    public void getItemFromBackpack(Item i)
+    {
+        if (i != null)
+        {
+            if (this.items.containsKey(i.getItemType()))
+            {
+                String itemName = this.items.get(i.getItemType());
+                if (itemName.equals(i.getItemName()))
+                {
+                    // existing object is being added to the list
+                    return;
+                }
+                
+                // if an existing item exists, try to equip it to backpack
+                Item iObj = ItemJaxb.getItemFromXml(itemName);
+             
+                System.out.println(701);
+                try
+                {
+                    this.getBackpack().unequip(i);
+                    this.getBackpack().equip(iObj);
+                    
+                    // if equip is successful, then remove that item from character
+                    removeItem(iObj);
+                    
+                    // add new item
+                    this.items.put(i.getItemType(), i.getItemName());
+                    draw();
+                }
+                catch (Throwable e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                   
+                
+            }
+            else
+            {
+                try
+                {
+                    this.getBackpack().unequip(i);
+                    this.items.put(i.getItemType(), i.getItemName());
+                    draw();
+                }
+                catch (IOException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }                
+            }
+        }
+        
+        return;
+    }
+    
+    /**
+     * Send item to backpack
+     * @param i
+     */
+    public void sendItemToBackpack(Item i)
+    {
+        if (i != null)
+        {
+            if (this.items.containsKey(i.getItemType()))
+            {
+                String itemName = this.items.get(i.getItemType());
+                if (!itemName.equals(i.getItemName()))
+                {
+                    System.out.println("Wrong item");
+                    // existing object is being added to the list
+                    return;
+                }
+                
+                // if an existing item exists, try to equip it to backpack
+                Item iObj = ItemJaxb.getItemFromXml(itemName);
+                try
+                {
+                    this.getBackpack().equip(i);
+                    
+                    // if equip is successful, then remove that item from character
+                    removeItem(i);
+                }
+                catch (Throwable e)
+                {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+        
+        return;
+    }
+    
+    /**
+     * Remove an item from characters list
+     * @param i
+     */
+    public void removeItem(Item i)
+    {
+        if (i != null)
+        {
+            if (this.items.containsKey(i.getItemType()))
+            {
+                this.items.remove(i.getItemType(), i.getItemName());
+                System.out.println(items);
+            }
+        }
+        draw();
+    }
 
     /**
      * draws/redraws the character and notifies observers
@@ -776,11 +893,14 @@ public class Character extends Observable implements Cloneable
     }
 
     /**
-     * Create a backpack for the character
+     * If a backpack doesnt yet exist for the character, creates a new backpack
      */
     private void createBackpack()
     {
 
+        if (this.hasBackpack())
+            return;
+        
         Backpack backpack = new Backpack();
         try
         {
@@ -799,6 +919,26 @@ public class Character extends Observable implements Cloneable
     public String getBackpackFileName()
     {
         return this.backpackFileName;
+    }
+    
+    public Backpack getBackpack() throws IOException
+    {
+        if (!this.hasBackpack())
+            this.createBackpack();
+        
+        if (this.backpack == null)
+            this.backpack = Backpack.get(this.getBackpackFileName());
+        
+        return this.backpack;
+    }
+    
+    /**
+     * Saves backpack if it already exists, otherwise does nothing
+     * @throws IOException 
+     */
+    public void saveBackpack() throws IOException{
+        if (this.backpack != null)
+            this.backpack.save();
     }
 
     /**
@@ -855,6 +995,9 @@ public class Character extends Observable implements Cloneable
             out = new FileWriter(filepath);
             out.write(xml);
             out.close();
+            
+            // save backpack
+            this.saveBackpack();
         }
         catch (IOException e1)
         {
@@ -957,5 +1100,32 @@ public class Character extends Observable implements Cloneable
     {
         this.isKeyCollected = isKeyCollected;
         this.draw();
+    }
+    
+    /**
+     * Get all items that character is wearing
+     * 
+     * @return hashmap containing all items that a character is wearing
+     */
+    public HashMap<String, String> getAllItems()
+    {
+        if (this.items == null)
+            return new HashMap<String, String>();
+        
+        return this.items;
+    }
+    
+    /**
+     * Get inventory object for the character. This object contains all the items in backpack and items character is wearing.
+     * It also implements an observer pattern so any new change will be immediately triggered
+     * 
+     * @return character inventory object
+     */
+    public Inventory getInventory()
+    {
+        if (this.inventory == null)
+            this.inventory = Inventory.initialize(this);
+        
+        return this.inventory;
     }
 }
