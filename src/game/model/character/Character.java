@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Observable;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import game.components.Dice;
@@ -38,14 +39,29 @@ public class Character extends Observable implements Cloneable
     private String name;
     private String fname;
     private String backpackFileName;
-    private Backpack backpack;
-    private Inventory inventory;
     private boolean isBuilt = false;
-
+    
+    @XStreamOmitField
+    private Backpack backpack;
+    
+    @XStreamOmitField
+    private Inventory inventory;
+  
+    @XStreamOmitField
     private boolean isKeyCollected = false;
+    
+    @XStreamOmitField
     private boolean isFriendlyMonster = true;
+    
+    @XStreamOmitField
     private boolean isPlayer = false;
 
+    /**
+     * 
+     */
+    public Character(){
+        this.items = new HashMap<String, String>();
+    }
     /**
      * @param name set character name
      */
@@ -979,6 +995,8 @@ public class Character extends Observable implements Cloneable
         }
 
         XStream xstream = new XStream(new StaxDriver());
+        xstream.omitField(Observable.class, "obs");
+        xstream.omitField(Observable.class, "changed");
         String xml = xstream.toXML(this);
         FileWriter out;
         try
