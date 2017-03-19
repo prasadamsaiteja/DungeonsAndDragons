@@ -80,7 +80,8 @@ public class CharactersList extends Observable
                                     xml += sCurrentLine;
                                 }
                                 XStream xstream = new XStream(new StaxDriver());
-                                Character character = (Character) xstream.fromXML(xml);
+                                CharacterValues cv = (CharacterValues) xstream.fromXML(xml);
+                                Character character = new Character(cv);                                
                                 characters.add(character);
                             }
                             catch (IOException e)

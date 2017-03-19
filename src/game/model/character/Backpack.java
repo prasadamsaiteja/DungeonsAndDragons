@@ -31,6 +31,20 @@ public class Backpack extends Observable
     private int maxAllowedItems = 10;
     private String fileName;
     private HashMap<String, ArrayList<String>> items = new HashMap<String, ArrayList<String>>();
+    private BackpackValues bv;
+    
+    public Backpack(){
+        this. items = new HashMap<String, ArrayList<String>>();
+        this.bv = new BackpackValues();
+    }
+    
+    public Backpack(BackpackValues bv){
+        this.bv = bv;
+        this.backpackItemCount = bv.getBackpackItemCount();
+        this.maxAllowedItems = bv.getMaxAllowedItems();
+        this.fileName = bv.getFileName();
+        this.items = bv.getItems();
+    }
 
     /**
      * increment item counter
@@ -226,12 +240,20 @@ public class Backpack extends Observable
         
         String filePath = SharedVariables.BackpackDirectory + File.separator + this.getFileName() + ".xml";
 
+        this.saveBackpackValues();
         XStream xstream = new XStream(new StaxDriver());
-        String xml = xstream.toXML(this);
+        String xml = xstream.toXML(this.bv);
         FileWriter out;
         out = new FileWriter(filePath);
         out.write(xml);
         out.close();
+    }
+    
+    public void saveBackpackValues(){
+        this.bv.setBackpackItemCount(this.backpackItemCount);
+        this.bv.setFileName(this.fileName);
+        this.bv.setItems(this.items);
+        this.bv.setMaxAllowedItems(this.maxAllowedItems);
     }
 
     /**
@@ -257,7 +279,8 @@ public class Backpack extends Observable
                 xml += sCurrentLine;
             }
             XStream xstream = new XStream(new StaxDriver());
-            backpack = (Backpack) xstream.fromXML(xml);
+            BackpackValues backpackValues = (BackpackValues) xstream.fromXML(xml);
+            backpack = new Backpack(backpackValues);
             r.close();
         }
         else
