@@ -60,6 +60,23 @@ public class Item
     {
         return itemName;
     }
+    
+    /**
+     * This method sets the item level
+     * @param level
+     */
+    public void setLevel(int level)
+    {
+        this.itemLevel = level;
+    }
+    
+    /**
+     * get item level
+     * @return item level
+     */
+    public int getLevel(){
+        return this.itemLevel;
+    }
 
     /**
      * This method returns item type

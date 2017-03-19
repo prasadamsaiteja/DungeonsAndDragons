@@ -11,15 +11,24 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 
+import game.model.Item;
 import game.model.character.Backpack;
 import game.model.character.Character;
 import game.model.character.CharactersList;
 
-public class UpdateCharacterPanelInfo
+/**
+ * Updates character view
+ * @author Supreet Singh (s_supree)
+ * 
+ */
+public class UpdateCharacterPanelInfo implements Observer
 {
     private StyledDocument doc;
     private Character c;
     
+    /**
+     * @param doc styled document object
+     */
     public UpdateCharacterPanelInfo(StyledDocument doc)
     {
         this.doc = doc;  
@@ -53,16 +62,50 @@ public class UpdateCharacterPanelInfo
     }
     
     /**
+     * Set character name 
      * @param selectedValue
      * @throws BadLocationException
      */
     public void setCharacterName(String selectedValue) throws BadLocationException
     {
+        if (this.c != null)
+            this.c.deleteObserver(this);
+        
         this.c = CharactersList.getByName(selectedValue);
-        updateCharacterPreview(); 
+        if (selectedValue != null)
+        {
+            this.c.addObserver(this);
+            try
+            {
+                updateCharacterPreview();
+            }
+            catch (Exception e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } 
+        }        
     }
     
-    private void updateCharacterPreview() throws BadLocationException
+    public void setCharacter(Character c) throws BadLocationException
+    {
+        if (this.c != null)
+            this.c.deleteObserver(this);
+        
+        this.c = c;
+        this.c.addObserver(this);
+        try
+        {
+            updateCharacterPreview();
+        }
+        catch (Exception e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    
+    private void updateCharacterPreview() throws Exception
     {
         if (c == null)
         {
@@ -117,7 +160,8 @@ public class UpdateCharacterPanelInfo
     
             doc.insertString(doc.getLength(), "\n\nItems:\n ", doc.getStyle("bold"));
             doc.insertString(doc.getLength(), "\nWeapon: ", doc.getStyle("bold"));
-            doc.insertString(doc.getLength(), String.valueOf(c.getWeaponName()), doc.getStyle("italics"));
+            Item weaponObj = c.getWeaponObject();
+            doc.insertString(doc.getLength(), String.valueOf(weaponObj.getItemName() + "("+weaponObj.getLevel()+")"), doc.getStyle("italics"));
     
             doc.insertString(doc.getLength(), "\nArmor: ", doc.getStyle("bold"));
             doc.insertString(doc.getLength(), String.valueOf(c.getArmor()), doc.getStyle("italics"));
@@ -161,6 +205,21 @@ public class UpdateCharacterPanelInfo
             {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg)
+    {
+        try
+        {
+            System.out.println("notification from observable");
+            updateCharacterPreview();
+        }
+        catch (Exception e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 }

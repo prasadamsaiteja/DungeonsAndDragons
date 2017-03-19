@@ -615,6 +615,11 @@ public class Character extends Observable implements Cloneable
         if (i == null)
             throw new Exception(this.getWeaponName() + " not found");
 
+        // if character is non player, set the level of item same as character level
+        if (!this.isPlayer()){
+            i.setLevel(this.getLevel());
+        }
+        
         i.setCharacter(this);
         return i;
     }

@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -34,6 +35,7 @@ import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.jaxb.CampaignJaxb;
 import game.model.onclickListeners.MapClickListener;
+import game.views.jdialogs.CharacterInventoryDialog;
 import game.views.jdialogs.DialogHelper;
 
 /**
@@ -376,6 +378,15 @@ public class GamePlayScreen extends JPanel implements Observer{
           } 
           
           JButton openInventory = new JButton("Open Inventory");
+          openInventory.addActionListener(new ActionListener()
+        {
+            
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                new CharacterInventoryDialog(character);                
+            }
+        });
           characterDetailsPanel.add(openInventory);  
           characterDetailsPanel.revalidate();
     
@@ -461,7 +472,7 @@ public class GamePlayScreen extends JPanel implements Observer{
 
           @Override
           public void actionPerformed(ActionEvent e) {
-              
+              System.out.println("Player should move down");
               int[] position = GameMechanics.getPlayerPosition(currentMap);
               int rowNumber = position[0];
               int colNumber = position[1];

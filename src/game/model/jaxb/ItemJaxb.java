@@ -93,6 +93,7 @@ public class ItemJaxb
 
         try
         {
+            System.out.println(SharedVariables.ItemsDirectory + File.separator + itemName + ".xml");
             File itemFile = new File(SharedVariables.ItemsDirectory + File.separator + itemName + ".xml");
 
             if (!itemFile.exists())
@@ -105,6 +106,7 @@ public class ItemJaxb
 
         catch (JAXBException e)
         {
+            e.printStackTrace();
             return null;
         }
 

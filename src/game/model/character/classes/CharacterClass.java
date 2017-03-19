@@ -101,15 +101,19 @@ public class CharacterClass
         CharacterClassStructure cStructure = DefinedClasses.getCharacterList().get(this.name);
 
         hitPoints += this.character.getConstitutionModifier() * this.character.getLevel();
+        
+        System.out.println("Hitpoints = " + " Constitution Modifier (" + this.character.getConstitutionModifier() + ") * Character Level (" + this.character.getLevel() + ")"); 
 
         if (this.character.getLevel() > 1)
         {
             int diceRoll = dice.getRollSum();
             hitPoints += diceRoll;
+            System.out.println(" + diceRoll (" +  diceRoll + ")");
         }
         else
         {
             hitPoints += cStructure.getDiceSides();
+            System.out.println(" + dice sides (since it's characters level 1) (" +  cStructure.getDiceSides() + ")");
         }
     }
 
