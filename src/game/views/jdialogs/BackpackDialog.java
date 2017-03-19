@@ -18,6 +18,7 @@ import javax.swing.event.ListSelectionListener;
 import game.components.ExtensionMethods;
 import game.model.Item;
 import game.model.character.Character;
+import game.model.character.CharactersList;
 import game.model.jaxb.ItemJaxb;
 import game.views.jdialogs.viewmodels.BackpackDialogBackpackListModel;
 import game.views.jdialogs.viewmodels.BackpackDialogCharacterListModel;
@@ -53,6 +54,8 @@ class BackpackDialog extends JDialog {
             public void actionPerformed(ActionEvent e)
             {
                 c.save();
+                CharactersList cList = CharactersList.init();
+                cList.updateCharactersList();
                 dispose();
             }
         });

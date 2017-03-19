@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Observable;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import game.components.Dice;
@@ -40,20 +39,11 @@ public class Character extends Observable implements Cloneable
     private String fname;
     private String backpackFileName;
     private boolean isBuilt = false;
-    
-    @XStreamOmitField
     private Backpack backpack;
-    
-    @XStreamOmitField
+    private CharacterValues cv;
     private Inventory inventory;
-  
-    @XStreamOmitField
     private boolean isKeyCollected = false;
-    
-    @XStreamOmitField
     private boolean isFriendlyMonster = true;
-    
-    @XStreamOmitField
     private boolean isPlayer = false;
 
     /**
@@ -61,6 +51,31 @@ public class Character extends Observable implements Cloneable
      */
     public Character(){
         this.items = new HashMap<String, String>();
+        this.cv = new CharacterValues();
+    }
+    
+    /**
+     * @param cv
+     */
+    public Character(CharacterValues cv)
+    {
+        this.cv = cv;
+        // set the values from the character values
+        this.setLevel(cv.getLevel());
+        this.setDexterity(cv.getDexterity());
+        this.setConstitution(cv.getConstitution());
+        this.setStrength(cv.getStrength());
+        this.hitScore = cv.getHitScore();
+        this.items = cv.getItems();
+        if (this.items == null)
+            this.items = new HashMap<String, String>();
+        
+        this.setCharacterClass(cv.getCharacterClass());
+        this.setCharacterType(cv.getCharacterType());
+        this.setName(cv.getName());
+        this.setFileName(cv.getFname());
+        this.backpackFileName = cv.getBackpackFileName();
+        this.isBuilt = cv.isBuilt();
     }
     /**
      * @param name set character name
@@ -976,6 +991,21 @@ public class Character extends Observable implements Cloneable
     {
         return this.hitScore;
     }
+    
+    public void saveCharacterValues(){
+        this.cv.setBackpackFileName(this.getBackpackFileName());
+        this.cv.setBuilt(this.isBuilt);
+        this.cv.setCharacterClass(this.getCharacterClass());
+        this.cv.setCharacterType(this.getCharacterType());
+        this.cv.setConstitution(this.getConstitution());
+        this.cv.setDexterity(this.getDexterity());
+        this.cv.setStrength(this.getStrength());
+        this.cv.setFname(this.getFileName());
+        this.cv.setHitScore(this.getHitScore());
+        this.cv.setItems(this.getAllItems());
+        this.cv.setLevel(this.getLevel());
+        this.cv.setName(this.getName());
+    }
 
     /**
      * saves character state in the generated xml file
@@ -994,10 +1024,9 @@ public class Character extends Observable implements Cloneable
             this.setFileName(this.name + dTime);
         }
 
+        this.saveCharacterValues();
         XStream xstream = new XStream(new StaxDriver());
-        xstream.omitField(Observable.class, "obs");
-        xstream.omitField(Observable.class, "changed");
-        String xml = xstream.toXML(this);
+        String xml = xstream.toXML(this.cv);
         FileWriter out;
         try
         {

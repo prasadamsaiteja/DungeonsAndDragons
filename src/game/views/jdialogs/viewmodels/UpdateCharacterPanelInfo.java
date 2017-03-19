@@ -52,10 +52,14 @@ public class UpdateCharacterPanelInfo
         StyleConstants.setFontSize(s, 16);
     }
     
+    /**
+     * @param selectedValue
+     * @throws BadLocationException
+     */
     public void setCharacterName(String selectedValue) throws BadLocationException
     {
-        c = CharactersList.getByName(selectedValue);
-        updateCharacterPreview();
+        this.c = CharactersList.getByName(selectedValue);
+        updateCharacterPreview(); 
     }
     
     private void updateCharacterPreview() throws BadLocationException
@@ -134,7 +138,6 @@ public class UpdateCharacterPanelInfo
             doc.insertString(doc.getLength(), String.valueOf(c.getHelmet()), doc.getStyle("italics"));
             
             String backpackFileName = c.getBackpackFileName();
-            System.out.println(backpackFileName);
             doc.insertString(doc.getLength(), "\n\nBackpack Details:\n", doc.getStyle("bold"));
             try
             {
