@@ -268,7 +268,7 @@ public class Character extends Observable implements Cloneable
         {
             System.out.println(e.getMessage());
         }
-
+        
         return dexterity + getOriginalDexterity();
     }
     
@@ -471,6 +471,7 @@ public class Character extends Observable implements Cloneable
             // FIXME this logic needs to be re-confirmed and fixed
             if (armorObject.itemClass.equalsIgnoreCase("Light") || armorObject.itemClass.equalsIgnoreCase("Medium"))
             {
+                System.out.println(this.getDexterityModifier());
                 armorClass += this.getDexterityModifier();
             }
             else

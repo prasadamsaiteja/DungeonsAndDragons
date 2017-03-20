@@ -44,7 +44,8 @@ public class ClassIntegrityTest
     {
         assertEquals(name1, obj1.getItemName());
         assertEquals(type1, obj1.getItemType());
-        assertEquals(15, obj2.getModifier());
+        int modifier = (int) Math.ceil((double) level / (double) 4);
+        assertEquals(modifier, obj2.getModifier());
     }
 
 }

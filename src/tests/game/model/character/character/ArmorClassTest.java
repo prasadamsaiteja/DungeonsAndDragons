@@ -137,7 +137,7 @@ public class ArmorClassTest
         c1.setArmor(existingArmor);
         try
         {
-            int expectedArmorClass = (int) Math.ceil((double) itemLevel / (double) 4);
+            int expectedArmorClass = 10 + (int) Math.ceil((double) itemLevel / (double) 4) + c1.getDexterityModifier();
             assertEquals(expectedArmorClass, c1.getArmorClass());
         }
         catch (Exception e)
@@ -209,7 +209,7 @@ public class ArmorClassTest
         c1.setRingName(existingRing);
         try
         {
-            int expectedArmorClass = (int) Math.ceil((double) itemLevel / (double) 4);
+            int expectedArmorClass = 10 + (int) Math.ceil((double) itemLevel / (double) 4);
             assertEquals(expectedArmorClass, c1.getArmorClass());
         }
         catch (Exception e)
@@ -281,7 +281,7 @@ public class ArmorClassTest
         c1.setShield(existingShield);
         try
         {
-            int expectedArmorClass = (int) Math.ceil((double) itemLevel / (double) 4);
+            int expectedArmorClass = 10 + (int) Math.ceil((double) itemLevel / (double) 4);
             assertEquals(expectedArmorClass, c1.getArmorClass());
         }
         catch (Exception e)
@@ -353,7 +353,7 @@ public class ArmorClassTest
         c1.setHelmet(existingHelmet);
         try
         {
-            int expectedArmorClass = (int) Math.ceil((double) itemLevel / (double) 4);
+            int expectedArmorClass = 10 + (int) Math.ceil((double) itemLevel / (double) 4);
             assertEquals(expectedArmorClass, c1.getArmorClass());
         }
         catch (Exception e)
@@ -425,7 +425,7 @@ public class ArmorClassTest
         c1.setBoots(existingBoots);
         try
         {
-            int expectedArmorClass = (int) Math.ceil((double) itemLevel / (double) 4);
+            int expectedArmorClass = 10 + (int) Math.ceil((double) itemLevel / (double) 4);
             assertEquals(expectedArmorClass, c1.getArmorClass());
         }
         catch (Exception e)
