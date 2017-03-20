@@ -69,9 +69,8 @@ public class CharacterInventoryDialog extends JDialog
             UpdateCharacterPanelInfo charPanelInfo = new UpdateCharacterPanelInfo(doc);
             charPanelInfo.setCharacter(c);
         }
-        catch (BadLocationException e)
+        catch (Exception e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         

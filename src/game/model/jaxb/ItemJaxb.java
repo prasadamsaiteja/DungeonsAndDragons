@@ -91,9 +91,11 @@ public class ItemJaxb
     public static Item getItemFromXml(String itemName)
     {
 
+        if (itemName == null)
+            return null;
+        
         try
         {
-            System.out.println(SharedVariables.ItemsDirectory + File.separator + itemName + ".xml");
             File itemFile = new File(SharedVariables.ItemsDirectory + File.separator + itemName + ".xml");
 
             if (!itemFile.exists())

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Observable;
+import java.util.Observer;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
@@ -203,9 +204,7 @@ public class Character extends Observable implements Cloneable
             }
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
 
         try
         {
@@ -216,9 +215,7 @@ public class Character extends Observable implements Cloneable
             }
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
 
         return strength + getOriginalStrength();
     }
@@ -265,9 +262,7 @@ public class Character extends Observable implements Cloneable
             }
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
         
         return dexterity + getOriginalDexterity();
     }
@@ -315,9 +310,7 @@ public class Character extends Observable implements Cloneable
             }
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
 
         try
         {
@@ -328,9 +321,7 @@ public class Character extends Observable implements Cloneable
             }
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
 
         return constitution + getOriginalConstitution();
     }
@@ -412,9 +403,7 @@ public class Character extends Observable implements Cloneable
             }
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
 
         return attackBonus;
     }
@@ -431,14 +420,11 @@ public class Character extends Observable implements Cloneable
             Item weaponObj = this.getWeaponObject();
             if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))
             {
-                System.out.print(weaponObj.getModifier() + "\n");
                 damageBonus += this.getDexterityModifier() + weaponObj.getModifier();
             }
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
 
         return damageBonus;
     }
@@ -461,9 +447,7 @@ public class Character extends Observable implements Cloneable
             }
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
 
         try
         {
@@ -481,9 +465,7 @@ public class Character extends Observable implements Cloneable
             armorClass += armorObject.getModifier();
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
 
         try
         {
@@ -491,9 +473,7 @@ public class Character extends Observable implements Cloneable
             armorClass += shieldObject.getModifier();
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
 
         try
         {
@@ -501,9 +481,7 @@ public class Character extends Observable implements Cloneable
             armorClass += helmetObject.getModifier();
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
 
         try
         {
@@ -514,9 +492,7 @@ public class Character extends Observable implements Cloneable
             }
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        {}
 
         return armorClass;
     }
@@ -735,7 +711,6 @@ public class Character extends Observable implements Cloneable
                 // if an existing item exists, try to equip it to backpack
                 Item iObj = ItemJaxb.getItemFromXml(itemName);
              
-                System.out.println(701);
                 try
                 {
                     this.getBackpack().unequip(i);

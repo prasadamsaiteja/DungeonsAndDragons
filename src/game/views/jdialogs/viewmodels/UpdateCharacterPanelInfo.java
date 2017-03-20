@@ -63,10 +63,10 @@ public class UpdateCharacterPanelInfo implements Observer
     
     /**
      * Set character name 
-     * @param selectedValue
-     * @throws BadLocationException
+     * @param selectedValue character name 
+     * @throws Exception if character preview update fails
      */
-    public void setCharacterName(String selectedValue) throws BadLocationException
+    public void setCharacterName(String selectedValue) throws Exception
     {
         if (this.c != null)
             this.c.deleteObserver(this);
@@ -75,34 +75,24 @@ public class UpdateCharacterPanelInfo implements Observer
         if (selectedValue != null)
         {
             this.c.addObserver(this);
-            try
-            {
-                updateCharacterPreview();
-            }
-            catch (Exception e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } 
+            updateCharacterPreview();
+             
         }        
     }
     
-    public void setCharacter(Character c) throws BadLocationException
+    /**
+     * Set character and update view
+     * @param c character object
+     * @throws Exception if update preview fails
+     */
+    public void setCharacter(Character c) throws Exception
     {
         if (this.c != null)
             this.c.deleteObserver(this);
         
         this.c = c;
-        this.c.addObserver(this);
-        try
-        {
-            updateCharacterPreview();
-        }
-        catch (Exception e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        this.c.addObserver(this); 
+        updateCharacterPreview();
     }
     
     private void updateCharacterPreview() throws Exception
@@ -181,11 +171,10 @@ public class UpdateCharacterPanelInfo implements Observer
             doc.insertString(doc.getLength(), "\nHelmet: ", doc.getStyle("bold"));
             doc.insertString(doc.getLength(), String.valueOf(c.getHelmet()), doc.getStyle("italics"));
             
-            String backpackFileName = c.getBackpackFileName();
             doc.insertString(doc.getLength(), "\n\nBackpack Details:\n", doc.getStyle("bold"));
             try
             {
-                Backpack b = Backpack.get(backpackFileName);
+                Backpack b = c.getBackpack();
                 Set<String> itemTypes = b.getItemTypes();
     
                 if (itemTypes != null)
@@ -218,7 +207,6 @@ public class UpdateCharacterPanelInfo implements Observer
         }
         catch (Exception e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

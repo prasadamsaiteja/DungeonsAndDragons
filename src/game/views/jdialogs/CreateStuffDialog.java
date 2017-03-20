@@ -283,10 +283,12 @@ public class CreateStuffDialog extends JDialog
                                 characterJlist);
                         sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 320, SpringLayout.WEST,
                                 characterPanel);
+                        
                         charPanelInfo.setCharacterName((String) ((JList) e.getSource()).getSelectedValue());
+                        
                     }
                 }
-                catch (BadLocationException e1)
+                catch (Exception e1)
                 {
                     e1.printStackTrace();
                 }
