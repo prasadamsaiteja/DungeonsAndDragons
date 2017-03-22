@@ -621,7 +621,7 @@ public class GamePlayScreen extends JPanel implements Observer{
                                         
                     else if(JOptionPane.showConfirmDialog(null, "Would you like to pick items from this dead monster", "You approched a dead monster", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         
-                        if(character.backpack.backpackItems.size() > 10)
+                        if(character.backpack.backpackItems.size() >= 10)
                             DialogHelper.showBasicDialog("Your backpack is full");
                         
                         else{
@@ -670,7 +670,7 @@ public class GamePlayScreen extends JPanel implements Observer{
                 
                 if(previousMapCellObject instanceof Item){
                     if(JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) previousMapCellObject).getItemType() + " (" + ((Item) previousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        if(character.backpack.backpackItems.size() > 10)
+                        if(character.backpack.backpackItems.size() >= 10)
                             DialogHelper.showBasicDialog("Your backpack is full");
                         else{
                             Item item = (Item) previousMapCellObject;                            
@@ -756,7 +756,7 @@ public class GamePlayScreen extends JPanel implements Observer{
                 else if(character.backpack.backpackItems.size() + character.getAllItems().size() == 0)
                     DialogHelper.showBasicDialog("Enemy doesn't have any items to exchange");
                 
-                else if(character.backpack.backpackItems.size() > 10)
+                else if(character.backpack.backpackItems.size() >= 10)
                     DialogHelper.showBasicDialog("Your backpack is full");
                 
                 else{
