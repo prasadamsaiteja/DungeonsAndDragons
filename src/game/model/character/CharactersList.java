@@ -118,6 +118,7 @@ public class CharactersList extends Observable
     {
         if (null == CharactersList.inst)
             CharactersList.inst = new CharactersList();  
+        
         return CharactersList.inst;
     }
 
@@ -126,8 +127,9 @@ public class CharactersList extends Observable
      * @return an array list of Character class with all the characters found
      */
     public static ArrayList<Character> get()
-    {
+    {                        
         CharactersList inst = CharactersList.init();        
+        inst.characters = inst.getCharacters(inst.dirPath);
         return inst.getCharacters();
     }
 
@@ -137,14 +139,15 @@ public class CharactersList extends Observable
      * @return Character object, if characterName is a valid character name, or null, if otherwise
      */
     public static Character getByName(String characterName)
-    {
+    {        
         ArrayList<Character> characters = get();
         Iterator<Character> characterIterator = characters.iterator();
         while (characterIterator.hasNext())
         {
-            Character c = characterIterator.next();
+            Character c = characterIterator.next().clone();
             if (c.getName().equals(characterName))
                 return c;
+                
         }
         return null;
     }
