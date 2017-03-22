@@ -154,6 +154,7 @@ public class Map
                 Character monster = CharactersList.getByName(monsterName).clone();
                 monster.backpack = new Backpack();
                 monster.setPlayerFlag(false);
+                
                 if(monsterType.equals("Friendly"))
                   monster.setFriendlyMonsterFlag(true);
                 else
