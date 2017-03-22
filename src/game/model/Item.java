@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import game.components.ExtensionMethods;
-import game.model.character.Character;
 import game.model.jaxb.ItemJaxb;
 
 /**
@@ -35,7 +34,6 @@ public class Item
     public int itemLevel;
     
     private int modifier;
-    private Character characterObj = null;
     
     /**
      * This is the default constructor which create a new item 
@@ -71,24 +69,18 @@ public class Item
     }
 
     /**
-     *  This method returns item modifier 
-     * @return int of item modifier.
+     * This method returns item modifier 
+     * @return int item modifier.
      */
     public int getModifier()
     {
         modifier = (int) Math.ceil((double) itemLevel / (double) 4);
+        
         return modifier;
     }
 
     /**
-     * @param character sets the character class object
-     */
-    public void setCharacter(Character character)
-    {
-        characterObj = character;
-    }
-
-    /**
+     * This method gets the Items through a  key value mechanism 
      * @return a hash map containing all the items segment based on their item
      *         type
      */
@@ -118,6 +110,9 @@ public class Item
         return hMap;
     }
 
+    /**
+     * Default constructor for Item class
+     */
     public Item()
     {
 

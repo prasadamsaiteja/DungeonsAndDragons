@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 /**
- * This class contains variables which can be used globally
+ * This class contains variables which can be used Globally
  * 
  * @author saiteja prasadam
  * @since 1/31/2017

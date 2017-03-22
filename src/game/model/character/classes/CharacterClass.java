@@ -8,8 +8,7 @@ import game.components.Dice;
 import game.model.character.Character;
 
 /**
- * Get character class - allowed classes and hit score
- * 
+ * Get character class - Allowed classes and hit score
  * @author Supreet Singh (s_supree)
  * @version 1.0.0
  */
@@ -17,14 +16,15 @@ public class CharacterClass
 {
 
     /**
-     * define allowed classes
-     * 
+     * Class for Define allowed classes
      * @author Supreet Singh (s_supree)
+     * @version 1.0.0
      */
     private static class DefinedClasses
     {
 
         /**
+         * Method that returns the list the characters in form of hashmap
          * @return a hashmap with character class and corresponding structure
          */
         public static HashMap<String, CharacterClassStructure> getCharacterList()
@@ -33,7 +33,6 @@ public class CharacterClass
             HashMap<String, CharacterClassStructure> characterList = new HashMap<>();
 
             // Add character classes
-
             // add fighter class
             CharacterClassStructure fighterStructure = new CharacterClassStructure();
             fighterStructure.setDiceSides(10);
@@ -59,6 +58,7 @@ public class CharacterClass
     // Store allowed character classes
 
     /**
+     * Constructor that takes the name and character object for initialization
      * @param name allowed character class name
      * @param character Character object on which this class is applied
      * @throws Exception if an unallowed class is provided
@@ -75,16 +75,18 @@ public class CharacterClass
     }
 
     /**
-     * @param cClass
-     * @return true or false if the class exists
+     * This method checks whether class is allowed or not
+     * @param cClass character class 
+     * @return boolean true or false if the class exists
      */
     private static boolean isClassAllowed(String cClass)
     {
         return DefinedClasses.getCharacterList().containsKey(cClass);
     }
 
-    /**
-     * @return string set of allowed classes
+    /** 
+     * Method for returning a set of allowed classes
+     * @return String set of allowed classes
      */
     public static Set<String> getAllowedClasses()
     {
@@ -92,8 +94,7 @@ public class CharacterClass
     }
 
     /**
-     * calculate hit score
-     * 
+     * Calculate the hit score
      * @param dice Dice class object to calculate hit score
      */
     public void calculateHitScore(Dice dice)
@@ -113,8 +114,9 @@ public class CharacterClass
         }
     }
 
-    /**
-     * @return hit points
+    /** 
+     * This method returns the hit score for character
+     * @return hit points score
      */
     public int getHitScore()
     {
@@ -122,6 +124,7 @@ public class CharacterClass
     }
 
     /**
+     * This method returns the charactrer class strucure object
      * @return character class structure of instantiated class
      */
     public CharacterClassStructure get()

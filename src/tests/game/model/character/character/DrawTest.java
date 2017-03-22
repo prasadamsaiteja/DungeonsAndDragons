@@ -12,7 +12,7 @@ import org.junit.Test;
 import game.model.character.Character;
 
 /**
- * 
+ *  Test the draw character
  * @author supreet (s_supree)
  */
 public class DrawTest

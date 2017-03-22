@@ -58,16 +58,7 @@ public class MapTest {
       @Test
       public void test3MapHeight(){
           assertEquals(mapObject.mapHeight, 20);
-      }
-  
-      /**
-       * This method test map saving
-       */
-      @Test
-      public void test4MapSaving(){
-          MapJaxb.convertMapObjectToXml(mapObject);
-          assertTrue(new File(SharedVariables.MapsDirectory + File.separator + mapObject.getMapName()).exists());
-      }
+      } 
 
       /**
        * This method test map retreving

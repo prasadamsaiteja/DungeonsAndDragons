@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests the campaign's file delete Operations
+ * @author RahulReddy
+ *
+ */
 public class TestDeleteFileOperations
 {
     Campaign campaignObj;
@@ -20,6 +25,10 @@ public class TestDeleteFileOperations
     String campaignName;
     String fName;
 
+    /**
+     * Before Method that initiate Variables
+     * @throws IOException exception
+     */
     @Before
     public void initiateVars() throws IOException
     {
@@ -28,6 +37,10 @@ public class TestDeleteFileOperations
 
     }
 
+    /**
+     * Tests the campaign Xml file
+     * @throws FileNotFoundException file not found
+     */
     @Test
     public void testSaveXmlFile() throws FileNotFoundException
     {

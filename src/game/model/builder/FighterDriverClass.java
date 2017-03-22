@@ -5,8 +5,12 @@ package game.model.builder;
  * @author RahulReddy
  * @version 1.0.0
  */
-public class FighterDriverClass {
+public class FighterDriverClass 
+{
 
+	/**
+	 * Reference for fighter director
+	 */
 	public FighterDirector fighterDirector;
 	private FighterBuilder fighterType;
 	
@@ -33,4 +37,5 @@ public class FighterDriverClass {
 		fighterDirector.setFb(fighterType);
 		fighterDirector.constructFighter();
 	}
+
 }

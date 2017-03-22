@@ -108,10 +108,6 @@ public class MapDesigner extends JPanel
 
     /**
      * Initializes all the UI components.
-     * 
-     * @param mapName Name of the map.
-     * @param mapWidth Width of the map.
-     * @param mapHeight Height of the map.
      */
     private void initComponents()
     {
@@ -490,8 +486,8 @@ public class MapDesigner extends JPanel
 
             else{
                 jPanel.setBackground(getColorFromSelectedRadioButton(radioButtonGroup));
-                if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.CHEST_STRING) && items.length > 0){         
-                    
+                
+                if(getColorFromSelectedRadioButton(radioButtonGroup) == SharedVariables.mapCellHashMap.get(SharedVariables.CHEST_STRING) && items.length > 0){                             
                     JComboBox<String> itemsList = new JComboBox<String>(ExtensionMethods.getItemsList());
                     JOptionPane.showMessageDialog(null, itemsList, "Select a item to place in the chest", JOptionPane.QUESTION_MESSAGE);
                     jPanel.setToolTipText(itemsList.getSelectedItem().toString());
@@ -532,7 +528,7 @@ public class MapDesigner extends JPanel
      * This method returns selected radio button color.
      * 
      * @param radioButtonGroup This contains reference to Radio button group.
-     * @return Returns selected radio button color.
+     * @return Color Returns selected radio button color.
      */
     private Color getColorFromSelectedRadioButton(final ButtonGroup radioButtonGroup)
     {
@@ -542,6 +538,7 @@ public class MapDesigner extends JPanel
     /**
      * This method check whether user played player character or not
      * 
+     * @param objectColor Color
      * @return Boolean value of the search
      */
     private Boolean isObjectPlaced(Color objectColor)

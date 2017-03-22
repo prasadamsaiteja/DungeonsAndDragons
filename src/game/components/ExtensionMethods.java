@@ -3,7 +3,16 @@ package game.components;
 import java.awt.Toolkit;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
+import com.google.common.collect.Multimap;
+
+import java.util.Map.Entry;
+
+import game.model.character.Character;
 import game.model.character.CharactersList;
 
 /**
@@ -11,7 +20,6 @@ import game.model.character.CharactersList;
  * 
  * @author saiteja prasadam
  * @since 2/5/2017
- *
  */
 public class ExtensionMethods
 {
@@ -108,5 +116,91 @@ public class ExtensionMethods
         }
         
         catch(Exception ignored){}
+    }
+
+    /**
+     * It returns the key from the value given
+     * @param backpackItems Items Hashmap
+     * @param searchValue value 
+     * @return Entry Returned Key and Value
+     */
+    public static Entry<String, String> getByValue(Multimap<String, String> backpackItems, String searchValue){
+                       
+        for (Entry<String, String> entry : backpackItems.entries()) {
+            if (entry.getValue() != null && entry.getValue().equals(searchValue)) 
+                return entry;            
+        }
+        return null;
+    }
+    
+    /**
+     * It returns the key from the value given
+     * @param backpackItems Items Hashmap
+     * @param searchValue value 
+     * @return Entry Returned Key and Value
+     */
+    public static Entry<String, String> getByValue(HashMap<String, String> backpackItems, String searchValue){
+                       
+        for (Entry<String, String> entry : backpackItems.entrySet()) {
+            if (entry.getValue() != null && entry.getValue().equals(searchValue)) 
+                return entry;            
+        }
+        return null;
+    }
+    
+    /**
+     * Gets all the Item names for the character
+     * @param character character object
+     * @return Collection character Items
+     */
+    public static Collection<? extends String> fetchAllItemNames(Character character) {
+        
+        Set<String> characterItems = new HashSet<>();
+        
+        for (String string : ((Character) character).getAllItems().values()) {
+            if(string != null)
+                characterItems.add(string);
+        }
+                            
+        for (String string : ((Character) character).backpack.getBackpackItems()) {
+            if(string != null)
+                characterItems.add(string);
+        }  
+        
+        return characterItems;
+    }
+
+    /**
+     * Gets all the Fetched Items of the character
+     * @param character character object
+     * @return List Equiped Items
+     */
+    public static ArrayList<String> fetchEquipedItems(Character character) {
+        
+        ArrayList<String> characterItems = new ArrayList<>();
+        
+        for (String string : character.getAllItems().values()) {
+            if(string != null)
+                characterItems.add(string);
+        }           
+        
+        return characterItems;
+    }
+    
+    /**
+     * Gets all the Fetched Items of the character
+     * @param character character object
+     * @return List Backpack Items
+     */
+    public static ArrayList<String> fetchBackpackItems(Character character) {
+        
+        ArrayList<String> characterItems = new ArrayList<>();
+           
+        for (String string : character.backpack.getBackpackItems()) {
+            if(string != null)
+                characterItems.add(string);
+        }  
+        
+        return characterItems;
     }
 }

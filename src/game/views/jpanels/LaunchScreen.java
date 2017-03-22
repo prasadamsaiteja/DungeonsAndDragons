@@ -151,6 +151,7 @@ public class LaunchScreen extends JPanel
 
     /**
      * This method paints the background to black color.
+     * @param g  Graphics
      */
     @Override
     protected void paintComponent(Graphics g)

@@ -1,10 +1,7 @@
-
-
 package game.model.builder;
 
 import game.components.Dice;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -12,24 +9,27 @@ import java.util.Arrays;
  * @author RahulReddy
  * @version 1.0.0
  */
-public class BullyFighterBuilder extends FighterBuilder {
+public class BullyFighterBuilder extends FighterBuilder 
+{
 
-	int strength[],constitution[],dexterity[];
-	int strength2,constitution2,dexterity2;
+	int strength[], constitution[], dexterity[];
+	int strength2, constitution2, dexterity2;
 	int[] unSortedabilityValues;
 	int[] sortedAbilityValues;
 		
 	/**
 	 * Constructor for Bully that sets abilities
 	 */
-	public BullyFighterBuilder() {
+	public BullyFighterBuilder() 
+	{
 		setAbilities();		
 	}
 	
 	/**
 	 * Method that sets the abilities of the Bully Class
 	 */
-	private void setAbilities() {
+	private void setAbilities() 
+	{
 
 		unSortedabilityValues=new int[3];
 		sortedAbilityValues=new int[3];
@@ -52,35 +52,37 @@ public class BullyFighterBuilder extends FighterBuilder {
 	}
 
 	/**
-	 * Overriden Method that builds the strength
+	 * Overridden Method that builds the strength
 	 */
-	void buildStrength() {
+	void buildStrength() 
+	{
 		getFighter().setStrength(sortedAbilityValues[2]);
 	}
 	
 	/**
-	 * Overriden Method that builds the Constitution
+	 * Overridden Method that builds the Constitution
 	 */
-	void buildConstitution() {
+	void buildConstitution() 
+	{
 		getFighter().setConstitution(sortedAbilityValues[1]);
 	}
 	
 	/**
-	 * Overriden Method that builds the Dexterity
+	 * Overridden Method that builds the Dexterity
 	 */
-	void buildDexterity() {
+	void buildDexterity() 
+	{
 		getFighter().setDexterity( sortedAbilityValues[0]);
 	}
 	
 	/**
-	 *  Method for calculating abilities
+	 *  Method for calculating abilities using Dice class
 	 * @return array random generated values 
 	 */
-	private int calculateAbilities() {
-		
-		//for(int i=0 ; i < 4 ; i++) ability[i] = Math.random() * 6 + 1;
-		//return ability[0]=(ability[0]+ability[1]+ability[2]+ability[3]);
+	private int calculateAbilities() 
+	{
 		Dice dice=new Dice(4,6,3);
+		
 		return dice.getRollSum();
 	}
 	

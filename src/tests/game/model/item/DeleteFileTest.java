@@ -25,7 +25,6 @@ public class DeleteFileTest
     /**
      * This is a before method
      */
-
     @Before
     public void beforeEachTest()
     {
@@ -38,7 +37,6 @@ public class DeleteFileTest
      * This is testing the deletion method
      *
      */
-
     @Test
     public void deleteItem()
     {

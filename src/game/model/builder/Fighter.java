@@ -3,9 +3,10 @@ package game.model.builder;
 /**
  * Model Class for Fighter
  * @author RahulReddy
- *
+ * @version 1.0.0
  */
-public class Fighter {
+public class Fighter 
+{
 
 	private int strength, constitution, dexterity;
 

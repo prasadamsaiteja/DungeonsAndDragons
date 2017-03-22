@@ -33,12 +33,18 @@ public class MapClickListener implements MouseListener{
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(object instanceof Character)
-            gameplayScreen.showPlayerDetails(((Character) object).clone());
+        if(object instanceof Character){
+            if(((Character) object).isPlayer())
+                gameplayScreen.showPlayerDetails(gameplayScreen.character);
+            else
+                gameplayScreen.showPlayerDetails(((Character) object).clone());
+        }
+            
     }
 
     /**
      * Mouse entered method
+     * @param e Mouse Event
      */
     @Override
     public void mouseEntered(MouseEvent e) {
@@ -48,6 +54,7 @@ public class MapClickListener implements MouseListener{
   
     /**
      * Mouse exited method
+     * @param e Mouse Event
      */
     @Override
     public void mouseExited(MouseEvent e) {
@@ -57,6 +64,7 @@ public class MapClickListener implements MouseListener{
   
     /**
      * Mouse pressed method
+     * @param e Mouse Event
      */
     @Override
     public void mousePressed(MouseEvent e) {
@@ -66,6 +74,7 @@ public class MapClickListener implements MouseListener{
   
     /**
      * Mouse released method
+     * @param e Mouse Event
      */
     @Override
     public void mouseReleased(MouseEvent e) {

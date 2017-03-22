@@ -49,8 +49,8 @@ class NewItemDialog extends JDialog
 
     /**
      * This constructor is called when a new item is to be created
-     * 
-     * @param jDialog
+     *  
+     * @param jDialog createstuffdialog
      */
     NewItemDialog(CreateStuffDialog jDialog)
     {
@@ -79,8 +79,7 @@ class NewItemDialog extends JDialog
     /**
      * This method initializes the UI components
      */
-    @SuppressWarnings(
-    { "rawtypes", "unchecked" })
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private void initComponents()
     {
 

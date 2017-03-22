@@ -11,8 +11,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
-import java.util.Iterator;
-import java.util.Set;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -35,7 +33,6 @@ import game.GameLauncher;
 import game.components.ExtensionMethods;
 import game.components.SharedVariables;
 import game.model.Map;
-import game.model.character.Backpack;
 import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.jaxb.CampaignJaxb;
@@ -43,7 +40,6 @@ import game.model.jaxb.ItemJaxb;
 import game.model.jaxb.MapJaxb;
 import game.views.jdialogs.campaignDialog.CampaignNameDialog;
 import game.views.jdialogs.campaignDialog.NewCampaignInfoDialog;
-import game.views.jdialogs.characterDialog.CreateCharacterDialog;
 import game.views.jdialogs.viewmodels.CharactersListModel;
 import game.views.jpanels.MapDesigner;
 
@@ -93,9 +89,9 @@ public class CreateStuffDialog extends JDialog
     }
 
     /**
-     * add styles to a style doc
+     * Add styles to a style doc
      * 
-     * @param doc
+     * @param doc document that contains information
      */
     private void addStylesToDocument(StyledDocument doc)
     {
@@ -162,7 +158,7 @@ public class CreateStuffDialog extends JDialog
      * Initializes the Character panel.
      * 
      * @param characterPanel This contains reference character panel tab.
-     * @return
+     * @return Jpanel character panel
      */
     private JPanel initCharacterPanel()
     {
@@ -263,21 +259,6 @@ public class CreateStuffDialog extends JDialog
         charPreviewPanel.add(areaScrollPane);
         characterPanel.add(charPreviewPanel);
         
-        JButton btnBagpack = new JButton("Bagpack");
-        sl_characterPanel.putConstraint(SpringLayout.NORTH, btnBagpack, 251, SpringLayout.NORTH, characterPanel);
-        sl_characterPanel.putConstraint(SpringLayout.EAST, btnBagpack, -7, SpringLayout.WEST, btnRemove);
-        btnBagpack.setEnabled(false);
-        btnBagpack.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-            	new BackpackDialog(CharactersList.getByName(characterJlist.getSelectedValue()));
-            }
-
-        });
-        characterPanel.add(btnBagpack);
-
         characterJlist.addListSelectionListener(new ListSelectionListener()
         {
             @SuppressWarnings("rawtypes")
@@ -291,7 +272,6 @@ public class CreateStuffDialog extends JDialog
                     {
                         btnRemove.setEnabled(false);
                         btnEdit.setEnabled(false);
-                        btnBagpack.setEnabled(false);
                         charPreviewPanel.setVisible(false);
                         sl_characterPanel.putConstraint(SpringLayout.EAST, characterJlist, 600, SpringLayout.WEST,
                                 characterPanel);
@@ -305,7 +285,6 @@ public class CreateStuffDialog extends JDialog
                     {
                         btnRemove.setEnabled(true);
                         btnEdit.setEnabled(true);
-                        btnBagpack.setEnabled(true);
                         charPreviewPanel.setVisible(true);
                         sl_characterPanel.putConstraint(SpringLayout.WEST, charPreviewPanel, 6, SpringLayout.EAST,
                                 characterJlist);
@@ -388,33 +367,7 @@ public class CreateStuffDialog extends JDialog
                 doc.insertString(doc.getLength(), String.valueOf(c.getRingName()), doc.getStyle("italics"));
 
                 doc.insertString(doc.getLength(), "\nHelmet: ", doc.getStyle("bold"));
-                doc.insertString(doc.getLength(), String.valueOf(c.getHelmet()), doc.getStyle("italics"));
-                
-                String backpackFileName = c.getBackpackFileName();
-                System.out.println(backpackFileName);
-                doc.insertString(doc.getLength(), "\n\nBackpack Details:\n", doc.getStyle("bold"));
-                try
-                {
-                    Backpack b = Backpack.get(backpackFileName);
-                    Set<String> itemTypes = b.getItemTypes();
-
-                    if (itemTypes != null)
-                    {
-                        for (String itemType : itemTypes)
-                        {
-                            doc.insertString(doc.getLength(), "\n" + itemType + "\n", doc.getStyle("bold"));
-                            Iterator<String> i = b.getByType(itemType).iterator();
-                            while (i.hasNext())
-                            {
-                                doc.insertString(doc.getLength(), "- " + i.next() + "\n", doc.getStyle("italic"));
-                            }
-                        }
-                    }
-                }
-                catch (Throwable e)
-                {
-                    System.out.println(e.getMessage());
-                }
+                doc.insertString(doc.getLength(), String.valueOf(c.getHelmet()), doc.getStyle("italics"));                
             }
 
         });
@@ -426,7 +379,7 @@ public class CreateStuffDialog extends JDialog
      * Initializes the Map panel.
      * 
      * @param mapsPanel This contains reference to Map panel tab.
-     * @return
+     * @return Jpanel map panel
      */
     private JPanel initMapsPanel()
     {
@@ -585,7 +538,7 @@ public class CreateStuffDialog extends JDialog
      * Initializes the Items panel.
      * 
      * @param itemsPanel This contains reference to Items panel tab.
-     * @return
+     * @return JPanel itemsPanel
      */
     private JPanel initItemsPanel()
     {
@@ -595,12 +548,10 @@ public class CreateStuffDialog extends JDialog
 
         SpringLayout sl_itemsPanel = new SpringLayout();
         itemsPanel.setLayout(sl_itemsPanel);
-
+                      
         DefaultListModel<String> itemJlistModel = new DefaultListModel<>();
-        JList<String> itemJlist = new JList<String>(itemJlistModel);
-        // JScrollPane scrollPane = new JScrollPane();
-        // scrollPane.setViewportView(itemJlist);
-
+        JList<String> itemJlist = new JList<String>(itemJlistModel);           
+               
         String[] itemsList = ExtensionMethods.getItemsList();
         for (String itemName : itemsList)
             itemJlistModel.addElement(itemName);
@@ -697,7 +648,7 @@ public class CreateStuffDialog extends JDialog
      * Initializes the Campaign panel.
      * 
      * @param campaignPanel This contains reference to Campaign panel tab.
-     * @return
+     * @return JPanel campaignPanel
      */
     private JPanel initCampaignPanel()
     {

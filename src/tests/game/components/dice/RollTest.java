@@ -8,6 +8,7 @@ import org.junit.Test;
 import game.components.Dice;
 
 /**
+ * Test the Roll Action
  * @author supreet (s_supree)
  * @version 1.0.0
  */

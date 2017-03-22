@@ -16,15 +16,16 @@ import game.model.Item;
  * @author Shikha Jhamb
  * @version 1.0
  * @since 2/28/2017
- *
  */
-
 public class FileExistsTest
 {
 
     private static Item item;
     private static String name;
 
+    /**
+     * This is a before method
+     */
     @Before
     public void beforeEachTest()
     {
@@ -33,6 +34,9 @@ public class FileExistsTest
         ItemJaxb.convertItemObjectToXml(itemObj);
     }
 
+    /**
+     * Test that creates a item
+     */
     @Test
     public void createItem()
     {
@@ -40,6 +44,9 @@ public class FileExistsTest
         assertEquals(name, item.getItemName());
     }
 
+    /**
+     * Test that destroys the created items
+     */
     @After
     public void destroyCreatedObjects()
     {

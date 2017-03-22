@@ -16,9 +16,8 @@ import game.components.SharedVariables;
 
 /**
  * Singleton class that loads all the available characters in a list
- * 
  * @author Supreet Singh (s_supree)
- *
+ * @version 1.0.0
  */
 public class CharactersList extends Observable
 {
@@ -28,11 +27,17 @@ public class CharactersList extends Observable
 
     private static CharactersList inst = null;
 
+    /**
+     * Constructor that calls the Update characters list
+     */
     public CharactersList()
     {
         this.updateCharactersList();
     }
 
+    /**
+     * This method Updates the character list by notifying the observers with values that are changed
+     */
     public void updateCharactersList()
     {
         this.characters = this.getCharacters(this.dirPath);
@@ -42,11 +47,8 @@ public class CharactersList extends Observable
 
     /**
      * Traverses recursively through characters directory and loads them
-     * 
-     * @param dPath set directory path from where to fetch list of all
-     *        characters
-     * @return an array list of Character class with all the characters found in
-     *         the directory
+     * @param dPath set directory path from where to fetch list of all characters
+     * @return array list of Character class with all the characters found in the directory
      */
     private ArrayList<Character> getCharacters(String dPath)
     {
@@ -100,6 +102,7 @@ public class CharactersList extends Observable
     }
 
     /**
+     * This method returns all the characters
      * @return an array list of Character class with all the characters found
      */
     public ArrayList<Character> getCharacters()
@@ -108,28 +111,31 @@ public class CharactersList extends Observable
     }
 
     /**
+     * This is a static method initializes and return the character list
      * @return initialized CharactersList object
      */
     public static CharactersList init()
     {
         if (null == CharactersList.inst)
-            CharactersList.inst = new CharactersList();
+            CharactersList.inst = new CharactersList();  
         return CharactersList.inst;
     }
 
     /**
+     * This is a static method that returns the character list
      * @return an array list of Character class with all the characters found
      */
     public static ArrayList<Character> get()
     {
         CharactersList inst = CharactersList.init();
+        
         return inst.getCharacters();
     }
 
     /**
-     * @param characterName
-     * @return Character object, if characterName is a valid character name, or
-     *         null, if otherwise
+     * This method returns character from character name
+     * @param characterName name of the character
+     * @return Character object, if characterName is a valid character name, or null, if otherwise
      */
     public static Character getByName(String characterName)
     {
@@ -146,7 +152,6 @@ public class CharactersList extends Observable
     
     /**
      * Get all character names
-     * 
      * @return array list containing character names
      */
     public static ArrayList<String> getNames()
@@ -166,9 +171,9 @@ public class CharactersList extends Observable
     
     /**
      * Get character file name by character name
-     * 
      * @param characterName character name
-     * @throws Exception 
+     * @return filename of the character
+     * @throws Exception if character not found.
      */
     public static String getFileName(String characterName) throws Exception
     {

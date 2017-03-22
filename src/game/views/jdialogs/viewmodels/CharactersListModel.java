@@ -15,13 +15,16 @@ import game.model.character.CharactersList;
  * updated
  * 
  * @author Supreet Singh (s_supree)
- * @since 1.0.0
+ * @version 1.0.0
  */
 public class CharactersListModel extends DefaultListModel<String> implements Observer
 {
 
     private static final long serialVersionUID = 1698789327638828761L;
 
+    /**
+     * Default constructor that adds the observer
+     */
     public CharactersListModel()
     {
         CharactersList cList = CharactersList.init();
@@ -45,6 +48,13 @@ public class CharactersListModel extends DefaultListModel<String> implements Obs
         }
     }
 
+    /** 
+     * Overriden method of the observer interface
+     * 
+     * @param o Observable 
+     * @param arg Object
+     * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+     */
     @Override
     public void update(Observable o, Object arg)
     {

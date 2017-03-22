@@ -25,6 +25,9 @@ public class ClassIntegrityTest
     Item obj1;
     Item obj2;
 
+    /**
+     * Initialisation of variables
+     */
     @Before
     public void beforeEachTest()
     {
@@ -39,6 +42,9 @@ public class ClassIntegrityTest
         obj2 = new Item(name2, type2, classtype2, level);
     }
 
+    /**
+     * Tests the item name, type, modifier
+     */
     @Test
     public void testMethods()
     {

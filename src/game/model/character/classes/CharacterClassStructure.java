@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 import game.interfaces.DiceImplementationInterface;
 
-
 /**
  * Custom data structure for storing character classes
- * 
  * @author Supreet Singh (s_supree)
- * @since 1.0.0
+ * @version 1.0.0
  */
 public class CharacterClassStructure implements DiceImplementationInterface
 {
@@ -18,8 +16,7 @@ public class CharacterClassStructure implements DiceImplementationInterface
     private ArrayList<String> types;
 
     /**
-     * set number of dice rolls
-     * 
+     * Set number of dice rolls
      * @param nOfRolls set number of dice rolls
      */
     public void setNumberOfRolls(int nOfRolls)
@@ -28,8 +25,7 @@ public class CharacterClassStructure implements DiceImplementationInterface
     }
 
     /**
-     * set number of dice sides
-     * 
+     * Set number of dice sides
      * @param sideDices set dice sides
      */
     public void setDiceSides(int sideDices)
@@ -38,25 +34,24 @@ public class CharacterClassStructure implements DiceImplementationInterface
     }
     
     /**
-     * set allowed character types
-     *  
-     * @param types
+     * Set allowed character types
+     * @param types ArrayList of types of the character
      */
     public void setTypes(ArrayList<String> types){
         this.types = types;
     }
     
     /**
-     * get allowed character types
-     * 
-     * @return allowed character types
+     * Get allowed character types
+     * @return arrayList allowed character types
      */
     public ArrayList<String> getTypes(){
         return this.types;
     }
 
     /**
-     * @return number of dice rolls
+     * This method returns the number of rolls of a Dice
+     * @return int number of dice rolls
      */
     public int getNumberOfRolls()
     {
@@ -64,10 +59,12 @@ public class CharacterClassStructure implements DiceImplementationInterface
     }
 
     /**
-     * @return number of dice sides
+     * This method returns the total Sides for a Dice
+     * @return int number of dice sides
      */
     public int getDiceSides()
     {
         return this.diceSides;
     }
+    
 }

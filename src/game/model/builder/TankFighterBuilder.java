@@ -9,7 +9,8 @@ import java.util.Arrays;
  * @author RahulReddy
  * @version 1.0.0
  */
-public class TankFighterBuilder extends FighterBuilder{
+public class TankFighterBuilder extends FighterBuilder
+{
 
 	int strength[],constitution[],dexterity[];
 	int strength2,constitution2,dexterity2;
@@ -19,14 +20,16 @@ public class TankFighterBuilder extends FighterBuilder{
 	/**
 	 * Constructor for Tank
 	 */	
-	public TankFighterBuilder() {
+	public TankFighterBuilder() 
+	{
 		setAbilities();		
 	}
 	
 	/**
 	 * Method that sets the abilities of the Tank Class
 	 */
-	private void setAbilities() {
+	private void setAbilities() 
+	{
 
 		unSortedabilityValues=new int[3];
 		sortedAbilityValues=new int[3];
@@ -51,32 +54,36 @@ public class TankFighterBuilder extends FighterBuilder{
 	/**
 	 * Overriden Method that builds the strength
 	 */
-	void buildStrength() {
+	void buildStrength() 
+	{
 		getFighter().setStrength(sortedAbilityValues[0]);
 	}
 	
 	/**
 	 * Overriden Method that builds the Constitution
 	 */
-	void buildConstitution() {
+	void buildConstitution() 
+	{
 		getFighter().setConstitution(sortedAbilityValues[2]);
 	}
 	
 	/**
 	 * Overriden Method that builds the Dexterity
 	 */
-	void buildDexterity() {
+	void buildDexterity() 
+	{
 		getFighter().setDexterity(sortedAbilityValues[1]);
-
 	}
 
 	/**
 	 *  Method for calculating abilities
 	 * @return array random generated values 
 	 */
-	private int calculateAbilities() {
+	private int calculateAbilities() 
+	{
 		Dice dice=new Dice(4,6,3);
+	
 		return dice.getRollSum();
-		}
+	}
 
 }

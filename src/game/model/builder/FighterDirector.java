@@ -5,7 +5,8 @@ package game.model.builder;
  * @author RahulReddy
  * @version 1.0.0
  */
-public class FighterDirector {
+public class FighterDirector 
+{
 
 	private FighterBuilder fb;
 
@@ -30,11 +31,12 @@ public class FighterDirector {
 	}
 
 	/**
-	 * Sets the selected Fighter
+	 * Sets the selected Fighter builder
 	 * @param fighterbuilder object
 	 */
 	public void setFb(FighterBuilder fighterbuilder) 
 	{
 		this.fb = fighterbuilder;
 	}		
+	
 }

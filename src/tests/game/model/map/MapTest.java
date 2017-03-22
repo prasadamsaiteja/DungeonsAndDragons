@@ -13,7 +13,6 @@ import game.model.Map;
  * @author saiteja prasadam
  * @version 1.0.0
  * @since 2/28/2017
- *
  */
 public class MapTest
 {

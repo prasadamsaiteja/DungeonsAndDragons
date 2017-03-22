@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import game.components.SharedVariables;
+import game.model.character.Backpack;
 import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.jaxb.ItemJaxb;
@@ -136,6 +137,7 @@ public class Map
                             
               case SharedVariables.ENTRY_DOOR_STRING:
                 Character player = CharactersList.getByName(playerName).clone();
+                player.backpack = new Backpack();
                 player.setPlayerFlag(true);
                 mapData[i][j] = player;
                 break;
@@ -147,9 +149,10 @@ public class Map
               case SharedVariables.MONSTER_STRING:   
                 
                 String monsterName = mapCellInformation.get(String.valueOf(i) + " " + String.valueOf(j)).split(" - ")[0];
-                String monsterType = mapCellInformation.get(String.valueOf(i) + " " + String.valueOf(j)).split(" - ")[1];
+                String monsterType = mapCellInformation.get(String.valueOf(i) + " " + String.valueOf(j)).split(" - ")[1];                              
                 
                 Character monster = CharactersList.getByName(monsterName).clone();
+                monster.backpack = new Backpack();
                 monster.setPlayerFlag(false);
                 if(monsterType.equals("Friendly"))
                   monster.setFriendlyMonsterFlag(true);

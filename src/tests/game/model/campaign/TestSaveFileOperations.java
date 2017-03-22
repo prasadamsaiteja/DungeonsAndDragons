@@ -12,6 +12,10 @@ import game.model.jaxb.CampaignJaxb;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests the campaign's file delete Operations
+ * @author RahulReddy
+ */
 public class TestSaveFileOperations
 {
     Campaign campaignObj;
@@ -20,6 +24,10 @@ public class TestSaveFileOperations
     String campaignName;
     String fName;
 
+    /**
+     * Before Method that initiate Variables
+     * @throws IOException exception
+     */
     @Before
     public void initiateVars() throws IOException
     {
@@ -32,6 +40,9 @@ public class TestSaveFileOperations
         campaignObj = new Campaign("Campaign1Test", Maps);
     }
 
+    /**
+     * Tests the campaign Xml file
+     */
     @Test
     public void testSaveXmlFile()
     {

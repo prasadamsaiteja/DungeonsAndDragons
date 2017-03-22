@@ -17,7 +17,6 @@ import game.model.Map;
 /**
  * This method contains method that helps to saved, get and delete map object to
  * xml files.
- * 
  * @author saiteja prasadam
  * @version 1.0.0
  * @since 2/10/2017
@@ -102,7 +101,6 @@ public class MapJaxb
 
             Unmarshaller unmarshaller = JAXBContext.newInstance(Map.class).createUnmarshaller();
             return (Map) unmarshaller.unmarshal(mapFile);
-
         }
 
         catch (JAXBException e)

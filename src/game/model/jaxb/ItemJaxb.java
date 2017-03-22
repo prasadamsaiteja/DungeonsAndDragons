@@ -16,7 +16,6 @@ import game.model.Item;
 
 /**
  * This class helps to handle item object to xml operations
- * 
  * @author saiteja prasdam
  * @version 1.0.0
  * @since 2/21/2017

@@ -23,7 +23,8 @@ import javax.swing.JComboBox;
  * @since 3/8/2017
  */
 @SuppressWarnings("serial")
-public class StartCampaign extends JDialog{
+public class StartCampaign extends JDialog
+{
   
     /**
      * This is a class constructor which creates dialog which helps start of game play

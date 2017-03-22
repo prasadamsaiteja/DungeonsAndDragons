@@ -10,8 +10,7 @@ import java.util.Random;
  * 
  * @author supreet (s_supree)
  */
-public class Dice
-{
+public class Dice {
 
     private int numberOfRolls;
     private int diceSides;
@@ -74,6 +73,7 @@ public class Dice
         // the sum of rolled numbers according to maximum numbers allowed
         Iterator<Integer> rolledNumberIterator = rolledNumbers.iterator();
         int m_t_c = this.maximumTurnsCount;
+        
         while (rolledNumberIterator.hasNext() && m_t_c > 0)
         {
             sumOfRoll += rolledNumberIterator.next();

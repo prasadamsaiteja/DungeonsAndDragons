@@ -1,4 +1,4 @@
-package game.views.jdialogs.characterDialog;
+package game.views.jdialogs;
 
 import javax.swing.JDialog;
 import javax.swing.JTextField;
@@ -9,7 +9,6 @@ import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.character.classes.CharacterClass;
 import game.model.character.classes.CharacterClassStructure;
-import game.views.jdialogs.DialogHelper;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,11 +29,12 @@ import java.util.Set;
 
 /**
  * This Class is for the dialog that creates the character with a set of properties
+ * 
  * @author Supreet
  * @version 1.0.0
  */
 @SuppressWarnings("serial")
-public class CreateCharacterDialog extends JDialog
+class CreateCharacterDialog extends JDialog
 {
 
     @SuppressWarnings("unused")
@@ -78,12 +78,24 @@ public class CreateCharacterDialog extends JDialog
             this.dialogComponents = dialogComponents;
         }
 
+        /**
+         * Initiate the action listener by providing an ArrayList of all the
+         * components that define a character
+         * 
+         * @param dialogComponents ArrayList
+         * @param existingCharacter character
+         */
         public BtnSaveActionListener(ArrayList<Component> dialogComponents, Character existingCharacter)
         {
             this.dialogComponents = dialogComponents;
             this.character = existingCharacter;
         }
 
+        /**
+         * Called when action is performed 
+         * 
+         * @param e ActionEvent
+         */
         @Override
         public void actionPerformed(ActionEvent e)
         {
@@ -158,31 +170,40 @@ public class CreateCharacterDialog extends JDialog
                         case "characterClass":
                             character.setCharacterClass(item);
                             break;
+                            
                         case "characterType":
                             System.out.println(item);
                             character.setCharacterType(item);
                             break;
+                            
                         case "level":
                             character.setLevel(Integer.valueOf(item));
                             break;
+                            
                         case "weapon":
                             character.setWeaponName(item);
                             break;
+                            
                         case "armor":
                             character.setArmor(item);
                             break;
+                            
                         case "shield":
                             character.setShield(item);
                             break;
+                            
                         case "boots":
                             character.setBoots(item);
                             break;
+                            
                         case "ring":
                             character.setRingName(item);
                             break;
+                            
                         case "belt":
                             character.setBeltName(item);
                             break;
+                            
                         case "helmet":
                             character.setHelmet(item);
                             break;
@@ -197,23 +218,41 @@ public class CreateCharacterDialog extends JDialog
         }
     }
 
+    /**
+     * This class is for updating  Items list
+     * 
+     * @author Supreet
+ 	 * @version 1.0.0
+     */
     private class ItemsListUpdater
     {
         private HashMap<String, JComboBox<String>> itemList = new HashMap<String, JComboBox<String>>();
         private int level = 1;
 
+        /**
+         * This method adds the item combo box
+         * @param itemType type of item into cbModel
+         * @param cbModel data model
+         */
         public void addItemComboBox(String itemType, JComboBox<String> cbModel)
         {
             this.itemList.putIfAbsent(itemType, cbModel);
             this.draw(itemType);
         }
 
+        /**
+         * This method sets the level
+         * @param level current level of character
+         */
         public void setLevel(int level)
         {
             this.level = level;
             this.draw();
         }
 
+        /**
+         * This method draws the items
+         */
         public void draw()
         {
             Set<String> itemTypes = itemList.keySet();
@@ -223,6 +262,10 @@ public class CreateCharacterDialog extends JDialog
             }
         }
 
+        /**
+         * This method draws the items of specific type
+         * @param itemType type of item
+         */
         public void draw(String itemType)
         {
             if (itemList.containsKey(itemType))
@@ -240,23 +283,40 @@ public class CreateCharacterDialog extends JDialog
         }
     }
     
+    /**
+     * This class is for updating  Items list
+     * @author Supreet
+ 	 * @version 1.0.0
+     */
     private class CharacterTypeUpdater
     {
         private HashMap<String, JComboBox<String>> characterType = new HashMap<String, JComboBox<String>>();
         private String characterClass = null;
 
+        /**
+         * This method adds the character type combo box
+         * @param cType type of character into cbModel
+         * @param cbModel data model
+         */
         public void addCharacterTypeComboBox(String cType, JComboBox<String> cbModel)
         {
             this.characterType.putIfAbsent(cType, cbModel);
             this.draw(cType);
         }
 
+        /**
+         * This method sets the character Class
+         * @param characterClass class of character
+         */
         public void setClass(String characterClass)
         {
             this.characterClass = characterClass;
             this.draw();
         }
 
+        /**
+         * This method draws the character type 
+         */
         public void draw()
         {
             Set<String> cTypes = characterType.keySet();
@@ -266,6 +326,10 @@ public class CreateCharacterDialog extends JDialog
             }
         }
 
+        /**
+         * This method draws the character of specific type 
+         * @param cType character type
+         */
         public void draw(String cType)
         {
             if (characterType.containsKey(cType))
@@ -295,10 +359,14 @@ public class CreateCharacterDialog extends JDialog
         }
     }
 
-    public CreateCharacterDialog(JDialog jdialog)
+    /**
+     * Constructor that initializes and sets the properties for the selected dialog
+     * @param jdialog dialog that shows the character components
+     */
+    CreateCharacterDialog(JDialog jdialog)
     {
         this.parent = jdialog;
-        DialogHelper.setDialogProperties(this, "New Character", new Rectangle(0, 0, 600, 320));
+        DialogHelper.setDialogProperties(this, "New Character", new Rectangle(0, 0, 700, 320));
         this.btnRoll = new JButton("Roll");
         this.btnSave = new JButton("Save");
         this.txtStr = new JTextField();
@@ -306,18 +374,25 @@ public class CreateCharacterDialog extends JDialog
         this.initActionListeners();
     }
 
-    public CreateCharacterDialog(JDialog jdialog, Character existingCharacter)
+    /**
+     * Constructor that initializes and sets the properties for the selected dialog with a exisiting character     * @param jdialog
+     * @param existingCharacter object
+     */
+    CreateCharacterDialog(JDialog jdialog, Character existingCharacter)
     {
         this.parent = jdialog;
         this.character = existingCharacter;
         this.characterExistsFlag = true;
-        DialogHelper.setDialogProperties(this, this.character.getName(), new Rectangle(0, 0, 600, 320));
+        DialogHelper.setDialogProperties(this, this.character.getName(), new Rectangle(0, 0, 800, 320));
         this.btnSave = new JButton("Save");
         this.txtStr = new JTextField();
         this.drawDialog();
         this.initActionListeners();
     }
 
+    /**
+     * This method creates the dailog with GridBagLayout that has a components 
+     */
     private void drawDialog()
     {
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -741,6 +816,9 @@ public class CreateCharacterDialog extends JDialog
         getContentPane().add(contentPanel);
     }
 
+    /**
+     * This method initializes the action listeners and adds the abilities to 
+     */
     private void initActionListeners()
     {
 

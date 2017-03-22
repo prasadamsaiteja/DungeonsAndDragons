@@ -16,7 +16,6 @@ import game.model.Campaign;
 
 /**
  * This Class converts the Campaign object to XML
- * 
  * @author RahulReddy
  * @version 1.0
  * @since 2/20/2017

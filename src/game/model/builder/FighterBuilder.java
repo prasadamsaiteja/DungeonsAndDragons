@@ -5,7 +5,8 @@ package game.model.builder;
  * @author RahulReddy
  * @version 1.0.0
  */
-public abstract class FighterBuilder {
+public abstract class FighterBuilder
+{
 
 	private Fighter fighter;
 	
@@ -30,10 +31,12 @@ public abstract class FighterBuilder {
 	 * Abstract method for building Strength
 	 */
 	abstract void buildStrength();
+	
 	/**
 	 * Abstract method for building Constitution
 	 */
 	abstract void buildConstitution();
+	
 	/**
 	 * Abstract method for building  Dexterity
 	 */
