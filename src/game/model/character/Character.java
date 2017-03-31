@@ -653,8 +653,8 @@ public class Character extends Observable implements Cloneable
     /**
      * Calculate hit score
      * 
-     * @throws Exception
      */
+    @SuppressWarnings("javadoc")
     public void calculateHitScore() throws Exception
     {
         // if no class is set for the character set hit score to 0

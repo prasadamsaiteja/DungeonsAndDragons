@@ -17,6 +17,7 @@ public class SharedVariables
 
     // Directory structure information for storing items, maps, character, campaign etc.
     public static final String DataDirectory = "Data";
+    public static final String SavedGamesDirectory = DataDirectory + File.separator + "SavedGames";
     public static final String MapsDirectory = DataDirectory + File.separator + "Maps";
     public static final String ItemsDirectory = DataDirectory + File.separator + "Items";
     public static final String CampaignsDirectory = DataDirectory + File.separator + "Campaigns";
