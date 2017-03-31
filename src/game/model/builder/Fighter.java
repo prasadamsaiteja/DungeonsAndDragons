@@ -1,58 +1,61 @@
 package game.model.builder;
 
+import game.model.character.Character;
+
 /**
  * Model Class for Fighter
  * @author RahulReddy
  * @version 1.0.0
  */
-public class Fighter 
+public class Fighter extends Character
 {
-
-	private int strength, constitution, dexterity;
 
 	/**
 	 * Sets the strength of the fighter
 	 * @param strength  strength value
+	 * @return Character instance of character
 	 */
-	public void setStrength(int strength)
+	public Character setStrength(int strength)
 	{
-		this.strength = strength;
+	     return super.setStrength(strength);	     
 	}
 
 	/**
 	 * Sets the constitution of the fighter
 	 * @param constitution  constitution value
+         * @return Character instance of character
 	 */
-	public void setConstitution(int constitution) 
+	public Character setConstitution(int constitution) 
 	{
-		this.constitution = constitution;
+	    return super.setConstitution(constitution);
 	}
 
 	/**
 	 * Sets the dexterity of the fighter
 	 * @param dexterity  dexterity value
+         * @return Character instance of character
 	 */
-	public void setDexterity(int  dexterity) 
+	public Character setDexterity(int  dexterity) 
 	{
-		this.dexterity = dexterity;
+	    return super.setDexterity(dexterity);
 	}
 	
 	/**
-	 * Return the strength of the fighter
+	 * This method return the strength of the fighter
 	 * @return strength  strength value
 	 */
 	public int  getStrength()
 	{
-		return strength;
+	    return super.getStrength();
 	}
 
 	/**
-	 * Return the constitution of the fighter
+	 * Thos method the constitution of the fighter
 	 * @return constitution  constitution value
 	 */
 	public int  getConstitution()
 	{
-		return constitution;
+	    return super.getConstitution();
 	}
 
 	/**
@@ -61,7 +64,7 @@ public class Fighter
 	 */
 	public int  getDexterity()
 	{
-		return dexterity;
+	    return super.getDexterity();
 	}
 
 }

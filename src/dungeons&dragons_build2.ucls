@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.14" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="game.views.jdialogs.CreateStuffDialog" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/CreateStuffDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="242" x="3855" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="game.views.jdialogs.campaignDialog.NewCampaignInfoDialog" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/campaignDialog/NewCampaignInfoDialog.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="171" width="200" x="4655" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="game.components.Dice" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/Dice.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="143" x="73" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="game.views.jframes.MainFrame" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jframes/MainFrame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="155" x="3660" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="5" language="java" name="game.components.SharedVariables.RingClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="137" x="4895" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="6" language="java" name="game.components.SharedVariables.BeltClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="133" x="5072" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="7" language="java" name="game.model.Map" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/Map.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="275" x="5014" y="1634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="game.views.jdialogs.viewmodels.CharactersListModel" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/viewmodels/CharactersListModel.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="135" width="208" x="256" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="game.views.jdialogs.CreateCharacterDialog.ItemsListUpdater" 
+    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jdialogs/CreateCharacterDialog.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="274" x="2639" y="1279"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="game.model.character.CharactersList" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/character/CharactersList.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="239" x="3871" y="1279"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="game.views.jpanels.GamePlayScreen.PlayerMomentMechanics.DOWN_PRESSED" 
+    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jpanels/GamePlayScreen.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="194" x="4078" y="1634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="12" language="java" name="game.components.SharedVariables.ItemType" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="119" x="5245" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="13" language="java" name="game.components.SharedVariables.WeaponClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="136" x="5404" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="14" language="java" name="game.views.jpanels.GamePlayScreen.PlayerMomentMechanics.LEFT_PRESSED" 
+    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jpanels/GamePlayScreen.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="194" x="4312" y="1634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="15" language="java" name="game.components.SharedVariables.BootsClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="144" x="5580" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="16" language="java" name="game.model.builder.FighterBuilder" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/builder/FighterBuilder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="144" x="3319" y="1279"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="game.model.jaxb.ItemJaxb" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/jaxb/ItemJaxb.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="191" x="504" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="game.views.jpanels.GamePlayScreen.PlayerMomentMechanics" 
+    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jpanels/GamePlayScreen.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="171" width="262" x="4411" y="1279"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="game.views.jdialogs.InventoryViewDialog" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/InventoryViewDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="190" x="4160" y="1279"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="game.views.jdialogs.NewMapDialog" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/NewMapDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="140" x="735" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="game.views.jpanels.GamePlayScreen" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jpanels/GamePlayScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="197" x="4418" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="game.model.Campaign" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/Campaign.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="197" x="4734" y="1279"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="game.model.builder.FighterDriverClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/builder/FighterDriverClass.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="151" x="3392" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="game.model.character.classes.CharacterClassStructure" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/character/classes/CharacterClassStructure.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="243" width="186" x="3583" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="game.GameLauncher" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/GameLauncher.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="113" x="3809" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="game.views.jpanels.GamePlayScreen.PlayerMomentMechanics.UP_PRESSED" 
+    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jpanels/GamePlayScreen.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="194" x="4546" y="1634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="game.model.builder.TankFighterBuilder" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/builder/TankFighterBuilder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="153" x="3037" y="1634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="28" language="java" name="game.components.SharedVariables.HelmetClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="148" x="5764" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="29" language="java" name="game.views.jpanels.MapDesigner" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jpanels/MapDesigner.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="287" x="5199" y="1279"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="game.model.character.classes.CharacterClass.DefinedClasses" 
+    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/model/character/classes/CharacterClass.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="325" x="5329" y="1634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="game.model.builder.Fighter" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/builder/Fighter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="139" x="3230" y="1634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="game.views.jdialogs.StartCampaign" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/StartCampaign.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="130" x="915" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="game.model.character.Character" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/character/Character.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1683" width="207" x="3831" y="1634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="game.views.jpanels.GamePlayScreen.PlayerMomentMechanics.RIGHT_PRESSED" 
+    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jpanels/GamePlayScreen.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="194" x="4780" y="1634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="35" language="java" name="game.components.SharedVariables.ShieldClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="145" x="5952" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="36" language="java" name="game.model.jaxb.CampaignJaxb" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/jaxb/CampaignJaxb.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="234" x="1085" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="game.model.builder.NimbleFighterBuilder" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/builder/NimbleFighterBuilder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="153" x="3409" y="1634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="game.views.jdialogs.NewItemDialog" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/NewItemDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="212" x="3996" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="39" language="java" name="game.components.Console" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/Console.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="195" x="1359" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="40" language="java" name="game.model.character.Backpack" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/character/Backpack.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="215" x="3831" y="3357"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="41" language="java" name="game.views.jdialogs.campaignDialog.CampaignNameDialog" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/campaignDialog/CampaignNameDialog.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="163" x="1594" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="42" language="java" name="game.views.jdialogs.DialogHelper" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/DialogHelper.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="266" x="1797" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="43" language="java" name="game.components.ExtensionMethods" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/ExtensionMethods.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="261" width="335" x="2103" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="44" language="java" name="game.model.onclickListeners.MapClickListener" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/onclickListeners/MapClickListener.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="189" width="232" x="4418" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="45" language="java" name="game.views.jdialogs.CreateCharacterDialog" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/CreateCharacterDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="459" width="228" x="2953" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="46" language="java" name="game.model.builder.FighterDirector" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/builder/FighterDirector.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="150" x="3221" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="47" language="java" name="game.model.character.classes.CharacterClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/character/classes/CharacterClass.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="188" x="4971" y="1279"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="48" language="java" name="game.components.SharedVariables" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="567" width="228" x="5506" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="49" language="java" name="game.views.jpanels.LaunchScreen" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jpanels/LaunchScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="287" x="2478" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="50" language="java" name="game.components.GameMechanics" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/GameMechanics.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="314" x="2805" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="51" language="java" name="game.components.SharedVariables.ArmorClass" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/components/SharedVariables.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="124" x="6137" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="52" language="java" name="game.views.jdialogs.CreateCharacterDialog.CharacterTypeUpdater" 
+    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jdialogs/CreateCharacterDialog.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="326" x="2953" y="1279"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="53" language="java" name="game.model.Item" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/Item.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="241" x="4137" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="54" language="java" name="game.interfaces.DiceImplementationInterface" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/interfaces/DiceImplementationInterface.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="188" x="3432" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="55" language="java" name="game.model.jaxb.MapJaxb" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/jaxb/MapJaxb.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="193" x="3159" y="173"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="56" language="java" name="game.model.builder.BullyFighterBuilder" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/builder/BullyFighterBuilder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="153" x="3602" y="1634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="57" language="java" name="game.views.jdialogs.CreateCharacterDialog.BtnSaveActionListener" 
+    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jdialogs/CreateCharacterDialog.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="307" x="3503" y="1279"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="58">    
+    <bendpoint x="3401" y="780"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="59" name="fighterType"/>      
+      <multiplicity id="60" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="61">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="35"/>  
+  </nesting>  
+  <nesting id="62">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="14"/>  
+  </nesting>  
+  <association id="63">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="64" name="mainFrameObject"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="66">    
+    <end type="SOURCE" refId="44" navigable="false">      
+      <attribute id="67" name="gameplayScreen"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="69">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="30"/>  
+  </nesting>  
+  <association id="70">    
+    <end type="SOURCE" refId="57" navigable="false">      
+      <attribute id="71" name="character"/>      
+      <multiplicity id="72" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="73">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="11"/>  
+  </nesting>  
+  <association id="74">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="75" name="playerMomentMechanics"/>      
+      <multiplicity id="76" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="77">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <nesting id="78">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="52"/>  
+  </nesting>  
+  <association id="79">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="80" name="mapList"/>      
+      <multiplicity id="81" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="82">    
+    <end type="SOURCE" refId="56"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <nesting id="83">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="12"/>  
+  </nesting>  
+  <association id="84">    
+    <bendpoint x="3840" y="1279"/>    
+    <end type="SOURCE" refId="45" navigable="false">      
+      <attribute id="85" name="character"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="87">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="88" name="parentDialog"/>      
+      <multiplicity id="89" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="90">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="57"/>  
+  </nesting>  
+  <association id="91">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="92" name="fighter"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="94">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="18"/>  
+  </nesting>  
+  <association id="95">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="96" name="loadedItem"/>      
+      <multiplicity id="97" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="98">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="13"/>  
+  </nesting>  
+  <association id="99">    
+    <end type="SOURCE" refId="46" navigable="false">      
+      <attribute id="100" name="fb"/>      
+      <multiplicity id="101" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="102">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <association id="103">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="104" name="campaign"/>      
+      <multiplicity id="105" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="106">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="54"/>  
+  </realization>  
+  <association id="107">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="108" name="backpack"/>      
+      <multiplicity id="109" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="110">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="111" name="character"/>      
+      <multiplicity id="112" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="113">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="114" name="fighterDirector"/>      
+      <multiplicity id="115" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="46" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="116">    
+    <bendpoint x="4703" y="1279"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="117" name="currentMap"/>      
+      <multiplicity id="118" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="119">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <nesting id="120">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="28"/>  
+  </nesting>  
+  <nesting id="121">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="26"/>  
+  </nesting>  
+  <nesting id="122">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <association id="123">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="124" name="inventoryViewDialog"/>      
+      <multiplicity id="125" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="126">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="6"/>  
+  </nesting>  
+  <association id="127">    
+    <bendpoint x="4380" y="1279"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="128" name="character"/>      
+      <multiplicity id="129" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <end type="SOURCE" refId="47" navigable="false">      
+      <attribute id="131" name="character"/>      
+      <multiplicity id="132" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="133">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="34"/>  
+  </nesting>  
+  <association id="134">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="135" name="inst"/>      
+      <multiplicity id="136" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="137">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="51"/>  
+  </nesting>  
+  <association id="138">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="139" name="mapObject"/>      
+      <multiplicity id="140" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="141">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="142" name="characters"/>      
+      <multiplicity id="143" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="144">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <association id="145">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="146" name="campaignObject"/>      
+      <multiplicity id="147" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

@@ -145,8 +145,16 @@ public class CharactersList extends Observable
         while (characterIterator.hasNext())
         {
             Character c = characterIterator.next().clone();
-            if (c.getName().equals(characterName))
+            if (c.getName().equals(characterName)){
+                try {
+                    c.calculateHitScore();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 return c;
+            }
+                
                 
         }
         return null;

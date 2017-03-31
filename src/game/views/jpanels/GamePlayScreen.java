@@ -89,7 +89,7 @@ public class GamePlayScreen extends JPanel implements Observer{
              this.campaign.fetchMaps();
              character.backpack = new Backpack();
              this.currentMap = campaign.getMapList().get(currentMapNumber);             
-             this.currentMap.initalizeMapData(this.character.getName());             
+             this.currentMap.initalizeMapData(this.character.getName());              
              this.setMapLevel();
              initComponents();
          }
@@ -869,7 +869,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     public void update(Observable arg0, Object arg1) {
         if(((Character) arg0).isPlayer())
             this.showPlayerDetails(character);
-        else
+        //else
           this.showPlayerDetails((Character) arg0);
     }
         
