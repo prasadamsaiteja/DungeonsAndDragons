@@ -44,6 +44,27 @@ public class ExtensionMethods
 
         return fileName;
     }
+    
+    /**
+     * This method returns all the saved games saved
+     * 
+     * @return List of saved games names saved
+     */
+    public static String[] getSavedGamesList()
+    {
+
+        if (!new File(SharedVariables.SavedGamesDirectory).exists())
+            return new String[0];
+
+        File[] fileList = new File(SharedVariables.SavedGamesDirectory).listFiles();
+        String[] fileName = new String[fileList.length];
+
+        for (int i = 0; i < fileList.length; i++)
+            if (fileList[i].getName().endsWith(".xml"))
+                fileName[i] = fileList[i].getName().replaceFirst("[.][^.]+$", "");
+
+        return fileName;
+    }
 
     /**
      * This method returns all the items saved

@@ -32,6 +32,8 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import game.GameLauncher;
 import game.components.ExtensionMethods;
@@ -44,6 +46,7 @@ import game.model.character.Backpack;
 import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.jaxb.CampaignJaxb;
+import game.model.jaxb.GamePlayJaxb;
 import game.model.onclickListeners.MapClickListener;
 import game.views.jdialogs.DialogHelper;
 import game.views.jdialogs.InventoryViewDialog;
@@ -56,12 +59,16 @@ import game.views.jdialogs.InventoryViewDialog;
  * @since 3/8/2017
  */
 @SuppressWarnings("serial")
+@XmlRootElement(name = "GamePlayScreen")
 public class GamePlayScreen extends JPanel implements Observer{
   
+    @XmlElement(name = "character")
     public Character character;
-    public Campaign campaign; 
-    public PlayerMomentMechanics playerMomentMechanics;
+    @XmlElement(name = "campaign")
+    public Campaign campaign;
+    @XmlElement(name = "currentMap")
     public Map currentMap;
+    public PlayerMomentMechanics playerMomentMechanics;
     
     private JPanel mapJPanelArray[][];       
     private int currentMapNumber = 0;
@@ -89,7 +96,7 @@ public class GamePlayScreen extends JPanel implements Observer{
              this.campaign.fetchMaps();
              character.backpack = new Backpack();
              this.currentMap = campaign.getMapList().get(currentMapNumber);             
-             this.currentMap.initalizeMapData(this.character.getName());             
+             this.currentMap.initalizeMapData(this.character.getName());              
              this.setMapLevel();
              initComponents();
          }
@@ -323,6 +330,46 @@ public class GamePlayScreen extends JPanel implements Observer{
        gbc_characterDetailsPanel.gridy = 3;
        designPanel.add(characterDetailsPanel, gbc_characterDetailsPanel);
        characterDetailsPanel.setLayout(new GridLayout(0, 1, 0, 0));    
+       
+       JPanel panel = new JPanel();
+       GridBagConstraints gbc_panel = new GridBagConstraints();
+       gbc_panel.fill = GridBagConstraints.BOTH;
+       gbc_panel.gridx = 0;
+       gbc_panel.gridy = 11;
+       designPanel.add(panel, gbc_panel);
+       panel.setLayout(new GridLayout(1, 0, 0, 0));
+       
+       JButton btnAbortButton = new JButton("Abort game");
+       btnAbortButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+       btnAbortButton.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+       btnAbortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+            }
+        });
+       panel.add(btnAbortButton);
+       
+       JButton btnSaveButton = new JButton("Save");
+       btnSaveButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+       btnSaveButton.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+       btnSaveButton.addActionListener(new ActionListener() {
+        
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String fileNmae = JOptionPane.showInputDialog(this, "Enter name of the file to be saved");
+                if(GamePlayJaxb.convertGameObjectToXml(fileNmae, GamePlayScreen.this)){
+                    DialogHelper.showBasicDialog("Game saved successfully");
+                    GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+                }
+                
+                else
+                    DialogHelper.showBasicDialog("There was a issue saving the game");
+                    
+            }
+        });
+       panel.add(btnSaveButton);
+       
       
        showPlayerDetails(character);
    }
@@ -869,7 +916,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     public void update(Observable arg0, Object arg1) {
         if(((Character) arg0).isPlayer())
             this.showPlayerDetails(character);
-        else
+        //else
           this.showPlayerDetails((Character) arg0);
     }
         
@@ -883,4 +930,13 @@ public class GamePlayScreen extends JPanel implements Observer{
             characterObject.deleteObservers();      
     }
 
+    
+    /**
+     * This method initalizes the loaded game
+     */
+    public void initLoadGame() {                     
+        this.setKeyListeners();
+        this.initComponents();
+    }
+    
 }

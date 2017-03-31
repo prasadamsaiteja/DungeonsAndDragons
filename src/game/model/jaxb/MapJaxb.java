@@ -36,12 +36,7 @@ public class MapJaxb
         try
         {
             Marshaller marshaller = JAXBContext.newInstance(Map.class).createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // This
-                                                                                    // lets
-                                                                                    // format
-                                                                                    // type
-                                                                                    // to
-                                                                                    // XML
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);                                                                                    
 
             File file = new File(SharedVariables.MapsDirectory + File.separator + map.getMapName() + ".xml");
             if (!file.exists())

@@ -12,7 +12,7 @@ import com.google.common.collect.Multimap;
  */
 public class Backpack {
        
-    //public HashMap<String, String> backpackItems;
+    
     public Multimap<String, String> backpackItems;
     
     /**

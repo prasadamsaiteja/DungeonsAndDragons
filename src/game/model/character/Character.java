@@ -37,9 +37,6 @@ public class Character extends Observable implements Cloneable
     private String fname;
     private String backpackFileName;    
     private boolean isBuilt = false;
-    /**
-     * 
-     */
     public Backpack backpack;
 
     private boolean isKeyCollected = false;
@@ -153,8 +150,7 @@ public class Character extends Observable implements Cloneable
      */
     public Character setStrength(int strength)
     {
-        this.strength = strength;
-        
+        this.strength = strength;        
         return this;
     }
 
@@ -176,31 +172,13 @@ public class Character extends Observable implements Cloneable
         
     	int strength = 0;
 
-        try
-        {
-            Item ringObject = this.getRingObject();
-            if (ringObject.itemClass.equalsIgnoreCase("Strength"))
-            {
-                strength += ringObject.getModifier();
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+    	Item ringObject = this.getRingObject();
+        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Strength"))            
+            strength += ringObject.getModifier();    
 
-        try
-        {
-            Item beltObject = this.getBeltObject();
-            if (beltObject.itemClass.equalsIgnoreCase("Strength"))
-            {
-                strength += beltObject.getModifier();
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        Item beltObject = this.getBeltObject();
+        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Strength"))            
+            strength += beltObject.getModifier();
 
         return strength + getOriginalStrength();
     }
@@ -243,18 +221,9 @@ public class Character extends Observable implements Cloneable
     {
         int dexterity = 0;
 
-        try
-        {
-            Item bootsObject = this.getBootsObject();
-            if (bootsObject.itemClass.equalsIgnoreCase("Dexterity"))
-            {
-                dexterity += bootsObject.getModifier();
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        Item bootsObject = this.getBootsObject();
+        if (bootsObject != null && bootsObject.itemClass.equalsIgnoreCase("Dexterity"))           
+            dexterity += bootsObject.getModifier();
 
         return dexterity + getOriginalDexterity();
     }
@@ -297,32 +266,14 @@ public class Character extends Observable implements Cloneable
     {
         int constitution = 0;
 
-        try
-        {
-            Item ringObject = this.getRingObject();
-            if (ringObject.itemClass.equalsIgnoreCase("Constitution"))
-            {
-                constitution += ringObject.getModifier();
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        Item ringObject = this.getRingObject();
+        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Constitution"))          
+            constitution += ringObject.getModifier();          
 
-        try
-        {
-            Item beltObject = this.getBeltObject();
-            if (beltObject.itemClass.equalsIgnoreCase("Constitution"))
-            {
-                constitution += beltObject.getModifier();
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-
+        Item beltObject = this.getBeltObject();
+        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Constitution"))          
+            constitution += beltObject.getModifier();     
+            
         return constitution + getOriginalConstitution();
     }
 
@@ -403,19 +354,9 @@ public class Character extends Observable implements Cloneable
     {
         int attackBonus = 0;
 
-        try
-        {
-            Item weaponObj = this.getWeaponObject();
-            if (weaponObj.itemClass.equalsIgnoreCase("Ranged"))
-            {
-                // strength modifier + weapon modifier and level
-                attackBonus += this.getStrengthModifier() + weaponObj.getModifier();
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        Item weaponObj = this.getWeaponObject();
+        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Ranged"))            
+            attackBonus += this.getStrengthModifier() + weaponObj.getModifier();            
 
         return attackBonus;
     }
@@ -428,20 +369,9 @@ public class Character extends Observable implements Cloneable
     {
         int damageBonus = 0;
 
-        try
-        {
-            Item weaponObj = this.getWeaponObject();
-            if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))
-            {
-                System.out.print(weaponObj.getModifier() + "\n");
-                damageBonus += this.getStrengthModifier() + weaponObj.getModifier();
-                //changed dexrity to strength -> melee weapon
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        Item weaponObj = this.getWeaponObject();
+        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))           
+            damageBonus += this.getStrengthModifier() + weaponObj.getModifier();        
 
         return damageBonus;
     }
@@ -456,70 +386,32 @@ public class Character extends Observable implements Cloneable
     {
         int armorClass = 10;
 
-        try
-        {
-            Item ringObject = this.getRingObject();
-            if (ringObject.itemClass.equalsIgnoreCase("ArmorClass"))
-            {
-                armorClass += ringObject.getModifier();
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        Item ringObject = this.getRingObject();
+        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("ArmorClass"))            
+            armorClass += ringObject.getModifier();
 
-        try
-        {
-            Item armorObject = this.getArmorObject();
-            // FIXME this logic needs to be re-confirmed and fixed
-            if (armorObject.itemClass.equalsIgnoreCase("Light") || armorObject.itemClass.equalsIgnoreCase("Medium"))
-            {
-                armorClass += this.getDexterityModifier();                
-            }
-            else
-            {
-                armorClass += 14;
-            }
+        Item armorObject = this.getArmorObject();
+        // FIXME this logic needs to be re-confirmed and fixed
+        if (armorObject != null && (armorObject.itemClass.equalsIgnoreCase("Light") || armorObject.itemClass.equalsIgnoreCase("Medium")))            
+            armorClass += this.getDexterityModifier();                
+        
+        else            
+            armorClass += 14;
+        
+        if(armorObject != null)
             armorClass += armorObject.getModifier();
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-
-        try
-        {
-            Item shieldObject = this.getShieldObject();
+        
+        Item shieldObject = this.getShieldObject();
+        if(shieldObject != null)
             armorClass += shieldObject.getModifier();
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
 
-        try
-        {
-            Item helmetObject = this.getHelmetObject();
+        Item helmetObject = this.getHelmetObject();
+        if(helmetObject != null)
             armorClass += helmetObject.getModifier();
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-
-        try
-        {
-            Item bootsObject = this.getBootsObject();
-            if (bootsObject.itemClass.equalsIgnoreCase("ArmorClass"))
-            {
-                armorClass += bootsObject.getModifier();
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        
+        Item bootsObject = this.getBootsObject();
+        if (bootsObject != null && bootsObject.itemClass.equalsIgnoreCase("ArmorClass"))           
+            armorClass += bootsObject.getModifier();            
 
         return armorClass;
     }
@@ -761,9 +653,9 @@ public class Character extends Observable implements Cloneable
     /**
      * Calculate hit score
      * 
-     * @throws Exception
      */
-    private void calculateHitScore() throws Exception
+    @SuppressWarnings("javadoc")
+    public void calculateHitScore() throws Exception
     {
         // if no class is set for the character set hit score to 0
         if (this.getCharacterClass() == null || this.getCharacterClass().isEmpty()){
@@ -922,7 +814,7 @@ public class Character extends Observable implements Cloneable
     }
 
     /**
-     * Return true if the character is a player
+     * This method returns true if the character is a player
      * @return the isPlayer
      */
     public boolean isPlayer()
@@ -1022,6 +914,7 @@ public class Character extends Observable implements Cloneable
         
         return weapons;        
     }
+    
     /**
      * This method returns all the selected type armor weapons
      * @return Array list list of Armor
