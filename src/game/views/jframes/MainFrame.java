@@ -6,8 +6,6 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import game.model.jaxb.GamePlayJaxb;
-import game.views.jpanels.GamePlayScreen;
 import game.views.jpanels.LaunchScreen;
 
 /**
@@ -31,12 +29,6 @@ public class MainFrame extends JFrame
         getContentPane().add(new LaunchScreen());
         setExtendedState(Frame.MAXIMIZED_BOTH);
         setVisible(true);
-        
-        {
-            //GamePlayScreen loadedGame = GamePlayJaxb.getGamePlayObjectFromXml("test1");
-            //replaceJPanel(loadedGame);
-            //loadedGame.initLoadGame();
-        }
     }
 
     /**

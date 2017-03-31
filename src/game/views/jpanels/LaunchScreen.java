@@ -2,8 +2,10 @@ package game.views.jpanels;
 
 import javax.swing.JPanel;
 
+import game.GameLauncher;
 import game.components.ExtensionMethods;
 import game.model.character.CharactersList;
+import game.model.jaxb.GamePlayJaxb;
 import game.views.jdialogs.CreateStuffDialog;
 import game.views.jdialogs.DialogHelper;
 import game.views.jdialogs.StartCampaign;
@@ -14,6 +16,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -124,8 +128,18 @@ public class LaunchScreen extends JPanel
               else if(CharactersList.getNames().size() == 0)
                 DialogHelper.showBasicDialog("There are no characters created, please create one to proceed");   
               
-              else
-                new StartCampaign();
+              else{
+                  if(ExtensionMethods.getSavedGamesList().length > 0 && JOptionPane.showConfirmDialog (null, "You have saved games do you want to load from them?", "Do you want to load saved game?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                      String savedGameName = (String) JOptionPane.showInputDialog(null, "Select saved game to load", "Load game", JOptionPane.QUESTION_MESSAGE, null, ExtensionMethods.getSavedGamesList(), ExtensionMethods.getSavedGamesList()[0]);
+                      GamePlayScreen loadedGame = GamePlayJaxb.getGamePlayObjectFromXml(savedGameName);
+                      GameLauncher.mainFrameObject.replaceJPanel(loadedGame);
+                      loadedGame.initLoadGame();
+                  }
+                      
+                  else
+                      new StartCampaign();  
+              }
+                
           }
         });
 

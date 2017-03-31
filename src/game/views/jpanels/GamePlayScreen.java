@@ -357,12 +357,10 @@ public class GamePlayScreen extends JPanel implements Observer{
         
             @Override
             public void actionPerformed(ActionEvent e) {
-                String fileNmae = JOptionPane.showInputDialog(this, "Enter name of the file to be saved");
-                if(GamePlayJaxb.convertGameObjectToXml(fileNmae, GamePlayScreen.this)){
+                String fileNmae = JOptionPane.showInputDialog("Enter name of the file to be saved");
+                if(GamePlayJaxb.convertGameObjectToXml(fileNmae, GamePlayScreen.this))
                     DialogHelper.showBasicDialog("Game saved successfully");
-                    GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
-                }
-                
+                                
                 else
                     DialogHelper.showBasicDialog("There was a issue saving the game");
                     
