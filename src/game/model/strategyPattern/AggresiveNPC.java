@@ -21,7 +21,7 @@ public class AggresiveNPC implements MomentStrategy{
     @Override
     public void movePlayer(String message, int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
         
-        if(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character && ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getHitScore() < 1){
+        if(!(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){
                         
             Object tempPreviousMapCellObject = gamePlayScreen.previousMapCellObject;
             gamePlayScreen.previousMapCellObject = gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];             
@@ -39,13 +39,13 @@ public class AggresiveNPC implements MomentStrategy{
             Character besidePlayer = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];
             
             if((besidePlayer.isPlayer() || besidePlayer.getIsFriendlyMonster()) && isAttackPerformed == false)
-                attack(fromRowNumber, fromColNumber, toRowNumber, toColNumber);
+                attack(toRowNumber, toColNumber);
         }
                     
     }
 
     @Override
-    public void attack(int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
+    public void attack(int toRowNumber, int toColNumber) {
         
         Character besidePlayer = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];
         if(!besidePlayer.isPlayer())
@@ -75,9 +75,9 @@ public class AggresiveNPC implements MomentStrategy{
     }
 
     @Override
-    public void playTurn() {               
-        
-        isAttackPerformed = false;
+    public void playTurn() {
+                
+        isAttackPerformed = false;        
         
         for(int index = 0; index < 3; index++){
             
@@ -121,6 +121,12 @@ public class AggresiveNPC implements MomentStrategy{
         }        
         
         gamePlayScreen.isTurnFinished = true;
+    }
+
+    @Override
+    public void moveToNextMap() {
+        // TODO Auto-generated method stub
+        
     }
 
 }

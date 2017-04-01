@@ -23,7 +23,7 @@ public class FriendlyNPC implements MomentStrategy{
     @Override
     public void movePlayer(String message, int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
         
-        if(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character && ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getHitScore() < 1){
+        if(!(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){
             
             Object tempPreviousMapCellObject = gamePlayScreen.previousMapCellObject;
             gamePlayScreen.previousMapCellObject = gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];             
@@ -42,13 +42,13 @@ public class FriendlyNPC implements MomentStrategy{
             Character besidePlayer = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];
                         
             if((!besidePlayer.getIsFriendlyMonster() && !besidePlayer.isPlayer()) && isAttackPerformed == false)
-                attack(fromRowNumber, fromColNumber, toRowNumber, toColNumber);
+                attack(toRowNumber, toColNumber);
         }
         
     }
 
     @Override
-    public void attack(int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
+    public void attack(int toRowNumber, int toColNumber) {
         
         Character besidePlayer = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];        
         besidePlayer.hit(character.getAttackBonus());
@@ -138,6 +138,12 @@ public class FriendlyNPC implements MomentStrategy{
         }
         
         gamePlayScreen.isTurnFinished = true;
+    }
+
+    @Override
+    public void moveToNextMap() {
+        // TODO Auto-generated method stub
+        
     }
 
 }
