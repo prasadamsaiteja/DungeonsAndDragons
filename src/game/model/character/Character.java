@@ -17,6 +17,7 @@ import game.model.Item;
 import game.model.character.classes.CharacterClass;
 import game.model.character.classes.CharacterClassStructure;
 import game.model.jaxb.ItemJaxb;
+import game.model.strategyPattern.MomentStrategy;
 
 /**
  * Build a new character with a set of abilities associated with it
@@ -39,6 +40,7 @@ public class Character extends Observable implements Cloneable
     private boolean isBuilt = false;
     public Backpack backpack;
 
+    private MomentStrategy momentStrategy;
     private boolean isKeyCollected = false;
     private boolean isFriendlyMonster = true;
     private boolean isPlayer = false;
@@ -999,5 +1001,23 @@ public class Character extends Observable implements Cloneable
             weapons.addAll(backpack.backpackItems.get("Boots"));
         
         return weapons;        
+    }
+
+    
+    /**
+     * This method returns strategy
+     * @return the momentStrategy
+     */
+    public MomentStrategy getMomentStrategy() {
+        return momentStrategy;
+    }
+
+    
+    /**
+     * This method sets character strategy
+     * @param momentStrategy the momentStrategy to set
+     */
+    public void setMomentStrategy(MomentStrategy momentStrategy) {
+        this.momentStrategy = momentStrategy;
     }
 }

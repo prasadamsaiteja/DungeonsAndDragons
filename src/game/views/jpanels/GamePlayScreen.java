@@ -52,6 +52,8 @@ import game.model.character.CharactersList;
 import game.model.jaxb.CampaignJaxb;
 import game.model.jaxb.GamePlayJaxb;
 import game.model.onclickListeners.MapClickListener;
+import game.model.strategyPattern.AggresiveNPC;
+import game.model.strategyPattern.FriendlyNPC;
 import game.views.jdialogs.DialogHelper;
 import game.views.jdialogs.InventoryViewDialog;
 
@@ -76,10 +78,11 @@ public class GamePlayScreen extends JPanel implements Observer{
     
     private JPanel mapJPanelArray[][];       
     private int currentMapNumber = 0;
-    private Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
+    public Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
     private JPanel characterDetailsPanel;
     private InventoryViewDialog inventoryViewDialog;
     private ArrayList<Character> charactersTurnBasedMechnaism;
+    public volatile boolean isTurnFinished = false;
     
     /**
      * This is constructor method for this class
@@ -103,8 +106,9 @@ public class GamePlayScreen extends JPanel implements Observer{
              this.character.backpack = new Backpack();
              this.currentMap = campaign.getMapList().get(currentMapNumber);             
              this.currentMap.initalizeMapData(this.character.getName());              
-             this.setMapLevel();             
-             initComponents();
+             this.setMapLevel();
+             this.initComponents();
+             this.initalizeTurnBasedMechanism();
          }
            
     }
@@ -117,10 +121,16 @@ public class GamePlayScreen extends JPanel implements Observer{
         Console.printInConsole("Player(" + character.getName() + ")  entered map : " + currentMap.getMapName() + "\n");
         for (int i = 0; i < currentMap.mapWidth; i++)      
             for (int j = 0; j < currentMap.mapHeight; j++)
-                if(currentMap.mapData[i][j] instanceof Character && (!((Character) currentMap.mapData[i][j]).isPlayer()))
-                        ((Character) currentMap.mapData[i][j]).setLevel(character.getLevel());
-        
-        this.initalizeTurnBasedMechanism();
+                if(currentMap.mapData[i][j] instanceof Character && (!((Character) currentMap.mapData[i][j]).isPlayer())){
+                    Character tempCharacter = ((Character) currentMap.mapData[i][j]);
+                    
+                    tempCharacter.setLevel(character.getLevel());        
+                    
+                    if(tempCharacter.getIsFriendlyMonster())
+                        tempCharacter.setMomentStrategy(new FriendlyNPC(GamePlayScreen.this, tempCharacter));
+                    else
+                        tempCharacter.setMomentStrategy(new AggresiveNPC(GamePlayScreen.this, tempCharacter));
+                }                               
     }
     
     /**
@@ -148,7 +158,58 @@ public class GamePlayScreen extends JPanel implements Observer{
         for (Character character : charactersTurnBasedMechnaism) 
             Console.printInConsole("  *" + character.getName() + " -> " + character.turnPoints);
         
-        Console.printInConsole("\n");
+        Console.printInConsole("");  
+        Console.printInConsole("Starting gameplay");
+        startGamePlay();        
+    }
+    
+    /**
+     * This method starts the game play 
+     */
+    private void startGamePlay() {
+        
+        Thread gameplayThread = new Thread(new Runnable() {
+            
+            @Override
+            public void run() {
+                
+                while(character.getHitScore() >= 1)
+                for (Character character : charactersTurnBasedMechnaism) {
+                    
+                    if(character.getHitScore() < 1)
+                        continue;
+                    
+                    Console.printInConsole("");
+                    Console.printInConsole("  *" + character.getName() + "'s turn");                   
+                    
+                    if(character.isPlayer())
+                        GamePlayScreen.this.playerMomentMechanics.setKeyListeners(GamePlayScreen.this);
+                    else{
+                        GamePlayScreen.this.playerMomentMechanics.removeKeyListeners(GamePlayScreen.this);                              
+                        character.getMomentStrategy().playTurn();
+                    }
+                         
+                    
+                    while (true) {
+                        if (isTurnFinished){
+                            isTurnFinished = false;
+                            break;                 
+                        }
+                   }
+                }
+                
+                if(character.getHitScore() < 1){
+                    Console.printInConsole("You are dead, you will be now redirected to launch screen");
+                    DialogHelper.showBasicDialog("You are dead, you will be now redirected to launch screen");
+                    GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+                }
+            }     
+            
+        });
+        
+        gameplayThread.setDaemon(true);
+        gameplayThread.start();
+        
     }
     
     /**
@@ -382,7 +443,7 @@ public class GamePlayScreen extends JPanel implements Observer{
        btnAbortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+                GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());                
             }
         });
        panel.add(btnAbortButton);
@@ -529,7 +590,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     /**
      * This method repaints the map after the action is completed
      */
-    private void repaintMap() {
+    public void repaintMap() {
      
      for (int i = 0; i < currentMap.mapWidth; i++)      
        for (int j = 0; j < currentMap.mapHeight; j++) {
@@ -551,6 +612,8 @@ public class GamePlayScreen extends JPanel implements Observer{
      */
     public class PlayerMomentMechanics{
         
+        int playerMomentCount = 0;
+        
         /**
          * This class actionPerformed is triggered when up or w is pressed by the user.
          * @author saiteja prasadam
@@ -560,10 +623,10 @@ public class GamePlayScreen extends JPanel implements Observer{
          */
         public class UP_PRESSED extends AbstractAction {
 
-        	/**
-        	 * This method performs the action when key is pressed
-        	 * @param e ActionEvent
-        	 */
+          /**
+          * This method performs the action when key is pressed
+          * @param e ActionEvent
+          */	 
           @Override
           public void actionPerformed(ActionEvent e) {
                           
@@ -677,6 +740,19 @@ public class GamePlayScreen extends JPanel implements Observer{
         }
         
         /**
+         * This method removes key binding to the parent jpanel
+         * @param jpanel parent jpanel
+         */
+        public void removeKeyListeners(JPanel jpanel){
+            
+            jpanel.getActionMap().put("UP_PRESSED", null);
+            jpanel.getActionMap().put("DOWN_PRESSED", null);
+            jpanel.getActionMap().put("LEFT_PRESSED", null);
+            jpanel.getActionMap().put("RIGHT_PRESSED", null);   
+            
+        }
+        
+        /**
          * This method moves the player position
          * 
          * @param fromRowNumber from row position of player
@@ -685,10 +761,9 @@ public class GamePlayScreen extends JPanel implements Observer{
          * @param toColNumber to col position of player
          */
         public void movePlayer(int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber){
-          
-            
+                      
             if(currentMap.mapData[toRowNumber][toColNumber] instanceof Character && ((Character) currentMap.mapData[toRowNumber][toColNumber]).getHitScore() < 1){
-                
+                                               
                 Object tempPreviousMapCellObject = previousMapCellObject;
                 previousMapCellObject = currentMap.mapData[toRowNumber][toColNumber];             
                 currentMap.mapData[toRowNumber][toColNumber] = character;
@@ -791,7 +866,13 @@ public class GamePlayScreen extends JPanel implements Observer{
                 else
                     exchangeItemsFromFriendlyMonsters(toRowNumber, toColNumber);
             }
-                   
+
+            playerMomentCount++;
+            if(playerMomentCount >= 3){
+                playerMomentCount = 0;
+                GamePlayScreen.this.isTurnFinished = true;
+            }
+                
         }
 
         /**
@@ -939,7 +1020,7 @@ public class GamePlayScreen extends JPanel implements Observer{
             return true;
         }
     }
-               
+    
     /**
      * This method is called when the selected character object gets updated
      * 
@@ -967,7 +1048,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     /**
      * This method initializes the loaded game
      */
-    public void initLoadGame() {
+    public void initLoadGame(){
         this.playerMomentMechanics.setKeyListeners(this);
         this.initComponents();
     }
