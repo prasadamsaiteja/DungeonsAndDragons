@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
@@ -36,6 +38,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import game.GameLauncher;
+import game.components.Console;
+import game.components.Dice;
 import game.components.ExtensionMethods;
 import game.components.GameMechanics;
 import game.components.SharedVariables;
@@ -75,7 +79,8 @@ public class GamePlayScreen extends JPanel implements Observer{
     private Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
     private JPanel characterDetailsPanel;
     private InventoryViewDialog inventoryViewDialog;
-  
+    private ArrayList<Character> charactersTurnBasedMechnaism;
+    
     /**
      * This is constructor method for this class
      * 
@@ -87,17 +92,18 @@ public class GamePlayScreen extends JPanel implements Observer{
          this.campaign = CampaignJaxb.getCampaignFromXml(camapaignName);
          this.character = CharactersList.getByName(characterName).clone();
          this.character.setPlayerFlag(true);
+         this.playerMomentMechanics = new PlayerMomentMechanics();
          
          if(campaign == null || character == null)
              DialogHelper.showBasicDialog("Error reading saved files");
          
          else{
-             this.setKeyListeners();
+             this.playerMomentMechanics.setKeyListeners(this);
              this.campaign.fetchMaps();
-             character.backpack = new Backpack();
+             this.character.backpack = new Backpack();
              this.currentMap = campaign.getMapList().get(currentMapNumber);             
              this.currentMap.initalizeMapData(this.character.getName());              
-             this.setMapLevel();
+             this.setMapLevel();             
              initComponents();
          }
            
@@ -108,10 +114,41 @@ public class GamePlayScreen extends JPanel implements Observer{
      */
     private void setMapLevel(){
         
+        Console.printInConsole("Player(" + character.getName() + ")  entered map : " + currentMap.getMapName() + "\n");
         for (int i = 0; i < currentMap.mapWidth; i++)      
             for (int j = 0; j < currentMap.mapHeight; j++)
                 if(currentMap.mapData[i][j] instanceof Character && (!((Character) currentMap.mapData[i][j]).isPlayer()))
                         ((Character) currentMap.mapData[i][j]).setLevel(character.getLevel());
+        
+        this.initalizeTurnBasedMechanism();
+    }
+    
+    /**
+     * This method initializes turn based mechanism
+     */
+    private void initalizeTurnBasedMechanism(){
+        
+        Console.printInConsole("Calculating turn based mechanism");
+        charactersTurnBasedMechnaism = new ArrayList<>();          
+        
+        for (int i = 0; i < currentMap.mapWidth; i++)      
+            for (int j = 0; j < currentMap.mapHeight; j++)
+                if(currentMap.mapData[i][j] instanceof Character)
+                    charactersTurnBasedMechnaism.add((Character) currentMap.mapData[i][j]);
+                        
+        for (Character character : charactersTurnBasedMechnaism) 
+            character.turnPoints = new Dice(1, 20, 1).getRollSum() + character.getDexterityModifier();
+        
+        Collections.sort(charactersTurnBasedMechnaism, new Comparator<Character>(){
+            public int compare(Character s1, Character s2) {
+                return s2.turnPoints - s1.turnPoints;
+            }
+        });
+        
+        for (Character character : charactersTurnBasedMechnaism) 
+            Console.printInConsole("  *" + character.getName() + " -> " + character.turnPoints);
+        
+        Console.printInConsole("\n");
     }
     
     /**
@@ -377,7 +414,7 @@ public class GamePlayScreen extends JPanel implements Observer{
      * 
      * @param character Character object that needs to be displayed on the screen
      */
-    public void showPlayerDetails(Character character) {                                   
+    public void showPlayerDetails(Character character) {
               
           this.removePreviousObservables();
           character.addObserver(this);
@@ -503,32 +540,7 @@ public class GamePlayScreen extends JPanel implements Observer{
            mapJPanelArray[i][j].addMouseListener(new MapClickListener(this, currentMap.mapData[i][j]));
            mapJPanelArray[i][j] = GameMechanics.setMapCellDetailsFromMapObjectData(mapJPanelArray[i][j], currentMap.mapData[i][j]);           
        }                  
-    }
-        
-    /**
-     * This method set's up key binding for player moments
-     */
-    private void setKeyListeners(){
-      
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "UP_PRESSED");
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("W"), "UP_PRESSED");
-        
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "DOWN_PRESSED");
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("S"), "DOWN_PRESSED");
-        
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "LEFT_PRESSED");
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("A"), "LEFT_PRESSED");
-        
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "RIGHT_PRESSED");
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"), "RIGHT_PRESSED");
-        
-        playerMomentMechanics = new PlayerMomentMechanics();
-        
-        this.getActionMap().put("UP_PRESSED", playerMomentMechanics.new UP_PRESSED());
-        this.getActionMap().put("DOWN_PRESSED", playerMomentMechanics.new DOWN_PRESSED());
-        this.getActionMap().put("LEFT_PRESSED", playerMomentMechanics.new LEFT_PRESSED());
-        this.getActionMap().put("RIGHT_PRESSED", playerMomentMechanics.new RIGHT_PRESSED());        
-    }
+    }            
               
     /**
      * This class contains all the player moment mechanics classes and methods 
@@ -639,6 +651,30 @@ public class GamePlayScreen extends JPanel implements Observer{
           }
         }
         
+        
+        /**
+         * This method set's up key binding for player moments
+         * @param jpanel parent jpanel 
+         */
+        public void setKeyListeners(JPanel jpanel){
+          
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "UP_PRESSED");
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("W"), "UP_PRESSED");
+            
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "DOWN_PRESSED");
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("S"), "DOWN_PRESSED");
+            
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "LEFT_PRESSED");
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("A"), "LEFT_PRESSED");
+            
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "RIGHT_PRESSED");
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"), "RIGHT_PRESSED");                       
+            
+            jpanel.getActionMap().put("UP_PRESSED", playerMomentMechanics.new UP_PRESSED());
+            jpanel.getActionMap().put("DOWN_PRESSED", playerMomentMechanics.new DOWN_PRESSED());
+            jpanel.getActionMap().put("LEFT_PRESSED", playerMomentMechanics.new LEFT_PRESSED());
+            jpanel.getActionMap().put("RIGHT_PRESSED", playerMomentMechanics.new RIGHT_PRESSED());        
+        }
         
         /**
          * This method moves the player position
@@ -927,13 +963,12 @@ public class GamePlayScreen extends JPanel implements Observer{
           for(Character characterObject : characters)
             characterObject.deleteObservers();      
     }
-
     
     /**
-     * This method initalizes the loaded game
+     * This method initializes the loaded game
      */
-    public void initLoadGame() {                     
-        this.setKeyListeners();
+    public void initLoadGame() {
+        this.playerMomentMechanics.setKeyListeners(this);
         this.initComponents();
     }
     

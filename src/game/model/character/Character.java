@@ -42,6 +42,7 @@ public class Character extends Observable implements Cloneable
     private boolean isKeyCollected = false;
     private boolean isFriendlyMonster = true;
     private boolean isPlayer = false;
+    public int turnPoints = 0;
 
     /**
      * This method sets the name for the character
