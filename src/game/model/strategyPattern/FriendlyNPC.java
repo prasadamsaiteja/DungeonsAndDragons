@@ -13,6 +13,7 @@ public class FriendlyNPC implements MomentStrategy{
 
     private Character character;
     private GamePlayScreen gamePlayScreen;
+    boolean isAttackPerformed = false;
     
     public FriendlyNPC(GamePlayScreen gamePlayScreen, Character character) {
         this.gamePlayScreen = gamePlayScreen;
@@ -22,7 +23,7 @@ public class FriendlyNPC implements MomentStrategy{
     @Override
     public void movePlayer(String message, int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
         
-        if(!(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){
+        if(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character && ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getHitScore() < 1){
             
             Object tempPreviousMapCellObject = gamePlayScreen.previousMapCellObject;
             gamePlayScreen.previousMapCellObject = gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];             
@@ -34,14 +35,26 @@ public class FriendlyNPC implements MomentStrategy{
                 pickItemsFromChest();
                         
             gamePlayScreen.repaintMap(); 
-        }   
+        }  
+        
+        else if(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character){
+            
+            Character besidePlayer = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];
+                        
+            if((!besidePlayer.getIsFriendlyMonster() && !besidePlayer.isPlayer()) && isAttackPerformed == false)
+                attack(fromRowNumber, fromColNumber, toRowNumber, toColNumber);
+        }
         
     }
 
     @Override
     public void attack(int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
-        // TODO Auto-generated method stub
         
+        Character besidePlayer = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];        
+        besidePlayer.hit(character.getAttackBonus());
+        
+        isAttackPerformed = true;
+        Console.printInConsole("   => " + character.getName() + " hit a hostile character(" + besidePlayer.getName() + ") with " + character.getAttackBonus() + " Attack power");        
     }
 
     @Override
@@ -61,13 +74,15 @@ public class FriendlyNPC implements MomentStrategy{
     @Override
     public void playTurn() {
         
+        isAttackPerformed = false;
+        
         for(int index = 0; index < 3; index++){
             
             int[] characterLocation = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, character);
             int randomMoment = (new Random()).nextInt((4 - 1) + 1) + 1;
             boolean isMomentSuccessfull = true;
             
-            try{
+            try{                
                 switch (randomMoment) {
                     
                     case 1:
@@ -101,7 +116,7 @@ public class FriendlyNPC implements MomentStrategy{
                         break;
                         
                     case 4:
-                        if(!gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] - 1].equals(SharedVariables.WALL_STRING)){
+                        if(!gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] + 1].equals(SharedVariables.WALL_STRING)){
                             String message = "   => " + character.getName() + " moving right";
                             movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] + 1);
                         }

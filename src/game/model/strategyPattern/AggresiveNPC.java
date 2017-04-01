@@ -11,6 +11,7 @@ public class AggresiveNPC implements MomentStrategy{
     
     private Character character;
     private GamePlayScreen gamePlayScreen;
+    boolean isAttackPerformed = false;
     
     public AggresiveNPC(GamePlayScreen gamePlayScreen, Character character) {
         this.gamePlayScreen = gamePlayScreen;
@@ -20,7 +21,7 @@ public class AggresiveNPC implements MomentStrategy{
     @Override
     public void movePlayer(String message, int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
         
-        if(!(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){
+        if(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character && ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getHitScore() < 1){
                         
             Object tempPreviousMapCellObject = gamePlayScreen.previousMapCellObject;
             gamePlayScreen.previousMapCellObject = gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];             
@@ -36,7 +37,8 @@ public class AggresiveNPC implements MomentStrategy{
         
         else if(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character){
             Character besidePlayer = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];
-            if(besidePlayer.isPlayer() || besidePlayer.getIsFriendlyMonster())
+            
+            if((besidePlayer.isPlayer() || besidePlayer.getIsFriendlyMonster()) && isAttackPerformed == false)
                 attack(fromRowNumber, fromColNumber, toRowNumber, toColNumber);
         }
                     
@@ -51,6 +53,7 @@ public class AggresiveNPC implements MomentStrategy{
         else
             gamePlayScreen.character.hit(character.getAttackBonus());
         
+        isAttackPerformed = true;
         if(!besidePlayer.isPlayer())
             Console.printInConsole("   => " + character.getName() + " hit a friendly character(" + besidePlayer.getName() + ") with " + character.getAttackBonus() + " Attack power");
         else
@@ -72,7 +75,9 @@ public class AggresiveNPC implements MomentStrategy{
     }
 
     @Override
-    public void playTurn() {
+    public void playTurn() {               
+        
+        isAttackPerformed = false;
         
         for(int index = 0; index < 3; index++){
             

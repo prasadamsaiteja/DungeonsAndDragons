@@ -599,7 +599,7 @@ public class GamePlayScreen extends JPanel implements Observer{
              mapJPanelArray[i][j].removeMouseListener(listener);
            
            mapJPanelArray[i][j].addMouseListener(new MapClickListener(this, currentMap.mapData[i][j]));
-           mapJPanelArray[i][j] = GameMechanics.setMapCellDetailsFromMapObjectData(mapJPanelArray[i][j], currentMap.mapData[i][j]);           
+           mapJPanelArray[i][j] = GameMechanics.setMapCellDetailsFromMapObjectData(mapJPanelArray[i][j], currentMap.mapData[i][j]);
        }                  
     }            
               
@@ -633,8 +633,11 @@ public class GamePlayScreen extends JPanel implements Observer{
                int[] position = GameMechanics.getPlayerPosition(currentMap);
                int rowNumber = position[0];
                int colNumber = position[1];
-               if(rowNumber != 0)
-                 movePlayer(rowNumber, colNumber, rowNumber - 1, colNumber);                      
+               if(rowNumber != 0){
+                   String message = "   => " + character.getName() + " moving up";
+                   movePlayer(message, rowNumber, colNumber, rowNumber - 1, colNumber);  
+               }
+                                       
           }
         }
     
@@ -658,9 +661,12 @@ public class GamePlayScreen extends JPanel implements Observer{
               int rowNumber = position[0];
               int colNumber = position[1];
               
-              if(rowNumber < currentMap.mapHeight - 1)
-                movePlayer(rowNumber, colNumber, rowNumber + 1, colNumber);               
+              if(rowNumber < currentMap.mapHeight - 1){
+                  String message = "   => " + character.getName() + " moving down";
+                  movePlayer(message, rowNumber, colNumber, rowNumber + 1, colNumber);                  
+              }                         
           }
+          
         }
         
         /**
@@ -683,8 +689,11 @@ public class GamePlayScreen extends JPanel implements Observer{
               int rowNumber = position[0];
               int colNumber = position[1];
               
-              if(colNumber != 0)
-                movePlayer(rowNumber, colNumber, rowNumber, colNumber - 1);    
+              if(colNumber != 0){
+                  String message = "   => " + character.getName() + " moving left";
+                  movePlayer(message, rowNumber, colNumber, rowNumber, colNumber - 1);
+              }
+                    
           }
           
         }
@@ -709,9 +718,13 @@ public class GamePlayScreen extends JPanel implements Observer{
               int rowNumber = position[0];
               int colNumber = position[1];
               
-              if(colNumber < currentMap.mapWidth - 1)
-                movePlayer(rowNumber, colNumber, rowNumber, colNumber + 1);       
+              if(colNumber < currentMap.mapWidth - 1){
+                  String message = "   => " + character.getName() + " moving right";
+                  movePlayer(message, rowNumber, colNumber, rowNumber, colNumber + 1);       
+              }
+                
           }
+        
         }
         
         
@@ -754,26 +767,28 @@ public class GamePlayScreen extends JPanel implements Observer{
         
         /**
          * This method moves the player position
+         * @param message This contains message to display on console what moment the player is taking
          * 
          * @param fromRowNumber from row position of player
          * @param fromColNumber from col position of player
          * @param toRowNumber to row position of player
          * @param toColNumber to col position of player
          */
-        public void movePlayer(int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber){
+        public void movePlayer(String message, int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber){
                       
             if(currentMap.mapData[toRowNumber][toColNumber] instanceof Character && ((Character) currentMap.mapData[toRowNumber][toColNumber]).getHitScore() < 1){
                                                
                 Object tempPreviousMapCellObject = previousMapCellObject;
                 previousMapCellObject = currentMap.mapData[toRowNumber][toColNumber];             
                 currentMap.mapData[toRowNumber][toColNumber] = character;
-                currentMap.mapData[fromRowNumber][fromColNumber] = tempPreviousMapCellObject;              
+                currentMap.mapData[fromRowNumber][fromColNumber] = tempPreviousMapCellObject;
+                Console.printInConsole(message);
                 repaintMap(); 
                 
                 if(previousMapCellObject instanceof Character){
                                         
                     if(ExtensionMethods.fetchAllItemNames(((Character) previousMapCellObject)).size() < 1)
-                        DialogHelper.showBasicDialog("No items found");                   
+                        DialogHelper.showBasicDialog("No items found");
                                         
                     else if(JOptionPane.showConfirmDialog(null, "Would you like to pick items from this dead monster", "You approched a dead monster", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         
