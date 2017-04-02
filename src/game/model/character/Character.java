@@ -17,6 +17,7 @@ import game.model.Item;
 import game.model.character.classes.CharacterClass;
 import game.model.character.classes.CharacterClassStructure;
 import game.model.jaxb.ItemJaxb;
+import game.model.strategyPattern.MomentStrategy;
 
 /**
  * Build a new character with a set of abilities associated with it
@@ -39,9 +40,11 @@ public class Character extends Observable implements Cloneable
     private boolean isBuilt = false;
     public Backpack backpack;
 
+    private MomentStrategy momentStrategy;
     private boolean isKeyCollected = false;
     private boolean isFriendlyMonster = true;
     private boolean isPlayer = false;
+    public int turnPoints = 0;
 
     /**
      * This method sets the name for the character
@@ -168,16 +171,15 @@ public class Character extends Observable implements Cloneable
      * @return character strength 
      */
     public int getStrength()
-    {
-        
+    {        
     	int strength = 0;
 
     	Item ringObject = this.getRingObject();
-        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Strength"))            
+        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Strength"))
             strength += ringObject.getModifier();    
 
         Item beltObject = this.getBeltObject();
-        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Strength"))            
+        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Strength"))
             strength += beltObject.getModifier();
 
         return strength + getOriginalStrength();
@@ -244,8 +246,7 @@ public class Character extends Observable implements Cloneable
      */
     public Character setConstitution(int constitution)
     {
-        this.constitution = constitution;
-        
+        this.constitution = constitution;        
         return this;
     }
 
@@ -356,7 +357,10 @@ public class Character extends Observable implements Cloneable
 
         Item weaponObj = this.getWeaponObject();
         if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Ranged"))            
-            attackBonus += this.getStrengthModifier() + weaponObj.getModifier();            
+            attackBonus += this.getDexterityModifier() + weaponObj.getModifier();
+        
+        else
+            attackBonus += this.getStrengthModifier() + weaponObj.getModifier();
 
         return attackBonus;
     }
@@ -370,7 +374,7 @@ public class Character extends Observable implements Cloneable
         int damageBonus = 0;
 
         Item weaponObj = this.getWeaponObject();
-        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))           
+        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))
             damageBonus += this.getStrengthModifier() + weaponObj.getModifier();        
 
         return damageBonus;
@@ -998,5 +1002,23 @@ public class Character extends Observable implements Cloneable
             weapons.addAll(backpack.backpackItems.get("Boots"));
         
         return weapons;        
+    }
+
+    
+    /**
+     * This method returns strategy
+     * @return the momentStrategy
+     */
+    public MomentStrategy getMomentStrategy() {
+        return momentStrategy;
+    }
+
+    
+    /**
+     * This method sets character strategy
+     * @param momentStrategy the momentStrategy to set
+     */
+    public void setMomentStrategy(MomentStrategy momentStrategy) {
+        this.momentStrategy = momentStrategy;
     }
 }

@@ -164,7 +164,7 @@ public class GamePlayScreenTest {
     @Test
     public void test_b_MapLoading(){
          Map firstMap = gameplayScreen.currentMap;
-         gameplayScreen.playerMomentMechanics.moveToNextMap();
+         gameplayScreen.character.getMomentStrategy().moveToNextMap();
          Map nextMap = gameplayScreen.currentMap;
          assertNotSame(firstMap, nextMap);
     }

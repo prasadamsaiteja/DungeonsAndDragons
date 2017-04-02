@@ -85,4 +85,20 @@ public class GameMechanics {
         
         return false;
     }
+
+    /**
+     * This method returns current position of player
+     * @param currentMap Current map playing
+     * @param character character object
+     * @return return array of int, The first int contains row number and second int contains column number
+     */
+    public static int[] getCharacterPosition(Map currentMap, Character character){
+        
+        for (int i = 0; i < currentMap.mapWidth; i++)      
+            for (int j = 0; j < currentMap.mapHeight; j++)
+                if(currentMap.mapData[i][j] instanceof Character && (currentMap.mapData[i][j]) == character)
+                    return new int[]{i, j};
+        
+        return null;          
+    }
 }

@@ -11,19 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map.Entry;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
-import java.util.Set;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,15 +27,13 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import game.GameLauncher;
-import game.components.ExtensionMethods;
+import game.components.Console;
+import game.components.Dice;
 import game.components.GameMechanics;
 import game.components.SharedVariables;
 import game.model.Campaign;
-import game.model.Item;
 import game.model.Map;
 import game.model.character.Backpack;
 import game.model.character.Character;
@@ -48,6 +41,9 @@ import game.model.character.CharactersList;
 import game.model.jaxb.CampaignJaxb;
 import game.model.jaxb.GamePlayJaxb;
 import game.model.onclickListeners.MapClickListener;
+import game.model.strategyPattern.AggresiveNPC;
+import game.model.strategyPattern.FriendlyNPC;
+import game.model.strategyPattern.HumanPlayer;
 import game.views.jdialogs.DialogHelper;
 import game.views.jdialogs.InventoryViewDialog;
 
@@ -59,23 +55,22 @@ import game.views.jdialogs.InventoryViewDialog;
  * @since 3/8/2017
  */
 @SuppressWarnings("serial")
-@XmlRootElement(name = "GamePlayScreen")
 public class GamePlayScreen extends JPanel implements Observer{
   
-    @XmlElement(name = "character")
     public Character character;
-    @XmlElement(name = "campaign")
     public Campaign campaign;
-    @XmlElement(name = "currentMap")
     public Map currentMap;
     public PlayerMomentMechanics playerMomentMechanics;
+    private Thread gameplayThread;
     
     private JPanel mapJPanelArray[][];       
-    private int currentMapNumber = 0;
-    private Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
+    public int currentMapNumber = 0;
+    public Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
     private JPanel characterDetailsPanel;
     private InventoryViewDialog inventoryViewDialog;
-  
+    private ArrayList<Character> charactersTurnBasedMechnaism;
+    public volatile boolean isTurnFinished = false;
+    
     /**
      * This is constructor method for this class
      * 
@@ -87,18 +82,20 @@ public class GamePlayScreen extends JPanel implements Observer{
          this.campaign = CampaignJaxb.getCampaignFromXml(camapaignName);
          this.character = CharactersList.getByName(characterName).clone();
          this.character.setPlayerFlag(true);
+         this.character.setMomentStrategy(new HumanPlayer(this));
+         this.playerMomentMechanics = new PlayerMomentMechanics();
          
          if(campaign == null || character == null)
              DialogHelper.showBasicDialog("Error reading saved files");
          
          else{
-             this.setKeyListeners();
              this.campaign.fetchMaps();
-             character.backpack = new Backpack();
+             this.character.backpack = new Backpack();
              this.currentMap = campaign.getMapList().get(currentMapNumber);             
              this.currentMap.initalizeMapData(this.character.getName());              
              this.setMapLevel();
-             initComponents();
+             this.initComponents();
+             this.initalizeTurnBasedMechanism();
          }
            
     }
@@ -106,18 +103,105 @@ public class GamePlayScreen extends JPanel implements Observer{
     /**
      * This method set the level of the enemy and item using by players and enemies, matching to the player
      */
-    private void setMapLevel(){
+    public void setMapLevel(){
+        
+        Console.printInConsole("Player(" + character.getName() + ")  entered map : " + currentMap.getMapName() + "\n");
+        for (int i = 0; i < currentMap.mapWidth; i++)      
+            for (int j = 0; j < currentMap.mapHeight; j++)
+                if(currentMap.mapData[i][j] instanceof Character && (!((Character) currentMap.mapData[i][j]).isPlayer())){
+                    Character tempCharacter = ((Character) currentMap.mapData[i][j]);
+                    
+                    tempCharacter.setLevel(character.getLevel());        
+                    
+                    if(tempCharacter.getIsFriendlyMonster())
+                        tempCharacter.setMomentStrategy(new FriendlyNPC(GamePlayScreen.this, tempCharacter));
+                    else
+                        tempCharacter.setMomentStrategy(new AggresiveNPC(GamePlayScreen.this, tempCharacter));
+                }                               
+    }
+    
+    /**
+     * This method initializes turn based mechanism
+     */
+    private void initalizeTurnBasedMechanism(){
+        
+        Console.printInConsole("Calculating turn based mechanism");
+        charactersTurnBasedMechnaism = new ArrayList<>();          
         
         for (int i = 0; i < currentMap.mapWidth; i++)      
             for (int j = 0; j < currentMap.mapHeight; j++)
-                if(currentMap.mapData[i][j] instanceof Character && (!((Character) currentMap.mapData[i][j]).isPlayer()))
-                        ((Character) currentMap.mapData[i][j]).setLevel(character.getLevel());
+                if(currentMap.mapData[i][j] instanceof Character)
+                    charactersTurnBasedMechnaism.add((Character) currentMap.mapData[i][j]);
+                        
+        for (Character character : charactersTurnBasedMechnaism) 
+            character.turnPoints = new Dice(1, 20, 1).getRollSum() + character.getDexterityModifier();
+        
+        Collections.sort(charactersTurnBasedMechnaism, new Comparator<Character>(){
+            public int compare(Character s1, Character s2) {
+                return s2.turnPoints - s1.turnPoints;
+            }
+        });
+        
+        for (Character character : charactersTurnBasedMechnaism) 
+            Console.printInConsole("  *" + character.getName() + " -> " + character.turnPoints);
+        
+        Console.printInConsole("");  
+        Console.printInConsole("Starting gameplay");
+        startGamePlay();        
+    }
+    
+    /**
+     * This method starts the game play 
+     */
+    private void startGamePlay() {
+        
+        gameplayThread = new Thread(new Runnable() {
+            
+            @Override
+            public void run() {
+                
+                while(character.getHitScore() >= 1)
+                for (Character character : charactersTurnBasedMechnaism) {
+                    
+                    if(character.getHitScore() < 1)
+                        continue;
+                    
+                    Console.printInConsole("");
+                    Console.printInConsole("  *" + character.getName() + "'s turn");                   
+                    
+                    if(character.isPlayer())
+                        GamePlayScreen.this.character.getMomentStrategy().playTurn();                    
+                        
+                    else
+                        character.getMomentStrategy().playTurn();
+                    
+                    while (true) {
+                        if (isTurnFinished){
+                            playerMomentMechanics.removeKeyListeners(GamePlayScreen.this);
+                            isTurnFinished = false;
+                            break;                 
+                        }
+                   }
+                }
+                
+                if(character.getHitScore() < 1){
+                    Console.printInConsole("\nYou are dead, you will be now redirected to launch screen");
+                    DialogHelper.showBasicDialog("You are dead, you will be now redirected to launch screen");
+                    GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+                }
+            }     
+            
+        });
+        
+        gameplayThread.setDaemon(true);
+        gameplayThread.start();
+        
     }
     
     /**
      * This method initializes UI components
      */
-    private void initComponents(){
+    public void initComponents(){
       
         this.removeAll();
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -345,7 +429,8 @@ public class GamePlayScreen extends JPanel implements Observer{
        btnAbortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+                gameplayThread.interrupt();
+                GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());                
             }
         });
        panel.add(btnAbortButton);
@@ -377,7 +462,7 @@ public class GamePlayScreen extends JPanel implements Observer{
      * 
      * @param character Character object that needs to be displayed on the screen
      */
-    public void showPlayerDetails(Character character) {                                   
+    public void showPlayerDetails(Character character) {
               
           this.removePreviousObservables();
           character.addObserver(this);
@@ -492,7 +577,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     /**
      * This method repaints the map after the action is completed
      */
-    private void repaintMap() {
+    public void repaintMap() {
      
      for (int i = 0; i < currentMap.mapWidth; i++)      
        for (int j = 0; j < currentMap.mapHeight; j++) {
@@ -501,34 +586,9 @@ public class GamePlayScreen extends JPanel implements Observer{
              mapJPanelArray[i][j].removeMouseListener(listener);
            
            mapJPanelArray[i][j].addMouseListener(new MapClickListener(this, currentMap.mapData[i][j]));
-           mapJPanelArray[i][j] = GameMechanics.setMapCellDetailsFromMapObjectData(mapJPanelArray[i][j], currentMap.mapData[i][j]);           
+           mapJPanelArray[i][j] = GameMechanics.setMapCellDetailsFromMapObjectData(mapJPanelArray[i][j], currentMap.mapData[i][j]);
        }                  
-    }
-        
-    /**
-     * This method set's up key binding for player moments
-     */
-    private void setKeyListeners(){
-      
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "UP_PRESSED");
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("W"), "UP_PRESSED");
-        
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "DOWN_PRESSED");
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("S"), "DOWN_PRESSED");
-        
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "LEFT_PRESSED");
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("A"), "LEFT_PRESSED");
-        
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "RIGHT_PRESSED");
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"), "RIGHT_PRESSED");
-        
-        playerMomentMechanics = new PlayerMomentMechanics();
-        
-        this.getActionMap().put("UP_PRESSED", playerMomentMechanics.new UP_PRESSED());
-        this.getActionMap().put("DOWN_PRESSED", playerMomentMechanics.new DOWN_PRESSED());
-        this.getActionMap().put("LEFT_PRESSED", playerMomentMechanics.new LEFT_PRESSED());
-        this.getActionMap().put("RIGHT_PRESSED", playerMomentMechanics.new RIGHT_PRESSED());        
-    }
+    }            
               
     /**
      * This class contains all the player moment mechanics classes and methods 
@@ -539,6 +599,8 @@ public class GamePlayScreen extends JPanel implements Observer{
      */
     public class PlayerMomentMechanics{
         
+        int playerMomentCount = 0;
+        
         /**
          * This class actionPerformed is triggered when up or w is pressed by the user.
          * @author saiteja prasadam
@@ -548,19 +610,23 @@ public class GamePlayScreen extends JPanel implements Observer{
          */
         public class UP_PRESSED extends AbstractAction {
 
-        	/**
-        	 * This method performs the action when key is pressed
-        	 * @param e ActionEvent
-        	 */
+          /**
+          * This method performs the action when key is pressed
+          * @param e ActionEvent
+          */	 
           @Override
           public void actionPerformed(ActionEvent e) {
                           
                int[] position = GameMechanics.getPlayerPosition(currentMap);
                int rowNumber = position[0];
                int colNumber = position[1];
-               if(rowNumber != 0)
-                 movePlayer(rowNumber, colNumber, rowNumber - 1, colNumber);                      
+               if(rowNumber != 0){
+                   String message = "   => " + character.getName() + " moving up";
+                   character.getMomentStrategy().movePlayer(message, rowNumber, colNumber, rowNumber - 1, colNumber);  
+               }
+                                       
           }
+        
         }
     
         /**
@@ -583,9 +649,12 @@ public class GamePlayScreen extends JPanel implements Observer{
               int rowNumber = position[0];
               int colNumber = position[1];
               
-              if(rowNumber < currentMap.mapHeight - 1)
-                movePlayer(rowNumber, colNumber, rowNumber + 1, colNumber);               
+              if(rowNumber < currentMap.mapHeight - 1){
+                  String message = "   => " + character.getName() + " moving down";
+                  character.getMomentStrategy().movePlayer(message, rowNumber, colNumber, rowNumber + 1, colNumber);                  
+              }                         
           }
+          
         }
         
         /**
@@ -608,8 +677,11 @@ public class GamePlayScreen extends JPanel implements Observer{
               int rowNumber = position[0];
               int colNumber = position[1];
               
-              if(colNumber != 0)
-                movePlayer(rowNumber, colNumber, rowNumber, colNumber - 1);    
+              if(colNumber != 0){
+                  String message = "   => " + character.getName() + " moving left";
+                  character.getMomentStrategy().movePlayer(message, rowNumber, colNumber, rowNumber, colNumber - 1);
+              }
+                    
           }
           
         }
@@ -634,276 +706,54 @@ public class GamePlayScreen extends JPanel implements Observer{
               int rowNumber = position[0];
               int colNumber = position[1];
               
-              if(colNumber < currentMap.mapWidth - 1)
-                movePlayer(rowNumber, colNumber, rowNumber, colNumber + 1);       
+              if(colNumber < currentMap.mapWidth - 1){
+                  String message = "   => " + character.getName() + " moving right";
+                  character.getMomentStrategy().movePlayer(message, rowNumber, colNumber, rowNumber, colNumber + 1);       
+              }
+                
           }
+        
         }
         
         
         /**
-         * This method moves the player position
-         * 
-         * @param fromRowNumber from row position of player
-         * @param fromColNumber from col position of player
-         * @param toRowNumber to row position of player
-         * @param toColNumber to col position of player
+         * This method set's up key binding for player moments
+         * @param jpanel parent jpanel 
          */
-        public void movePlayer(int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber){
+        public void setKeyListeners(JPanel jpanel){
           
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "UP_PRESSED");
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("W"), "UP_PRESSED");
             
-            if(currentMap.mapData[toRowNumber][toColNumber] instanceof Character && ((Character) currentMap.mapData[toRowNumber][toColNumber]).getHitScore() < 1){
-                
-                Object tempPreviousMapCellObject = previousMapCellObject;
-                previousMapCellObject = currentMap.mapData[toRowNumber][toColNumber];             
-                currentMap.mapData[toRowNumber][toColNumber] = character;
-                currentMap.mapData[fromRowNumber][fromColNumber] = tempPreviousMapCellObject;              
-                repaintMap(); 
-                
-                if(previousMapCellObject instanceof Character){
-                                        
-                    if(ExtensionMethods.fetchAllItemNames(((Character) previousMapCellObject)).size() < 1)
-                        DialogHelper.showBasicDialog("No items found");                   
-                                        
-                    else if(JOptionPane.showConfirmDialog(null, "Would you like to pick items from this dead monster", "You approched a dead monster", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        
-                        if(character.backpack.backpackItems.size() >= 10)
-                            DialogHelper.showBasicDialog("Your backpack is full");
-                        
-                        else{
-                            Set<String> characterItems = new HashSet<>();
-                            
-                            characterItems.addAll(ExtensionMethods.fetchAllItemNames(((Character) previousMapCellObject)));
-                            
-                            JComboBox<String> itemsList = new JComboBox<String>();
-                            for (String string : characterItems)
-                                itemsList.addItem(string);
-                            
-                            JOptionPane.showMessageDialog(null, itemsList, "Select a item to pick from dead monster", JOptionPane.QUESTION_MESSAGE);
-                            Entry<String, String> entry = ExtensionMethods.getByValue(((Character) previousMapCellObject).backpack.backpackItems, itemsList.getSelectedItem().toString());                        
-                            
-                            if(entry == null)
-                                entry = ExtensionMethods.getByValue(((Character) previousMapCellObject).items, itemsList.getSelectedItem().toString());
-                            
-                            if(entry != null){
-                                
-                                if(((Character) previousMapCellObject).backpack.backpackItems.remove(entry.getKey(), entry.getValue()) == false)
-                                    ((Character) previousMapCellObject).items.remove(entry.getKey(), entry.getValue());
-                                  
-                                if(character.items.containsKey(entry.getKey()))                                
-                                    character.backpack.backpackItems.put(entry.getKey(), entry.getValue());
-                                else
-                                    character.items.put(entry.getKey(), entry.getValue());
-                                
-                                character.draw();
-                                ((Character) previousMapCellObject).draw();
-                                DialogHelper.showBasicDialog("You have picked up a " + entry.getKey() + " (" + entry.getValue() + ") from a dead monster"); 
-                            }
-                                                                           
-                        }
-                    }
-                        
-                }                               
-            }
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "DOWN_PRESSED");
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("S"), "DOWN_PRESSED");
             
-            else if(!currentMap.mapData[toRowNumber][toColNumber].equals(SharedVariables.WALL_STRING) && !(currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){
-              
-                Object tempPreviousMapCellObject = previousMapCellObject;
-                previousMapCellObject = currentMap.mapData[toRowNumber][toColNumber];             
-                currentMap.mapData[toRowNumber][toColNumber] = character;
-                currentMap.mapData[fromRowNumber][fromColNumber] = tempPreviousMapCellObject;              
-                repaintMap(); 
-                
-                if(previousMapCellObject instanceof Item){
-                    if(JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) previousMapCellObject).getItemType() + " (" + ((Item) previousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        if(character.backpack.backpackItems.size() >= 10)
-                            DialogHelper.showBasicDialog("Your backpack is full");
-                        else{
-                            Item item = (Item) previousMapCellObject;                            
-                            
-                            if(character.items.containsKey(item.itemType) && character.items.get(item.itemType) != null)
-                                character.backpack.backpackItems.put(item.itemType, item.itemName);                            
-                            else    
-                                character.items.put(item.itemType, item.itemName);
-                                       
-                            character.draw();
-                            previousMapCellObject = new String(SharedVariables.DEFAULT_CELL_STRING);
-                            DialogHelper.showBasicDialog("Awesome, you have picked up a " + item.itemType + " (" + item.itemName + ") from a abandoned chest");
-                        }
-                    }
-                    
-                }
-                
-                else if(previousMapCellObject instanceof String && ((String) previousMapCellObject).equals(SharedVariables.KEY_STRING)){
-                    character.setKeyCollectedFlag(true);
-                    previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;;
-                }
-                
-                else if(previousMapCellObject instanceof String && ((String) previousMapCellObject).equals(SharedVariables.EXIT_DOOR_STRING)){
-                    if(checkIfTheObjectiveIsCompleted())
-                        moveToNextMap();
-                    
-                    else
-                        DialogHelper.showBasicDialog("You need to collect key (If map has one) or kill all the hostile enemies to clear this map");                        
-                }
-                    
-            }
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "LEFT_PRESSED");
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("A"), "LEFT_PRESSED");
             
-            else if(currentMap.mapData[toRowNumber][toColNumber] instanceof Character){
-                
-                if(((Character) currentMap.mapData[toRowNumber][toColNumber]).getIsFriendlyMonster() == false)
-                    attackHostileMonster(toRowNumber, toColNumber);
-                else
-                    exchangeItemsFromFriendlyMonsters(toRowNumber, toColNumber);
-            }
-                   
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "RIGHT_PRESSED");
+            jpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"), "RIGHT_PRESSED");                       
+            
+            jpanel.getActionMap().put("UP_PRESSED", playerMomentMechanics.new UP_PRESSED());
+            jpanel.getActionMap().put("DOWN_PRESSED", playerMomentMechanics.new DOWN_PRESSED());
+            jpanel.getActionMap().put("LEFT_PRESSED", playerMomentMechanics.new LEFT_PRESSED());
+            jpanel.getActionMap().put("RIGHT_PRESSED", playerMomentMechanics.new RIGHT_PRESSED());        
         }
-
+        
         /**
-         * This method changes the map if the player completes the current map
+         * This method removes key binding to the parent jpanel
+         * @param jpanel parent jpanel
          */
-        public void moveToNextMap() {
+        public void removeKeyListeners(JPanel jpanel){
             
-            previousMapCellObject = new String(SharedVariables.DEFAULT_CELL_STRING);
-            character.setKeyCollectedFlag(false);            
+            jpanel.getActionMap().put("UP_PRESSED", null);
+            jpanel.getActionMap().put("DOWN_PRESSED", null);
+            jpanel.getActionMap().put("LEFT_PRESSED", null);
+            jpanel.getActionMap().put("RIGHT_PRESSED", null);   
             
-            if(currentMapNumber + 1 == campaign.getMapNames().size()){
-                JOptionPane.showConfirmDialog(null, "Congrats, you have completed the campaign, you will now go back to main screen", "Map cleared", JOptionPane.PLAIN_MESSAGE);
-                GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
-            }
-            
-            else{
-                JOptionPane.showConfirmDialog(null, "Congrats, you have cleared this map, you will now go to next map", "Map cleared", JOptionPane.PLAIN_MESSAGE);
-                currentMapNumber++;                
-                currentMap = campaign.getMapList().get(currentMapNumber);             
-                currentMap.initalizeMapData(character.getName());      
-                character.setLevel(character.getLevel() + 1);                
-                setMapLevel();
-                initComponents();                
-            }
-            
-        }
-       
-        /**
-         * This method lets player to exchange items from friendly monster
-         * 
-         * @param toRowNumber row number which user is trying to goto
-         * @param toColNumber col number which user is trying to goto
-         */
-        private void exchangeItemsFromFriendlyMonsters(int toRowNumber, int toColNumber) {
-           
-            Character friendlyMonster = (Character) currentMap.mapData[toRowNumber][toColNumber];
-            
-            if(JOptionPane.showConfirmDialog(null, "Do you want to exchange items from this friendly monster (" + friendlyMonster.getName() + ") ?","You approched a friendly monster", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                
-                if(ExtensionMethods.fetchAllItemNames(character).size() == 0)
-                    DialogHelper.showBasicDialog("You don't have any item to exchange.");
-                
-                else if(character.backpack.backpackItems.size() + character.getAllItems().size() == 0)
-                    DialogHelper.showBasicDialog("Enemy doesn't have any items to exchange");
-                
-                else if(character.backpack.backpackItems.size() >= 10)
-                    DialogHelper.showBasicDialog("Your backpack is full");
-                
-                else{
-                    Set<String> characterItems = new HashSet<>();
-                    
-                    characterItems.addAll(ExtensionMethods.fetchAllItemNames(character));
-                    
-                    JComboBox<String> itemsList = new JComboBox<String>();
-                    for (String string : characterItems)
-                        itemsList.addItem(string);
-                    
-                    JOptionPane.showMessageDialog(null, itemsList, "Select a item to exchange", JOptionPane.QUESTION_MESSAGE);
-                    Entry<String, String> entry = ExtensionMethods.getByValue(character.backpack.backpackItems, itemsList.getSelectedItem().toString());
-                    
-                    if(entry == null)
-                        entry = ExtensionMethods.getByValue(character.getAllItems(), itemsList.getSelectedItem().toString());                                       
-                    
-                    if(character.backpack.backpackItems.remove(entry.getKey(), entry.getValue()) == false)
-                        character.items.remove(entry.getKey(), entry.getValue());
-                    
-                    if(((Character) currentMap.mapData[toRowNumber][toColNumber]).backpack.backpackItems.size() > 0){
-                        
-                        Random random = new Random();
-                        List<String> keys = new ArrayList<String>(((Character) currentMap.mapData[toRowNumber][toColNumber]).backpack.backpackItems.keySet());                        
-                        String randomKey = keys.get(random.nextInt(keys.size()));
-                        Collection<String> values = ((Character) currentMap.mapData[toRowNumber][toColNumber]).backpack.backpackItems.get(randomKey);
-                        
-                        String value = (String) values.toArray()[new Random().nextInt(values.size())];
-                        ((Character) currentMap.mapData[toRowNumber][toColNumber]).backpack.backpackItems.remove(randomKey, value);
-                        
-                        if(character.items.containsKey(randomKey))
-                            character.backpack.backpackItems.put(randomKey, value);
-                        else
-                            character.items.put(randomKey, value);
-                        
-                        character.draw();
-                        ((Character) currentMap.mapData[toRowNumber][toColNumber]).backpack.backpackItems.put(entry.getKey(), entry.getValue());
-                        ((Character) currentMap.mapData[toRowNumber][toColNumber]).draw();
-                        DialogHelper.showBasicDialog("You have received a " + randomKey + " (" + value + ") by the exchange");                                                                                              
-                    }
-                    
-                    else{                        
-                        Random random = new Random();
-                        List<String> keys = new ArrayList<String>(((Character) currentMap.mapData[toRowNumber][toColNumber]).items.keySet());
-                        String randomKey = keys.get(random.nextInt(keys.size()));
-                        String value = ((Character) currentMap.mapData[toRowNumber][toColNumber]).items.get(randomKey);
-                        
-                        ((Character) currentMap.mapData[toRowNumber][toColNumber]).items.remove(randomKey, value);                        
-                        
-                        if(character.items.containsKey(randomKey))                            
-                            character.backpack.backpackItems.put(randomKey, value);                                                
-                        else
-                            character.items.put(randomKey, value);
-                        
-                        character.draw();
-                        ((Character) currentMap.mapData[toRowNumber][toColNumber]).backpack.backpackItems.put(entry.getKey(), entry.getValue());
-                        ((Character) currentMap.mapData[toRowNumber][toColNumber]).draw();
-                        DialogHelper.showBasicDialog("You have received a " + randomKey + " (" + value + ") by the exchange");  
-                    }           
-                    
-                    
-                }
-            }
-        }
-
-        /**
-         * This method lets player to attach Hostile monster
-         * 
-         * @param toRowNumber row number which user is trying to goto
-         * @param toColNumber col number which user is trying to goto
-         */
-        private void attackHostileMonster(int toRowNumber, int toColNumber) {
-            Character hostileMonster = (Character) currentMap.mapData[toRowNumber][toColNumber];
-            hostileMonster.hit(hostileMonster.getHitScore());
-        }
-    
-        /**
-         * This method return true or false to state whether the object is completed or not
-         * @return true if objective is completed else false
-         */
-        private boolean checkIfTheObjectiveIsCompleted(){
-            
-            if(character.isKeyCollected() == true)
-                return true;
-            
-            ArrayList<Character> characters = GameMechanics.getAllCharacterObjects(currentMap);
-            for(Character character : characters)
-                if(!character.isPlayer() && !character.getIsFriendlyMonster() && character.getHitScore() > 0)
-                    return false;
-            
-            int count = 0;
-            for(Character character : characters)
-                if(!character.getIsFriendlyMonster())
-                    count++;
-            
-            if(count == 0)
-                return false;
-            
-            return true;
         }
     }
-               
+    
     /**
      * This method is called when the selected character object gets updated
      * 
@@ -927,13 +777,11 @@ public class GamePlayScreen extends JPanel implements Observer{
           for(Character characterObject : characters)
             characterObject.deleteObservers();      
     }
-
     
     /**
-     * This method initalizes the loaded game
+     * This method initializes the loaded game
      */
-    public void initLoadGame() {                     
-        this.setKeyListeners();
+    public void initLoadGame(){
         this.initComponents();
     }
     
