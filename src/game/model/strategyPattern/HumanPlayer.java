@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import game.GameLauncher;
 import game.components.Console;
+import game.components.Dice;
 import game.components.ExtensionMethods;
 import game.components.GameMechanics;
 import game.components.SharedVariables;
@@ -25,7 +26,8 @@ import game.views.jpanels.LaunchScreen;
 public class HumanPlayer implements MomentStrategy{
     
     int playerMomentCount = 0;
-    private GamePlayScreen gamePlayScreen;
+    boolean isAttackPerformed = false;
+    private GamePlayScreen gamePlayScreen;    
 
     public HumanPlayer(GamePlayScreen gamePlayScreen){
         this.gamePlayScreen = gamePlayScreen;
@@ -117,9 +119,9 @@ public class HumanPlayer implements MomentStrategy{
         
         else if(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character){
             
-            if(((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getIsFriendlyMonster() == false)
+            if(((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getIsFriendlyMonster() == false && isAttackPerformed == false)
                 attack(toRowNumber, toColNumber);
-            else
+            else if(((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getIsFriendlyMonster() == true)
                 exchangeItemsFromFriendlyMonsters(toRowNumber, toColNumber);
         }
 
@@ -220,7 +222,7 @@ public class HumanPlayer implements MomentStrategy{
     public void moveToNextMap() {
         
         gamePlayScreen.previousMapCellObject = new String(SharedVariables.DEFAULT_CELL_STRING);
-        gamePlayScreen.character.setKeyCollectedFlag(false);            
+        gamePlayScreen.character.setKeyCollectedFlag(false);
         
         if(gamePlayScreen.currentMapNumber + 1 == gamePlayScreen.campaign.getMapNames().size()){
             JOptionPane.showConfirmDialog(null, "Congrats, you have completed the campaign, you will now go back to main screen", "Map cleared", JOptionPane.PLAIN_MESSAGE);
@@ -230,11 +232,11 @@ public class HumanPlayer implements MomentStrategy{
         else{
             JOptionPane.showConfirmDialog(null, "Congrats, you have cleared this map, you will now go to next map", "Map cleared", JOptionPane.PLAIN_MESSAGE);
             gamePlayScreen.currentMapNumber++;                
-            gamePlayScreen.currentMap = gamePlayScreen.campaign.getMapList().get(gamePlayScreen.currentMapNumber);             
-            gamePlayScreen.currentMap.initalizeMapData(gamePlayScreen.character.getName());      
-            gamePlayScreen.character.setLevel(gamePlayScreen.character.getLevel() + 1);                
+            gamePlayScreen.currentMap = gamePlayScreen.campaign.getMapList().get(gamePlayScreen.currentMapNumber);
+            gamePlayScreen.currentMap.initalizeMapData(gamePlayScreen.character.getName());
+            gamePlayScreen.character.setLevel(gamePlayScreen.character.getLevel() + 1);
             gamePlayScreen.setMapLevel();
-            gamePlayScreen.initComponents();                
+            gamePlayScreen.initComponents();
         }
         
     }
@@ -266,8 +268,23 @@ public class HumanPlayer implements MomentStrategy{
 
     @Override
     public void attack(int toRowNumber, int toColNumber) {
-        Character hostileMonster = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];
-        hostileMonster.hit(hostileMonster.getHitScore());        
+                
+        int damagePoints  = (new Dice(1, 20, 1)).getRollSum() + gamePlayScreen.character.getAttackBonus(); //gamePlayScreen.character.getStrengthModifier()
+        
+        if(damagePoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
+            
+            if(gamePlayScreen.character.getWeaponObject().getItemType().equalsIgnoreCase("Melee"))
+                damagePoints = (new Dice(1, 8, 1)).getRollSum() + gamePlayScreen.character.getStrengthModifier();
+            else
+                damagePoints = (new Dice(1, 8, 1)).getRollSum();
+            
+            isAttackPerformed = true;
+            ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).hit(damagePoints);
+            Console.printInConsole("   => you hitted a hostile monster(" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + ") with " + damagePoints + " attack points");    
+        }
+        
+        else
+            Console.printInConsole("   => you missed hitting a hostile monster(" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " - " + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + damagePoints + " attack points");                       
     }
 
     @Override
@@ -293,6 +310,7 @@ public class HumanPlayer implements MomentStrategy{
 
     @Override
     public void playTurn() {
+        isAttackPerformed = false;
         gamePlayScreen.playerMomentMechanics.setKeyListeners(gamePlayScreen);
     }
 

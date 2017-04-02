@@ -27,8 +27,6 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import game.GameLauncher;
 import game.components.Console;
@@ -57,16 +55,13 @@ import game.views.jdialogs.InventoryViewDialog;
  * @since 3/8/2017
  */
 @SuppressWarnings("serial")
-@XmlRootElement(name = "GamePlayScreen")
 public class GamePlayScreen extends JPanel implements Observer{
   
-    @XmlElement(name = "character")
     public Character character;
-    @XmlElement(name = "campaign")
     public Campaign campaign;
-    @XmlElement(name = "currentMap")
     public Map currentMap;
     public PlayerMomentMechanics playerMomentMechanics;
+    private Thread gameplayThread;
     
     private JPanel mapJPanelArray[][];       
     public int currentMapNumber = 0;
@@ -160,7 +155,7 @@ public class GamePlayScreen extends JPanel implements Observer{
      */
     private void startGamePlay() {
         
-        Thread gameplayThread = new Thread(new Runnable() {
+        gameplayThread = new Thread(new Runnable() {
             
             @Override
             public void run() {
@@ -190,7 +185,7 @@ public class GamePlayScreen extends JPanel implements Observer{
                 }
                 
                 if(character.getHitScore() < 1){
-                    Console.printInConsole("You are dead, you will be now redirected to launch screen");
+                    Console.printInConsole("\nYou are dead, you will be now redirected to launch screen");
                     DialogHelper.showBasicDialog("You are dead, you will be now redirected to launch screen");
                     GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
                 }
@@ -434,6 +429,7 @@ public class GamePlayScreen extends JPanel implements Observer{
        btnAbortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                gameplayThread.interrupt();
                 GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());                
             }
         });

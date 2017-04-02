@@ -3,6 +3,7 @@ package game.model.strategyPattern;
 import java.util.Random;
 
 import game.components.Console;
+import game.components.Dice;
 import game.components.GameMechanics;
 import game.components.SharedVariables;
 import game.model.Item;
@@ -50,11 +51,21 @@ public class FriendlyNPC implements MomentStrategy{
     @Override
     public void attack(int toRowNumber, int toColNumber) {
         
-        Character besidePlayer = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];        
-        besidePlayer.hit(character.getAttackBonus());
+        int damagePoints  = (new Dice(1, 20, 1)).getRollSum() + character.getAttackBonus(); 
         
-        isAttackPerformed = true;
-        Console.printInConsole("   => " + character.getName() + " hit a hostile character(" + besidePlayer.getName() + ") with " + character.getAttackBonus() + " Attack power");        
+        if(damagePoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
+            
+            if(character.getWeaponObject().getItemType().equalsIgnoreCase("Melee"))
+                damagePoints = (new Dice(1, 8, 1)).getRollSum() + character.getStrengthModifier();
+            else
+                damagePoints = (new Dice(1, 8, 1)).getRollSum();
+            
+            isAttackPerformed = true;
+            ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).hit(damagePoints);
+            Console.printInConsole("   => " + character.getName() + " hitted " + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " with " + damagePoints + " damage points");
+        }
+
+        Console.printInConsole("   => " + character.getName() + " missed hitting a hostile monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " - "+ ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + damagePoints + " attack points");    
     }
 
     @Override
@@ -126,7 +137,7 @@ public class FriendlyNPC implements MomentStrategy{
                 }
             }
             
-            catch(ArrayIndexOutOfBoundsException ex){
+            catch(ArrayIndexOutOfBoundsException | NullPointerException ex){
                 isMomentSuccessfull = false;
             }
             

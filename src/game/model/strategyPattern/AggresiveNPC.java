@@ -1,6 +1,7 @@
 package game.model.strategyPattern;
 
 import game.components.Console;
+import game.components.Dice;
 import game.components.GameMechanics;
 import game.components.SharedVariables;
 import game.model.Item;
@@ -47,17 +48,31 @@ public class AggresiveNPC implements MomentStrategy{
     @Override
     public void attack(int toRowNumber, int toColNumber) {
         
-        Character besidePlayer = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];
-        if(!besidePlayer.isPlayer())
-            besidePlayer.hit(character.getAttackBonus());
-        else
-            gamePlayScreen.character.hit(character.getAttackBonus());
+        int damagePoints  = (new Dice(1, 20, 1)).getRollSum() + character.getAttackBonus(); //gamePlayScreen.character.getStrengthModifier()
         
-        isAttackPerformed = true;
-        if(!besidePlayer.isPlayer())
-            Console.printInConsole("   => " + character.getName() + " hit a friendly character(" + besidePlayer.getName() + ") with " + character.getAttackBonus() + " Attack power");
+        if(damagePoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
+            
+            if(character.getWeaponObject().getItemType().equalsIgnoreCase("Melee"))
+                damagePoints = (new Dice(1, 8, 1)).getRollSum() + character.getStrengthModifier();
+            else
+                damagePoints = (new Dice(1, 8, 1)).getRollSum();
+            
+            isAttackPerformed = true;
+            if(((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).isPlayer()){
+                gamePlayScreen.character.hit(damagePoints);
+                Console.printInConsole("   => " + character.getName() + " hitted you with " + damagePoints + " damage points");    
+            }
+            
+            else{
+                ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).hit(damagePoints);
+                Console.printInConsole("   => " + character.getName() + " hitted a friendly monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + ") with " + damagePoints + " damage points");
+            }                
+        }
+        
+        else if(((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).isPlayer())
+            Console.printInConsole("   => " + character.getName() + " missed hitting you (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + damagePoints + " attack points");
         else
-            Console.printInConsole("   => " + character.getName() + " has hitted you with " + character.getAttackBonus() + " Attack power");
+            Console.printInConsole("   => " + character.getName() + " missed hitting a friendly monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " - "+ ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + damagePoints + " attack points");
     }
 
     @Override
@@ -77,7 +92,7 @@ public class AggresiveNPC implements MomentStrategy{
     @Override
     public void playTurn() {
                 
-        isAttackPerformed = false;        
+        isAttackPerformed = false;
         
         for(int index = 0; index < 3; index++){
             

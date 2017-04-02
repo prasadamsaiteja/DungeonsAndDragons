@@ -74,8 +74,7 @@ public class Item
      */
     public int getModifier()
     {
-        modifier = (int) Math.ceil((double) itemLevel / (double) 4);
-        
+        modifier = (int) Math.ceil((double) itemLevel / (double) 4);        
         return modifier;
     }
 

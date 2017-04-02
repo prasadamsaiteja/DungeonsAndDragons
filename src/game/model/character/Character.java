@@ -171,16 +171,15 @@ public class Character extends Observable implements Cloneable
      * @return character strength 
      */
     public int getStrength()
-    {
-        
+    {        
     	int strength = 0;
 
     	Item ringObject = this.getRingObject();
-        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Strength"))            
+        if (ringObject != null && ringObject.itemClass.equalsIgnoreCase("Strength"))
             strength += ringObject.getModifier();    
 
         Item beltObject = this.getBeltObject();
-        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Strength"))            
+        if (beltObject != null && beltObject.itemClass.equalsIgnoreCase("Strength"))
             strength += beltObject.getModifier();
 
         return strength + getOriginalStrength();
@@ -247,8 +246,7 @@ public class Character extends Observable implements Cloneable
      */
     public Character setConstitution(int constitution)
     {
-        this.constitution = constitution;
-        
+        this.constitution = constitution;        
         return this;
     }
 
@@ -359,7 +357,10 @@ public class Character extends Observable implements Cloneable
 
         Item weaponObj = this.getWeaponObject();
         if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Ranged"))            
-            attackBonus += this.getStrengthModifier() + weaponObj.getModifier();            
+            attackBonus += this.getDexterityModifier() + weaponObj.getModifier();
+        
+        else
+            attackBonus += this.getStrengthModifier() + weaponObj.getModifier();
 
         return attackBonus;
     }
@@ -373,7 +374,7 @@ public class Character extends Observable implements Cloneable
         int damageBonus = 0;
 
         Item weaponObj = this.getWeaponObject();
-        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))           
+        if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Melee"))
             damageBonus += this.getStrengthModifier() + weaponObj.getModifier();        
 
         return damageBonus;

@@ -44,7 +44,7 @@ public class GameLauncher
         {
             e.printStackTrace();
         }
-
+        
         mainFrameObject = new MainFrame();
     }
 
