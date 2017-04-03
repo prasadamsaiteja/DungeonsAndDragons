@@ -78,7 +78,7 @@ public class AggresiveNPC implements MomentStrategy{
     @Override
     public void pickItemsFromChest() {
                 
-        Item item = (Item) gamePlayScreen.previousMapCellObject;                                                    
+    	Item item = (Item) gamePlayScreen.previousMapCellObject;                                                    
         if(character.items.containsKey(item.itemType) && character.items.get(item.itemType) != null)
             character.backpack.backpackItems.put(item.itemType, item.itemName);                            
         else    
