@@ -128,7 +128,7 @@ public class CharactersList extends Observable
      */
     public static ArrayList<Character> get()
     {                        
-        CharactersList inst = CharactersList.init();
+        CharactersList inst = CharactersList.init();        
         inst.characters = inst.getCharacters(inst.dirPath);
         return inst.getCharacters();
     }
