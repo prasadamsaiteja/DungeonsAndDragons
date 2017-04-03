@@ -294,7 +294,7 @@ public class HumanPlayer implements MomentStrategy{
             if(gamePlayScreen.character.backpack.backpackItems.size() >= 10)
                 DialogHelper.showBasicDialog("Your backpack is full");
             else{
-                Item item = (Item) gamePlayScreen.previousMapCellObject;                            
+            	Item item = (Item) gamePlayScreen.previousMapCellObject;                            
                 
                 if(gamePlayScreen.character.items.containsKey(item.itemType) && gamePlayScreen.character.items.get(item.itemType) != null)
                     gamePlayScreen.character.backpack.backpackItems.put(item.itemType, item.itemName);                            

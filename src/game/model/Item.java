@@ -34,6 +34,7 @@ public class Item
     public int itemLevel;
     
     private int modifier;
+    private String freezing, pacifying, slaying;
     
     /**
      * This is the default constructor which create a new item 
@@ -145,4 +146,28 @@ public class Item
         }
         return hMapList;
     }
+
+	public String getSlaying() {
+		return slaying;
+	}
+
+	public void setSlaying(String slaying) {
+		this.slaying = slaying;
+	}
+
+	public String getPacifying() {
+		return pacifying;
+	}
+
+	public void setPacifying(String pacifying) {
+		this.pacifying = pacifying;
+	}
+
+	public String getFreezing() {
+		return freezing;
+	}
+
+	public void setFreezing(String freezing) {
+		this.freezing = freezing;
+	}
 }
