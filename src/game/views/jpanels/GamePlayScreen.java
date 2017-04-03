@@ -452,8 +452,7 @@ public class GamePlayScreen extends JPanel implements Observer{
             }
         });
        panel.add(btnSaveButton);
-       
-      
+             
        showPlayerDetails(character);
    }
     
