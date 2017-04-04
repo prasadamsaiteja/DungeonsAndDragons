@@ -84,8 +84,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="game.views.jdialogs.viewmodels.CharactersListModel" project="DungeonsAndDragons" 
-    file="/DungeonsAndDragons/src/game/views/jdialogs/viewmodels/CharactersListModel.java" binary="false" 
+  <class id="10" language="java" name="game.views.jdialogs.characterDialogs.CharactersListModel" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/characterDialogs/CharactersListModel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="135" width="263" x="1279" y="413"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 

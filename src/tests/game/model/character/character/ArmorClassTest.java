@@ -79,7 +79,7 @@ public class ArmorClassTest
      */
     private void createDummyItem(String itemName, String itemType, String itemClass, int armorLevel)
     {
-        Item itemObj = new Item(itemName, itemType, itemClass, armorLevel);
+        Item itemObj = new Item(itemName, itemType, itemClass, armorLevel, null);
         ItemJaxb.convertItemObjectToXml(itemObj);
     }
 

@@ -66,8 +66,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="game.views.jdialogs.viewmodels.CharactersListModel" project="DungeonsAndDragons" 
-    file="/DungeonsAndDragons/src/game/views/jdialogs/viewmodels/CharactersListModel.java" binary="false" 
+  <class id="8" language="java" name="game.views.jdialogs.characterDialogs.CharactersListModel" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/characterDialogs/CharactersListModel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="135" width="208" x="256" y="173"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -76,9 +77,10 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="game.views.jdialogs.CreateCharacterDialog.ItemsListUpdater" 
-    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jdialogs/CreateCharacterDialog.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="9" language="java" name="game.views.jdialogs.characterDialogs.CreateCharacterDialog.ItemsListUpdater" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/characterDialogs/CreateCharacterDialog.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="189" width="274" x="2639" y="1279"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -412,8 +414,10 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="45" language="java" name="game.views.jdialogs.CreateCharacterDialog" project="DungeonsAndDragons" 
-    file="/DungeonsAndDragons/src/game/views/jdialogs/CreateCharacterDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="45" language="java" name="game.views.jdialogs.characterDialogs.CreateCharacterDialog" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/characterDialogs/CreateCharacterDialog.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="459" width="228" x="2953" y="780"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -475,9 +479,10 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="52" language="java" name="game.views.jdialogs.CreateCharacterDialog.CharacterTypeUpdater" 
-    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jdialogs/CreateCharacterDialog.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="52" language="java" name="game.views.jdialogs.characterDialogs.CreateCharacterDialog.CharacterTypeUpdater" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/characterDialogs/CreateCharacterDialog.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="189" width="326" x="2953" y="1279"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -521,9 +526,10 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="57" language="java" name="game.views.jdialogs.CreateCharacterDialog.BtnSaveActionListener" 
-    project="DungeonsAndDragons" file="/DungeonsAndDragons/src/game/views/jdialogs/CreateCharacterDialog.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="57" language="java" name="game.views.jdialogs.characterDialogs.CreateCharacterDialog.BtnSaveActionListener" 
+    project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/views/jdialogs/characterDialogs/CreateCharacterDialog.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="135" width="307" x="3503" y="1279"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

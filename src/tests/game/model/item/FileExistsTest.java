@@ -30,7 +30,7 @@ public class FileExistsTest
     public void beforeEachTest()
     {
         name = "Dagger";
-        Item itemObj = new Item(name, "Weapon", "melee", 1);
+        Item itemObj = new Item(name, "Weapon", "melee", 1, null);
         ItemJaxb.convertItemObjectToXml(itemObj);
     }
 

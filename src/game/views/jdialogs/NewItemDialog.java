@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -31,6 +32,7 @@ import game.model.jaxb.ItemJaxb;
 import java.awt.Font;
 import javax.swing.JSlider;
 import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 
 /**
  * This class create dialog for new item
@@ -51,10 +53,11 @@ class NewItemDialog extends JDialog
      * This constructor is called when a new item is to be created
      *  
      * @param jDialog createstuffdialog
+     * @wbp.parser.constructor
      */
     NewItemDialog(CreateStuffDialog jDialog)
     {
-        DialogHelper.setDialogProperties(this, "New Item", new Rectangle(440, 227));
+        DialogHelper.setDialogProperties(this, "New Item", new Rectangle(440, 297));
         getContentPane().setLayout(null);
         parentDialog = jDialog;
         initComponents();
@@ -70,7 +73,7 @@ class NewItemDialog extends JDialog
     NewItemDialog(Item itemFromXml, CreateStuffDialog jDialog)
     {
         loadedItem = itemFromXml;
-        DialogHelper.setDialogProperties(this, "New Item", new Rectangle(440, 227));
+        DialogHelper.setDialogProperties(this, "Edit Item", new Rectangle(440, 297));
         getContentPane().setLayout(null);
         parentDialog = jDialog;
         initComponents();
@@ -85,11 +88,43 @@ class NewItemDialog extends JDialog
 
         JPanel panel = new JPanel();
         panel.setBackground(Color.WHITE);
-        panel.setBounds(10, 11, 414, 141);
+        panel.setBounds(10, 11, 414, 138);
         getContentPane().add(panel);
         panel.setLayout(null);
 
         Font font = new Font("Tahoma", Font.BOLD, 12);
+        
+        //Weapon enchatment selection box
+        JPanel weapon_enchatment_type = new JPanel();
+        weapon_enchatment_type.setBounds(10, 160, 414, 59);
+        getContentPane().add(weapon_enchatment_type);
+        weapon_enchatment_type.setLayout(null);
+        
+        JLabel lblEnchatment = new JLabel("Enchantment");
+        lblEnchatment.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblEnchatment.setBounds(10, 11, 101, 14);
+        weapon_enchatment_type.add(lblEnchatment);
+        
+        JCheckBox chckbxFrezzing = new JCheckBox("Frezzing");
+        chckbxFrezzing.setBounds(117, 7, 77, 23);
+        weapon_enchatment_type.add(chckbxFrezzing);
+        
+        JCheckBox chckbxBurning = new JCheckBox("Burning");
+        chckbxBurning.setBounds(196, 7, 97, 23);
+        weapon_enchatment_type.add(chckbxBurning);
+        
+        JCheckBox chckbxSlaying = new JCheckBox("Slaying");
+        chckbxSlaying.setBounds(295, 7, 97, 23);
+        weapon_enchatment_type.add(chckbxSlaying);
+        
+        JCheckBox chckbxFreightening = new JCheckBox("Freightening");
+        chckbxFreightening.setBounds(140, 29, 97, 23);
+        weapon_enchatment_type.add(chckbxFreightening);
+        
+        JCheckBox chckbxPacifying = new JCheckBox("Pacifying");
+        chckbxPacifying.setBounds(239, 29, 97, 23);
+        weapon_enchatment_type.add(chckbxPacifying);
+        weapon_enchatment_type.setVisible(false);
 
         // Name Fields
         JLabel lblItemName = new JLabel("Item Name");
@@ -134,42 +169,49 @@ class NewItemDialog extends JDialog
 
                         case "Armor":
                             itemTypesComboBoxModel.removeAllElements();
+                            weapon_enchatment_type.setVisible(false);
                             for (ArmorClass values : SharedVariables.ArmorClass.values())
                                 itemTypesComboBoxModel.addElement(values.toString());
                             break;
 
                         case "Helmet":
                             itemTypesComboBoxModel.removeAllElements();
+                            weapon_enchatment_type.setVisible(false);
                             for (HelmetClass values : SharedVariables.HelmetClass.values())
                                 itemTypesComboBoxModel.addElement(values.toString());
                             break;
 
                         case "Shield":
                             itemTypesComboBoxModel.removeAllElements();
+                            weapon_enchatment_type.setVisible(false);
                             for (ShieldClass values : SharedVariables.ShieldClass.values())
                                 itemTypesComboBoxModel.addElement(values.toString());
                             break;
 
                         case "Belt":
                             itemTypesComboBoxModel.removeAllElements();
+                            weapon_enchatment_type.setVisible(false);
                             for (BeltClass values : SharedVariables.BeltClass.values())
                                 itemTypesComboBoxModel.addElement(values.toString());
                             break;
 
                         case "Boots":
                             itemTypesComboBoxModel.removeAllElements();
+                            weapon_enchatment_type.setVisible(false);
                             for (BootsClass values : SharedVariables.BootsClass.values())
                                 itemTypesComboBoxModel.addElement(values.toString());
                             break;
 
                         case "Ring":
                             itemTypesComboBoxModel.removeAllElements();
+                            weapon_enchatment_type.setVisible(false);
                             for (RingClass values : SharedVariables.RingClass.values())
                                 itemTypesComboBoxModel.addElement(values.toString());
                             break;
 
                         case "Weapon":
                             itemTypesComboBoxModel.removeAllElements();
+                            weapon_enchatment_type.setVisible(true);
                             for (WeaponClass values : SharedVariables.WeaponClass.values())
                                 itemTypesComboBoxModel.addElement(values.toString());
                             break;
@@ -222,7 +264,7 @@ class NewItemDialog extends JDialog
                     break;
 
                 case "Weapon":
-                    itemClassComboBox.setSelectedItem(SharedVariables.WeaponClass.valueOf(loadedItem.itemClass));
+                    itemClassComboBox.setSelectedItem(SharedVariables.WeaponClass.valueOf(loadedItem.itemClass));                    
                     break;
             }
         }
@@ -261,10 +303,14 @@ class NewItemDialog extends JDialog
             }
         });
         panel.add(itemLevelSlider);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBounds(394, 141, -56, 36);
+        panel.add(panel_1);
 
         // Create Item button
         JButton btnCreateItem = new JButton("Create Item");
-        btnCreateItem.setBounds(308, 163, 116, 23);
+        btnCreateItem.setBounds(308, 227, 116, 23);
         btnCreateItem.addActionListener(new ActionListener()
         {
 
@@ -277,7 +323,31 @@ class NewItemDialog extends JDialog
                     return;
                 }
 
-                ItemJaxb.convertItemObjectToXml(new Item(itemNameTextField.getText(), itemTypesComboBox.getSelectedItem().toString(), (String) itemClassComboBox.getSelectedItem().toString(), itemLevelSlider.getValue()));
+                else if(itemTypesComboBox.getSelectedItem().toString().equals("Weapon")){
+                    
+                    ArrayList<String> selectedEnchatments = new ArrayList<>();
+                    if(chckbxFrezzing.isSelected())
+                        selectedEnchatments.add(chckbxFrezzing.getName());
+                    
+                    if(chckbxBurning.isSelected())
+                        selectedEnchatments.add(chckbxBurning.getName());
+                    
+                    if(chckbxSlaying.isSelected())
+                        selectedEnchatments.add(chckbxSlaying.getName());
+                    
+                    if(chckbxPacifying.isSelected())
+                        selectedEnchatments.add(chckbxPacifying.getName());
+                    
+                    if(chckbxFreightening.isSelected())
+                        selectedEnchatments.add(chckbxFreightening.getName());
+                    
+                    System.out.println("test " + selectedEnchatments.size());
+                    ItemJaxb.convertItemObjectToXml(new Item(itemNameTextField.getText(), itemTypesComboBox.getSelectedItem().toString(), (String) itemClassComboBox.getSelectedItem().toString(), itemLevelSlider.getValue(), selectedEnchatments));
+                }
+                    
+                else
+                    ItemJaxb.convertItemObjectToXml(new Item(itemNameTextField.getText(), itemTypesComboBox.getSelectedItem().toString(), (String) itemClassComboBox.getSelectedItem().toString(), itemLevelSlider.getValue(), null));
+                
                 if (parentDialog != null)
                     parentDialog.dispose();
 

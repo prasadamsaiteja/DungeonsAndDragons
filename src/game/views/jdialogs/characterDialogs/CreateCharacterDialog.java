@@ -1,4 +1,4 @@
-package game.views.jdialogs;
+package game.views.jdialogs.characterDialogs;
 
 import javax.swing.JDialog;
 import javax.swing.JTextField;
@@ -9,6 +9,7 @@ import game.model.character.CharactersList;
 import game.model.character.classes.CharacterClass;
 import game.model.character.classes.CharacterClassStructure;
 import game.model.itemClasses.Item;
+import game.views.jdialogs.DialogHelper;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,7 +35,7 @@ import java.util.Set;
  * @version 1.0.0
  */
 @SuppressWarnings("serial")
-class CreateCharacterDialog extends JDialog
+public class CreateCharacterDialog extends JDialog
 {
 
     @SuppressWarnings("unused")
@@ -363,7 +364,7 @@ class CreateCharacterDialog extends JDialog
      * Constructor that initializes and sets the properties for the selected dialog
      * @param jdialog dialog that shows the character components
      */
-    CreateCharacterDialog(JDialog jdialog)
+    public CreateCharacterDialog(JDialog jdialog)
     {
         this.parent = jdialog;
         DialogHelper.setDialogProperties(this, "New Character", new Rectangle(0, 0, 700, 320));
@@ -376,9 +377,10 @@ class CreateCharacterDialog extends JDialog
 
     /**
      * Constructor that initializes and sets the properties for the selected dialog with a exisiting character     * @param jdialog
+     * @param jdialog parent jdilog
      * @param existingCharacter object
      */
-    CreateCharacterDialog(JDialog jdialog, Character existingCharacter)
+    public CreateCharacterDialog(JDialog jdialog, Character existingCharacter)
     {
         this.parent = jdialog;
         this.character = existingCharacter;

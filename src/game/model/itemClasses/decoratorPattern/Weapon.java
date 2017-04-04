@@ -2,8 +2,8 @@ package game.model.itemClasses.decoratorPattern;
 
 import game.model.character.Character;
 
-public abstract class Weapon {
+public interface Weapon {
 
-    public abstract int damagePoints(Character character);   
+    public int damagePoints(Character character);   
     
 }

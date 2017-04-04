@@ -1,4 +1,4 @@
-package game.views.jdialogs.viewmodels;
+package game.views.jdialogs.characterDialogs;
 
 import java.util.ArrayList;
 import java.util.Observable;

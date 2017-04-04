@@ -3,7 +3,7 @@ package game.model.itemClasses.decoratorPattern;
 import game.components.Dice;
 import game.model.character.Character;
 
-public class MeleeWeapon extends Weapon {
+public class MeleeWeapon implements Weapon {
 
     @Override
     public int damagePoints(Character character) {

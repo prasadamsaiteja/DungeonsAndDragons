@@ -39,8 +39,8 @@ public class ClassIntegrityTest
         level = 1;
         classtype1 = "Melee";
         classtype2 = "Heavy";
-        obj1 = new Item(name1, type1, classtype1, level);
-        obj2 = new Item(name2, type2, classtype2, level);
+        obj1 = new Item(name1, type1, classtype1, level, null);
+        obj2 = new Item(name2, type2, classtype2, level, null);
     }
 
     /**

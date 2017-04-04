@@ -40,7 +40,8 @@ import game.model.jaxb.ItemJaxb;
 import game.model.jaxb.MapJaxb;
 import game.views.jdialogs.campaignDialog.CampaignNameDialog;
 import game.views.jdialogs.campaignDialog.NewCampaignInfoDialog;
-import game.views.jdialogs.viewmodels.CharactersListModel;
+import game.views.jdialogs.characterDialogs.CharactersListModel;
+import game.views.jdialogs.characterDialogs.CreateCharacterDialog;
 import game.views.jpanels.MapDesigner;
 
 import java.awt.Font;
