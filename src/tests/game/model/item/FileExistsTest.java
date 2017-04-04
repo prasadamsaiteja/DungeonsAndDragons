@@ -6,8 +6,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.Before;
 
+import game.model.itemClasses.Item;
 import game.model.jaxb.*;
-import game.model.Item;
 
 /**
  * This test case is to test the creation of item

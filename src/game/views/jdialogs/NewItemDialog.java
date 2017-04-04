@@ -25,7 +25,7 @@ import game.components.SharedVariables.HelmetClass;
 import game.components.SharedVariables.RingClass;
 import game.components.SharedVariables.ShieldClass;
 import game.components.SharedVariables.WeaponClass;
-import game.model.Item;
+import game.model.itemClasses.Item;
 import game.model.jaxb.ItemJaxb;
 
 import java.awt.Font;
@@ -277,9 +277,7 @@ class NewItemDialog extends JDialog
                     return;
                 }
 
-                ItemJaxb.convertItemObjectToXml(
-                        new Item(itemNameTextField.getText(), itemTypesComboBox.getSelectedItem().toString(),
-                                 (String) itemClassComboBox.getSelectedItem().toString(), itemLevelSlider.getValue()));
+                ItemJaxb.convertItemObjectToXml(new Item(itemNameTextField.getText(), itemTypesComboBox.getSelectedItem().toString(), (String) itemClassComboBox.getSelectedItem().toString(), itemLevelSlider.getValue()));
                 if (parentDialog != null)
                     parentDialog.dispose();
 

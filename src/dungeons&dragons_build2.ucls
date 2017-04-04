@@ -485,8 +485,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="53" language="java" name="game.model.Item" project="DungeonsAndDragons" 
-    file="/DungeonsAndDragons/src/game/model/Item.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="53" language="java" name="game.model.itemClasses.Item" project="DungeonsAndDragons" 
+    file="/DungeonsAndDragons/src/game/model/itemClasses/Item.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="279" width="241" x="4137" y="780"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -531,278 +531,370 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="58">    
-    <bendpoint x="3401" y="780"/>    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="59" name="fighterType"/>      
-      <multiplicity id="60" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="61">    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="35"/>  
-  </nesting>  
-  <nesting id="62">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="14"/>  
-  </nesting>  
-  <association id="63">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="64" name="mainFrameObject"/>      
-      <multiplicity id="65" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="66">    
-    <end type="SOURCE" refId="44" navigable="false">      
-      <attribute id="67" name="gameplayScreen"/>      
-      <multiplicity id="68" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="69">    
-    <end type="SOURCE" refId="47"/>    
-    <end type="TARGET" refId="30"/>  
-  </nesting>  
-  <association id="70">    
-    <end type="SOURCE" refId="57" navigable="false">      
-      <attribute id="71" name="character"/>      
-      <multiplicity id="72" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="73">    
+  <nesting id="58">    
     <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="11"/>  
   </nesting>  
-  <association id="74">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="75" name="playerMomentMechanics"/>      
-      <multiplicity id="76" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="77">    
-    <end type="SOURCE" refId="37"/>    
-    <end type="TARGET" refId="16"/>  
-  </generalization>  
-  <nesting id="78">    
-    <end type="SOURCE" refId="45"/>    
-    <end type="TARGET" refId="52"/>  
+  <nesting id="59">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="26"/>  
   </nesting>  
-  <association id="79">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="80" name="mapList"/>      
-      <multiplicity id="81" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="82">    
-    <end type="SOURCE" refId="56"/>    
-    <end type="TARGET" refId="16"/>  
-  </generalization>  
-  <nesting id="83">    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="12"/>  
-  </nesting>  
-  <association id="84">    
-    <bendpoint x="3840" y="1279"/>    
-    <end type="SOURCE" refId="45" navigable="false">      
-      <attribute id="85" name="character"/>      
-      <multiplicity id="86" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="87">    
-    <end type="SOURCE" refId="38" navigable="false">      
-      <attribute id="88" name="parentDialog"/>      
-      <multiplicity id="89" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="90">    
-    <end type="SOURCE" refId="45"/>    
-    <end type="TARGET" refId="57"/>  
-  </nesting>  
-  <association id="91">    
+  <association id="60">    
     <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="92" name="fighter"/>      
-      <multiplicity id="93" minimum="0" maximum="1"/>    
+      <attribute id="61" name="fighter">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="62" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="31" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="94">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="18"/>  
+  <nesting id="63">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="30"/>  
   </nesting>  
-  <association id="95">    
-    <end type="SOURCE" refId="38" navigable="false">      
-      <attribute id="96" name="loadedItem"/>      
-      <multiplicity id="97" minimum="0" maximum="1"/>    
+  <association id="64">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="65" name="mapObject">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="66" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="53" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="98">    
+  <nesting id="67">    
     <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="13"/>  
+    <end type="TARGET" refId="35"/>  
   </nesting>  
-  <association id="99">    
-    <end type="SOURCE" refId="46" navigable="false">      
-      <attribute id="100" name="fb"/>      
-      <multiplicity id="101" minimum="0" maximum="1"/>    
+  <nesting id="68">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="6"/>  
+  </nesting>  
+  <nesting id="69">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="28"/>  
+  </nesting>  
+  <association id="70">    
+    <bendpoint x="3401" y="780"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="71" name="fighterType">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="72" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="102">    
-    <end type="SOURCE" refId="45"/>    
-    <end type="TARGET" refId="9"/>  
-  </nesting>  
-  <association id="103">    
+  <association id="73">    
+    <bendpoint x="4703" y="1279"/>    
     <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="104" name="campaign"/>      
-      <multiplicity id="105" minimum="0" maximum="1"/>    
+      <attribute id="74" name="currentMap">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="75" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="106">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="54"/>  
-  </realization>  
-  <association id="107">    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="108" name="backpack"/>      
-      <multiplicity id="109" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="40" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="110">    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="111" name="character"/>      
-      <multiplicity id="112" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="113">    
+  <association id="76">    
     <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="114" name="fighterDirector"/>      
-      <multiplicity id="115" minimum="0" maximum="1"/>    
+      <attribute id="77" name="fighterDirector">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="78" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="46" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="116">    
-    <bendpoint x="4703" y="1279"/>    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="117" name="currentMap"/>      
-      <multiplicity id="118" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="119">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="16"/>  
-  </generalization>  
-  <nesting id="120">    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="28"/>  
-  </nesting>  
-  <nesting id="121">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="26"/>  
-  </nesting>  
-  <nesting id="122">    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="5"/>  
-  </nesting>  
-  <association id="123">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="124" name="inventoryViewDialog"/>      
-      <multiplicity id="125" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="126">    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="6"/>  
-  </nesting>  
-  <association id="127">    
-    <bendpoint x="4380" y="1279"/>    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="128" name="character"/>      
-      <multiplicity id="129" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="130">    
-    <end type="SOURCE" refId="47" navigable="false">      
-      <attribute id="131" name="character"/>      
-      <multiplicity id="132" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="133">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="34"/>  
-  </nesting>  
-  <association id="134">    
+  <association id="79">    
     <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="135" name="inst"/>      
-      <multiplicity id="136" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="137">    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="51"/>  
-  </nesting>  
-  <association id="138">    
-    <end type="SOURCE" refId="29" navigable="false">      
-      <attribute id="139" name="mapObject"/>      
-      <multiplicity id="140" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="141">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="142" name="characters"/>      
-      <multiplicity id="143" minimum="0" maximum="2147483647"/>    
+      <attribute id="80" name="characters">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="81" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="33" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="144">    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="15"/>  
-  </nesting>  
-  <association id="145">    
+  <association id="82">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="83" name="mainFrameObject">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="84" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="85">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="146" name="campaignObject"/>      
-      <multiplicity id="147" minimum="0" maximum="1"/>    
+      <attribute id="86" name="campaignObject">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="87" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="22" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="88">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="89" name="inst">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="90" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="92" name="loadedItem">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="93" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="95" name="inventoryViewDialog">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="96" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="97">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="98" name="campaign">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="99" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="100">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <nesting id="101">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="51"/>  
+  </nesting>  
+  <nesting id="102">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <nesting id="103">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="18"/>  
+  </nesting>  
+  <association id="104">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="105" name="playerMomentMechanics">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="106" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="107">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="34"/>  
+  </nesting>  
+  <generalization id="108">    
+    <end type="SOURCE" refId="56"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <association id="109">    
+    <end type="SOURCE" refId="57" navigable="false">      
+      <attribute id="110" name="character">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="111" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="112">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="113" name="backpack">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="114" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="115">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="52"/>  
+  </nesting>  
+  <realization id="116">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="54"/>  
+  </realization>  
+  <association id="117">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="118" name="character">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="119" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="120">    
+    <end type="SOURCE" refId="44" navigable="false">      
+      <attribute id="121" name="gameplayScreen">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="122" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="123">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="12"/>  
+  </nesting>  
+  <nesting id="124">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="13"/>  
+  </nesting>  
+  <association id="125">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="126" name="mapList">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="127" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="128">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <association id="129">    
+    <end type="SOURCE" refId="46" navigable="false">      
+      <attribute id="130" name="fb">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="131" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="132">    
+    <end type="SOURCE" refId="47" navigable="false">      
+      <attribute id="133" name="character">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="134" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="135">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <association id="136">    
+    <bendpoint x="3840" y="1279"/>    
+    <end type="SOURCE" refId="45" navigable="false">      
+      <attribute id="137" name="character">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="138" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="139">    
+    <bendpoint x="4380" y="1279"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="140" name="character">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="141" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="142">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="143" name="parentDialog">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="144" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="145">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="57"/>  
+  </nesting>  
+  <nesting id="146">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <nesting id="147">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="14"/>  
+  </nesting>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

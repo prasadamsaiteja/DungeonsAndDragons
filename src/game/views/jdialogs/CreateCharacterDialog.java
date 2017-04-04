@@ -3,12 +3,12 @@ package game.views.jdialogs;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 
-import game.model.Item;
 import game.model.builder.FighterDriverClass;
 import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.character.classes.CharacterClass;
 import game.model.character.classes.CharacterClassStructure;
+import game.model.itemClasses.Item;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;

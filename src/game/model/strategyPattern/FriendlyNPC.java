@@ -3,11 +3,13 @@ package game.model.strategyPattern;
 import java.util.Random;
 
 import game.components.Console;
-import game.components.Dice;
 import game.components.GameMechanics;
 import game.components.SharedVariables;
-import game.model.Item;
 import game.model.character.Character;
+import game.model.itemClasses.Item;
+import game.model.itemClasses.decoratorPattern.MeleeWeapon;
+import game.model.itemClasses.decoratorPattern.RangedWeapon;
+import game.model.itemClasses.decoratorPattern.WeaponDecorator;
 import game.views.jpanels.GamePlayScreen;
 
 public class FriendlyNPC implements MomentStrategy{
@@ -51,21 +53,22 @@ public class FriendlyNPC implements MomentStrategy{
     @Override
     public void attack(int toRowNumber, int toColNumber) {
         
-        int damagePoints  = (new Dice(1, 20, 1)).getRollSum() + character.getAttackBonus(); 
+        int attackPoints = character.attackPoint(); 
         
-        if(damagePoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
+        if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
             
+            int damagePoints;
             if(character.getWeaponObject().getItemType().equalsIgnoreCase("Melee"))
-                damagePoints = (new Dice(1, 8, 1)).getRollSum() + character.getStrengthModifier();
+                damagePoints = new WeaponDecorator(new MeleeWeapon()).damagePoints(character);
             else
-                damagePoints = (new Dice(1, 8, 1)).getRollSum();
+                damagePoints = new WeaponDecorator(new RangedWeapon()).damagePoints(character);
             
             isAttackPerformed = true;
             ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).hit(damagePoints);
             Console.printInConsole("   => " + character.getName() + " hitted " + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " with " + damagePoints + " damage points");
         }
 
-        Console.printInConsole("   => " + character.getName() + " missed hitting a hostile monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " - "+ ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + damagePoints + " attack points");    
+        Console.printInConsole("   => " + character.getName() + " missed hitting a hostile monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " - "+ ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + attackPoints + " attack points");    
     }
 
     @Override

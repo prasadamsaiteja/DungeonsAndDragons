@@ -13,9 +13,9 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import game.components.Dice;
 import game.components.SharedVariables;
-import game.model.Item;
 import game.model.character.classes.CharacterClass;
 import game.model.character.classes.CharacterClassStructure;
+import game.model.itemClasses.Item;
 import game.model.jaxb.ItemJaxb;
 import game.model.strategyPattern.MomentStrategy;
 
@@ -1004,7 +1004,6 @@ public class Character extends Observable implements Cloneable
         return weapons;        
     }
 
-    
     /**
      * This method returns strategy
      * @return the momentStrategy
@@ -1012,7 +1011,6 @@ public class Character extends Observable implements Cloneable
     public MomentStrategy getMomentStrategy() {
         return momentStrategy;
     }
-
     
     /**
      * This method sets character strategy
@@ -1021,4 +1019,13 @@ public class Character extends Observable implements Cloneable
     public void setMomentStrategy(MomentStrategy momentStrategy) {
         this.momentStrategy = momentStrategy;
     }
+
+    /**
+     * This method returns attack points of the character
+     * @return attack points of the character
+     */
+    public int attackPoint(){
+        return (new Dice(1, 20, 1)).getRollSum() + getAttackBonus();
+    }
+
 }

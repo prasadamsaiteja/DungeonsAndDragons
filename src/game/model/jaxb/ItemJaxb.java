@@ -12,7 +12,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import game.components.SharedVariables;
-import game.model.Item;
+import game.model.itemClasses.Item;
 
 /**
  * This class helps to handle item object to xml operations

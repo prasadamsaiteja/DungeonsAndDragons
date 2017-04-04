@@ -6,8 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.model.Item;
 import game.model.character.Character;
+import game.model.itemClasses.Item;
 import game.model.jaxb.ItemJaxb;
 
 /**

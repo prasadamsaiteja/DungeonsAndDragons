@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import game.model.Item;
 import game.model.Map;
 import game.model.character.Character;
+import game.model.itemClasses.Item;
 
 /**
  * This class contains all the method required for 
