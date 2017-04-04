@@ -33,7 +33,7 @@ public class Item
     @XmlElement(name = "itemLevel")
     public int itemLevel;
     @XmlElement(name = "weaponEnchatments")
-    public ArrayList<String> selectedEnchatments;
+    private ArrayList<String> weaponEnchatments;
     
     private int modifier;
     
@@ -43,15 +43,15 @@ public class Item
      * @param type type of the item
      * @param itemclass Class of item
      * @param level level of the item
-     * @param selectedEnchatments selected enchatments for weapon
+     * @param selectedEnchantments selected enchantments for weapon
      */
-    public Item(String name, String type, String itemclass, int level, ArrayList<String> selectedEnchatments)
+    public Item(String name, String type, String itemclass, int level, ArrayList<String> selectedEnchantments)
     {
         this.itemName = name;
         this.itemType = type;
         this.itemClass = itemclass;
         this.itemLevel = level;
-        this.selectedEnchatments = selectedEnchatments;
+        this.weaponEnchatments = selectedEnchantments;
     }
     
     /**
