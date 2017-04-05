@@ -1,6 +1,7 @@
-package game.model.builder;
+package game.model.character.builderPattern.builder;
 
 import game.components.Dice;
+import game.model.character.builderPattern.FighterBuilder;
 
 import java.util.Arrays;
 
@@ -54,7 +55,7 @@ public class BullyFighterBuilder extends FighterBuilder
 	/**
 	 * Overridden Method that builds the strength
 	 */
-	void buildStrength() 
+	protected void buildStrength() 
 	{
 		getFighter().setStrength(sortedAbilityValues[2]);
 	}
@@ -62,7 +63,7 @@ public class BullyFighterBuilder extends FighterBuilder
 	/**
 	 * Overridden Method that builds the Constitution
 	 */
-	void buildConstitution() 
+	protected void buildConstitution() 
 	{
 		getFighter().setConstitution(sortedAbilityValues[1]);
 	}
@@ -70,7 +71,7 @@ public class BullyFighterBuilder extends FighterBuilder
 	/**
 	 * Overridden Method that builds the Dexterity
 	 */
-	void buildDexterity() 
+	protected void buildDexterity() 
 	{
 		getFighter().setDexterity( sortedAbilityValues[0]);
 	}

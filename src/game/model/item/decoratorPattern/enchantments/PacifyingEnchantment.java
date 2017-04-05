@@ -1,9 +1,9 @@
-package game.model.itemClasses.decoratorPattern.enchantments;
+package game.model.item.decoratorPattern.enchantments;
 
 import game.model.character.Character;
-import game.model.itemClasses.decoratorPattern.Weapon;
-import game.model.itemClasses.decoratorPattern.WeaponDecorator;
-import game.model.strategyPattern.strategies.FriendlyNPC;
+import game.model.character.strategyPattern.strategies.FriendlyNPC;
+import game.model.item.decoratorPattern.Weapon;
+import game.model.item.decoratorPattern.WeaponDecorator;
 import game.views.jpanels.GamePlayScreen;
 
 public class PacifyingEnchantment extends WeaponDecorator{

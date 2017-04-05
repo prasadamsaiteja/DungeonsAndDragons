@@ -1,4 +1,4 @@
-package game.model.builder;
+package game.model.character.builderPattern;
 
 /**
  * Builder class that creates specific fighter 
@@ -30,16 +30,16 @@ public abstract class FighterBuilder
 	/**
 	 * Abstract method for building Strength
 	 */
-	abstract void buildStrength();
+	protected abstract void buildStrength();
 	
 	/**
 	 * Abstract method for building Constitution
 	 */
-	abstract void buildConstitution();
+	protected abstract void buildConstitution();
 	
 	/**
 	 * Abstract method for building  Dexterity
 	 */
-	abstract void buildDexterity();
+	protected abstract void buildDexterity();
 	
 }

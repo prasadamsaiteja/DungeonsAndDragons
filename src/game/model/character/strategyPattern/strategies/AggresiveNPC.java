@@ -1,14 +1,14 @@
-package game.model.strategyPattern.strategies;
+package game.model.character.strategyPattern.strategies;
 
 import game.components.Console;
 import game.components.GameMechanics;
 import game.components.SharedVariables;
 import game.model.character.Character;
-import game.model.itemClasses.Item;
-import game.model.itemClasses.decoratorPattern.MeleeWeapon;
-import game.model.itemClasses.decoratorPattern.RangedWeapon;
-import game.model.itemClasses.decoratorPattern.WeaponDecorator;
-import game.model.strategyPattern.MomentStrategy;
+import game.model.character.strategyPattern.MomentStrategy;
+import game.model.item.Item;
+import game.model.item.decoratorPattern.MeleeWeapon;
+import game.model.item.decoratorPattern.RangedWeapon;
+import game.model.item.decoratorPattern.WeaponDecorator;
 import game.views.jpanels.GamePlayScreen;
 
 public class AggresiveNPC implements MomentStrategy{

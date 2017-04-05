@@ -1,15 +1,16 @@
-package game.model.builder;
+package game.model.character.builderPattern.builder;
 
 import game.components.Dice;
+import game.model.character.builderPattern.FighterBuilder;
 
 import java.util.Arrays;
 
 /**
- * Class that sets the abilities for the Tank Class
+ * Class that sets the abilities for the Nimble Class
  * @author RahulReddy
  * @version 1.0.0
  */
-public class TankFighterBuilder extends FighterBuilder
+public class NimbleFighterBuilder extends FighterBuilder 
 {
 
 	int strength[],constitution[],dexterity[];
@@ -18,15 +19,15 @@ public class TankFighterBuilder extends FighterBuilder
 	int[] sortedAbilityValues;
 	
 	/**
-	 * Constructor for Tank
-	 */	
-	public TankFighterBuilder() 
+	 * Constructor for Nimble
+	 */
+	public NimbleFighterBuilder() 
 	{
 		setAbilities();		
 	}
 	
 	/**
-	 * Method that sets the abilities of the Tank Class
+	 * Method that sets the abilities of the Nimble Class
 	 */
 	private void setAbilities() 
 	{
@@ -43,8 +44,8 @@ public class TankFighterBuilder extends FighterBuilder
 		dexterity = new int[4];
 		dexterity[0]= calculateAbilities();
 		
-		unSortedabilityValues[0] = constitution[0];
-		unSortedabilityValues[1] = dexterity[0];
+		unSortedabilityValues[0] =  dexterity[0];
+		unSortedabilityValues[1] = constitution[0];
 		unSortedabilityValues[2] = strength[0];
 		
 		Arrays.sort(unSortedabilityValues);
@@ -54,7 +55,7 @@ public class TankFighterBuilder extends FighterBuilder
 	/**
 	 * Overriden Method that builds the strength
 	 */
-	void buildStrength() 
+	protected void buildStrength()
 	{
 		getFighter().setStrength(sortedAbilityValues[0]);
 	}
@@ -62,19 +63,19 @@ public class TankFighterBuilder extends FighterBuilder
 	/**
 	 * Overriden Method that builds the Constitution
 	 */
-	void buildConstitution() 
+	protected void buildConstitution() 
 	{
-		getFighter().setConstitution(sortedAbilityValues[2]);
+		getFighter().setConstitution(sortedAbilityValues[1]);
 	}
 	
 	/**
 	 * Overriden Method that builds the Dexterity
 	 */
-	void buildDexterity() 
+	protected void buildDexterity()
 	{
-		getFighter().setDexterity(sortedAbilityValues[1]);
+		getFighter().setDexterity(sortedAbilityValues[2]);
 	}
-
+	
 	/**
 	 *  Method for calculating abilities
 	 * @return array random generated values 
@@ -82,8 +83,8 @@ public class TankFighterBuilder extends FighterBuilder
 	private int calculateAbilities() 
 	{
 		Dice dice=new Dice(4,6,3);
-	
-		return dice.getRollSum();
-	}
 
+		return dice.getRollSum();		
+	}
+	
 }

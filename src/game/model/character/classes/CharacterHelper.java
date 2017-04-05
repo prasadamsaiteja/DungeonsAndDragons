@@ -12,7 +12,7 @@ import game.model.character.Character;
  * @author Supreet Singh (s_supree)
  * @version 1.0.0
  */
-public class CharacterClass
+public class CharacterHelper
 {
 
     /**
@@ -63,9 +63,9 @@ public class CharacterClass
      * @param character Character object on which this class is applied
      * @throws Exception if an unallowed class is provided
      */
-    public CharacterClass(String name, Character character) throws Exception
+    public CharacterHelper(String name, Character character) throws Exception
     {
-        if (!CharacterClass.isClassAllowed(name))
+        if (!CharacterHelper.isClassAllowed(name))
         {
             throw new Exception("Class not allowed " + name);
         }

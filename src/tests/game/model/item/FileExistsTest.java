@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.Before;
 
-import game.model.itemClasses.Item;
+import game.model.item.Item;
 import game.model.jaxb.*;
 
 /**

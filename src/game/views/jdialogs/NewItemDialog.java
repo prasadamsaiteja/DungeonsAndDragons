@@ -27,7 +27,7 @@ import game.components.SharedVariables.HelmetClass;
 import game.components.SharedVariables.RingClass;
 import game.components.SharedVariables.ShieldClass;
 import game.components.SharedVariables.WeaponClass;
-import game.model.itemClasses.Item;
+import game.model.item.Item;
 import game.model.jaxb.ItemJaxb;
 
 import java.awt.Font;

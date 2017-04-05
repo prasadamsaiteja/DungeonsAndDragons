@@ -3,12 +3,12 @@ package game.views.jdialogs.characterDialogs;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 
-import game.model.builder.FighterDriverClass;
 import game.model.character.Character;
 import game.model.character.CharactersList;
-import game.model.character.classes.CharacterClass;
+import game.model.character.builderPattern.FighterDriverClass;
+import game.model.character.classes.CharacterHelper;
+import game.model.item.Item;
 import game.model.character.classes.CharacterClassStructure;
-import game.model.itemClasses.Item;
 import game.views.jdialogs.DialogHelper;
 
 import javax.swing.JLabel;
@@ -341,7 +341,7 @@ public class CreateCharacterDialog extends JDialog
                 {
                     if (this.characterClass != null)
                     {
-                        CharacterClass cClass = new CharacterClass(this.characterClass, null);
+                        CharacterHelper cClass = new CharacterHelper(this.characterClass, null);
                         CharacterClassStructure cClassStructure = cClass.get();
                         ArrayList<String> types = cClassStructure.getTypes();
                         Iterator<String> iTypes = types.iterator();
@@ -498,7 +498,7 @@ public class CreateCharacterDialog extends JDialog
         gbc.gridx = x+1;
         gbc.gridy = y;
         contentPanel.add(this.cbClass, gbc);
-        Set<String> characterClasses = CharacterClass.getAllowedClasses();
+        Set<String> characterClasses = CharacterHelper.getAllowedClasses();
 
         for (String cClass : characterClasses)
         {

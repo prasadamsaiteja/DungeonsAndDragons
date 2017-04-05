@@ -1,4 +1,4 @@
-package game.model.builder;
+package game.model.character.builderPattern;
 
 /**
  * Director Class for the Fighter

@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import game.model.itemClasses.Item;
+import game.model.item.Item;
 
 import org.junit.Before;
 

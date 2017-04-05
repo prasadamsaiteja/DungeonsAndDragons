@@ -1,4 +1,4 @@
-package game.model.itemClasses;
+package game.model.item;
 
 import java.util.ArrayList;
 import java.util.HashMap;

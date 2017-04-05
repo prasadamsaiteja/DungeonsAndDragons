@@ -1,4 +1,4 @@
-package game.model.builder;
+package game.model.character.builderPattern;
 
 import game.model.character.Character;
 

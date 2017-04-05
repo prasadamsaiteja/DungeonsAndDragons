@@ -1,4 +1,4 @@
-package game.model.strategyPattern;
+package game.model.character.strategyPattern;
 
 public interface MomentStrategy {
 

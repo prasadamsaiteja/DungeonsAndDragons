@@ -1,4 +1,4 @@
-package game.model.itemClasses.decoratorPattern;
+package game.model.item.decoratorPattern;
 
 import game.components.Dice;
 import game.model.character.Character;

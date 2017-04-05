@@ -1,10 +1,10 @@
-package game.model.strategyPattern.strategies;
+package game.model.character.strategyPattern.strategies;
 
 import game.components.Console;
 import game.components.GameMechanics;
 import game.components.SharedVariables;
 import game.model.character.Character;
-import game.model.strategyPattern.MomentStrategy;
+import game.model.character.strategyPattern.MomentStrategy;
 import game.views.jpanels.GamePlayScreen;
 
 public class FrighteningStrategy implements MomentStrategy{

@@ -1,10 +1,10 @@
-package game.model.itemClasses.decoratorPattern.enchantments;
+package game.model.item.decoratorPattern.enchantments;
 
 import game.components.Console;
 import game.model.character.Character;
-import game.model.itemClasses.decoratorPattern.Weapon;
-import game.model.itemClasses.decoratorPattern.WeaponDecorator;
-import game.model.strategyPattern.strategies.FrighteningStrategy;
+import game.model.character.strategyPattern.strategies.FrighteningStrategy;
+import game.model.item.decoratorPattern.Weapon;
+import game.model.item.decoratorPattern.WeaponDecorator;
 import game.views.jpanels.GamePlayScreen;
 
 public class FrighteningEnchantment extends WeaponDecorator{

@@ -13,11 +13,11 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import game.components.Dice;
 import game.components.SharedVariables;
-import game.model.character.classes.CharacterClass;
+import game.model.character.classes.CharacterHelper;
 import game.model.character.classes.CharacterClassStructure;
-import game.model.itemClasses.Item;
+import game.model.character.strategyPattern.MomentStrategy;
+import game.model.item.Item;
 import game.model.jaxb.ItemJaxb;
-import game.model.strategyPattern.MomentStrategy;
 
 /**
  * Build a new character with a set of abilities associated with it
@@ -667,13 +667,13 @@ public class Character extends Observable implements Cloneable
             return;
         }
         
-        CharacterClass cClass;
+        CharacterHelper cClass;
 
         /*
          * http://rpg.stackexchange.com/questions/48156/is-con-modifier-%C3%97-
          * level-added-to-hp-every-level-up
          */
-        cClass = new CharacterClass(this.getCharacterClass(), this);
+        cClass = new CharacterHelper(this.getCharacterClass(), this);
         CharacterClassStructure cClassVal = cClass.get();
 
         cClass.calculateHitScore(

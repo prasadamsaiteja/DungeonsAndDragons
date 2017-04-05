@@ -38,12 +38,12 @@ import game.model.Map;
 import game.model.character.Backpack;
 import game.model.character.Character;
 import game.model.character.CharactersList;
+import game.model.character.strategyPattern.strategies.AggresiveNPC;
+import game.model.character.strategyPattern.strategies.FriendlyNPC;
+import game.model.character.strategyPattern.strategies.HumanPlayer;
 import game.model.jaxb.CampaignJaxb;
 import game.model.jaxb.GamePlayJaxb;
 import game.model.onclickListeners.MapClickListener;
-import game.model.strategyPattern.strategies.AggresiveNPC;
-import game.model.strategyPattern.strategies.FriendlyNPC;
-import game.model.strategyPattern.strategies.HumanPlayer;
 import game.views.jdialogs.DialogHelper;
 import game.views.jdialogs.InventoryViewDialog;
 

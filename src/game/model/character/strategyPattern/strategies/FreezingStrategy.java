@@ -1,9 +1,9 @@
-package game.model.strategyPattern.strategies;
+package game.model.character.strategyPattern.strategies;
 
-import game.model.strategyPattern.MomentStrategy;
 import game.views.jpanels.GamePlayScreen;
 import game.components.Console;
 import game.model.character.Character;
+import game.model.character.strategyPattern.MomentStrategy;
 
 public class FreezingStrategy implements MomentStrategy{
     

@@ -1,4 +1,8 @@
-package game.model.builder;
+package game.model.character.builderPattern;
+
+import game.model.character.builderPattern.builder.BullyFighterBuilder;
+import game.model.character.builderPattern.builder.NimbleFighterBuilder;
+import game.model.character.builderPattern.builder.TankFighterBuilder;
 
 /**
  * Main Driver class for accessing the fighter object loaded with 

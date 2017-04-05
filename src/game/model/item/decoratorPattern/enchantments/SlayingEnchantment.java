@@ -1,8 +1,8 @@
-package game.model.itemClasses.decoratorPattern.enchantments;
+package game.model.item.decoratorPattern.enchantments;
 
 import game.model.character.Character;
-import game.model.itemClasses.decoratorPattern.Weapon;
-import game.model.itemClasses.decoratorPattern.WeaponDecorator;
+import game.model.item.decoratorPattern.Weapon;
+import game.model.item.decoratorPattern.WeaponDecorator;
 
 public class SlayingEnchantment extends WeaponDecorator{
 
