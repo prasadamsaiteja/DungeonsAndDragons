@@ -149,5 +149,9 @@ public class Item
         }
         return hMapList;
     }
+    
+    public String getWeaponEnchatments(int index) {
+    	return weaponEnchatments.get(index);
+	}
 
 }

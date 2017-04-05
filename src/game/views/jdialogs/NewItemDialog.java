@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -127,6 +128,40 @@ class NewItemDialog extends JDialog
         chckbxPacifying.setBounds(239, 29, 97, 23);
         weapon_enchantment_type.add(chckbxPacifying);
         weapon_enchantment_type.setVisible(false);
+        
+        if(loadedItem != null){        	
+        	int index=0;
+        	Iterator itr = loadedItem.weaponEnchatments.iterator(); 
+        	
+        	while(itr.hasNext()){
+        		Object enchantments = itr.next();
+        		System.out.println(enchantments.toString());
+        		switch(enchantments.toString()){
+				
+				case "Freezing" : 
+					chckbxFreezing.setSelected(true);
+					break;
+								  
+				case "Burning": 
+					chckbxBurning.setSelected(true);
+				    break;
+				    
+				case "Slaying"	:
+					chckbxSlaying.setSelected(true);
+					break;
+					
+				case "Pacifying":
+					chckbxPacifying.setSelected(true);
+					break;
+				
+				case "Frightening":
+					chckbxFreightening.setSelected(true);
+					break;
+					
+ 			 }
+        	}
+        	
+        }
 
         // Name Fields
         JLabel lblItemName = new JLabel("Item Name");
