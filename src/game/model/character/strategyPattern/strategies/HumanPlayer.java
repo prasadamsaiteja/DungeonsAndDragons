@@ -23,6 +23,7 @@ import game.model.item.decoratorPattern.MeleeWeapon;
 import game.model.item.decoratorPattern.RangedWeapon;
 import game.model.item.decoratorPattern.Weapon;
 import game.model.item.decoratorPattern.WeaponDecorator;
+import game.model.item.decoratorPattern.enchantments.BurningEnchantment;
 import game.model.item.decoratorPattern.enchantments.FreezingEnchantment;
 import game.model.item.decoratorPattern.enchantments.FrighteningEnchantment;
 import game.model.item.decoratorPattern.enchantments.PacifyingEnchantment;
@@ -298,6 +299,7 @@ public class HumanPlayer implements MomentStrategy{
                         break;
                         
                     case "Burning":
+                        weapon = new BurningEnchantment(weapon, ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]));
                         break;
                     
                     case "Slaying":  

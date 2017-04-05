@@ -169,14 +169,27 @@ public class GamePlayScreen extends JPanel implements Observer{
                     Console.printInConsole("");
                     Console.printInConsole("  *" + character.getName() + "'s turn");                   
                     
-                    if(character.isPlayer())
-                        GamePlayScreen.this.character.getMomentStrategy().playTurn();                    
-                        
-                    else
+                    if(character.isPlayer()){
+                        GamePlayScreen.this.character.getMomentStrategy().playTurn();
+                        if(GamePlayScreen.this.character.burningTurn > 0){
+                            GamePlayScreen.this.character.hit(GamePlayScreen.this.character.bruningDamagePoints);
+                            Console.printInConsole("   => you are burning - " + GamePlayScreen.this.character.bruningDamagePoints + "hp");
+                            GamePlayScreen.this.character.burningTurn--;
+                        }
+                    }
+                                                                    
+                    else{
                         character.getMomentStrategy().playTurn();
+                        if(character.burningTurn > 0){
+                            character.hit(character.bruningDamagePoints);
+                            Console.printInConsole("   => " + character.getName() + " is burning - " + character.bruningDamagePoints + "hp");
+                            character.burningTurn--;
+                        }
+                    }
+                        
                     
                     while (true) {
-                        if (isTurnFinished){
+                        if (isTurnFinished){                            
                             playerMomentMechanics.removeKeyListeners(GamePlayScreen.this);
                             isTurnFinished = false;
                             break;                 

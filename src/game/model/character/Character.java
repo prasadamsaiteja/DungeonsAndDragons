@@ -45,6 +45,8 @@ public class Character extends Observable implements Cloneable
     private boolean isFriendlyMonster = true;
     private boolean isPlayer = false;
     public int turnPoints = 0;
+    
+    public int burningTurn, bruningDamagePoints;
 
     /**
      * This method sets the name for the character
@@ -1037,4 +1039,8 @@ public class Character extends Observable implements Cloneable
         this.momentStrategy.remove(momentStrategy.size() - 1);
     }
 
+    public void startBurning(int burningDamagePoints){
+        this.burningTurn = 3;
+        this.bruningDamagePoints = burningDamagePoints;
+    }
 }
