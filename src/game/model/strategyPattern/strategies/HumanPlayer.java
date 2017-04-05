@@ -1,4 +1,4 @@
-package game.model.strategyPattern;
+package game.model.strategyPattern.strategies;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,7 +20,13 @@ import game.model.character.Character;
 import game.model.itemClasses.Item;
 import game.model.itemClasses.decoratorPattern.MeleeWeapon;
 import game.model.itemClasses.decoratorPattern.RangedWeapon;
+import game.model.itemClasses.decoratorPattern.Weapon;
 import game.model.itemClasses.decoratorPattern.WeaponDecorator;
+import game.model.itemClasses.decoratorPattern.enchantments.FreezingEnchantment;
+import game.model.itemClasses.decoratorPattern.enchantments.FrighteningEnchantment;
+import game.model.itemClasses.decoratorPattern.enchantments.PacifyingEnchantment;
+import game.model.itemClasses.decoratorPattern.enchantments.SlayingEnchantment;
+import game.model.strategyPattern.MomentStrategy;
 import game.views.jdialogs.DialogHelper;
 import game.views.jpanels.GamePlayScreen;
 import game.views.jpanels.LaunchScreen;
@@ -29,7 +35,7 @@ public class HumanPlayer implements MomentStrategy{
     
     int playerMomentCount = 0;
     boolean isAttackPerformed = false;
-    private GamePlayScreen gamePlayScreen;    
+    private GamePlayScreen gamePlayScreen;
 
     public HumanPlayer(GamePlayScreen gamePlayScreen){
         this.gamePlayScreen = gamePlayScreen;
@@ -274,15 +280,43 @@ public class HumanPlayer implements MomentStrategy{
         int attackPoints = gamePlayScreen.character.attackPoint();
         
         if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
-                        
-            int damagePoints;
+                                    
+            Weapon weapon;
             if(gamePlayScreen.character.getWeaponObject().getItemType().equalsIgnoreCase("Melee"))
-                damagePoints = new WeaponDecorator(new MeleeWeapon()).damagePoints(gamePlayScreen.character);
+                weapon = new WeaponDecorator(new MeleeWeapon());
                 
             else
-                damagePoints = new WeaponDecorator(new RangedWeapon()).damagePoints(gamePlayScreen.character);
+                weapon = new WeaponDecorator(new RangedWeapon());
+            
+            if(gamePlayScreen.character.getWeaponObject() != null)
+            for (String enchatment : gamePlayScreen.character.getWeaponObject().weaponEnchatments) {
+                
+                switch(enchatment){
+                    
+                    case "Freezing":
+                        weapon = new FreezingEnchantment(gamePlayScreen, weapon, ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]));
+                        break;
+                        
+                    case "Burning":
+                        break;
+                    
+                    case "Slaying":  
+                        weapon = new SlayingEnchantment(weapon, ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]));
+                        break;
+                        
+                    case "Frightening":
+                        weapon = new FrighteningEnchantment(gamePlayScreen, weapon, ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]), gamePlayScreen.character);
+                        break;
+                        
+                    case "Pacifying": 
+                        weapon = new PacifyingEnchantment(weapon, ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]), gamePlayScreen);
+                        break;
+                }
+                
+            }
             
             isAttackPerformed = true;
+            int damagePoints = weapon.damagePoints(gamePlayScreen.character);
             ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).hit(damagePoints);
             Console.printInConsole("   => you hitted a hostile monster(" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + ") with " + damagePoints + " attack points");    
         }

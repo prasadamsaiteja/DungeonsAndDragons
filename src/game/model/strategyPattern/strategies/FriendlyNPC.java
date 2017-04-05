@@ -1,4 +1,4 @@
-package game.model.strategyPattern;
+package game.model.strategyPattern.strategies;
 
 import java.util.Random;
 
@@ -10,6 +10,7 @@ import game.model.itemClasses.Item;
 import game.model.itemClasses.decoratorPattern.MeleeWeapon;
 import game.model.itemClasses.decoratorPattern.RangedWeapon;
 import game.model.itemClasses.decoratorPattern.WeaponDecorator;
+import game.model.strategyPattern.MomentStrategy;
 import game.views.jpanels.GamePlayScreen;
 
 public class FriendlyNPC implements MomentStrategy{

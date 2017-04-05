@@ -6,14 +6,17 @@ import game.model.itemClasses.decoratorPattern.WeaponDecorator;
 
 public class SlayingEnchantment extends WeaponDecorator{
 
-    public SlayingEnchantment(Weapon decoratedWeapon){
+    private Character enemeyCharacter;
+    
+    public SlayingEnchantment(Weapon decoratedWeapon, Character enemeyCharacter){
         super(decoratedWeapon);
+        this.enemeyCharacter = enemeyCharacter;        
     }
     
     @Override
     public int damagePoints(Character character) {
-        // TODO Auto-generated method stub
-        return 0;
+        int weaponDamage = super.damagePoints(character);  
+        return (enemeyCharacter.getHitScore() - weaponDamage) + weaponDamage; //Adding addtional hitpoints to damage to competely kill the oponent
     }
 
 }

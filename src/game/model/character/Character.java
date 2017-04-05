@@ -40,7 +40,7 @@ public class Character extends Observable implements Cloneable
     private boolean isBuilt = false;
     public Backpack backpack;
 
-    private MomentStrategy momentStrategy;
+    private ArrayList<MomentStrategy> momentStrategy;
     private boolean isKeyCollected = false;
     private boolean isFriendlyMonster = true;
     private boolean isPlayer = false;
@@ -1009,7 +1009,7 @@ public class Character extends Observable implements Cloneable
      * @return the momentStrategy
      */
     public MomentStrategy getMomentStrategy() {
-        return momentStrategy;
+        return momentStrategy.get(momentStrategy.size() - 1);
     }
     
     /**
@@ -1017,7 +1017,8 @@ public class Character extends Observable implements Cloneable
      * @param momentStrategy the momentStrategy to set
      */
     public void setMomentStrategy(MomentStrategy momentStrategy) {
-        this.momentStrategy = momentStrategy;
+        this.momentStrategy = new ArrayList<>();
+        this.momentStrategy.add(momentStrategy);
     }
 
     /**
@@ -1026,6 +1027,14 @@ public class Character extends Observable implements Cloneable
      */
     public int attackPoint(){
         return (new Dice(1, 20, 1)).getRollSum() + getAttackBonus();
+    }
+
+    public void pushMomentStrategy(MomentStrategy momentStrategy) {
+        this.momentStrategy.add(momentStrategy);
+    }
+    
+    public void popMomentStrategy(){
+        this.momentStrategy.remove(momentStrategy.size() - 1);
     }
 
 }

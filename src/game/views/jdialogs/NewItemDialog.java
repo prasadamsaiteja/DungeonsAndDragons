@@ -119,7 +119,7 @@ class NewItemDialog extends JDialog
         chckbxSlaying.setBounds(295, 7, 97, 23);
         weapon_enchantment_type.add(chckbxSlaying);
         
-        JCheckBox chckbxFreightening = new JCheckBox("Freightening");
+        JCheckBox chckbxFreightening = new JCheckBox("Frightening");
         chckbxFreightening.setBounds(140, 29, 97, 23);
         weapon_enchantment_type.add(chckbxFreightening);
         
@@ -341,9 +341,7 @@ class NewItemDialog extends JDialog
                         selectedEnchatments.add(chckbxPacifying.getText());
                     
                     if(chckbxFreightening.isSelected())
-                        selectedEnchatments.add(chckbxFreightening.getText());
-                    
-                    System.out.println("test " + selectedEnchatments.size());
+                        selectedEnchatments.add(chckbxFreightening.getText());                    
                 
                     ItemJaxb.convertItemObjectToXml(new Item(itemNameTextField.getText(), itemTypesComboBox.getSelectedItem().toString(), (String) itemClassComboBox.getSelectedItem().toString(), itemLevelSlider.getValue(), selectedEnchatments));
                 }

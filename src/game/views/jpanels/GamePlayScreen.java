@@ -41,9 +41,9 @@ import game.model.character.CharactersList;
 import game.model.jaxb.CampaignJaxb;
 import game.model.jaxb.GamePlayJaxb;
 import game.model.onclickListeners.MapClickListener;
-import game.model.strategyPattern.AggresiveNPC;
-import game.model.strategyPattern.FriendlyNPC;
-import game.model.strategyPattern.HumanPlayer;
+import game.model.strategyPattern.strategies.AggresiveNPC;
+import game.model.strategyPattern.strategies.FriendlyNPC;
+import game.model.strategyPattern.strategies.HumanPlayer;
 import game.views.jdialogs.DialogHelper;
 import game.views.jdialogs.InventoryViewDialog;
 

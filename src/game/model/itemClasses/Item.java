@@ -33,7 +33,7 @@ public class Item
     @XmlElement(name = "itemLevel")
     public int itemLevel;
     @XmlElement(name = "weaponEnchatments")
-    private ArrayList<String> weaponEnchatments;
+    public ArrayList<String> weaponEnchatments;
     
     private int modifier;
     
