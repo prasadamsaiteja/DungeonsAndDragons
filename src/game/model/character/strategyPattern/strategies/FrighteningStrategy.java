@@ -60,32 +60,32 @@ public class FrighteningStrategy implements MomentStrategy{
                 int verticalDistance = playerLocation[1] - characterLocation[1];
                 
                 if((horizontalDistance * horizontalDistance < verticalDistance * verticalDistance) && verticalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] + 1].equals(SharedVariables.WALL_STRING)){                
-                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving left";
+                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving right";
                     movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] + 1);
                 }
                 
                 else if((horizontalDistance * horizontalDistance < verticalDistance * verticalDistance) && verticalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] - 1].equals(SharedVariables.WALL_STRING)){
-                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving right";
+                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving left";
                     movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] - 1);
                 }
                     
                 else if((horizontalDistance * horizontalDistance > verticalDistance * verticalDistance) && horizontalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] + 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
-                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving up";
+                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving down";
                     movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0] + 1), characterLocation[1]);
                 }
                     
                 else if((horizontalDistance * horizontalDistance > verticalDistance * verticalDistance) && horizontalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] - 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
-                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving down";
+                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving up";
                     movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0] - 1), characterLocation[1]);
                 }
                 
                 else if(verticalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] - 1].equals(SharedVariables.WALL_STRING)){                
-                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving left";
+                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving right";
                     movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] + 1);
                 }
                 
                 else if(verticalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] + 1].equals(SharedVariables.WALL_STRING)){
-                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving right";
+                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving left";
                     movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] - 1);
                 }
                 
