@@ -7,5 +7,5 @@ public interface MomentStrategy {
     public void pickItemsFromChest();
     public void playTurn();
     public void moveToNextMap();
-    
+    public void addBorderIfRangedWeapon();
 }

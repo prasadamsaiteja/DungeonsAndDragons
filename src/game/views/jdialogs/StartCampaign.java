@@ -88,7 +88,7 @@ public class StartCampaign extends JDialog
           @Override
           public void actionPerformed(ActionEvent e) {
               dispose();
-              GameLauncher.mainFrameObject.replaceJPanel(new GamePlayScreen(campaignComboBox.getSelectedItem().toString(), characterComboBox.getSelectedItem().toString()));
+              GameLauncher.mainFrameObject.replaceJPanel(new GamePlayScreen(campaignComboBox.getSelectedItem().toString(), characterComboBox.getSelectedItem().toString(), rdbtnHuman.isSelected()));
           }
         });
         getContentPane().add(btnStart);

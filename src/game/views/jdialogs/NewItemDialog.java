@@ -130,37 +130,34 @@ class NewItemDialog extends JDialog
         weapon_enchantment_type.setVisible(false);
         
         if(loadedItem != null){        	
-        	int index=0;
-        	Iterator itr = loadedItem.weaponEnchatments.iterator(); 
-        	
-        	while(itr.hasNext()){
-        		Object enchantments = itr.next();
-        		System.out.println(enchantments.toString());
-        		switch(enchantments.toString()){
-				
-				case "Freezing" : 
-					chckbxFreezing.setSelected(true);
-					break;
-								  
-				case "Burning": 
-					chckbxBurning.setSelected(true);
-				    break;
-				    
-				case "Slaying"	:
-					chckbxSlaying.setSelected(true);
-					break;
-					
-				case "Pacifying":
-					chckbxPacifying.setSelected(true);
-					break;
-				
-				case "Frightening":
-					chckbxFreightening.setSelected(true);
-					break;
-					
- 			 }
-        	}
-        	
+            Iterator itr = loadedItem.weaponEnchatments.iterator(); 
+            
+            while(itr.hasNext()){
+                Object enchantments = itr.next();
+                switch(enchantments.toString()){
+                        
+                        case "Freezing" : 
+                                chckbxFreezing.setSelected(true);
+                                break;
+                                                          
+                        case "Burning": 
+                                chckbxBurning.setSelected(true);
+                            break;
+                            
+                        case "Slaying"  :
+                                chckbxSlaying.setSelected(true);
+                                break;
+                                
+                        case "Pacifying":
+                                chckbxPacifying.setSelected(true);
+                                break;
+                        
+                        case "Frightening":
+                                chckbxFreightening.setSelected(true);
+                                break;
+                                
+                 }                    
+            }        	
         }
 
         // Name Fields

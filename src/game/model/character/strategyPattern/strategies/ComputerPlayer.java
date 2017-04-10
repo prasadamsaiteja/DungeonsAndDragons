@@ -32,17 +32,17 @@ import game.views.jdialogs.DialogHelper;
 import game.views.jpanels.GamePlayScreen;
 import game.views.jpanels.LaunchScreen;
 
-public class HumanPlayer implements MomentStrategy{
+public class ComputerPlayer implements MomentStrategy{
     
-    int playerMomentCount = 0;
-    boolean isAttackPerformed = false;
     private GamePlayScreen gamePlayScreen;
+    private int playerMomentCount;
+    private boolean isAttackPerformed = false;
     public Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
 
-    public HumanPlayer(GamePlayScreen gamePlayScreen){
+    public ComputerPlayer(GamePlayScreen gamePlayScreen) {
         this.gamePlayScreen = gamePlayScreen;
     }
-    
+
     @Override
     public void movePlayer(String message, int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
         
@@ -51,8 +51,10 @@ public class HumanPlayer implements MomentStrategy{
             Object temppreviousMapCellObject = previousMapCellObject;
             previousMapCellObject = gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];             
             gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] = gamePlayScreen.character;
-            gamePlayScreen.currentMap.mapData[fromRowNumber][fromColNumber] = temppreviousMapCellObject;             
-            gamePlayScreen.repaintMap();             
+            gamePlayScreen.currentMap.mapData[fromRowNumber][fromColNumber] = temppreviousMapCellObject;   
+            playerMomentCount--;
+            gamePlayScreen.repaintMap();
+            tryPerformAttackIfAnyNearByMonster();
             
             if(previousMapCellObject instanceof Character){
                                     
@@ -106,9 +108,7 @@ public class HumanPlayer implements MomentStrategy{
             previousMapCellObject = gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];             
             gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] = gamePlayScreen.character;
             gamePlayScreen.currentMap.mapData[fromRowNumber][fromColNumber] = temppreviousMapCellObject;              
-            gamePlayScreen.repaintMap();
-            tryPerformAttackIfAnyNearByMonster();
-            playerMomentCount++;
+            gamePlayScreen.repaintMap(); 
             Console.printInConsole(message);
             
             if(previousMapCellObject instanceof Item)
@@ -133,82 +133,17 @@ public class HumanPlayer implements MomentStrategy{
             
             if(((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getIsFriendlyMonster() == false && isAttackPerformed == false)
                 attack(toRowNumber, toColNumber);
-            
             else if(((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getIsFriendlyMonster() == true)
                 exchangeItemsFromFriendlyMonsters(toRowNumber, toColNumber);
         }
-        
+
+        playerMomentCount++;
         if(playerMomentCount >= 3){
-            playerMomentCount = 0;            
+            playerMomentCount = 0;
             gamePlayScreen.isTurnFinished = true;
         }
     }
     
-    private void tryPerformAttackIfAnyNearByMonster() {
-        
-        int playerPosition[] = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
-        
-        try{
-            
-            if(gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 0] instanceof Character){
-                Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 0];
-                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
-                    movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] - 1, playerPosition[1] + 0);
-            }
-            
-            else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 0] instanceof Character){
-                Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 0];
-                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
-                    movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] + 0);
-            }
-            
-            else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] + 1] instanceof Character){
-                Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] + 1];
-                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
-                    movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 0, playerPosition[1] + 1);
-            }
-            
-            else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] - 1] instanceof Character){
-                Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] - 1];
-                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
-                    movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 0, playerPosition[1] - 1);
-            }      
-            
-            else if(gamePlayScreen.character.getWeaponObject().itemClass.equals("Ranged")){
-                
-                if(gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] - 1] instanceof Character){
-                    Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] - 1];
-                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
-                        movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] - 1, playerPosition[1] - 1);
-                }
-                
-                else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 1] instanceof Character){
-                    Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 1];
-                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
-                        movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] + 1);
-                }
-                
-                else if(gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 1] instanceof Character){
-                    Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 1];
-                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
-                        movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] - 1, playerPosition[1] + 1);
-                }
-                
-                else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] - 1] instanceof Character){
-                    Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] - 1];
-                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
-                        movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] - 1);
-                }    
-            }
-        }
-        
-        catch(Exception ignored){}
-        
-        finally{}
-        
-    }
-    
-
     /**
      * This method lets player to exchange items from friendly monster
      * 
@@ -217,6 +152,7 @@ public class HumanPlayer implements MomentStrategy{
      */
     private void exchangeItemsFromFriendlyMonsters(int toRowNumber, int toColNumber) {
        
+        playerMomentCount--;
         Character friendlyMonster = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];
         
         if(JOptionPane.showConfirmDialog(null, "Do you want to exchange items from this friendly monster (" + friendlyMonster.getName() + ") ?","You approched a friendly monster", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
@@ -346,12 +282,13 @@ public class HumanPlayer implements MomentStrategy{
 
     @Override
     public void attack(int toRowNumber, int toColNumber) {
-                
+                        
         int attackPoints = gamePlayScreen.character.attackPoint();
+        playerMomentCount--;
         isAttackPerformed = true;
         
         if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
-                                    
+                                                
             Weapon weapon;
             if(gamePlayScreen.character.getWeaponObject().getItemType().equalsIgnoreCase("Melee"))
                 weapon = new WeaponDecorator(new MeleeWeapon());
@@ -418,16 +355,216 @@ public class HumanPlayer implements MomentStrategy{
 
     @Override
     public void playTurn() {
+        
         isAttackPerformed = false;
-        gamePlayScreen.playerMomentMechanics.setKeyListeners(gamePlayScreen);
         tryPerformAttackIfAnyNearByMonster();
+        for (playerMomentCount = 0; playerMomentCount < 3; playerMomentCount++) {            
+            
+            if(checkIfTheObjectiveIsCompleted() == true)
+                moveTowardsExitDoor();
+            else
+                completeObjective();
+            
+            try { Thread.sleep(800); } catch(InterruptedException ignored) {}  
+        }
+        gamePlayScreen.isTurnFinished = true;
+    }
+
+    private void completeObjective() {
+        
+        if(GameMechanics.checkIfKeyExistsInTheMap(gamePlayScreen.currentMap))
+            collectKey();
+        else
+            KillMonsters();
+    }
+
+    private void KillMonsters() {
+        
+        int[] characterLocation = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
+        int[] enemyLocation = GameMechanics.getNearestMonsterPosition(gamePlayScreen.currentMap, gamePlayScreen.character);       
+        
+        if(enemyLocation != null){
+            
+            int horizontalDistance = enemyLocation[0] - characterLocation[0];
+            int verticalDistance = enemyLocation[1] - characterLocation[1];
+            
+            if((horizontalDistance * horizontalDistance < verticalDistance * verticalDistance) && verticalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] - 1].equals(SharedVariables.WALL_STRING)){                
+                String message = "   => " + gamePlayScreen.character.getName() + " moving left";
+                movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] - 1);
+            }
+            
+            else if((horizontalDistance * horizontalDistance < verticalDistance * verticalDistance) && verticalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] + 1].equals(SharedVariables.WALL_STRING)){
+                String message = "   => " + gamePlayScreen.character.getName() + " moving right";
+                movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] + 1);
+            }
+                
+            else if((horizontalDistance * horizontalDistance > verticalDistance * verticalDistance) && horizontalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] - 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
+                String message = "   => " + gamePlayScreen.character.getName() + " moving up";
+                movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0] - 1), characterLocation[1]);
+            }
+                
+            else if((horizontalDistance * horizontalDistance > verticalDistance * verticalDistance) && horizontalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] + 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
+                String message = "   => " + gamePlayScreen.character.getName() + " moving down";
+                movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0] + 1), characterLocation[1]);
+            }
+            
+            else if(verticalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] - 1].equals(SharedVariables.WALL_STRING)){                
+                String message = "   => " + gamePlayScreen.character.getName() + " moving left";
+                movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] - 1);
+            }
+            
+            else if(verticalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] + 1].equals(SharedVariables.WALL_STRING)){
+                String message = "   => " + gamePlayScreen.character.getName() + " moving right";
+                movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] + 1);
+            }
+            
+        }                
+    }
+
+    private void collectKey() {
+        
+        int[] characterLocation = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
+        int[] keyLocation = GameMechanics.getKeyPosition(gamePlayScreen.currentMap);
+        
+        int horizontalDistance = keyLocation[0] - characterLocation[0];
+        int verticalDistance = keyLocation[1] - characterLocation[1];
+        
+        if((horizontalDistance * horizontalDistance < verticalDistance * verticalDistance) && verticalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] - 1].equals(SharedVariables.WALL_STRING)){                
+            String message = "   => " + gamePlayScreen.character.getName() + " moving left";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] - 1);
+        }
+        
+        else if((horizontalDistance * horizontalDistance < verticalDistance * verticalDistance) && verticalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] + 1].equals(SharedVariables.WALL_STRING)){
+            String message = "   => " + gamePlayScreen.character.getName() + " moving right";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] + 1);
+        }
+            
+        else if((horizontalDistance * horizontalDistance > verticalDistance * verticalDistance) && horizontalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] - 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
+            String message = "   => " + gamePlayScreen.character.getName() + " moving up";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0] - 1), characterLocation[1]);
+        }
+            
+        else if((horizontalDistance * horizontalDistance > verticalDistance * verticalDistance) && horizontalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] + 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
+            String message = "   => " + gamePlayScreen.character.getName() + " moving down";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0] + 1), characterLocation[1]);
+        }
+        
+        else if(verticalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] - 1].equals(SharedVariables.WALL_STRING)){                
+            String message = "   => " + gamePlayScreen.character.getName() + " moving left";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] - 1);
+        }
+        
+        else if(verticalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] + 1].equals(SharedVariables.WALL_STRING)){
+            String message = "   => " + gamePlayScreen.character.getName() + " moving right";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] + 1);
+        }
+    }
+
+    private void moveTowardsExitDoor() {
+        
+        int[] characterLocation = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
+        int[] doorLocation = GameMechanics.getExitDoorPosition(gamePlayScreen.currentMap);
+        
+        int horizontalDistance = doorLocation[0] - characterLocation[0];
+        int verticalDistance = doorLocation[1] - characterLocation[1];
+        
+        if((horizontalDistance * horizontalDistance < verticalDistance * verticalDistance) && verticalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] - 1].equals(SharedVariables.WALL_STRING)){                
+            String message = "   => " + gamePlayScreen.character.getName() + " moving left";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] - 1);
+        }
+        
+        else if((horizontalDistance * horizontalDistance < verticalDistance * verticalDistance) && verticalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] + 1].equals(SharedVariables.WALL_STRING)){
+            String message = "   => " + gamePlayScreen.character.getName() + " moving right";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] + 1);
+        }
+            
+        else if((horizontalDistance * horizontalDistance > verticalDistance * verticalDistance) && horizontalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] - 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
+            String message = "   => " + gamePlayScreen.character.getName() + " moving up";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0] - 1), characterLocation[1]);
+        }
+            
+        else if((horizontalDistance * horizontalDistance > verticalDistance * verticalDistance) && horizontalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] + 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
+            String message = "   => " + gamePlayScreen.character.getName() + " moving down";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0] + 1), characterLocation[1]);
+        }
+        
+        else if(verticalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] - 1].equals(SharedVariables.WALL_STRING)){                
+            String message = "   => " + gamePlayScreen.character.getName() + " moving left";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] - 1);
+        }
+        
+        else if(verticalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] + 1].equals(SharedVariables.WALL_STRING)){
+            String message = "   => " + gamePlayScreen.character.getName() + " moving right";
+            movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] + 1);
+        }
     }
 
     @Override
     public void addBorderIfRangedWeapon() {
+        // TODO Auto-generated method stub
         
-        //if(gamePlayScreen.character.getWeaponObject() != null && gamePlayScreen.character.getWeaponObject().itemClass.equals("Ranged"))
-            //GameMechanics.addRangedBorder(gamePlayScreen, GameMechanics.getPlayerPosition(gamePlayScreen.currentMap));   
     }
 
+    private void tryPerformAttackIfAnyNearByMonster() {
+        
+        int playerPosition[] = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, gamePlayScreen.character);
+        
+        try{
+            
+            if(gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 0] instanceof Character){
+                Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 0];
+                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                    movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] - 1, playerPosition[1] + 0);
+            }
+            
+            else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 0] instanceof Character){
+                Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 0];
+                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                    movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] + 0);
+            }
+            
+            else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] + 1] instanceof Character){
+                Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] + 1];
+                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                    movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 0, playerPosition[1] + 1);
+            }
+            
+            else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] - 1] instanceof Character){
+                Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] - 1];
+                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                    movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 0, playerPosition[1] - 1);
+            }      
+            
+            else if(gamePlayScreen.character.getWeaponObject().itemClass.equals("Ranged")){
+                
+                if(gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] - 1] instanceof Character){
+                    Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] - 1];
+                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                        movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] - 1, playerPosition[1] - 1);
+                }
+                
+                else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 1] instanceof Character){
+                    Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 1];
+                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                        movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] + 1);
+                }
+                
+                else if(gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 1] instanceof Character){
+                    Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 1];
+                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                        movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] - 1, playerPosition[1] + 1);
+                }
+                
+                else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] - 1] instanceof Character){
+                    Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] - 1];
+                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                        movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] - 1);
+                }    
+            }
+        }
+        
+        catch(Exception ignored){}
+        
+        finally{}
+    }
 }

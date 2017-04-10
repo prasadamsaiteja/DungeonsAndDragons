@@ -12,6 +12,7 @@ public class FrighteningStrategy implements MomentStrategy{
     private GamePlayScreen gamePlayScreen;
     private Character character, frightenedByCharacter;
     private int frightenedTurns;
+    public Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
     
     public FrighteningStrategy(GamePlayScreen gamePlayScreen, Character character, Character frightenedByCharacter, int frightenedTurns) {
         this.gamePlayScreen = gamePlayScreen;
@@ -24,14 +25,13 @@ public class FrighteningStrategy implements MomentStrategy{
     public void movePlayer(String message, int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
         
         if(!(gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] instanceof Character)){            
-            Object tempPreviousMapCellObject = gamePlayScreen.previousMapCellObject;
-            gamePlayScreen.previousMapCellObject = gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];             
+            Object tempPreviousMapCellObject = previousMapCellObject;
+            previousMapCellObject = gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];             
             gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber] = character;
             gamePlayScreen.currentMap.mapData[fromRowNumber][fromColNumber] = tempPreviousMapCellObject;                          
             Console.printInConsole(message);                        
             gamePlayScreen.repaintMap(); 
-        }  
-        
+        }          
     }
 
     @Override
@@ -104,6 +104,12 @@ public class FrighteningStrategy implements MomentStrategy{
 
     @Override
     public void moveToNextMap() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void addBorderIfRangedWeapon() {
         // TODO Auto-generated method stub
         
     }

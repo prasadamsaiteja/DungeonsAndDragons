@@ -55,4 +55,10 @@ public class FreezingStrategy implements MomentStrategy{
 
     }
 
+    @Override
+    public void addBorderIfRangedWeapon() {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

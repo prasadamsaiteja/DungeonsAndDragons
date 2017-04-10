@@ -10,23 +10,23 @@ import game.views.jpanels.GamePlayScreen;
 public class FrighteningEnchantment extends WeaponDecorator{
 
     private GamePlayScreen gamePlayScreen;
-    private Character character, frightenedByCharacter;
+    private Character enemyCharacter, frightenedByCharacter;
     
-    public FrighteningEnchantment(GamePlayScreen gamePlayScreen, Weapon decoratedWeapon, Character character, Character frightenedByCharacter){
+    public FrighteningEnchantment(GamePlayScreen gamePlayScreen, Weapon decoratedWeapon, Character enenmyCharacter, Character frightenedByCharacter){        
         super(decoratedWeapon);
         this.gamePlayScreen = gamePlayScreen;
-        this.character = character;
+        this.enemyCharacter = enenmyCharacter;
         this.frightenedByCharacter = frightenedByCharacter;
         
     }
     
     @Override
     public int damagePoints(Character character) {
-        this.character.pushMomentStrategy(new FrighteningStrategy(gamePlayScreen, this.character, frightenedByCharacter, character.getWeaponObject().getModifier()));
+        this.enemyCharacter.pushMomentStrategy(new FrighteningStrategy(gamePlayScreen, this.enemyCharacter, frightenedByCharacter, character.getWeaponObject().getModifier()));
         if(frightenedByCharacter.isPlayer())
-            Console.printInConsole("   => you have frightened a hostile monster(" + this.character.getName() + ") for " + character.getWeaponObject().getModifier() + " turns");
+            Console.printInConsole("   => you have frightened a hostile monster(" + this.enemyCharacter.getName() + ") for " + character.getWeaponObject().getModifier() + " turns");
         else
-            Console.printInConsole("   => " + frightenedByCharacter.getName() + " has frightened a hostile monster(" + this.character.getName() + ") for " + character.getWeaponObject().getModifier() + " turns");
+            Console.printInConsole("   => " + frightenedByCharacter.getName() + " has frightened a hostile monster(" + this.enemyCharacter.getName() + ") for " + character.getWeaponObject().getModifier() + " turns");
         return super.damagePoints(character);
     }
 

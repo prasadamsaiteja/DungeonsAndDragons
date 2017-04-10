@@ -1,13 +1,15 @@
 package game.components;
 
-	/**
-	 * This class contains common methods used for displaying data to console and
-	 * keeping log entries.
-	 * 
-	 * @author saiteja prasadam
-	 * @version 1.0
-	 * @since 2/2/2017
-	 */
+import game.views.jpanels.GamePlayScreen;
+
+/**
+ * This class contains common methods used for displaying data to console and
+ * keeping log entries.
+ * 
+ * @author saiteja prasadam
+ * @version 1.0
+ * @since 2/2/2017
+ */
 public class Console {
 
     /**
@@ -18,6 +20,10 @@ public class Console {
     public static void printInConsole(String message)
     {
         System.out.println(message);
+        if(GamePlayScreen.console != null && GamePlayScreen.consoleScrollPane != null){
+            GamePlayScreen.console.append("\n");
+            GamePlayScreen.console.append(message);  
+        }
     }
 
     /**
@@ -29,7 +35,6 @@ public class Console {
     public static void printInConsole(String message, Boolean enterIntoLog)
     {
         printInConsole(message);
-        // Enter log
     }
 
 }

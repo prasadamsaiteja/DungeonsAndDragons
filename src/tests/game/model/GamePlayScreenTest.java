@@ -31,7 +31,7 @@ public class GamePlayScreenTest {
      */
     @BeforeClass
     public static void initVariables(){
-        gameplayScreen = new GamePlayScreen("campaign 1", "saitej");                
+        gameplayScreen = new GamePlayScreen("campaign 1", "saitej", false);                
     }
     
     /**

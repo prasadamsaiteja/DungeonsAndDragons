@@ -1,12 +1,15 @@
 package game.components;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import game.model.Map;
 import game.model.character.Character;
 import game.model.item.Item;
+import game.views.jpanels.GamePlayScreen;
 
 /**
  * This class contains all the method required for 
@@ -53,6 +56,36 @@ public class GameMechanics {
                                    
       return null;              
   }
+    
+    /**
+     * This method returns the exit door position
+     * @param currentMap this is the map object
+     * @return return array of int, The first int contains row number and second int contains column number
+     */
+    public static int[] getExitDoorPosition(Map currentMap){
+    
+      for (int i = 0; i < currentMap.mapWidth; i++)      
+        for (int j = 0; j < currentMap.mapHeight; j++)
+               if(currentMap.mapData[i][j] instanceof String && ((String) currentMap.mapData[i][j]).equals(SharedVariables.EXIT_DOOR_STRING))
+                 return new int[]{i, j};
+                                   
+      return null;              
+    }  
+
+    /**
+     * This method returns the key position
+     * @param currentMap this is the map object
+     * @return return array of int, The first int contains row number and second int contains column number
+     */
+    public static int[] getKeyPosition(Map currentMap){
+    
+      for (int i = 0; i < currentMap.mapWidth; i++)      
+        for (int j = 0; j < currentMap.mapHeight; j++)
+               if(currentMap.mapData[i][j] instanceof String && ((String) currentMap.mapData[i][j]).equals(SharedVariables.KEY_STRING))
+                 return new int[]{i, j};
+                                   
+      return null;              
+    } 
   
     /**
      * This method returns all the characters in the map
@@ -100,5 +133,59 @@ public class GameMechanics {
                     return new int[]{i, j};
         
         return null;          
+    }
+
+    /**
+     * This method returns current position of nearest monster
+     * @param currentMap Current map playing
+     * @param checkNearestToCharacter check nearest positon related to this character position.
+     * @return return array of int, The first int contains row number and second int contains column number
+     */
+    public static int[] getNearestMonsterPosition(Map currentMap, Character checkNearestToCharacter){
+        
+        for (int i = 0; i < currentMap.mapWidth; i++)      
+            for (int j = 0; j < currentMap.mapHeight; j++)
+                if(currentMap.mapData[i][j] instanceof Character && !((Character) currentMap.mapData[i][j]).getIsFriendlyMonster()) 
+                    return new int[]{i, j};
+        
+        return null;   
+        
+    }
+
+    public static void addRangedBorder(GamePlayScreen gamePlayScreen, int[] playerPosition) {
+        
+        removeBorder(gamePlayScreen);
+        
+        if(playerPosition[0] - 1 >= 0 && playerPosition[1] - 1 >= 0 && gamePlayScreen.currentMap.mapHeight > playerPosition[0] - 1 && gamePlayScreen.currentMap.mapWidth > playerPosition[1] - 1) //1
+            gamePlayScreen.mapJPanelArray[playerPosition[0] - 1][playerPosition[1] - 1].setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, Color.RED));         
+        
+        if(playerPosition[0] - 1 >= 0 && playerPosition[1] + 0 >= 0 && gamePlayScreen.currentMap.mapHeight > playerPosition[0] - 1 && gamePlayScreen.currentMap.mapWidth > playerPosition[1] + 0) //2 
+            gamePlayScreen.mapJPanelArray[playerPosition[0] - 1][playerPosition[1] + 0].setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.RED));
+        
+        if(playerPosition[0] - 1 >= 0 && playerPosition[1] + 1 >= 0 && gamePlayScreen.currentMap.mapHeight > playerPosition[0] - 1 && gamePlayScreen.currentMap.mapWidth > playerPosition[1] + 1) //3
+            gamePlayScreen.mapJPanelArray[playerPosition[0] - 1][playerPosition[1] + 1].setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.RED));
+        
+        if(playerPosition[0] + 0 >= 0 && playerPosition[1] + 1 >= 0 && gamePlayScreen.currentMap.mapHeight > playerPosition[0] + 0 && gamePlayScreen.currentMap.mapWidth > playerPosition[1] + 1) //4
+            gamePlayScreen.mapJPanelArray[playerPosition[0] + 0][playerPosition[1] + 1].setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.RED));
+        
+        if(playerPosition[0] + 1 >= 0 && playerPosition[1] + 1 >= 0 && gamePlayScreen.currentMap.mapHeight > playerPosition[0] + 1 && gamePlayScreen.currentMap.mapWidth > playerPosition[1] + 1) //5
+            gamePlayScreen.mapJPanelArray[playerPosition[0] + 1][playerPosition[1] + 1].setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.RED));
+        
+        if(playerPosition[0] + 1 >= 0 && playerPosition[1] + 0 >= 0 && gamePlayScreen.currentMap.mapHeight > playerPosition[0] + 1 && gamePlayScreen.currentMap.mapWidth > playerPosition[1] + 0) //6
+            gamePlayScreen.mapJPanelArray[playerPosition[0] + 1][playerPosition[1] + 0].setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.RED));
+        
+        if(playerPosition[0] + 1 >= 0 && playerPosition[1] - 1 >= 0 && gamePlayScreen.currentMap.mapHeight > playerPosition[0] + 1 && gamePlayScreen.currentMap.mapWidth > playerPosition[1] - 1) //7
+            gamePlayScreen.mapJPanelArray[playerPosition[0] + 1][playerPosition[1] - 1].setBorder(BorderFactory.createMatteBorder(0, 1, 1, 0, Color.RED));
+        
+        if(playerPosition[0] + 0 >= 0 && playerPosition[1] - 1 >= 0 && gamePlayScreen.currentMap.mapHeight > playerPosition[0] + 0 && gamePlayScreen.currentMap.mapWidth > playerPosition[1] - 1) //8
+            gamePlayScreen.mapJPanelArray[playerPosition[0] + 0][playerPosition[1] - 1].setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, Color.RED));
+        
+    }
+
+    public static void removeBorder(GamePlayScreen gamePlayScreen) {
+        
+        for (int i = 0; i < gamePlayScreen.currentMap.mapWidth; i++)      
+            for (int j = 0; j < gamePlayScreen.currentMap.mapHeight; j++)
+                gamePlayScreen.mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 }

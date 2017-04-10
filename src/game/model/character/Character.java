@@ -357,7 +357,7 @@ public class Character extends Observable implements Cloneable
     {
         int attackBonus = 0;
 
-        Item weaponObj = this.getWeaponObject();
+        Item weaponObj = this.getWeaponObject();        
         if (weaponObj != null && weaponObj.itemClass.equalsIgnoreCase("Ranged"))            
             attackBonus += this.getDexterityModifier() + weaponObj.getModifier();
         

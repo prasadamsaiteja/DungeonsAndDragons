@@ -23,10 +23,13 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.text.DefaultCaret;
 
 import game.GameLauncher;
 import game.components.Console;
@@ -39,6 +42,7 @@ import game.model.character.Backpack;
 import game.model.character.Character;
 import game.model.character.CharactersList;
 import game.model.character.strategyPattern.strategies.AggresiveNPC;
+import game.model.character.strategyPattern.strategies.ComputerPlayer;
 import game.model.character.strategyPattern.strategies.FriendlyNPC;
 import game.model.character.strategyPattern.strategies.HumanPlayer;
 import game.model.jaxb.CampaignJaxb;
@@ -63,9 +67,11 @@ public class GamePlayScreen extends JPanel implements Observer{
     public PlayerMomentMechanics playerMomentMechanics;
     private Thread gameplayThread;
     
-    private JPanel mapJPanelArray[][];       
-    public int currentMapNumber = 0;
-    public Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
+    public static JTextArea console;
+    public static JScrollPane consoleScrollPane;
+    
+    public JPanel mapJPanelArray[][];       
+    public int currentMapNumber = 0;    
     private JPanel characterDetailsPanel;
     private InventoryViewDialog inventoryViewDialog;
     private ArrayList<Character> charactersTurnBasedMechnaism;
@@ -76,13 +82,19 @@ public class GamePlayScreen extends JPanel implements Observer{
      * 
      * @param camapaignName This is the campaign to be loaded
      * @param characterName This is the character to be loaded
+     * @param isHuman This boolean states the player is human controlled or not   
      */
-    public GamePlayScreen(String camapaignName, String characterName){
+    public GamePlayScreen(String camapaignName, String characterName, boolean isHuman){
       
          this.campaign = CampaignJaxb.getCampaignFromXml(camapaignName);
          this.character = CharactersList.getByName(characterName).clone();
          this.character.setPlayerFlag(true);
-         this.character.setMomentStrategy(new HumanPlayer(this));
+         
+         if(isHuman == true)
+             this.character.setMomentStrategy(new HumanPlayer(this));
+         else
+             this.character.setMomentStrategy(new ComputerPlayer(this));
+         
          this.playerMomentMechanics = new PlayerMomentMechanics();
          
          if(campaign == null || character == null)
@@ -123,7 +135,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     /**
      * This method initializes turn based mechanism
      */
-    private void initalizeTurnBasedMechanism(){
+    public void initalizeTurnBasedMechanism(){
         
         Console.printInConsole("Calculating turn based mechanism");
         charactersTurnBasedMechnaism = new ArrayList<>();          
@@ -166,20 +178,24 @@ public class GamePlayScreen extends JPanel implements Observer{
                     if(character.getHitScore() < 1)
                         continue;
                     
-                    Console.printInConsole("");
-                    Console.printInConsole("  *" + character.getName() + "'s turn");                   
+                    Console.printInConsole("");                    
                     
                     if(character.isPlayer()){
+                        
+                        Console.printInConsole("  *" + GamePlayScreen.this.character.getName() + "'s turn (" + GamePlayScreen.this.character.getHitScore() + "HP)");
                         GamePlayScreen.this.character.getMomentStrategy().playTurn();
+                        
                         if(GamePlayScreen.this.character.burningTurn > 0){
                             GamePlayScreen.this.character.hit(GamePlayScreen.this.character.bruningDamagePoints);
                             Console.printInConsole("   => you are burning - " + GamePlayScreen.this.character.bruningDamagePoints + "hp");
                             GamePlayScreen.this.character.burningTurn--;
-                        }
+                        }                        
                     }
                                                                     
                     else{
+                        Console.printInConsole("  *" + character.getName() + "'s turn (" + character.getHitScore() + "HP)");
                         character.getMomentStrategy().playTurn();
+                        
                         if(character.burningTurn > 0){
                             character.hit(character.bruningDamagePoints);
                             Console.printInConsole("   => " + character.getName() + " is burning - " + character.bruningDamagePoints + "hp");
@@ -428,13 +444,32 @@ public class GamePlayScreen extends JPanel implements Observer{
        designPanel.add(characterDetailsPanel, gbc_characterDetailsPanel);
        characterDetailsPanel.setLayout(new GridLayout(0, 1, 0, 0));    
        
-       JPanel panel = new JPanel();
+       JPanel consoleJpanel = new JPanel();
+       GridBagConstraints gbc_consoleJpanel = new GridBagConstraints();
+       gbc_consoleJpanel.fill = GridBagConstraints.BOTH;
+       gbc_consoleJpanel.gridx = 0;
+       gbc_consoleJpanel.gridy = 4;
+       designPanel.add(consoleJpanel, gbc_consoleJpanel);
+       consoleJpanel.setLayout(new GridLayout(1, 0, 0, 0));
+       
+       console = new JTextArea();
+       console.setFont(console.getFont().deriveFont(12f));
+       console.setSize(100, 1000);
+       console.setEditable(false);      
+       DefaultCaret caret = (DefaultCaret) console.getCaret();
+       caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);  
+       consoleJpanel.setBackground(Color.WHITE); 
+       consoleJpanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), new EtchedBorder()));  
+       consoleScrollPane = new JScrollPane(console);
+       consoleJpanel.add(consoleScrollPane);
+       
+       JPanel abort_saveButtonsJpanel = new JPanel();
        GridBagConstraints gbc_panel = new GridBagConstraints();
        gbc_panel.fill = GridBagConstraints.BOTH;
        gbc_panel.gridx = 0;
        gbc_panel.gridy = 11;
-       designPanel.add(panel, gbc_panel);
-       panel.setLayout(new GridLayout(1, 0, 0, 0));
+       designPanel.add(abort_saveButtonsJpanel, gbc_panel);
+       abort_saveButtonsJpanel.setLayout(new GridLayout(1, 0, 0, 0));
        
        JButton btnAbortButton = new JButton("Abort game");
        btnAbortButton.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -446,7 +481,7 @@ public class GamePlayScreen extends JPanel implements Observer{
                 GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());                
             }
         });
-       panel.add(btnAbortButton);
+       abort_saveButtonsJpanel.add(btnAbortButton);
        
        JButton btnSaveButton = new JButton("Save");
        btnSaveButton.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -464,7 +499,7 @@ public class GamePlayScreen extends JPanel implements Observer{
                     
             }
         });
-       panel.add(btnSaveButton);
+       abort_saveButtonsJpanel.add(btnSaveButton);
              
        showPlayerDetails(character);
    }
@@ -591,15 +626,15 @@ public class GamePlayScreen extends JPanel implements Observer{
      */
     public void repaintMap() {
      
-     for (int i = 0; i < currentMap.mapWidth; i++)      
-       for (int j = 0; j < currentMap.mapHeight; j++) {
-         
-         for(MouseListener listener : mapJPanelArray[i][j].getMouseListeners())  
-             mapJPanelArray[i][j].removeMouseListener(listener);
-           
-           mapJPanelArray[i][j].addMouseListener(new MapClickListener(this, currentMap.mapData[i][j]));
-           mapJPanelArray[i][j] = GameMechanics.setMapCellDetailsFromMapObjectData(mapJPanelArray[i][j], currentMap.mapData[i][j]);
-       }                  
+         for (int i = 0; i < currentMap.mapWidth; i++)      
+           for (int j = 0; j < currentMap.mapHeight; j++) {
+             
+               for(MouseListener listener : mapJPanelArray[i][j].getMouseListeners())  
+                   mapJPanelArray[i][j].removeMouseListener(listener);
+               
+               mapJPanelArray[i][j].addMouseListener(new MapClickListener(this, currentMap.mapData[i][j]));              
+               mapJPanelArray[i][j] = GameMechanics.setMapCellDetailsFromMapObjectData(mapJPanelArray[i][j], currentMap.mapData[i][j]);
+           }                      
     }            
               
     /**
