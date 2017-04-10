@@ -516,6 +516,16 @@ public class Character extends Observable implements Cloneable
         this.items.put("Helmet", helmet);
         this.draw();
     }
+    
+    /**
+     *  This method sets the weapon for the character
+     * @param weapon the weapon to set
+     */
+    public void setWeapon(String weapon)
+    {
+    	this.items.put("Weapon", weapon);
+    	this.draw();
+    }
 
     /**
      * This method gets the weapon item object

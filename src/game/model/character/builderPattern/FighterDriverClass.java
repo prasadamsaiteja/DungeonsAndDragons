@@ -18,6 +18,7 @@ public class FighterDriverClass
 	public FighterDirector fighterDirector;
 	private FighterBuilder fighterType;
 	
+	
 	/**
 	 * Constructor that checks for the fighter type
 	 * @param fighterName Name of the fighter
@@ -40,6 +41,24 @@ public class FighterDriverClass
 		fighterDirector = new FighterDirector();
 		fighterDirector.setFb(fighterType);
 		fighterDirector.constructFighter();
+		
 	}
-
+	
+	/**
+	 * This method returns the fighter type
+	 * @return Fighter  fighter object
+	 */
+	public Fighter getFighter(){
+			return fighterDirector.getFighter();
+	}
+	
+	/**
+	 * This method returns the fighter director type
+	 * @return FighterDirector  fighter object
+	 */
+	public FighterDirector getFighterDirector(){
+			return fighterDirector;
+		}
+		
+		
 }
