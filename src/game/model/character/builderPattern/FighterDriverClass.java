@@ -49,16 +49,18 @@ public class FighterDriverClass
 	 * @return Fighter  fighter object
 	 */
 	public Fighter getFighter(){
-			return fighterDirector.getFighter();
+		
+		return fighterDirector.getFighter();
 	}
 	
 	/**
 	 * This method returns the fighter director type
-	 * @return FighterDirector  fighter object
+	 * @return FighterDirector  fighterDirector  object
 	 */
 	public FighterDirector getFighterDirector(){
-			return fighterDirector;
-		}
+		
+		return fighterDirector;
+	}
 		
 		
 }

@@ -31,7 +31,7 @@ public class GamePlayScreenTest {
      */
     @BeforeClass
     public static void initVariables(){
-        gameplayScreen = new GamePlayScreen("campaign 1", "saitej", false);                
+        gameplayScreen = new GamePlayScreen("campaign 1", "saitej", true, true);                
     }
     
     /**
@@ -86,6 +86,8 @@ public class GamePlayScreenTest {
         gameplayScreen.playerMomentMechanics.new UP_PRESSED().actionPerformed(null);                
         
         int[] presentPlayerPosition = GameMechanics.getPlayerPosition(gameplayScreen.currentMap);
+        System.out.println("Present location" + previousPlayerPosition[0] + " " + previousPlayerPosition[1]  + "Present location"  + presentPlayerPosition[0] + " " + presentPlayerPosition[1]);
+
         assertNotEquals(previousPlayerPosition[0] + " " + previousPlayerPosition[1], presentPlayerPosition[0] + " " + presentPlayerPosition[1]);
     }
     

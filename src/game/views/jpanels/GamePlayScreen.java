@@ -66,6 +66,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     public Map currentMap;
     public PlayerMomentMechanics playerMomentMechanics;
     private Thread gameplayThread;
+    private boolean isTesting;
     
     public static JTextArea console;
     public static JScrollPane consoleScrollPane;
@@ -108,6 +109,42 @@ public class GamePlayScreen extends JPanel implements Observer{
              this.setMapLevel();
              this.initComponents();
              this.initalizeTurnBasedMechanism();
+         }
+           
+    }
+    
+    /**
+     * This is constructor method for this class
+     * 
+     * @param camapaignName This is the campaign to be loaded
+     * @param characterName This is the character to be loaded
+     * @param isHuman This boolean states the player is human controlled or not   
+     */
+    public GamePlayScreen(String camapaignName, String characterName, boolean isHuman, boolean isTesting){
+      
+         this.campaign = CampaignJaxb.getCampaignFromXml(camapaignName);
+         this.character = CharactersList.getByName(characterName).clone();
+         this.character.setPlayerFlag(true);
+         this.isTesting = isTesting;
+         
+         if(isHuman == true)
+             this.character.setMomentStrategy(new HumanPlayer(this));
+         else
+             this.character.setMomentStrategy(new ComputerPlayer(this));
+         
+         this.playerMomentMechanics = new PlayerMomentMechanics();
+         
+         if(campaign == null || character == null)
+             DialogHelper.showBasicDialog("Error reading saved files");
+         
+         else{
+             this.campaign.fetchMaps();
+             this.character.backpack = new Backpack();
+             this.currentMap = campaign.getMapList().get(currentMapNumber);             
+             this.currentMap.initalizeMapData(this.character.getName());              
+             this.setMapLevel();
+             this.initComponents();
+             playerMomentMechanics.setKeyListeners(this);
          }
            
     }

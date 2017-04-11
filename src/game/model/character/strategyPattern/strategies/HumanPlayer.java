@@ -144,7 +144,7 @@ public class HumanPlayer implements MomentStrategy{
         }
     }
     
-    private void tryPerformAttackIfAnyNearByMonster() {
+    public void tryPerformAttackIfAnyNearByMonster() {
         
         int playerPosition[] = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
         

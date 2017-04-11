@@ -7,6 +7,11 @@ import game.model.item.decoratorPattern.Weapon;
 import game.model.item.decoratorPattern.WeaponDecorator;
 import game.views.jpanels.GamePlayScreen;
 
+/**
+ * This Enchantment have the freezing effect on the item 
+ * @author RahulReddy
+ * @version 1.0.0 
+ */
 public class FreezingEnchantment extends WeaponDecorator{
     
     private Character enemyCharacter;
