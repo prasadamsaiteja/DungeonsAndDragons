@@ -19,6 +19,8 @@ public class FrighteningEnchantment extends WeaponDecorator{
     
     /**
      * Constructor for the Pacifying effect
+     * @param decoratedWeapon added effects on weapon
+     * @param enenmyCharacter opposition character
      * @param gamePlayScreen screen play
      * @param decoratedWeapon added effects on weapon
      * @param enenmyCharacter opposition character

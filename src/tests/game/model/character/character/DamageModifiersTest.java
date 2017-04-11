@@ -53,7 +53,7 @@ public class DamageModifiersTest {
 
 		assertEquals(expectedDamagePoints, generatedDamagePoints_Range);
 		
-		assertNotEquals(expectedDamagePoints,generatedDamagePoints_Melee);
+		assertNotEquals(expectedDamagePoints, generatedDamagePoints_Melee);
 	}
 
 }
