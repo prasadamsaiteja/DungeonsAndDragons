@@ -118,7 +118,8 @@ public class GamePlayScreen extends JPanel implements Observer{
      * 
      * @param camapaignName This is the campaign to be loaded
      * @param characterName This is the character to be loaded
-     * @param isHuman This boolean states the player is human controlled or not   
+     * @param isHuman This boolean states the player is human controlled or not 
+     * @param isTesting in test case  
      */
     public GamePlayScreen(String camapaignName, String characterName, boolean isHuman, boolean isTesting){
       

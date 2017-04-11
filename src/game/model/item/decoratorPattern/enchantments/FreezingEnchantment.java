@@ -17,12 +17,23 @@ public class FreezingEnchantment extends WeaponDecorator{
     private Character enemyCharacter;
     private GamePlayScreen gamePlayScreen;
     
+    /**
+     * Constructor for the Pacifying effect
+     * @param gamePlayScreen screen play
+     * @param decoratedWeapon added effects on weapon
+     * @param enemyCharacter opposition character
+     */
     public FreezingEnchantment(GamePlayScreen gamePlayScreen, Weapon decoratedWeapon, Character enemyCharacter){
         super(decoratedWeapon);
         this.enemyCharacter = enemyCharacter;
         this.gamePlayScreen = gamePlayScreen;
     }
     
+    /**
+     *This method calculates damage points
+     *@param character enemy character
+     *@return int damage points
+     */
     @Override
     public int damagePoints(Character character) {
         

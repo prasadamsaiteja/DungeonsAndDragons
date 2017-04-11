@@ -150,6 +150,11 @@ public class Item
         return hMapList;
     }
     
+    /**
+     * This method get all Weapon Enchatments
+     * @param index count
+     * @return string enchantments
+     */
     public String getWeaponEnchatments(int index) {
     	return weaponEnchatments.get(index);
 	}

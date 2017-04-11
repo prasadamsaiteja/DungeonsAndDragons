@@ -19,9 +19,10 @@ public class FrighteningEnchantment extends WeaponDecorator{
     
     /**
      * Constructor for the Pacifying effect
-     * @param decoratedWeapon added effects on weapon
-     * @param enemeyCharacter opposition character
      * @param gamePlayScreen screen play
+     * @param decoratedWeapon added effects on weapon
+     * @param enenmyCharacter opposition character
+     * @param frightenedByCharacter attacked character
      */
     public FrighteningEnchantment(GamePlayScreen gamePlayScreen, Weapon decoratedWeapon, Character enenmyCharacter, Character frightenedByCharacter){        
         super(decoratedWeapon);
@@ -31,6 +32,11 @@ public class FrighteningEnchantment extends WeaponDecorator{
         
     }
     
+    /**
+     *This method calculates damage points
+     *@param character enemy character
+     *@return int damage points
+     */
     @Override
     public int damagePoints(Character character) {
         this.enemyCharacter.pushMomentStrategy(new FrighteningStrategy(gamePlayScreen, this.enemyCharacter, frightenedByCharacter, character.getWeaponObject().getModifier()));

@@ -18,8 +18,9 @@ public class PacifyingEnchantment extends WeaponDecorator{
     
     /**
      * Constructor for the Pacifying effect
+     * 
      * @param decoratedWeapon added effects on weapon
-     * @param enemeyCharacter opposition character
+     * @param enemyCharacter opponent
      * @param gamePlayScreen screen play
      */
     public PacifyingEnchantment(Weapon decoratedWeapon, Character enemyCharacter, GamePlayScreen gamePlayScreen){
