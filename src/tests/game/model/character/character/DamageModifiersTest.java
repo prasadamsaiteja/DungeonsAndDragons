@@ -36,12 +36,12 @@ public class DamageModifiersTest {
 		if(character.getWeaponObject().itemClass.equalsIgnoreCase("Melee"))
 		{
 			expectedDamagePoints = diceRoll + character.getStrengthModifier();
-			System.out.println("melee points" + expectedDamagePoints +" .. " +diceRoll);
+			System.out.println("melee expected damage points" + expectedDamagePoints +" .. " +diceRoll);
 		}
 		else
 		{
 			expectedDamagePoints = diceRoll;
-			System.out.println("Ranged points" +" .. "+ expectedDamagePoints );
+			System.out.println("Ranged expected damage points" +" .. "+ expectedDamagePoints );
 		}
 		
 		generatedDamagePoints_Range = diceRoll ;

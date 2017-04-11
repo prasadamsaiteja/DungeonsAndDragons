@@ -7,11 +7,22 @@ import game.model.item.decoratorPattern.Weapon;
 import game.model.item.decoratorPattern.WeaponDecorator;
 import game.views.jpanels.GamePlayScreen;
 
+/**
+ * This Enchantment have the frightening effect on the item 
+ * @author RahulReddy
+ * @version 1.0.0
+ */
 public class FrighteningEnchantment extends WeaponDecorator{
 
     private GamePlayScreen gamePlayScreen;
     private Character enemyCharacter, frightenedByCharacter;
     
+    /**
+     * Constructor for the Pacifying effect
+     * @param decoratedWeapon added effects on weapon
+     * @param enemeyCharacter opposition character
+     * @param gamePlayScreen screen play
+     */
     public FrighteningEnchantment(GamePlayScreen gamePlayScreen, Weapon decoratedWeapon, Character enenmyCharacter, Character frightenedByCharacter){        
         super(decoratedWeapon);
         this.gamePlayScreen = gamePlayScreen;

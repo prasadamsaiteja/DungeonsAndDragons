@@ -9,33 +9,42 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class AbilityScoresTest {
-
-	 int strength, constitution, dexterity;
-	 FighterDriverClass fighter;
-	 Fighter f;
-	 FighterDirector fd;
-	 boolean comparision1,comparision2 ;
-
-	@Before 
-	public void before(){
-		fighter = new FighterDriverClass("Bully");
-		fd = fighter.getFighterDirector();
-		f = fighter.getFighter();
-		strength = f.getConstitution();
-		constitution = f.getConstitution();
-		dexterity = f.getDexterity();
+	
+	@Test
+	public void testBullyAbilityScores() {
+		
+		Fighter fighter = new FighterDriverClass("Bully").getFighter();
+		int strength = fighter.getConstitution();
+		int constitution = fighter.getConstitution();
+		int dexterity = fighter.getDexterity();
+		
+		assertTrue(strength >= constitution);		
+		assertTrue(constitution >= dexterity);		
 	}
 	
 	@Test
-	public void testAbilityScores() {
-		if(strength >= constitution)
-			comparision1 = true;
+	public void testNimbleAbilityScores() {
 		
-		if(constitution >= dexterity)
-			comparision2 = true;
+		Fighter fighter = new FighterDriverClass("Nimble").getFighter();
+		int strength = fighter.getConstitution();
+		int constitution = fighter.getConstitution();
+		int dexterity = fighter.getDexterity();
 		
-		assertTrue(comparision1);
-		assertTrue(comparision2);
+		assertTrue(dexterity >= constitution);		
+		assertTrue(constitution >= strength);		
+	}
+	
+	@Test
+	public void testTankAbilityScores() {
+		
+		Fighter fighter = new FighterDriverClass("Tank").getFighter();
+		int strength = fighter.getConstitution();
+		int constitution = fighter.getConstitution();
+		int dexterity = fighter.getDexterity();
+		
+		System.out.println(constitution + " " + dexterity + " " + strength);
+		assertTrue(constitution >= dexterity);		
+		assertTrue(dexterity >= strength);
 	}
 
 }

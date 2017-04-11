@@ -5,6 +5,11 @@ import game.model.character.Character;
 import game.model.item.decoratorPattern.Weapon;
 import game.model.item.decoratorPattern.WeaponDecorator;
 
+/**
+ * This Enchantment have the effect on the item 
+ * @author RahulReddy
+ * @version 1.0.0
+ */
 public class BurningEnchantment extends WeaponDecorator{
 
     private Character enemyCharacter;
