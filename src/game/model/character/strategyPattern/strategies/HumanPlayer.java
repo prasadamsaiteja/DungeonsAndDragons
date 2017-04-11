@@ -32,6 +32,11 @@ import game.views.jdialogs.DialogHelper;
 import game.views.jpanels.GamePlayScreen;
 import game.views.jpanels.LaunchScreen;
 
+/**
+ * This class is for  player that strives to complete the objective
+ * @author teja
+ * @version 1.0.0
+ */
 public class HumanPlayer implements MomentStrategy{
     
     int playerMomentCount = 0;
@@ -39,10 +44,23 @@ public class HumanPlayer implements MomentStrategy{
     private GamePlayScreen gamePlayScreen;
     public Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
 
+
+    /**
+     * Default constructor of  Player
+     * @param gamePlayScreen screen play
+     */
     public HumanPlayer(GamePlayScreen gamePlayScreen){
         this.gamePlayScreen = gamePlayScreen;
     }
     
+    /**
+     * This method moves the player according the action performed
+     * @param message action performed by the character
+     * @param fromRowNumber initial row position
+     * @param fromColNumber initial col position
+     * @param toRowNumber  final row position
+     * @param toColNumber final col position
+     */
     @Override
     public void movePlayer(String message, int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
         
@@ -144,6 +162,9 @@ public class HumanPlayer implements MomentStrategy{
         }
     }
     
+    /**
+     * This method for try's Perform Attack If Any Near By Monster
+     */
     public void tryPerformAttackIfAnyNearByMonster() {
         
         int playerPosition[] = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
@@ -208,7 +229,6 @@ public class HumanPlayer implements MomentStrategy{
         
     }
     
-
     /**
      * This method lets player to exchange items from friendly monster
      * 
@@ -346,6 +366,11 @@ public class HumanPlayer implements MomentStrategy{
         return true;
     }
 
+    /**
+     * This method is for attacking character 
+     * @param toRowNumber  final row position
+     * @param toColNumber final col position
+     */
     @Override
     public void attack(int toRowNumber, int toColNumber) {
                 
@@ -397,6 +422,9 @@ public class HumanPlayer implements MomentStrategy{
             Console.printInConsole("   => you missed hitting a hostile monster(" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " - " + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + attackPoints + " attack points");                       
     }
 
+    /**
+     * This method pick Items From Chest
+     */
     @Override
     public void pickItemsFromChest() {
         
@@ -422,6 +450,9 @@ public class HumanPlayer implements MomentStrategy{
         }
     }
 
+    /**
+     * This method is for playing respective turn
+     */
     @Override
     public void playTurn() {
         isAttackPerformed = false;
@@ -429,6 +460,9 @@ public class HumanPlayer implements MomentStrategy{
         tryPerformAttackIfAnyNearByMonster();
     }
 
+    /**
+     * This method adds Border If Ranged Weapon
+     */
     @Override
     public void addBorderIfRangedWeapon() {
         

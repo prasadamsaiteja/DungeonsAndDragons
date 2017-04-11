@@ -16,13 +16,18 @@ public class SlayingEnchantment extends WeaponDecorator{
     /**
      * Constructor for the Slaying effect
      * @param decoratedWeapon added effects on weapon
-     * @param enemeyCharacter opposition character
+     * @param enemeyCharacter opposition 
      */
     public SlayingEnchantment(Weapon decoratedWeapon, Character enemeyCharacter){
         super(decoratedWeapon);
         this.enemeyCharacter = enemeyCharacter;        
     }
     
+    /**
+     *This method calculates damage points
+     *@param character enemy character
+     *@return int damage points
+     */
     @Override
     public int damagePoints(Character character) {
         int weaponDamage = super.damagePoints(character);  

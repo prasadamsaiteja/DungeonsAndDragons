@@ -152,6 +152,11 @@ public class GameMechanics {
         
     }
 
+    /**
+     * This method adds the border around a character
+     * @param gamePlayScreen screen play
+     * @param playerPosition position of player
+     */
     public static void addRangedBorder(GamePlayScreen gamePlayScreen, int[] playerPosition) {
         
         removeBorder(gamePlayScreen);
@@ -182,6 +187,10 @@ public class GameMechanics {
         
     }
 
+    /**
+     * This method removes the border
+     * @param gamePlayScreen screen play
+     */
     public static void removeBorder(GamePlayScreen gamePlayScreen) {
         
         for (int i = 0; i < gamePlayScreen.currentMap.mapWidth; i++)      

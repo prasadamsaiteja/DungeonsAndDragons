@@ -7,6 +7,11 @@ import game.model.character.Character;
 import game.model.character.strategyPattern.MomentStrategy;
 import game.views.jpanels.GamePlayScreen;
 
+/**
+ * This class is for  player that is frightened in nature by the sword that is frightening effect
+ * @author teja
+ * @version 1.0.0
+ */
 public class FrighteningStrategy implements MomentStrategy{
 
     private GamePlayScreen gamePlayScreen;
@@ -14,6 +19,14 @@ public class FrighteningStrategy implements MomentStrategy{
     private int frightenedTurns;
     public Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
     
+
+    /**
+     * Default constructor of computer Player
+     * @param gamePlayScreen screen play
+     * @param character  defender
+     * @param frightenedByCharacter attacker
+     * @param frightenedTurns turn count
+     */
     public FrighteningStrategy(GamePlayScreen gamePlayScreen, Character character, Character frightenedByCharacter, int frightenedTurns) {
         this.gamePlayScreen = gamePlayScreen;
         this.character = character;
@@ -21,6 +34,14 @@ public class FrighteningStrategy implements MomentStrategy{
         this.frightenedTurns = frightenedTurns;
     }
     
+    /**
+     * This method moves the player according the action performed
+     * @param message action performed by the character
+     * @param fromRowNumber initial row position
+     * @param fromColNumber initial col position
+     * @param toRowNumber  final row position
+     * @param toColNumber final col position
+     */
     @Override
     public void movePlayer(String message, int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
         
@@ -34,18 +55,29 @@ public class FrighteningStrategy implements MomentStrategy{
         }          
     }
 
+    /**
+     * This method is for attacking character 
+     * @param toRowNumber  final row position
+     * @param toColNumber final col position
+     */
     @Override
     public void attack(int toRowNumber, int toColNumber) {
         // TODO Auto-generated method stub
         
     }
 
+    /**
+     * This method pick Items From Chest
+     */
     @Override
     public void pickItemsFromChest() {
         // TODO Auto-generated method stub
         
     }
 
+    /**
+     * This method is for playing respective turn
+     */
     @Override
     public void playTurn() {
         
@@ -107,12 +139,18 @@ public class FrighteningStrategy implements MomentStrategy{
         
     }
 
+    /**
+     * This method changes the map if the player completes the current map
+     */
     @Override
     public void moveToNextMap() {
         // TODO Auto-generated method stub
         
     }
 
+    /**
+     * This method adds Border If Ranged Weapon
+     */
     @Override
     public void addBorderIfRangedWeapon() {
         // TODO Auto-generated method stub

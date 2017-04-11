@@ -5,9 +5,16 @@ import game.model.character.builderPattern.Fighter;
 import game.model.character.builderPattern.FighterDriverClass;
 
 import org.junit.Test;
-
+/**
+ * This class is for testing the ablility scores
+ * @author RahulReddy
+ * @version 1.0.0
+ */
 public class AbilityScoresTest {
         
+	/**
+	 * This method is for testing the bully ability scores
+	 */
     @Test
     public void testBullyAbilityScores() {
             
@@ -20,6 +27,9 @@ public class AbilityScoresTest {
         assertTrue(constitution >= dexterity);          
     }
     
+    /**
+	 * This method is for testing the nimble ability scores
+	 */
     @Test
     public void testNimbleAbilityScores() {
             
@@ -32,6 +42,9 @@ public class AbilityScoresTest {
         assertTrue(constitution >= strength);           
     }
     
+    /**
+	 * This method is for testing the tank ability scores
+	 */
     @Test
     public void testTankAbilityScores() {
             

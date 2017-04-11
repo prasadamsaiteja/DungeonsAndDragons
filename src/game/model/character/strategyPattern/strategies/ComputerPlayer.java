@@ -32,6 +32,11 @@ import game.views.jdialogs.DialogHelper;
 import game.views.jpanels.GamePlayScreen;
 import game.views.jpanels.LaunchScreen;
 
+/**
+ * This class is for  player that is computer driven character 
+ * @author teja
+ * @version 1.0.0
+ */
 public class ComputerPlayer implements MomentStrategy{
     
     private GamePlayScreen gamePlayScreen;
@@ -39,10 +44,22 @@ public class ComputerPlayer implements MomentStrategy{
     private boolean isAttackPerformed = false;
     public Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
 
+    /**
+     * Default constructor of computer Player
+     * @param gamePlayScreen screen play
+     */
     public ComputerPlayer(GamePlayScreen gamePlayScreen) {
         this.gamePlayScreen = gamePlayScreen;
     }
 
+    /**
+     * This method moves the player according the action performed
+     * @param message action performed by the character
+     * @param fromRowNumber initial row position
+     * @param fromColNumber initial col position
+     * @param toRowNumber  final row position
+     * @param toColNumber final col position
+     */
     @Override
     public void movePlayer(String message, int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
         
@@ -280,6 +297,11 @@ public class ComputerPlayer implements MomentStrategy{
         return true;
     }
 
+    /**
+     * This method is for attacking character 
+     * @param toRowNumber  final row position
+     * @param toColNumber final col position
+     */
     @Override
     public void attack(int toRowNumber, int toColNumber) {
                         
@@ -332,6 +354,9 @@ public class ComputerPlayer implements MomentStrategy{
             Console.printInConsole("   => you missed hitting a hostile monster(" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " - " + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + attackPoints + " attack points");                       
     }
 
+    /**
+     * This method pick Items From Chest
+     */
     @Override
     public void pickItemsFromChest() {
         
@@ -353,6 +378,9 @@ public class ComputerPlayer implements MomentStrategy{
         }
     }
 
+    /**
+     * This method is for playing respective turn
+     */
     @Override
     public void playTurn() {
         
@@ -370,6 +398,9 @@ public class ComputerPlayer implements MomentStrategy{
         gamePlayScreen.isTurnFinished = true;
     }
 
+    /**
+     * This method is for complete Objective
+     */
     private void completeObjective() {
         
         if(GameMechanics.checkIfKeyExistsInTheMap(gamePlayScreen.currentMap))
@@ -378,6 +409,9 @@ public class ComputerPlayer implements MomentStrategy{
             KillMonsters();
     }
 
+    /**
+     * This method for killing monsters
+     */
     private void KillMonsters() {
         
         int[] characterLocation = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
@@ -421,6 +455,9 @@ public class ComputerPlayer implements MomentStrategy{
         }                
     }
 
+    /**
+     * This method for collecting key
+     */
     private void collectKey() {
         
         int[] characterLocation = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
@@ -460,6 +497,9 @@ public class ComputerPlayer implements MomentStrategy{
         }
     }
 
+    /**
+     *  This method is for move Towards Exit Door
+     */
     private void moveTowardsExitDoor() {
         
         int[] characterLocation = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
@@ -499,12 +539,18 @@ public class ComputerPlayer implements MomentStrategy{
         }
     }
 
+    /**
+     * This method adds Border If Ranged Weapon
+     */
     @Override
     public void addBorderIfRangedWeapon() {
         // TODO Auto-generated method stub
         
     }
 
+    /**
+     * This method for try's Perform Attack If Any Near By Monster
+     */
     private void tryPerformAttackIfAnyNearByMonster() {
         
         int playerPosition[] = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, gamePlayScreen.character);

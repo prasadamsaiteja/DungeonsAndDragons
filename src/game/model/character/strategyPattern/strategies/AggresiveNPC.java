@@ -17,6 +17,11 @@ import game.model.item.decoratorPattern.enchantments.PacifyingEnchantment;
 import game.model.item.decoratorPattern.enchantments.SlayingEnchantment;
 import game.views.jpanels.GamePlayScreen;
 
+/**
+ * This class is for  monster that is Aggressive and attacks player
+ * @author teja
+ * @version 1.0.0
+ */
 public class AggresiveNPC implements MomentStrategy{
     
     private Character character;
@@ -25,11 +30,24 @@ public class AggresiveNPC implements MomentStrategy{
     private int playerMomentCount;
     public Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
     
+    /**
+     * Default constructor of monster
+     * @param gamePlayScreen screen play
+     * @param character monster
+     */
     public AggresiveNPC(GamePlayScreen gamePlayScreen, Character character) {
         this.gamePlayScreen = gamePlayScreen;
         this.character = character;
     }
 
+    /**
+     * This method moves the player according the action performed
+     * @param message action performed by the character
+     * @param fromRowNumber initial row position
+     * @param fromColNumber initial col position
+     * @param toRowNumber  final row position
+     * @param toColNumber final col position
+     */
     @Override
     public void movePlayer(String message, int fromRowNumber, int fromColNumber, int toRowNumber, int toColNumber) {
         
@@ -57,6 +75,11 @@ public class AggresiveNPC implements MomentStrategy{
                     
     }
 
+    /**
+     * This method is for attacking character 
+     * @param toRowNumber  final row position
+     * @param toColNumber final col position
+     */
     @Override
     public void attack(int toRowNumber, int toColNumber) {
         
@@ -118,6 +141,9 @@ public class AggresiveNPC implements MomentStrategy{
             Console.printInConsole("   => " + character.getName() + " missed hitting a friendly monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " - "+ ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + attackPoints + " attack points");
     }
 
+    /**
+     * This method pick Items From Chest
+     */
     @Override
     public void pickItemsFromChest() {
                 
@@ -132,6 +158,9 @@ public class AggresiveNPC implements MomentStrategy{
         character.draw();
     }
 
+    /**
+     * This method is for playing respective turn
+     */
     @Override
     public void playTurn() {
                 
@@ -183,18 +212,27 @@ public class AggresiveNPC implements MomentStrategy{
         gamePlayScreen.isTurnFinished = true;
     }
 
+    /**
+     * This method changes the map if the player completes the current map
+     */
     @Override
     public void moveToNextMap() {
         // TODO Auto-generated method stub
         
     }
 
+    /**
+     * This method adds Border If Ranged Weapon
+     */
     @Override
     public void addBorderIfRangedWeapon() {
         // TODO Auto-generated method stub
         
     }
-
+    
+    /**
+     * This method is for attacking monster if there is any near by monster
+     */
     private void tryPerformAttackIfAnyNearByMonster() {
         
         int playerPosition[] = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, character);

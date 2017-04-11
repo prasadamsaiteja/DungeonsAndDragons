@@ -6,8 +6,14 @@ import game.model.character.CharactersList;
 
 import org.junit.Test;
 
+/**
+ * This class is for testing the Attack modifiers
+ */
 public class AttackModifiersTest {
 	
+	/**
+	 * This method is for testing the Attack modifiers involved during combat
+	 */
     @Test
     public void testAttackModifiers(){
         

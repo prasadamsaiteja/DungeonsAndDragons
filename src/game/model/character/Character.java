@@ -1034,14 +1034,25 @@ public class Character extends Observable implements Cloneable
         return (new Dice(1, 20, 1)).getRollSum() + getAttackBonus();
     }
 
+    /**
+     * This method acts as a stack and push a strategy to character
+     * @param momentStrategy strategy to be pushed
+     */
     public void pushMomentStrategy(MomentStrategy momentStrategy) {
         this.momentStrategy.add(momentStrategy);
     }
     
+    /**
+     * This method acts as a stack and pop a strategy to character
+     */
     public void popMomentStrategy(){
         this.momentStrategy.remove(momentStrategy.size() - 1);
     }
 
+    /**
+     * This method starts burning the character 
+     * @param burningDamagePoints damage points
+     */
     public void startBurning(int burningDamagePoints){
         this.burningTurn = 3;
         this.bruningDamagePoints = burningDamagePoints;

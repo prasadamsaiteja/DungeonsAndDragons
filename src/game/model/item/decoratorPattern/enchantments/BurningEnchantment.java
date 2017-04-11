@@ -14,11 +14,21 @@ public class BurningEnchantment extends WeaponDecorator{
 
     private Character enemyCharacter;
     
+    /**
+     * Constructor for the Slaying effect
+     * @param decoratedWeapon added effects on weapon
+     * @param enemyCharacter opposition 
+     */
     public BurningEnchantment(Weapon decoratedWeapon, Character enemyCharacter){
         super(decoratedWeapon);
         this.enemyCharacter = enemyCharacter;
     }
     
+    /**
+     *This method calculates damage points
+     *@param character enemy character
+     *@return int damage points
+     */
     @Override
     public int damagePoints(Character character) {
         enemyCharacter.startBurning(character.getWeaponObject().getModifier() * 5);
