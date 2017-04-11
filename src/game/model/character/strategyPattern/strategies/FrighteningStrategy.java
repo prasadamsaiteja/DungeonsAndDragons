@@ -54,10 +54,15 @@ public class FrighteningStrategy implements MomentStrategy{
             for(int index = 0; index < 3; index++){
                 
                 int[] characterLocation = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, character);
-                int[] playerLocation = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, frightenedByCharacter);
+                int[] playerLocation;
                 
-                int horizontalDistance = playerLocation[0] - characterLocation[0];
-                int verticalDistance = playerLocation[1] - characterLocation[1];
+                if(frightenedByCharacter.isPlayer())
+                    playerLocation = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
+                else
+                    playerLocation = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, frightenedByCharacter);
+                
+                int verticalDistance = playerLocation[0] - characterLocation[0];
+                int horizontalDistance = playerLocation[1] - characterLocation[1];
                 
                 if((horizontalDistance * horizontalDistance < verticalDistance * verticalDistance) && verticalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] + 1].equals(SharedVariables.WALL_STRING)){                
                     String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving right";

@@ -188,4 +188,32 @@ public class GameMechanics {
             for (int j = 0; j < gamePlayScreen.currentMap.mapHeight; j++)
                 gamePlayScreen.mapJPanelArray[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
+
+    public static Character getAFriendlyMonster(Map currentMap){
+        
+        for (int i = 0; i < currentMap.mapWidth; i++)      
+            for (int j = 0; j < currentMap.mapHeight; j++)
+                if(currentMap.mapData[i][j] instanceof Character){
+                    
+                    Character character = (Character) currentMap.mapData[i][j];
+                    if(!character.isPlayer() && character.getIsFriendlyMonster())
+                        return character;
+                }
+        
+        return null;
+    }
+    
+    public static Character getAHostileMonster(Map currentMap){
+        
+        for (int i = 0; i < currentMap.mapWidth; i++)      
+            for (int j = 0; j < currentMap.mapHeight; j++)
+                if(currentMap.mapData[i][j] instanceof Character){
+                    
+                    Character character = (Character) currentMap.mapData[i][j];
+                    if(!character.isPlayer() && !character.getIsFriendlyMonster())
+                        return character;
+                }
+        
+        return null;
+    }
 }

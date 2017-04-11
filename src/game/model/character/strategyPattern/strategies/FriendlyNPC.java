@@ -185,7 +185,7 @@ public class FriendlyNPC implements MomentStrategy{
                 isMomentSuccessfull = false;
             }
             
-            if(isMomentSuccessfull)
+            if(isMomentSuccessfull && !gamePlayScreen.isTesting)
                 try { Thread.sleep(800); } catch(InterruptedException ignored) {}
             
             if(isMomentSuccessfull == false)

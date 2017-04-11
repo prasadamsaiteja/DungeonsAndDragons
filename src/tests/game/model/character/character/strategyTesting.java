@@ -3,13 +3,20 @@ package tests.game.model.character.character;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import game.components.GameMechanics;
+import game.model.character.strategyPattern.strategies.AggresiveNPC;
+import game.model.character.strategyPattern.strategies.ComputerPlayer;
 import game.model.character.strategyPattern.strategies.FreezingStrategy;
 import game.model.character.strategyPattern.strategies.FriendlyNPC;
+import game.model.character.strategyPattern.strategies.FrighteningStrategy;
+import game.model.character.Character;
 import game.views.jpanels.GamePlayScreen;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class strategyTesting {
 
     private static GamePlayScreen gamePlayScreen;
@@ -20,7 +27,7 @@ public class strategyTesting {
     }
     
     @Test
-    public void testFreezingStrategy(){
+    public void test1FreezingStrategy(){
         
         gamePlayScreen.character.setMomentStrategy(new FreezingStrategy(gamePlayScreen, gamePlayScreen.character, 3));
         int[] playerPositionBeforeTurn = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
@@ -35,17 +42,58 @@ public class strategyTesting {
     @Test
     public void testFriendlyStrategy(){
         
-        gamePlayScreen.character.popMomentStrategy();
-        gamePlayScreen.character.setMomentStrategy(new FriendlyNPC(gamePlayScreen, gamePlayScreen.character));        
+        Character friendlyMonster = GameMechanics.getAFriendlyMonster(gamePlayScreen.currentMap);
+        
+        friendlyMonster.setMomentStrategy(new FriendlyNPC(gamePlayScreen, friendlyMonster));        
+        int[] playerPositionBeforeTurn = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, friendlyMonster);
+                
+        friendlyMonster.getMomentStrategy().playTurn();
+        int[] playerPositionAfterTurn = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, friendlyMonster);
+        
+        assertTrue(playerPositionBeforeTurn[0] != playerPositionAfterTurn[0] || playerPositionBeforeTurn[1] != playerPositionAfterTurn[1]);
+    }
+    
+    @Test
+    public void test2MonsterStrategy(){
+     
+        Character monsterMonster = GameMechanics.getAHostileMonster(gamePlayScreen.currentMap);
+        
+        monsterMonster.setMomentStrategy(new AggresiveNPC(gamePlayScreen, monsterMonster));        
+        int[] monsterPositionBeforeTurn = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, monsterMonster);
+                
+        monsterMonster.getMomentStrategy().playTurn();
+        int[] monsterPositionAfterTurn = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, monsterMonster);
+        int[] playerPosition = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
+        
+        assertTrue(playerPosition[0] - monsterPositionBeforeTurn[0] < playerPosition[0] - monsterPositionAfterTurn[0] || playerPosition[1] - monsterPositionBeforeTurn[1] < playerPosition[1] - monsterPositionAfterTurn[1]);        
+    }
+    
+    @Test
+    public void test3FrightenedStrategy(){
+     
+        Character monsterMonster = GameMechanics.getAHostileMonster(gamePlayScreen.currentMap);
+        
+        monsterMonster.setMomentStrategy(new FrighteningStrategy(gamePlayScreen, monsterMonster, gamePlayScreen.character, 3));        
+        int[] monsterPositionBeforeTurn = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, monsterMonster);
+                
+        monsterMonster.getMomentStrategy().playTurn();
+        int[] monsterPositionAfterTurn = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, monsterMonster);
+        int[] playerPosition = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
+        
+        assertTrue(playerPosition[0] - monsterPositionBeforeTurn[0] > playerPosition[0] - monsterPositionAfterTurn[0] || playerPosition[1] - monsterPositionBeforeTurn[1] > playerPosition[1] - monsterPositionAfterTurn[1]);        
+    }
+    
+    @Test
+    public void test4ComputerStrategy(){
+     
+        gamePlayScreen.character.setMomentStrategy(new ComputerPlayer(gamePlayScreen));
         int[] playerPositionBeforeTurn = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
         
         gamePlayScreen.character.getMomentStrategy().playTurn();
         int[] playerPositionAfterTurn = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
-        
-        assertNotEquals(playerPositionBeforeTurn[0], playerPositionAfterTurn[0]);
-        assertNotEquals(playerPositionBeforeTurn[1], playerPositionAfterTurn[1]);
+        int[] monsterPosition = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, GameMechanics.getAHostileMonster(gamePlayScreen.currentMap));
+
+        assertTrue(monsterPosition[0] - playerPositionBeforeTurn[0] > monsterPosition[0] - playerPositionAfterTurn[0] || monsterPosition[1] - playerPositionBeforeTurn[1] > monsterPosition[1] - playerPositionAfterTurn[1]);        
     }
-    
-    
     
 }

@@ -176,6 +176,7 @@ public class AggresiveNPC implements MomentStrategy{
                 movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] + 1);
             }
             
+            if(!gamePlayScreen.isTesting)
             try { Thread.sleep(800); } catch(InterruptedException ignored) {}                           
         }        
         
