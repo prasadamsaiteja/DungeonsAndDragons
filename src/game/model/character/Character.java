@@ -398,11 +398,14 @@ public class Character extends Observable implements Cloneable
 
         Item armorObject = this.getArmorObject();
         // FIXME this logic needs to be re-confirmed and fixed
-        if (armorObject != null && (armorObject.itemClass.equalsIgnoreCase("Light") || armorObject.itemClass.equalsIgnoreCase("Medium")))            
-            armorClass += this.getDexterityModifier();                
-        
-        else            
-            armorClass += 14;
+        if (armorObject != null){
+            
+            if(armorObject.itemClass.equalsIgnoreCase("Light") || armorObject.itemClass.equalsIgnoreCase("Medium"))
+                armorClass += this.getDexterityModifier();                
+            
+            else            
+                armorClass += 14;
+        }
         
         if(armorObject != null)
             armorClass += armorObject.getModifier();

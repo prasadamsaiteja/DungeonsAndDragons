@@ -307,7 +307,9 @@ public class HumanPlayer implements MomentStrategy{
         }
         
         else{
-            JOptionPane.showConfirmDialog(null, "Congrats, you have cleared this map, you will now go to next map", "Map cleared", JOptionPane.PLAIN_MESSAGE);
+            if(!gamePlayScreen.isTesting)
+                JOptionPane.showConfirmDialog(null, "Congrats, you have cleared this map, you will now go to next map", "Map cleared", JOptionPane.PLAIN_MESSAGE);
+            
             gamePlayScreen.currentMapNumber++;                
             gamePlayScreen.currentMap = gamePlayScreen.campaign.getMapList().get(gamePlayScreen.currentMapNumber);
             gamePlayScreen.currentMap.initalizeMapData(gamePlayScreen.character.getName());
@@ -398,9 +400,11 @@ public class HumanPlayer implements MomentStrategy{
     @Override
     public void pickItemsFromChest() {
         
-        if(JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) previousMapCellObject).getItemType() + " (" + ((Item) previousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        if(gamePlayScreen.isTesting || JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) previousMapCellObject).getItemType() + " (" + ((Item) previousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+            
             if(gamePlayScreen.character.backpack.backpackItems.size() >= 10)
                 DialogHelper.showBasicDialog("Your backpack is full");
+            
             else{
                 Item item = (Item) previousMapCellObject;                            
                 
@@ -411,7 +415,9 @@ public class HumanPlayer implements MomentStrategy{
                            
                 gamePlayScreen.character.draw();
                 previousMapCellObject = new String(SharedVariables.DEFAULT_CELL_STRING);
-                DialogHelper.showBasicDialog("Awesome, you have picked up a " + item.itemType + " (" + item.itemName + ") from a abandoned chest");
+                
+                if(!gamePlayScreen.isTesting)
+                    DialogHelper.showBasicDialog("Awesome, you have picked up a " + item.itemType + " (" + item.itemName + ") from a abandoned chest");
             }
         }
     }

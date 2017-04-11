@@ -22,7 +22,7 @@ import game.views.jpanels.GamePlayScreen;
  * @since 2/28/2017
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class GamePlayScreenTest {
+public class GamePlayTest {
 
     private static GamePlayScreen gameplayScreen;
     

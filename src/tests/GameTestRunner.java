@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import tests.game.model.map.MapTest;
-import tests.game.model.GamePlayScreenTest;
+import tests.game.model.GamePlayTest;
 import tests.game.model.campaign.TestCampaignName;
 import tests.game.model.campaign.TestDeleteFileOperations;
 import tests.game.model.campaign.TestSaveFileOperations;
@@ -23,7 +23,7 @@ import tests.game.model.item.FileExistsTest;
 @RunWith(Suite.class)
 
 @SuiteClasses(
-{ ArmorClassTest.class, GamePlayScreenTest.class, MapTest.class, TestCampaignName.class,
+{ ArmorClassTest.class, GamePlayTest.class, MapTest.class, TestCampaignName.class,
   TestSaveFileOperations.class, TestDeleteFileOperations.class, DeleteFileTest.class, FileExistsTest.class, 
   AbilityScoresTest.class, AttackModifiersTest.class, DamageModifiersTest.class })
 

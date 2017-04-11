@@ -20,8 +20,9 @@ public class FrighteningEnchantment extends WeaponDecorator{
     /**
      * Constructor for the Pacifying effect
      * @param decoratedWeapon added effects on weapon
-     * @param enemeyCharacter opposition character
+     * @param enenmyCharacter opposition character
      * @param gamePlayScreen screen play
+     * @param frightenedByCharacter character which is frightened by
      */
     public FrighteningEnchantment(GamePlayScreen gamePlayScreen, Weapon decoratedWeapon, Character enenmyCharacter, Character frightenedByCharacter){        
         super(decoratedWeapon);

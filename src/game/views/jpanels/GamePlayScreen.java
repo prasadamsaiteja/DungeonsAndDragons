@@ -66,7 +66,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     public Map currentMap;
     public PlayerMomentMechanics playerMomentMechanics;
     private Thread gameplayThread;
-    private boolean isTesting;
+    public boolean isTesting;
     
     public static JTextArea console;
     public static JScrollPane consoleScrollPane;
@@ -119,6 +119,7 @@ public class GamePlayScreen extends JPanel implements Observer{
      * @param camapaignName This is the campaign to be loaded
      * @param characterName This is the character to be loaded
      * @param isHuman This boolean states the player is human controlled or not   
+     * @param isTesting This boolean states where the gameplay is in testing environment
      */
     public GamePlayScreen(String camapaignName, String characterName, boolean isHuman, boolean isTesting){
       
