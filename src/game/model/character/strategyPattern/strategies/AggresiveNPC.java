@@ -203,25 +203,25 @@ public class AggresiveNPC implements MomentStrategy{
             
             if(gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 0] instanceof Character){
                 Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 0];
-                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                if(nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                     movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] - 1, playerPosition[1] + 0);
             }
             
             else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 0] instanceof Character){
                 Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 0];
-                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                     movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] + 0);
             }
             
             else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] + 1] instanceof Character){
                 Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] + 1];
-                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                     movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 0, playerPosition[1] + 1);
             }
             
             else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] - 1] instanceof Character){
                 Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] - 1];
-                if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                     movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 0, playerPosition[1] - 1);
             }      
             
@@ -229,25 +229,25 @@ public class AggresiveNPC implements MomentStrategy{
                 
                 if(gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] - 1] instanceof Character){
                     Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] - 1];
-                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                    if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                         movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] - 1, playerPosition[1] - 1);
                 }
                 
                 else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 1] instanceof Character){
                     Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 1];
-                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                    if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                         movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] + 1);
                 }
                 
                 else if(gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 1] instanceof Character){
                     Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 1];
-                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                    if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                         movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] - 1, playerPosition[1] + 1);
                 }
                 
                 else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] - 1] instanceof Character){
                     Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] - 1];
-                    if(!nearByCharacter.getIsFriendlyMonster() && nearByCharacter.getHitScore() > 0)
+                    if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                         movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] - 1);
                 }    
             }
