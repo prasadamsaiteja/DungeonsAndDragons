@@ -44,7 +44,6 @@ public class HumanPlayer implements MomentStrategy{
     private GamePlayScreen gamePlayScreen;
     public Object previousMapCellObject = SharedVariables.DEFAULT_CELL_STRING;
 
-
     /**
      * Default constructor of  Player
      * @param gamePlayScreen screen play
@@ -237,9 +236,20 @@ public class HumanPlayer implements MomentStrategy{
      */
     private void exchangeItemsFromFriendlyMonsters(int toRowNumber, int toColNumber) {
        
-        Character friendlyMonster = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];
+        Character friendlyMonster = (Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber];        
+        String[] options = new String[3];
+        options[0] = new String("Hit");
+        options[1] = new String("Exchange Items");
+        options[2] = new String("Cancel");
         
-        if(JOptionPane.showConfirmDialog(null, "Do you want to exchange items from this friendly monster (" + friendlyMonster.getName() + ") ?","You approched a friendly monster", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        int result = JOptionPane.showOptionDialog(null,"You approched a friendly mosnter","Do you want to exchange items from this friendly monster (" + friendlyMonster.getName() + ") ?",0,JOptionPane.INFORMATION_MESSAGE,null,options,null);
+                
+        if(result == 0){
+            ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).setMomentStrategy(new AggresiveNPC(gamePlayScreen, ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber])));
+            ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).setFriendlyMonsterFlag(false);
+        }
+        
+        else if(result == 1){
             
             if(ExtensionMethods.fetchAllItemNames(gamePlayScreen.character).size() == 0)
                 DialogHelper.showBasicDialog("You don't have any item to exchange.");

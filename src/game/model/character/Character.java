@@ -820,6 +820,7 @@ public class Character extends Observable implements Cloneable
     public void setFriendlyMonsterFlag(boolean value)
     {
         isFriendlyMonster = value;
+        this.draw();
     }
 
     /**

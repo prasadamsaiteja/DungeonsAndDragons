@@ -22,8 +22,6 @@ public class FrighteningEnchantment extends WeaponDecorator{
      * @param decoratedWeapon added effects on weapon
      * @param enenmyCharacter opposition character
      * @param gamePlayScreen screen play
-     * @param decoratedWeapon added effects on weapon
-     * @param enenmyCharacter opposition character
      * @param frightenedByCharacter attacked character
      */
     public FrighteningEnchantment(GamePlayScreen gamePlayScreen, Weapon decoratedWeapon, Character enenmyCharacter, Character frightenedByCharacter){        
