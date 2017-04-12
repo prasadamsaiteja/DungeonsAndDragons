@@ -1,8 +1,5 @@
 package game.components;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
 import game.views.jpanels.GamePlayScreen;
 
 /**
@@ -13,10 +10,7 @@ import game.views.jpanels.GamePlayScreen;
  * @version 1.0
  * @since 2/2/2017
  */
-public class Console {
-    
-    public static JTextArea console;
-    public static JScrollPane consoleScrollPane;
+public class Console {   
 
     /**
      * Print the message to the console.
@@ -26,7 +20,7 @@ public class Console {
     public static void printInConsole(String message)
     {
         System.out.println(message);
-        if(GamePlayScreen.console != null && GamePlayScreen.consoleScrollPane != null){
+        if(GamePlayScreen.console != null && GamePlayScreen.consoleScrollPane != null){            
             GamePlayScreen.console.append("\n");
             GamePlayScreen.console.append(message);  
         }

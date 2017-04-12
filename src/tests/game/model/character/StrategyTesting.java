@@ -19,7 +19,7 @@ import game.views.jpanels.GamePlayScreen;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class StrategyTesting {
 
-    private static GamePlayScreen gamePlayScreen;
+    private GamePlayScreen gamePlayScreen;
     
     @Before
     public void init(){

@@ -21,6 +21,8 @@ import game.model.item.decoratorPattern.MeleeWeapon;
 import game.model.item.decoratorPattern.RangedWeapon;
 import game.model.item.decoratorPattern.WeaponDecorator;
 import game.model.jaxb.ItemJaxb;
+import game.views.jpanels.GamePlayScreen;
+import tests.game.model.character.CombatAttackRollTest;
 
 /**
  * Build a new character with a set of abilities associated with it
@@ -1034,6 +1036,9 @@ public class Character extends Observable implements Cloneable
      * @return attack points of the character
      */
     public int attackPoint(){
+        if(GamePlayScreen.isTesting)
+            return CombatAttackRollTest.dice + getAttackBonus();
+        
         return (new Dice(1, 20, 1)).getRollSum() + getAttackBonus();
     }
 

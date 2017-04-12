@@ -492,13 +492,15 @@ public class GamePlayScreen extends JPanel implements Observer{
        
        console = new JTextArea();
        console.setFont(console.getFont().deriveFont(12f));
-       console.setSize(100, 1000);
-       console.setEditable(false);      
+       console.setSize(150, 1000);
+       console.setEditable(false);       
+       console.setWrapStyleWord(true);       
        DefaultCaret caret = (DefaultCaret) console.getCaret();
        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);  
        consoleJpanel.setBackground(Color.WHITE); 
        consoleJpanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), new EtchedBorder()));  
        consoleScrollPane = new JScrollPane(console);
+       consoleScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
        consoleJpanel.add(consoleScrollPane);
        
        JPanel abort_saveButtonsJpanel = new JPanel();
@@ -573,6 +575,10 @@ public class GamePlayScreen extends JPanel implements Observer{
               if(index == 0){
                   key = "Character Name : ";
                   value = character.getName();
+                  if(character.getWeaponObject() != null && character.getWeaponObject().itemClass.equalsIgnoreCase("Melee"))
+                      value += " (Melee weapon)";
+                  else if(character.getWeaponObject() != null)
+                      value += " (Ranged weapon)";
               }
               
               else if(index == 1){
@@ -599,18 +605,18 @@ public class GamePlayScreen extends JPanel implements Observer{
               }
               
               else if(index == 4){
-                  key = "Strength : ";
-                  value = String.valueOf(character.getStrength());
+                  key = "Attack Bonus : ";
+                  value = String.valueOf(character.getAttackBonus());
               }
               
               else if(index == 5){
-                  key = "Strength modifier : ";
-                  value = String.valueOf(character.getStrengthModifier());
+                  key = "Damage bonus : ";
+                  value = String.valueOf(character.getDamageBonus());
               }
               
               else if(index == 6){
-                  key = "Dexterity : ";
-                  value = String.valueOf(character.getDexterity());
+                  key = "Strength modifier : ";
+                  value = String.valueOf(character.getStrengthModifier());
               }
               
               else if(index == 7){
