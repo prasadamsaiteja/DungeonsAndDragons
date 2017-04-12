@@ -1,4 +1,4 @@
-package tests.game.model.character.character;
+package tests.game.model.character;
 
 import static org.junit.Assert.*;
 import game.model.character.builderPattern.Fighter;

@@ -87,14 +87,14 @@ public class FrighteningStrategy implements MomentStrategy{
                 
                 int[] characterLocation = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, character);
                 int[] playerLocation;
-                
+                                
                 if(frightenedByCharacter.isPlayer())
                     playerLocation = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
                 else
                     playerLocation = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, frightenedByCharacter);
                 
                 int verticalDistance = playerLocation[0] - characterLocation[0];
-                int horizontalDistance = playerLocation[1] - characterLocation[1];
+                int horizontalDistance = playerLocation[1] - characterLocation[1];               
                 
                 if((horizontalDistance * horizontalDistance < verticalDistance * verticalDistance) && verticalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] + 1].equals(SharedVariables.WALL_STRING)){                
                     String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving right";
@@ -105,15 +105,15 @@ public class FrighteningStrategy implements MomentStrategy{
                     String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving left";
                     movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] - 1);
                 }
-                    
-                else if((horizontalDistance * horizontalDistance > verticalDistance * verticalDistance) && horizontalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] + 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
-                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving down";
-                    movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0] + 1), characterLocation[1]);
-                }
-                    
-                else if((horizontalDistance * horizontalDistance > verticalDistance * verticalDistance) && horizontalDistance > 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] - 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
+                 
+                else if((horizontalDistance * horizontalDistance >= verticalDistance * verticalDistance) && verticalDistance >= 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] - 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
                     String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving up";
                     movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0] - 1), characterLocation[1]);
+                }
+                
+                else if((horizontalDistance * horizontalDistance >= verticalDistance * verticalDistance) && horizontalDistance <= 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0] + 1][characterLocation[1]].equals(SharedVariables.WALL_STRING)){
+                    String message = "   => " + character.getName() + " is frightened by " + frightenedByCharacter.getName() + " and moving down";
+                    movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0] + 1), characterLocation[1]);
                 }
                 
                 else if(verticalDistance < 0 && !gamePlayScreen.currentMap.mapData[characterLocation[0]][characterLocation[1] - 1].equals(SharedVariables.WALL_STRING)){                

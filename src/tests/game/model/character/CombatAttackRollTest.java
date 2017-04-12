@@ -1,4 +1,4 @@
-package tests.game.model.character.character;
+package tests.game.model.character;
 
 import game.views.jpanels.GamePlayScreen;
 

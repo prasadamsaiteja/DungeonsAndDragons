@@ -1,5 +1,6 @@
 package game.model.item.decoratorPattern.enchantments;
 
+import game.components.Console;
 import game.model.character.Character;
 import game.model.character.strategyPattern.strategies.FriendlyNPC;
 import game.model.item.decoratorPattern.Weapon;
@@ -36,7 +37,12 @@ public class PacifyingEnchantment extends WeaponDecorator{
      */
     @Override
     public int damagePoints(Character character) {
+        enemyCharacter.setFriendlyMonsterFlag(true);
         enemyCharacter.setMomentStrategy(new FriendlyNPC(gamePlayScreen, enemyCharacter));
+        if(character.isPlayer())
+            Console.printInConsole("   => you have pacified a hostile monster(" + this.enemyCharacter.getName() + ")");
+        else
+            Console.printInConsole("   => " + character.getName() + " has pacified a hostile monster(" + this.enemyCharacter.getName() + ")");
         return super.damagePoints(character);
     }
 

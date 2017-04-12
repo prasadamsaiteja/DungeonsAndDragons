@@ -1,4 +1,4 @@
-package tests.game.model.character.character;
+package tests.game.model.character;
 
 import static org.junit.Assert.*;
 
@@ -17,7 +17,7 @@ import game.model.character.Character;
 import game.views.jpanels.GamePlayScreen;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class strategyTesting {
+public class StrategyTesting {
 
     private static GamePlayScreen gamePlayScreen;
     

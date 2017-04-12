@@ -387,7 +387,7 @@ public class HumanPlayer implements MomentStrategy{
         int attackPoints = gamePlayScreen.character.attackPoint();
         isAttackPerformed = true;
         
-        if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
+        if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() || gamePlayScreen.isTesting){
                                     
             Weapon weapon;
             if(gamePlayScreen.character.getWeaponObject().getItemType().equalsIgnoreCase("Melee"))
@@ -417,7 +417,7 @@ public class HumanPlayer implements MomentStrategy{
                         weapon = new FrighteningEnchantment(gamePlayScreen, weapon, ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]), gamePlayScreen.character);
                         break;
                         
-                    case "Pacifying": 
+                    case "Pacifying":
                         weapon = new PacifyingEnchantment(weapon, ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]), gamePlayScreen);
                         break;
                 }                
@@ -454,8 +454,11 @@ public class HumanPlayer implements MomentStrategy{
                 gamePlayScreen.character.draw();
                 previousMapCellObject = new String(SharedVariables.DEFAULT_CELL_STRING);
                 
-                if(!gamePlayScreen.isTesting)
+                if(!gamePlayScreen.isTesting){
                     DialogHelper.showBasicDialog("Awesome, you have picked up a " + item.itemType + " (" + item.itemName + ") from a abandoned chest");
+                    Console.printInConsole("   => Awesome, you have picked up a " + item.itemType + " (" + item.itemName + ") from a abandoned chest");
+                }
+                    
             }
         }
     }

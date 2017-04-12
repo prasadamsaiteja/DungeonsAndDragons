@@ -1,4 +1,4 @@
-package tests.game.model.character.character;
+package tests.game.model.character;
 
 import static org.junit.Assert.*;
 import game.model.character.Character;
@@ -11,9 +11,9 @@ import org.junit.Test;
  */
 public class AttackModifiersTest {
 	
-	/**
-	 * This method is for testing the Attack modifiers involved during combat
-	 */
+    /**
+     * This method is for testing the Attack modifiers involved during combat
+     */
     @Test
     public void testAttackModifiers(){
         

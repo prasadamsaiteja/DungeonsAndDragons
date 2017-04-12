@@ -9,10 +9,10 @@ import tests.game.model.GamePlayTest;
 import tests.game.model.campaign.TestCampaignName;
 import tests.game.model.campaign.TestDeleteFileOperations;
 import tests.game.model.campaign.TestSaveFileOperations;
-import tests.game.model.character.character.AbilityScoresTest;
-import tests.game.model.character.character.ArmorClassTest;
-import tests.game.model.character.character.AttackModifiersTest;
-import tests.game.model.character.character.DamageModifiersTest;
+import tests.game.model.character.AbilityScoresTest;
+import tests.game.model.character.ArmorClassTest;
+import tests.game.model.character.AttackModifiersTest;
+import tests.game.model.character.DamageModifiersTest;
 import tests.game.model.item.DeleteFileTest;
 import tests.game.model.item.FileExistsTest;
 
