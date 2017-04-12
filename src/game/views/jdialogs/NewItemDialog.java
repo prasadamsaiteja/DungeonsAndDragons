@@ -129,7 +129,7 @@ class NewItemDialog extends JDialog
         weapon_enchantment_type.add(chckbxPacifying);
         weapon_enchantment_type.setVisible(false);
         
-        if(loadedItem != null){        	
+        if(loadedItem != null && loadedItem.weaponEnchatments != null &&loadedItem.weaponEnchatments.size() > 0 ){        	
             Iterator itr = loadedItem.weaponEnchatments.iterator(); 
             
             while(itr.hasNext()){

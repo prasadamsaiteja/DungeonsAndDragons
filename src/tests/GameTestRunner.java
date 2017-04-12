@@ -12,9 +12,12 @@ import tests.game.model.campaign.TestSaveFileOperations;
 import tests.game.model.character.AbilityScoresTest;
 import tests.game.model.character.ArmorClassTest;
 import tests.game.model.character.AttackModifiersTest;
+import tests.game.model.character.CombatAttackRollTest;
 import tests.game.model.character.DamageModifiersTest;
+import tests.game.model.character.StrategyTesting;
 import tests.game.model.item.DeleteFileTest;
 import tests.game.model.item.FileExistsTest;
+import tests.game.model.item.WeaponEnchatmentTest;
 
 /**
  * This class runs all the test cases classes.
@@ -25,7 +28,8 @@ import tests.game.model.item.FileExistsTest;
 @SuiteClasses(
 { ArmorClassTest.class, GamePlayTest.class, MapTest.class, TestCampaignName.class,
   TestSaveFileOperations.class, TestDeleteFileOperations.class, DeleteFileTest.class, FileExistsTest.class, 
-  AbilityScoresTest.class, AttackModifiersTest.class, DamageModifiersTest.class })
+  AbilityScoresTest.class, AttackModifiersTest.class, DamageModifiersTest.class, WeaponEnchatmentTest.class,
+  CombatAttackRollTest.class, StrategyTesting.class, GamePlayTest.class })
 
 /**
  * This class initiates the junit test

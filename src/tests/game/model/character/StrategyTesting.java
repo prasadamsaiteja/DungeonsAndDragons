@@ -16,16 +16,27 @@ import game.model.character.strategyPattern.strategies.FrighteningStrategy;
 import game.model.character.Character;
 import game.views.jpanels.GamePlayScreen;
 
+/**
+ * This class tests the strategy of character
+ * @author teja
+ * @version 1.0.0
+ */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class StrategyTesting {
 
     private GamePlayScreen gamePlayScreen;
     
+    /**
+     * This method initializes the game play screen
+     */
     @Before
     public void init(){
         gamePlayScreen = new GamePlayScreen("campaign 1", "saitej", true, true);
     }
     
+    /**
+     * This method tests frezing strategy
+     */
     @Test
     public void test1FreezingStrategy(){
         
@@ -39,6 +50,9 @@ public class StrategyTesting {
         assertEquals(playerPositionBeforeTurn[1], playerPositionAfterTurn[1]);
     }
     
+    /**
+     * This method tests friendly Monster strategy
+     */
     @Test
     public void testFriendlyStrategy(){
         
@@ -53,6 +67,9 @@ public class StrategyTesting {
         assertTrue(playerPositionBeforeTurn[0] != playerPositionAfterTurn[0] || playerPositionBeforeTurn[1] != playerPositionAfterTurn[1]);
     }
     
+    /**
+     * This method tests Monster Strategy
+     */
     @Test
     public void test2MonsterStrategy(){
      
@@ -68,6 +85,9 @@ public class StrategyTesting {
         assertTrue(playerPosition[0] - monsterPositionBeforeTurn[0] < playerPosition[0] - monsterPositionAfterTurn[0] || playerPosition[1] - monsterPositionBeforeTurn[1] < playerPosition[1] - monsterPositionAfterTurn[1]);        
     }
     
+    /**
+     * This method tests frightened Strategy
+     */
     @Test
     public void test3FrightenedStrategy(){
      
@@ -83,6 +103,9 @@ public class StrategyTesting {
         assertTrue(playerPosition[0] - monsterPositionBeforeTurn[0] > playerPosition[0] - monsterPositionAfterTurn[0] || playerPosition[1] - monsterPositionBeforeTurn[1] > playerPosition[1] - monsterPositionAfterTurn[1]);        
     }
     
+    /**
+     *  This method tests computer Strategy
+     */
     @Test
     public void test4ComputerStrategy(){
      
