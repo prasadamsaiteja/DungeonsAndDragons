@@ -30,10 +30,8 @@ public class GamePlayJaxb {
      */
     public static final boolean convertGameObjectToXml(String savedGameTitle, GamePlayScreen gameplayObject)
     {
-
         try
         {
-                                                                     
             File file = new File(SharedVariables.SavedGamesDirectory + File.separator + savedGameTitle + ".xml");
             if (!file.exists())
             {

@@ -86,6 +86,7 @@ public class AggresiveNPC implements MomentStrategy{
         
         if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
                         
+            Console.printInConsole("   => Attack performed " + attackPoints + " attack points >= " + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class");
             Weapon weapon = character.getWeaponDecorator();
             
             if(character.getWeaponObject() != null && character.getWeaponObject().weaponEnchatments != null)
@@ -119,19 +120,41 @@ public class AggresiveNPC implements MomentStrategy{
             int damagePoints = weapon.damagePoints(character);
             if(((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).isPlayer()){
                 gamePlayScreen.character.hit(damagePoints);
-                Console.printInConsole("   => " + character.getName() + " hitted you with " + damagePoints + " damage points");    
+                if(character.getWeaponObject().itemClass.equalsIgnoreCase("Melee")){
+                    int dice = damagePoints - character.getStrengthModifier();
+                    Console.printInConsole("   => " + character.getName() + " hitted you with " + damagePoints + "(1D8) damage points");
+                    Console.printInConsole("    => dice(1D8): " + dice + ", strength modifier: " + character.getStrengthModifier());
+                }
+                
+                else
+                    Console.printInConsole("   => " + character.getName() + " hitted you with " + damagePoints + "(1D8) damage points");                        
             }
             
             else{
                 ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).hit(damagePoints);
-                Console.printInConsole("   => " + character.getName() + " hitted a friendly monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + ") with " + damagePoints + " damage points");
+                if(character.getWeaponObject().itemClass.equalsIgnoreCase("Melee")){
+                    int dice = damagePoints - character.getStrengthModifier();
+                    Console.printInConsole("   => " + character.getName() + " hitted a friendly monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + ") with " + damagePoints + " damage points");
+                    Console.printInConsole("    => dice(1D8): " + dice + ", strength modifier: " + character.getStrengthModifier());
+                }
+                
+                else
+                    Console.printInConsole("   => " + character.getName() + " hitted a friendly monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + ") with " + damagePoints + "(1D8) damage points");
             }                
         }
         
-        else if(((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).isPlayer())
+        else if(((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).isPlayer()){
+            int dice = attackPoints - character.getAttackBonus();
             Console.printInConsole("   => " + character.getName() + " missed hitting you (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + attackPoints + " attack points");
-        else
+            Console.printInConsole("    => dice(1D20): " + dice + ", attack bonus: " + character.getAttackBonus());
+        }
+            
+        else{
+            int dice = attackPoints - character.getAttackBonus();
             Console.printInConsole("   => " + character.getName() + " missed hitting a friendly monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " - "+ ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + attackPoints + " attack points");
+            Console.printInConsole("    => dice(1D20): " + dice + ", attack bonus: " + character.getAttackBonus());
+        }
+            
     }
 
     /**
@@ -240,19 +263,19 @@ public class AggresiveNPC implements MomentStrategy{
             
             else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 0] instanceof Character){
                 Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 0];
-                if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
+                if(nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                     movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] + 0);
             }
             
             else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] + 1] instanceof Character){
                 Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] + 1];
-                if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
+                if(nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                     movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 0, playerPosition[1] + 1);
             }
             
             else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] - 1] instanceof Character){
                 Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 0][playerPosition[1] - 1];
-                if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
+                if(nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                     movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 0, playerPosition[1] - 1);
             }      
             
@@ -260,25 +283,25 @@ public class AggresiveNPC implements MomentStrategy{
                 
                 if(gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] - 1] instanceof Character){
                     Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] - 1];
-                    if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
+                    if(nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                         movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] - 1, playerPosition[1] - 1);
                 }
                 
                 else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 1] instanceof Character){
                     Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] + 1];
-                    if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
+                    if(nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                         movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] + 1);
                 }
                 
                 else if(gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 1] instanceof Character){
                     Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] - 1][playerPosition[1] + 1];
-                    if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
+                    if(nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                         movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] - 1, playerPosition[1] + 1);
                 }
                 
                 else if(gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] - 1] instanceof Character){
                     Character nearByCharacter = (Character) gamePlayScreen.currentMap.mapData[playerPosition[0] + 1][playerPosition[1] - 1];
-                    if(!nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
+                    if(nearByCharacter.isPlayer() && nearByCharacter.getHitScore() > 0)
                         movePlayer(null, playerPosition[0], playerPosition[1], playerPosition[0] + 1, playerPosition[1] - 1);
                 }    
             }

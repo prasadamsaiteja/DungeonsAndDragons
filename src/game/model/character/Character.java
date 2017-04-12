@@ -206,8 +206,7 @@ public class Character extends Observable implements Cloneable
      */
     public Character setDexterity(int dexterity)
     {
-        this.dexterity = dexterity;
-        
+        this.dexterity = dexterity;       
         return this;
     }
 

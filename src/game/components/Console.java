@@ -1,5 +1,8 @@
 package game.components;
 
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import game.views.jpanels.GamePlayScreen;
 
 /**
@@ -11,6 +14,9 @@ import game.views.jpanels.GamePlayScreen;
  * @since 2/2/2017
  */
 public class Console {
+    
+    public static JTextArea console;
+    public static JScrollPane consoleScrollPane;
 
     /**
      * Print the message to the console.

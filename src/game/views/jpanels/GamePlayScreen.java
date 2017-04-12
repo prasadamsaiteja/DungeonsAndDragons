@@ -126,7 +126,7 @@ public class GamePlayScreen extends JPanel implements Observer{
          this.campaign = CampaignJaxb.getCampaignFromXml(camapaignName);
          this.character = CharactersList.getByName(characterName).clone();
          this.character.setPlayerFlag(true);
-         this.isTesting = isTesting;
+         GamePlayScreen.isTesting = isTesting;
          
          if(isHuman == true)
              this.character.setMomentStrategy(new HumanPlayer(this));
@@ -515,27 +515,41 @@ public class GamePlayScreen extends JPanel implements Observer{
        btnAbortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameplayThread.interrupt();
+                if(gameplayThread != null)
+                    gameplayThread.interrupt();
+                
                 GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());                
             }
         });
        abort_saveButtonsJpanel.add(btnAbortButton);
        
-       JButton btnSaveButton = new JButton("Save");
+       JButton btnSaveButton = new JButton("Save and exit");
        btnSaveButton.setFont(new Font("Tahoma", Font.BOLD, 14));
        btnSaveButton.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
        btnSaveButton.addActionListener(new ActionListener() {
         
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {                
                 String fileNmae = JOptionPane.showInputDialog("Enter name of the file to be saved");
-                if(GamePlayJaxb.convertGameObjectToXml(fileNmae, GamePlayScreen.this))
+                gameplayThread.interrupt();
+                gameplayThread = null;
+                
+                console = null;
+                consoleScrollPane = null;
+                consoleJpanel.removeAll();
+                designPanel.removeAll();
+                
+                if(GamePlayJaxb.convertGameObjectToXml(fileNmae, GamePlayScreen.this)){
                     DialogHelper.showBasicDialog("Game saved successfully");
+                    GameLauncher.mainFrameObject.replaceJPanel(new LaunchScreen());
+                }
+                    
                                 
                 else
                     DialogHelper.showBasicDialog("There was a issue saving the game");
                     
             }
+            
         });
        abort_saveButtonsJpanel.add(btnSaveButton);
              
@@ -868,6 +882,7 @@ public class GamePlayScreen extends JPanel implements Observer{
      */
     public void initLoadGame(){
         this.initComponents();
+        this.startGamePlay();
     }
     
 }

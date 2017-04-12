@@ -89,6 +89,7 @@ public class FriendlyNPC implements MomentStrategy{
         
         if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
                                     
+            Console.printInConsole("   => Attack performed " + attackPoints + " attack points >= " + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class");
             Weapon weapon = character.getWeaponDecorator();            
             
             if(character.getWeaponObject() != null && character.getWeaponObject().weaponEnchatments != null)
@@ -121,10 +122,23 @@ public class FriendlyNPC implements MomentStrategy{
                                     
             int damagePoints = weapon.damagePoints(character);
             ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).hit(damagePoints);
-            Console.printInConsole("   => " + character.getName() + " hitted " + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " with " + damagePoints + " damage points");
+            if(character.getWeaponObject().itemClass.equalsIgnoreCase("Melee")){
+                int dice = damagePoints - character.getStrengthModifier();
+                Console.printInConsole("   => " + character.getName() + " hitted with long sword" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " with " + damagePoints + " damage points");
+                Console.printInConsole("    => dice(1D8): " + dice + ", strength modifier: " + gamePlayScreen.character.getStrengthModifier());
+            }
+            
+            else
+                Console.printInConsole("   => " + character.getName() + " hitted with long bow" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " with " + damagePoints + "(1D8) damage points");
+        }
+        
+        else{
+            int dice = attackPoints - character.getAttackBonus();
+            Console.printInConsole("   => " + character.getName() + " missed hitting a hostile monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " - "+ ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + attackPoints + " attack points");
+            Console.printInConsole("    => dice(1D20): " + dice + ", attack bonus: " + character.getAttackBonus());
         }
 
-        Console.printInConsole("   => " + character.getName() + " missed hitting a hostile monster (" + ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getName() + " - "+ ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() + " armor class) with " + attackPoints + " attack points");    
+     
     }
 
     /**
