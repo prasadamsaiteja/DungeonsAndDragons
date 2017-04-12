@@ -66,7 +66,7 @@ public class GamePlayScreen extends JPanel implements Observer{
     public Map currentMap;
     public PlayerMomentMechanics playerMomentMechanics;
     private Thread gameplayThread;
-    public boolean isTesting;
+    public static boolean isTesting;
     
     public static JTextArea console;
     public static JScrollPane consoleScrollPane;

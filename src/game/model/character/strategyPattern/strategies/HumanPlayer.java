@@ -19,10 +19,7 @@ import game.components.SharedVariables;
 import game.model.character.Character;
 import game.model.character.strategyPattern.MomentStrategy;
 import game.model.item.Item;
-import game.model.item.decoratorPattern.MeleeWeapon;
-import game.model.item.decoratorPattern.RangedWeapon;
 import game.model.item.decoratorPattern.Weapon;
-import game.model.item.decoratorPattern.WeaponDecorator;
 import game.model.item.decoratorPattern.enchantments.BurningEnchantment;
 import game.model.item.decoratorPattern.enchantments.FreezingEnchantment;
 import game.model.item.decoratorPattern.enchantments.FrighteningEnchantment;
@@ -337,7 +334,7 @@ public class HumanPlayer implements MomentStrategy{
         }
         
         else{
-            if(!gamePlayScreen.isTesting)
+            if(!GamePlayScreen.isTesting)
                 JOptionPane.showConfirmDialog(null, "Congrats, you have cleared this map, you will now go to next map", "Map cleared", JOptionPane.PLAIN_MESSAGE);
             
             gamePlayScreen.currentMapNumber++;                
@@ -387,14 +384,9 @@ public class HumanPlayer implements MomentStrategy{
         int attackPoints = gamePlayScreen.character.attackPoint();
         isAttackPerformed = true;
         
-        if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() || gamePlayScreen.isTesting){
+        if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass() || GamePlayScreen.isTesting){
                                     
-            Weapon weapon;
-            if(gamePlayScreen.character.getWeaponObject().getItemType().equalsIgnoreCase("Melee"))
-                weapon = new WeaponDecorator(new MeleeWeapon());
-                
-            else
-                weapon = new WeaponDecorator(new RangedWeapon());
+            Weapon weapon = gamePlayScreen.character.getWeaponDecorator();
             
             if(gamePlayScreen.character.getWeaponObject() != null && gamePlayScreen.character.getWeaponObject().weaponEnchatments != null)
             for (String enchatment : gamePlayScreen.character.getWeaponObject().weaponEnchatments) {
@@ -438,7 +430,7 @@ public class HumanPlayer implements MomentStrategy{
     @Override
     public void pickItemsFromChest() {
         
-        if(gamePlayScreen.isTesting || JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) previousMapCellObject).getItemType() + " (" + ((Item) previousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        if(GamePlayScreen.isTesting || JOptionPane.showConfirmDialog(null, "This chest contains a " + ((Item) previousMapCellObject).getItemType() + " (" + ((Item) previousMapCellObject).getItemName() + "), would you like to pick it?", "You approched a chest", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
             
             if(gamePlayScreen.character.backpack.backpackItems.size() >= 10)
                 DialogHelper.showBasicDialog("Your backpack is full");
@@ -454,7 +446,7 @@ public class HumanPlayer implements MomentStrategy{
                 gamePlayScreen.character.draw();
                 previousMapCellObject = new String(SharedVariables.DEFAULT_CELL_STRING);
                 
-                if(!gamePlayScreen.isTesting){
+                if(!GamePlayScreen.isTesting){
                     DialogHelper.showBasicDialog("Awesome, you have picked up a " + item.itemType + " (" + item.itemName + ") from a abandoned chest");
                     Console.printInConsole("   => Awesome, you have picked up a " + item.itemType + " (" + item.itemName + ") from a abandoned chest");
                 }

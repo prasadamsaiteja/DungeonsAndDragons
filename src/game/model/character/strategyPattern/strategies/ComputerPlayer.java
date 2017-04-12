@@ -19,10 +19,7 @@ import game.components.SharedVariables;
 import game.model.character.Character;
 import game.model.character.strategyPattern.MomentStrategy;
 import game.model.item.Item;
-import game.model.item.decoratorPattern.MeleeWeapon;
-import game.model.item.decoratorPattern.RangedWeapon;
 import game.model.item.decoratorPattern.Weapon;
-import game.model.item.decoratorPattern.WeaponDecorator;
 import game.model.item.decoratorPattern.enchantments.BurningEnchantment;
 import game.model.item.decoratorPattern.enchantments.FreezingEnchantment;
 import game.model.item.decoratorPattern.enchantments.FrighteningEnchantment;
@@ -323,12 +320,7 @@ public class ComputerPlayer implements MomentStrategy{
         
         if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
                                                 
-            Weapon weapon;
-            if(gamePlayScreen.character.getWeaponObject().getItemType().equalsIgnoreCase("Melee"))
-                weapon = new WeaponDecorator(new MeleeWeapon());
-                
-            else
-                weapon = new WeaponDecorator(new RangedWeapon());
+            Weapon weapon = gamePlayScreen.character.getWeaponDecorator();;            
             
             if(gamePlayScreen.character.getWeaponObject() != null && gamePlayScreen.character.getWeaponObject().weaponEnchatments != null)
             for (String enchatment : gamePlayScreen.character.getWeaponObject().weaponEnchatments) {

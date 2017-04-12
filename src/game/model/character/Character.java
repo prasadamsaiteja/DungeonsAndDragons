@@ -17,6 +17,9 @@ import game.model.character.classes.CharacterHelper;
 import game.model.character.classes.CharacterClassStructure;
 import game.model.character.strategyPattern.MomentStrategy;
 import game.model.item.Item;
+import game.model.item.decoratorPattern.MeleeWeapon;
+import game.model.item.decoratorPattern.RangedWeapon;
+import game.model.item.decoratorPattern.WeaponDecorator;
 import game.model.jaxb.ItemJaxb;
 
 /**
@@ -1057,5 +1060,22 @@ public class Character extends Observable implements Cloneable
     public void startBurning(int burningDamagePoints){
         this.burningTurn = 3;
         this.bruningDamagePoints = burningDamagePoints;
+    }
+
+    /**
+     * Get weapon decorator
+     * @return weapon decorator
+     */
+    public WeaponDecorator getWeaponDecorator(){
+                
+        if(getWeaponObject().itemClass.equalsIgnoreCase("Melee"))
+            return new WeaponDecorator(new MeleeWeapon());
+            
+        else
+            return new WeaponDecorator(new RangedWeapon());               
+    }
+
+    public int calculateDamagePoints(){
+        return getWeaponDecorator().damagePoints(this);
     }
 }

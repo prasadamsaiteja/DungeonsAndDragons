@@ -12,19 +12,24 @@ import org.junit.Test;
 public class AttackModifiersTest {
 	
     /**
-     * This method is for testing the Attack modifiers involved during combat
+     * This method is for testing the melee weapon Attack modifiers involved during combat
      */
     @Test
-    public void testAttackModifiers(){
+    public void testMeleeAttackModifiers(){
         
         Character character = CharactersList.getByName("saitej");
-        
-        if(character.getWeaponObject().itemClass.equalsIgnoreCase("Melee"))           
-            assertEquals(character.getStrengthModifier() + (int) Math.ceil((double) character.getLevel() / (double) 4), character.getAttackBonus());
-                
-        else
-            assertEquals(character.getDexterityModifier() + (int) Math.ceil((double) character.getLevel() / (double) 4), character.getAttackBonus());
-            
+        character.setWeaponName("plain_melee_weapon");
+        assertEquals(character.getStrengthModifier() + (int) Math.ceil((double) character.getLevel() / (double) 4), character.getAttackBonus());                    
+    }
+    
+    /**
+     * This method is for testing the ranged weapon Attack modifiers involved during combat
+     */
+    @Test
+    public void testRangedAttackModifiers(){
+        Character character = CharactersList.getByName("saitej");
+        character.setWeaponName("plain_ranged_weapon");
+        assertEquals(character.getDexterityModifier() + (int) Math.ceil((double) character.getLevel() / (double) 4), character.getAttackBonus());
     }
 
 }

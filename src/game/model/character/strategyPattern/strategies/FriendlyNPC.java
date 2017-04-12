@@ -8,10 +8,7 @@ import game.components.SharedVariables;
 import game.model.character.Character;
 import game.model.character.strategyPattern.MomentStrategy;
 import game.model.item.Item;
-import game.model.item.decoratorPattern.MeleeWeapon;
-import game.model.item.decoratorPattern.RangedWeapon;
 import game.model.item.decoratorPattern.Weapon;
-import game.model.item.decoratorPattern.WeaponDecorator;
 import game.model.item.decoratorPattern.enchantments.BurningEnchantment;
 import game.model.item.decoratorPattern.enchantments.FreezingEnchantment;
 import game.model.item.decoratorPattern.enchantments.FrighteningEnchantment;
@@ -92,11 +89,7 @@ public class FriendlyNPC implements MomentStrategy{
         
         if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
                                     
-            Weapon weapon;
-            if(character.getWeaponObject().getItemType().equalsIgnoreCase("Melee"))
-                weapon = new WeaponDecorator(new MeleeWeapon());
-            else
-                weapon = new WeaponDecorator(new RangedWeapon());
+            Weapon weapon = character.getWeaponDecorator();            
             
             if(character.getWeaponObject() != null && character.getWeaponObject().weaponEnchatments != null)
                 for (String enchatment : character.getWeaponObject().weaponEnchatments) {
@@ -214,7 +207,7 @@ public class FriendlyNPC implements MomentStrategy{
                 isMomentSuccessfull = false;
             }
             
-            if(isMomentSuccessfull && !gamePlayScreen.isTesting)
+            if(isMomentSuccessfull && !GamePlayScreen.isTesting)
                 try { Thread.sleep(800); } catch(InterruptedException ignored) {}
             
             if(isMomentSuccessfull == false)

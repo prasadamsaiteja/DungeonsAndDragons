@@ -6,10 +6,7 @@ import game.components.SharedVariables;
 import game.model.character.Character;
 import game.model.character.strategyPattern.MomentStrategy;
 import game.model.item.Item;
-import game.model.item.decoratorPattern.MeleeWeapon;
-import game.model.item.decoratorPattern.RangedWeapon;
 import game.model.item.decoratorPattern.Weapon;
-import game.model.item.decoratorPattern.WeaponDecorator;
 import game.model.item.decoratorPattern.enchantments.BurningEnchantment;
 import game.model.item.decoratorPattern.enchantments.FreezingEnchantment;
 import game.model.item.decoratorPattern.enchantments.FrighteningEnchantment;
@@ -89,11 +86,7 @@ public class AggresiveNPC implements MomentStrategy{
         
         if(attackPoints >= ((Character) gamePlayScreen.currentMap.mapData[toRowNumber][toColNumber]).getArmorClass()){
                         
-            Weapon weapon;
-            if(character.getWeaponObject().getItemType().equalsIgnoreCase("Melee"))
-                weapon = new WeaponDecorator(new MeleeWeapon());
-            else
-                weapon = new WeaponDecorator(new RangedWeapon());
+            Weapon weapon = character.getWeaponDecorator();
             
             if(character.getWeaponObject() != null && character.getWeaponObject().weaponEnchatments != null)
                 for (String enchatment : character.getWeaponObject().weaponEnchatments) {
@@ -205,7 +198,7 @@ public class AggresiveNPC implements MomentStrategy{
                 movePlayer(message, characterLocation[0], characterLocation[1], (characterLocation[0]), characterLocation[1] + 1);
             }
             
-            if(!gamePlayScreen.isTesting)
+            if(!GamePlayScreen.isTesting)
             try { Thread.sleep(800); } catch(InterruptedException ignored) {}                           
         }        
         

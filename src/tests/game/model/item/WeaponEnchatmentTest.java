@@ -96,8 +96,23 @@ public class WeaponEnchatmentTest {
         for(int i = 0; i < 18 ; i++)
             gamePlayScreen.playerMomentMechanics.new RIGHT_PRESSED().actionPerformed(null);
                      
-        System.out.println(((Character) gamePlayScreen.currentMap.mapData[monsterPosition[0]][monsterPosition[1]]).getName());
         assertTrue(((Character) gamePlayScreen.currentMap.mapData[monsterPosition[0]][monsterPosition[1]]).getIsFriendlyMonster());
+    }
+    
+    @Test
+    public void testBurningEnchatment(){
+        
+        gamePlayScreen.character.setWeaponName("custom_burning_weapon");  
+        int monsterHpBeforeAttack = GameMechanics.getAHostileMonster(gamePlayScreen.currentMap).getHitScore();
+        
+        for(int i = 0; i < 3 ; i++)
+            gamePlayScreen.playerMomentMechanics.new UP_PRESSED().actionPerformed(null);
+        
+        for(int i = 0; i < 18 ; i++)
+            gamePlayScreen.playerMomentMechanics.new RIGHT_PRESSED().actionPerformed(null);
+        
+        GameMechanics.getAHostileMonster(gamePlayScreen.currentMap).getMomentStrategy().playTurn();
+        assertTrue(GameMechanics.getAHostileMonster(gamePlayScreen.currentMap).getHitScore() < monsterHpBeforeAttack);
     }
 
 }
