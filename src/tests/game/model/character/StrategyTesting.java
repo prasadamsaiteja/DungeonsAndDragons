@@ -100,7 +100,7 @@ public class StrategyTesting {
         int[] monsterPositionAfterTurn = GameMechanics.getCharacterPosition(gamePlayScreen.currentMap, monsterMonster);
         int[] playerPosition = GameMechanics.getPlayerPosition(gamePlayScreen.currentMap);
         
-        assertTrue(playerPosition[0] - monsterPositionBeforeTurn[0] > playerPosition[0] - monsterPositionAfterTurn[0] || playerPosition[1] - monsterPositionBeforeTurn[1] > playerPosition[1] - monsterPositionAfterTurn[1]);        
+        assertTrue(playerPosition[0] - monsterPositionBeforeTurn[0] < playerPosition[0] - monsterPositionAfterTurn[0] || playerPosition[1] - monsterPositionBeforeTurn[1] < playerPosition[1] - monsterPositionAfterTurn[1]);        
     }
     
     /**
