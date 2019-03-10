@@ -13,5 +13,4 @@ View dungeons and dragons API Documentation [here](https://dungeons-and-dragons.
 ### Class Diagram
 View dungeons and dragons class diagram [here](https://github.com/prasadamsaiteja/DungeonsAndDragons/blob/master/img/class%20diagram.png).
 
-Please adhere to your organization's rules for using this code.<br>
-For [Concordia University](http://www.concordia.ca) ,these rules can be found [here](http://www.concordia.ca/students/academic-integrity/offences.html).
+Please adhere to your organization's rules for using this code. For [Concordia University](http://www.concordia.ca) ,these rules can be found [here](http://www.concordia.ca/students/academic-integrity/offences.html).
